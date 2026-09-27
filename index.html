@@ -146,7 +146,7 @@ const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},targetDayOffset=0;
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},targetDayOffset=0;
 const SEA_AREAS=[
   {area:'越前',lat:35.914,lng:135.991},
   {area:'敦賀',lat:35.681,lng:136.049},
@@ -427,6 +427,24 @@ async function fetchDayForecast(p,offset){
   }
   return {date,sunrise,sunset,rows};
 }
+function historicalTideMatch(area,tide){
+  const p=tidePatterns?.areas?.[area];
+  if(!p || !tide?.bin || !p.sample_count)return {bonus:0,label:'標本不足',count:0,n:0,reliability:'low'};
+  const count=Number(p.bins?.[tide.bin]||0),n=Number(p.sample_count||0);
+  if(!count)return {bonus:0,label:'一致実績なし',count:0,n,reliability:p.reliability||'low'};
+  const share=count/Math.max(1,n);
+  let cap=n>=8?8:n>=4?5:2;
+  const bonus=Math.min(cap,Math.max(1,Math.round(share*10)));
+  const top=(p.top_patterns||[]).find(x=>x.bin===tide.bin);
+  return {bonus,label:(top?.label||tide.label)+'実績 '+count+'件',count,n,reliability:p.reliability||'low'};
+}
+function topTidePattern(area){
+  const p=tidePatterns?.areas?.[area];
+  const top=p?.top_patterns?.[0];
+  if(!p||!top)return '標本不足';
+  const qual=p.reliability==='high'?'高':p.reliability==='medium'?'中':'参考';
+  return `${top.label} ${top.count}件 / n=${p.sample_count}（信頼度${qual}）`;
+}
 function hourlyExpectation(area,day){
   const base=scoreArea(area,null);
   const nowHour=new Date().getHours();
@@ -451,13 +469,16 @@ function hourlyExpectation(area,day){
       else if(x.rain>=2){env-=3}
     }
     env+=tide.score;
+    const hist=historicalTideMatch(area,tide);
+    env+=hist.bonus;
+    if(hist.bonus>0)tags.push('過去潮一致');
     if(tide.score>=5)tags.push(tide.label+'動く');
     else tags.push(tide.label);
     if(nearHour(x.hour,day.sunrise,1.1)||nearHour(x.hour,day.sunset,1.1)){env+=12;tags.push('まずめ')}
     else if(nearHour(x.hour,day.sunrise,2)||nearHour(x.hour,day.sunset,2)){env+=5;tags.push('薄明')}
     env=Math.max(0,Math.min(100,env));
     const score=Math.round(base.score*.56+env*.44);
-    return {...x,score,tide,tags,base};
+    return {...x,score,tide,tags,base,hist};
   });
   return scored.sort((a,b)=>b.score-a.score);
 }
@@ -500,7 +521,7 @@ async function openTargetPanel(){
     card.innerHTML=`<div class="rankTop"><div><div class="rankName">${i+1}. ${esc(r.area)}</div><div class="small">${esc(r.day.date)}・最新陸釣果 ${esc(best.base.summary.latest_date||'なし')}</div></div><div class="score ${cls}">${best.score}<small>/100</small></div></div>
       <div class="reasonTags">${best.tags.slice(0,6).map(x=>'<span class="reasonTag">'+esc(x)+'</span>').join('')}</div>
       <div class="bestTimes">${r.best3.map(x=>'<div class="bestTime"><span class="bestHour">'+String(x.hour).padStart(2,'0')+'時</span><span class="bestScore '+(x.score>=75?'scoreHigh':x.score>=55?'scoreMid':'scoreLow')+'">'+x.score+'</span><span>'+esc(x.tide.label)+' / 風'+(Number.isFinite(x.wind)?x.wind.toFixed(1):'—')+' / 波'+(Number.isFinite(x.wave)?x.wave.toFixed(2):'—')+'m'+(x.tags.includes('まずめ')?' / まずめ':'')+'</span></div>').join('')}</div>
-      <div class="tideLine">潮参考：${esc(station)}${stationSuffix}　${esc(high)}　${esc(low)}</div>
+      <div class="tideLine">潮参考：${esc(station)}${stationSuffix}　${esc(high)}　${esc(low)}<br>過去潮実績：${esc(topTidePattern(r.area))}</div>
       <div class="rankDetails">本命時間の海況：風 ${Number.isFinite(best.wind)?best.wind.toFixed(1)+'m/s':'—'}（最大瞬間 ${Number.isFinite(best.gust)?best.gust.toFixed(1)+'m/s':'—'}）・波 ${Number.isFinite(best.wave)?best.wave.toFixed(2)+'m':'—'}・水温 ${Number.isFinite(best.sst)?best.sst.toFixed(1)+'℃':'—'}<br>
       直近7日：陸${best.base.summary.last7?.shore||0}件 / 船${best.base.summary.last7?.boat||0}件　ベイト${best.base.baitCount}件　人圧${best.base.pressureCount}件　CPUE参考：${cpue}
       ${best.base.warnings.length?'<br><span class="warnText">注意：'+best.base.warnings.map(esc).join(' / ')+'</span>':''}</div>`;
@@ -528,7 +549,7 @@ function renderSummary(){
       <div class="big">${a.last7.total}<span style="font-size:11px;color:#9db2c8"> 件/7日</span></div>
       <div class="small">${label} ${change}　前7日 ${a.prev7.total}件</div>
       <div class="split"><span class="shoreText">陸 ${a.last7.shore}</span><span class="boatText">船 ${a.last7.boat}</span></div>
-      <div class="small" style="margin-top:6px">30日 ${a.last30.total}件・情報源 ${a.source_count}<br>今季 ${(a.season||{}).total||0}件・初確認 ${a.season_first_date||'—'}<br>多いサイズ帯：${esc(a.size_top)}</div>`;
+      <div class="small" style="margin-top:6px">30日 ${a.last30.total}件・情報源 ${a.source_count}<br>今季 ${(a.season||{}).total||0}件・初確認 ${a.season_first_date||'—'}<br>潮実績：${esc(topTidePattern(a.area))}<br>多いサイズ帯：${esc(a.size_top)}</div>`;
     grid.appendChild(card);
   }
   const daily=summary.daily14||[],max=Math.max(1,...daily.map(x=>x.total||0)),bars=document.getElementById('dailyBars');bars.innerHTML='';
@@ -579,9 +600,10 @@ document.getElementById('reloadData').addEventListener('click',()=>{
     fetch('./data/summary.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/intel.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/archive/2026.json?'+Date.now()).then(r=>r.json()),
-    fetch('./data/tides.json?'+Date.now()).then(r=>r.json())
-  ]).then(([d,s,i,a,t])=>{
-    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};render();renderSummary();
+    fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
+    fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json())
+  ]).then(([d,s,i,a,t,tp])=>{
+    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};render();renderSummary();
     b.textContent='✓';setTimeout(()=>b.textContent='↻',1400);
   }).catch(()=>{b.textContent='!';setTimeout(()=>b.textContent='↻',1600)});
 });
@@ -591,8 +613,9 @@ Promise.all([
   fetch('./data/summary.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/intel.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/archive/2026.json?'+Date.now()).then(r=>r.json()),
-  fetch('./data/tides.json?'+Date.now()).then(r=>r.json())
-]).then(([d,s,i,a,t])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};render();renderSummary()})
+  fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
+  fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json())
+]).then(([d,s,i,a,t,tp])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};render();renderSummary()})
 .catch(e=>{document.getElementById('status').textContent='データ読込に失敗しました';console.error(e)});
 </script>
 </body>
