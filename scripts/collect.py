@@ -134,13 +134,40 @@ def main():
     if not rows:
         print("No fresh records found; existing data preserved.")
         return
+
+    # Never replace verified existing data with a sparse scrape.
+    # Merge only new records into the current 30-day display database.
+    p=Path("data/catches.json")
+    existing=[]
+    if p.exists():
+        try:
+            existing=json.loads(p.read_text(encoding="utf-8")).get("catches",[])
+        except Exception:
+            existing=[]
+
+    merged={}
+    for x in existing:
+        key=x.get("id") or (x.get("url"),x.get("date"),x.get("time"),x.get("title"))
+        merged[str(key)]=x
+    added=0
+    for x in rows:
+        key=x.get("id") or (x.get("url"),x.get("date"),x.get("time"),x.get("title"))
+        sk=str(key)
+        if sk not in merged:
+            merged[sk]=x
+            added+=1
+
+    cutoff=(NOW-timedelta(days=30)).date().isoformat()
+    final=[x for x in merged.values() if x.get("date","")>=cutoff]
+    final.sort(key=lambda x:(x.get("date",""),x.get("time","")),reverse=True)
+
     Path("data").mkdir(exist_ok=True)
-    Path("data/catches.json").write_text(json.dumps({
+    p.write_text(json.dumps({
       "updated_at":NOW.isoformat(timespec="seconds"),
-      "note":"エギCOM公開最新釣果を主データに、公開ニュースRSSを補助データとして自動収集。地点はエリア概算。",
-      "catches":rows[:300]
+      "note":"手動収集の結果を既存の確認済みデータへ追記。既存データは上書き削除しない。",
+      "catches":final[:500]
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(f"Wrote {len(rows[:300])} records")
+    print(f"Found {len(rows)} candidates, added {added}, total {len(final[:500])}")
 
 if __name__=="__main__":
     main()
