@@ -4,115 +4,168 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#08111f" />
-  <title>アオリイカ釣果MAP｜越前〜丹後</title>
+  <title>アオリイカ釣果DB｜越前〜丹後</title>
   <link rel="preconnect" href="https://unpkg.com">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
-    *{box-sizing:border-box} html,body{margin:0;height:100%;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#07111e;color:#eef6ff}
+    *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#07111e;color:#eef6ff}
     body{display:flex;flex-direction:column;overflow:hidden}
     header{padding:10px 12px 8px;background:linear-gradient(180deg,#0b1d31,#081522);border-bottom:1px solid #183551;z-index:1000}
-    .title{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}
-    .sub{font-size:11px;color:#9db2c8;margin-top:2px}
-    .controls{display:flex;gap:7px;overflow-x:auto;padding-top:8px;scrollbar-width:none}
-    .controls::-webkit-scrollbar{display:none}
+    .title{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}.sub{font-size:11px;color:#9db2c8;margin-top:2px}
+    .controls{display:flex;gap:7px;overflow-x:auto;padding-top:8px;scrollbar-width:none}.controls::-webkit-scrollbar{display:none}
     button,select{border:1px solid #2a4d6b;background:#10263b;color:#eaf5ff;border-radius:999px;padding:8px 11px;font-weight:700;white-space:nowrap}
     button.active{background:#d8f4ff;color:#052033;border-color:#d8f4ff}
     #map{flex:1;min-height:0}
-    .stats{position:absolute;left:10px;right:10px;top:118px;z-index:800;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;pointer-events:none}
-    .card{background:rgba(6,18,32,.88);backdrop-filter:blur(9px);border:1px solid rgba(120,180,225,.28);border-radius:12px;padding:7px 8px;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+    .stats{position:absolute;left:10px;right:10px;top:120px;z-index:800;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;pointer-events:none}
+    .card{background:rgba(6,18,32,.90);backdrop-filter:blur(9px);border:1px solid rgba(120,180,225,.28);border-radius:12px;padding:7px 8px;box-shadow:0 8px 24px rgba(0,0,0,.22)}
     .card b{display:block;font-size:17px}.card span{font-size:10px;color:#aac0d4}
-    .legend{position:absolute;right:10px;bottom:18px;z-index:800;background:rgba(6,18,32,.9);border:1px solid rgba(120,180,225,.28);border-radius:12px;padding:8px 10px;font-size:11px;line-height:1.7}
-    .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}.shore{background:#37e38c}.boat{background:#4bb3ff}
+    .legend{position:absolute;right:10px;bottom:18px;z-index:800;background:rgba(6,18,32,.92);border:1px solid rgba(120,180,225,.28);border-radius:12px;padding:8px 10px;font-size:11px;line-height:1.7}
+    .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}.shoreDot{background:#37e38c}.boatDot{background:#4bb3ff}
+    .status{position:absolute;left:10px;bottom:18px;z-index:800;max-width:62%;background:rgba(6,18,32,.92);border:1px solid rgba(120,180,225,.28);border-radius:10px;padding:7px 9px;font-size:11px;color:#b9d0e4}
     .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#0b1b2a;color:#eef6ff}.leaflet-popup-content{margin:11px 13px;min-width:190px}
     .pop h3{margin:0 0 4px;font-size:15px}.pop .meta{font-size:12px;color:#bad0e3;line-height:1.55}.pop a{color:#7fd2ff}
     .badge{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:800;margin-right:4px}
-    .badge.shore{background:#0f5735;color:#9df4c4}.badge.boat{background:#123f67;color:#a7dbff}.demo{background:#6c4d11;color:#ffe29b}
-    .status{position:absolute;left:10px;bottom:18px;z-index:800;max-width:62%;background:rgba(6,18,32,.9);border:1px solid rgba(120,180,225,.28);border-radius:10px;padding:7px 9px;font-size:11px;color:#b9d0e4}
-    @media (max-width:520px){.stats{top:120px}.title{font-size:17px}.controls{padding-top:7px}button,select{padding:7px 10px;font-size:12px}}
+    .badge.shore{background:#0f5735;color:#9df4c4}.badge.boat{background:#123f67;color:#a7dbff}
+    #trendPanel{position:fixed;left:0;right:0;bottom:0;height:min(62vh,560px);z-index:1300;background:#081522;border-top:1px solid #285071;border-radius:18px 18px 0 0;transform:translateY(105%);transition:transform .22s ease;box-shadow:0 -15px 40px #0008;overflow:auto;padding:12px 12px calc(18px + env(safe-area-inset-bottom))}
+    #trendPanel.open{transform:translateY(0)}
+    .trendHead{display:flex;justify-content:space-between;gap:10px;align-items:center;position:sticky;top:-12px;background:#081522;padding:7px 0 9px;z-index:2}
+    .trendHead h2{font-size:17px;margin:0}.trendMeta{font-size:11px;color:#9db2c8}.closeBtn{padding:6px 10px}
+    .areaGrid{display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:8px;overflow-x:auto;padding-bottom:4px}
+    .areaCard{min-width:150px;background:#0d2235;border:1px solid #24445e;border-radius:14px;padding:10px}
+    .areaTop{display:flex;justify-content:space-between;align-items:center;font-weight:800}.trendIcon{font-size:18px}
+    .trendUp{color:#7cf2b0}.trendDown{color:#ffb0a7}.trendFlat{color:#ffd77e}.trendNone{color:#8ca3b8}
+    .big{font-size:24px;font-weight:850;margin-top:5px}.small{font-size:11px;color:#a9bfd2;line-height:1.55}
+    .split{display:flex;gap:8px;margin-top:5px;font-size:11px}.shoreText{color:#83e9ac}.boatText{color:#85cbff}
+    .chartBox{margin-top:12px;background:#0d2235;border:1px solid #24445e;border-radius:14px;padding:10px}
+    .chartTitle{font-size:13px;font-weight:800;margin-bottom:8px}.bars{height:96px;display:flex;gap:4px;align-items:flex-end;border-bottom:1px solid #345066;padding:0 2px}
+    .barWrap{flex:1;min-width:11px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+    .barBoat{background:#4bb3ff;min-height:0}.barShore{background:#37e38c;min-height:0}.barLabel{font-size:8px;color:#7890a5;text-align:center;margin-top:4px}
+    .dbNote{font-size:11px;color:#9db2c8;margin-top:10px;line-height:1.5}
+    @media(max-width:520px){.stats{top:120px}.title{font-size:17px}.controls{padding-top:7px}button,select{padding:7px 10px;font-size:12px}.areaGrid{grid-template-columns:repeat(5,155px)}}
   </style>
 </head>
 <body>
-  <header>
-    <div class="title">🦑 アオリイカ釣果MAP <span style="font-size:12px;color:#7fcfff">越前〜丹後</span></div>
-    <div class="sub">陸っぱりとボートを分けて、直近の釣果を地図で確認</div>
-    <div class="controls">
-      <button data-mode="all" class="active">全部</button>
-      <button data-mode="shore">🟢 陸っぱり</button>
-      <button data-mode="boat">🔵 ボート</button>
-      <select id="days">
-        <option value="3">直近3日</option>
-        <option value="7" selected>直近7日</option>
-        <option value="14">直近14日</option>
-        <option value="30">直近30日</option>
-      </select>
-      <select id="area">
-        <option value="all">全エリア</option>
-        <option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option>
-      </select>
-    </div>
-  </header>
-
-  <div id="map"></div>
-
-  <div class="stats">
-    <div class="card"><b id="spotCount">0</b><span>表示釣果</span></div>
-    <div class="card"><b id="shoreCount">0</b><span>陸っぱり投稿</span></div>
-    <div class="card"><b id="boatCount">0</b><span>ボート投稿</span></div>
+<header>
+  <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">越前〜丹後</span></div>
+  <div class="sub">公開釣果を蓄積・陸っぱり/ボート分離・傾向を自動集計</div>
+  <div class="controls">
+    <button data-mode="all" class="active">全部</button>
+    <button data-mode="shore">🟢 陸っぱり</button>
+    <button data-mode="boat">🔵 ボート</button>
+    <select id="days"><option value="3">3日</option><option value="7" selected>7日</option><option value="14">14日</option><option value="30">30日</option></select>
+    <select id="area"><option value="all">全エリア</option><option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option></select>
+    <button id="trendToggle">📊 傾向</button>
   </div>
+</header>
+<div id="map"></div>
+<div class="stats">
+  <div class="card"><b id="spotCount">0</b><span>表示投稿</span></div>
+  <div class="card"><b id="shoreCount">0</b><span>陸っぱり</span></div>
+  <div class="card"><b id="boatCount">0</b><span>ボート</span></div>
+</div>
+<div class="status" id="status">データ読込中…</div>
+<div class="legend"><div><span class="dot shoreDot"></span>陸っぱり</div><div><span class="dot boatDot"></span>ボート</div></div>
 
-  <div class="status" id="status">釣果データ読込中…</div>
-  <div class="legend"><div><span class="dot shore"></span>陸っぱり</div><div><span class="dot boat"></span>ボート</div></div>
+<section id="trendPanel">
+  <div class="trendHead">
+    <div><h2>📊 釣果投稿の傾向</h2><div class="trendMeta" id="trendMeta">集計読込中…</div></div>
+    <button class="closeBtn" id="trendClose">閉じる</button>
+  </div>
+  <div class="areaGrid" id="areaGrid"></div>
+  <div class="chartBox">
+    <div class="chartTitle">全域・直近14日の投稿推移</div>
+    <div class="bars" id="dailyBars"></div>
+    <div style="display:flex;gap:14px;margin-top:8px;font-size:11px"><span class="shoreText">■ 陸っぱり</span><span class="boatText">■ ボート</span></div>
+  </div>
+  <div class="dbNote" id="dbNote">※ 投稿数は公開Webで確認できた情報量。実際のイカの総数や釣れる確率そのものではありません。</div>
+</section>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
-    L.control.zoom({position:'bottomright'}).addTo(map);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
+L.control.zoom({position:'bottomright'}).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map)};
+let allData=[],mode='all',summary=null;
 
-    const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map)};
-    let allData=[],mode='all';
+function markerIcon(type){
+  const color=type==='shore'?'#37e38c':'#4bb3ff';
+  return L.divIcon({className:'',html:`<div style="width:22px;height:22px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px #0008"></div>`,iconSize:[22,22],iconAnchor:[11,11]});
+}
+function dateOnly(s){return new Date(s+'T12:00:00+09:00')}
+function withinDays(s,d){const now=new Date();const diff=(now-dateOnly(s))/86400000;return diff<=d&&diff>=-1}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
-    function markerIcon(type){
-      const color=type==='shore'?'#37e38c':'#4bb3ff';
-      return L.divIcon({className:'',html:`<div style="width:22px;height:22px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px #0008"></div>`,iconSize:[22,22],iconAnchor:[11,11]});
-    }
-    function dateOnly(s){return new Date(s+'T12:00:00+09:00')}
-    function withinDays(s,d){const now=new Date();return (now-dateOnly(s))/86400000<=d && (now-dateOnly(s))/86400000>=-1}
-    function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(){
+  groups.shore.clearLayers();groups.boat.clearLayers();
+  const days=Number(document.getElementById('days').value);
+  const area=document.getElementById('area').value;
+  const rows=allData.filter(x=>(mode==='all'||x.type===mode)&&(area==='all'||x.area===area)&&withinDays(x.date,days));
+  for(const x of rows){
+    if(!groups[x.type] || !Number.isFinite(Number(x.lat)) || !Number.isFinite(Number(x.lng))) continue;
+    const badge=x.type==='shore'?'陸っぱり':'ボート';
+    const countText=(x.count===null||x.count===undefined)?'不明':esc(x.count)+'杯';
+    const html=`<div class="pop"><h3>${esc(x.place)}</h3>
+      <div><span class="badge ${x.type}">${badge}</span></div>
+      <div class="meta">日付：${esc(x.date)}<br>杯数：<b>${countText}</b><br>サイズ：<b>${esc(x.maxSize||'不明')}</b><br>釣法：${esc(x.method||'不明')}<br>時間：${esc(x.time||'不明')}<br>情報元：${esc(x.source||'不明')}</div>
+      ${x.url?'<div style="margin-top:6px"><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a></div>':''}</div>`;
+    L.marker([Number(x.lat),Number(x.lng)],{icon:markerIcon(x.type)}).bindPopup(html).addTo(groups[x.type]);
+  }
+  if(mode==='shore'){map.removeLayer(groups.boat);if(!map.hasLayer(groups.shore))groups.shore.addTo(map)}
+  else if(mode==='boat'){map.removeLayer(groups.shore);if(!map.hasLayer(groups.boat))groups.boat.addTo(map)}
+  else{if(!map.hasLayer(groups.shore))groups.shore.addTo(map);if(!map.hasLayer(groups.boat))groups.boat.addTo(map)}
+  document.getElementById('spotCount').textContent=rows.length;
+  document.getElementById('shoreCount').textContent=rows.filter(x=>x.type==='shore').length;
+  document.getElementById('boatCount').textContent=rows.filter(x=>x.type==='boat').length;
+  document.getElementById('status').textContent='実釣果データ '+rows.length+'件表示中';
+}
 
-    function render(){
-      groups.shore.clearLayers(); groups.boat.clearLayers();
-      const days=Number(document.getElementById('days').value);
-      const area=document.getElementById('area').value;
-      const rows=allData.filter(x=>(mode==='all'||x.type===mode)&&(area==='all'||x.area===area)&&withinDays(x.date,days));
-      for(const x of rows){
-        const g=groups[x.type];
-        const badge=x.type==='shore'?'陸っぱり':'ボート';
-        const html=`<div class="pop"><h3>${esc(x.place)}</h3>
-          <div><span class="badge ${x.type}">${badge}</span>${x.demo?'<span class="badge demo">デモ</span>':''}</div>
-          <div class="meta">日付：${esc(x.date)}<br>釣果：<b>${esc(x.count)}杯</b>　最大：${esc(x.maxSize||'不明')}<br>釣法：${esc(x.method||'不明')}<br>時間帯：${esc(x.time||'不明')}<br>情報元：${esc(x.source||'不明')}</div>
-          ${x.url?'<div style="margin-top:6px"><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a></div>':''}</div>`;
-        L.marker([x.lat,x.lng],{icon:markerIcon(x.type)}).bindPopup(html).addTo(g);
-      }
-      if(mode==='shore'){map.removeLayer(groups.boat);if(!map.hasLayer(groups.shore))groups.shore.addTo(map)}
-      else if(mode==='boat'){map.removeLayer(groups.shore);if(!map.hasLayer(groups.boat))groups.boat.addTo(map)}
-      else {if(!map.hasLayer(groups.shore))groups.shore.addTo(map);if(!map.hasLayer(groups.boat))groups.boat.addTo(map)}
-      document.getElementById('spotCount').textContent=rows.length;
-      document.getElementById('catchCount').textContent=rows.reduce((a,b)=>a+(Number(b.count)||0),0);
-      document.getElementById('latest').textContent=rows.length?rows.map(x=>x.date).sort().at(-1).slice(5).replace('-','/'):'—';
-      const demos=rows.filter(x=>x.demo).length;
-      document.getElementById('status').textContent=demos?('現在は動作確認用データ '+demos+'件を表示中。次段階で実釣果の自動収集に切替。'):'実釣果データを表示中';
-    }
+function trendInfo(a){
+  if(a.trend==='up')return ['↗','上向き','trendUp'];
+  if(a.trend==='down')return ['↘','減少','trendDown'];
+  if(a.trend==='flat')return ['→','横ばい','trendFlat'];
+  if(a.trend==='new')return ['●','今週出現','trendUp'];
+  return ['–','材料少','trendNone'];
+}
+function renderSummary(){
+  if(!summary)return;
+  document.getElementById('trendMeta').textContent=`DB累計 ${summary.total_records}件・情報源 ${summary.source_count}系統・基準日 ${summary.reference_date}`;
+  const grid=document.getElementById('areaGrid');grid.innerHTML='';
+  for(const a of summary.areas||[]){
+    const [icon,label,cls]=trendInfo(a);
+    const change=a.change_pct===null?'':(a.change_pct>0?'+':'')+a.change_pct+'%';
+    const card=document.createElement('div');card.className='areaCard';
+    card.innerHTML=`<div class="areaTop"><span>${esc(a.area)}</span><span class="trendIcon ${cls}">${icon}</span></div>
+      <div class="big">${a.last7.total}<span style="font-size:11px;color:#9db2c8"> 件/7日</span></div>
+      <div class="small">${label} ${change}　前7日 ${a.prev7.total}件</div>
+      <div class="split"><span class="shoreText">陸 ${a.last7.shore}</span><span class="boatText">船 ${a.last7.boat}</span></div>
+      <div class="small" style="margin-top:6px">30日 ${a.last30.total}件・情報源 ${a.source_count}<br>多いサイズ帯：${esc(a.size_top)}</div>`;
+    grid.appendChild(card);
+  }
+  const daily=summary.daily14||[],max=Math.max(1,...daily.map(x=>x.total||0)),bars=document.getElementById('dailyBars');bars.innerHTML='';
+  daily.forEach((x,i)=>{
+    const wrap=document.createElement('div');wrap.className='barWrap';wrap.title=`${x.date} 陸${x.shore} 船${x.boat} 計${x.total}`;
+    const bh=Math.round((x.boat||0)/max*80),sh=Math.round((x.shore||0)/max*80);
+    wrap.innerHTML=`<div class="barBoat" style="height:${bh}px"></div><div class="barShore" style="height:${sh}px"></div><div class="barLabel">${i%3===1?x.date.slice(8):''}</div>`;
+    bars.appendChild(wrap);
+  });
+  document.getElementById('dbNote').textContent='※ '+summary.note;
+}
 
-    document.querySelectorAll('button[data-mode]').forEach(b=>b.addEventListener('click',()=>{
-      document.querySelectorAll('button[data-mode]').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active'); mode=b.dataset.mode; render();
-    }));
-    document.getElementById('days').addEventListener('change',render);
-    document.getElementById('area').addEventListener('change',render);
+document.querySelectorAll('button[data-mode]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('button[data-mode]').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;render();
+}));
+document.getElementById('days').addEventListener('change',render);
+document.getElementById('area').addEventListener('change',render);
+const panel=document.getElementById('trendPanel');
+document.getElementById('trendToggle').addEventListener('click',()=>{panel.classList.add('open');renderSummary()});
+document.getElementById('trendClose').addEventListener('click',()=>panel.classList.remove('open'));
 
-    fetch('./data/catches.json?'+Date.now()).then(r=>r.json()).then(d=>{allData=d.catches||[];render()})
-      .catch(e=>{document.getElementById('status').textContent='釣果データの読込に失敗しました';console.error(e)});
-  </script>
+Promise.all([
+  fetch('./data/catches.json?'+Date.now()).then(r=>r.json()),
+  fetch('./data/summary.json?'+Date.now()).then(r=>r.json())
+]).then(([d,s])=>{allData=d.catches||[];summary=s;render();renderSummary()})
+.catch(e=>{document.getElementById('status').textContent='データ読込に失敗しました';console.error(e)});
+</script>
 </body>
 </html>
