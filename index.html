@@ -195,7 +195,10 @@ function renderIntel(area){
   for(const x of rows){
     if(!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lng)))continue;
     const popup=`<div class="pop"><h3>${esc(x.place||x.area||'現地情報')}</h3>
-      <div class="meta"><b>${esc(x.title||'')}</b><br>${esc(x.detail||'')}<br>日付：${esc(x.date||'不明')}<br>情報元：${esc(x.source||'不明')}<br>確度：${esc(x.confidence||'未評価')}</div>
+      <div class="meta"><b>${esc(x.title||'')}</b><br>${esc(x.detail||'')}
+      ${x.category==='bait'&&x.bait_species?'<br>魚種：<b>'+esc(x.bait_species.join('・'))+'</b>':''}
+      ${x.category==='bait'&&x.shore_relevance?'<br>岸への関連：'+esc(x.shore_relevance==='high'?'高':x.shore_relevance==='medium'?'中':'低'):''}
+      <br>日付：${esc(x.date||'不明')}<br>情報元：${esc(x.source||'不明')}<br>確度：${esc(x.confidence||'未評価')}</div>
       ${x.url?'<div style="margin-top:6px"><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a></div>':''}</div>`;
     L.marker([Number(x.lat),Number(x.lng)],{icon:intelIcon(x.category)}).bindPopup(popup).addTo(groups.intel);
   }
