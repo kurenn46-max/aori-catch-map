@@ -1,12 +1,6 @@
-name: Collect aori catches
+name: Collect aori catches (manual fallback)
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "scripts/collect.py"
-      - ".github/workflows/collect.yml"
-  schedule:
-    - cron: "17 0,6,12,18 * * *"
 permissions:
   contents: write
 jobs:
@@ -18,16 +12,13 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests beautifulsoup4
-      - name: Collect catches
-        run: python scripts/collect.py
+      - run: python scripts/collect.py
       - name: Commit updated data
         run: |
-          if git diff --quiet -- data/catches.json; then
-            echo "No data changes"
-            exit 0
-          fi
+          if git diff --quiet -- data/catches.json; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/catches.json
           git commit -m "Update aori catch data"
+          git pull --rebase origin main
           git push
