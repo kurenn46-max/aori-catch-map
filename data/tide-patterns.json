@@ -1,0 +1,62 @@
+{
+  "updated_at": "2026-09-27T17:05:00+09:00",
+  "source": "初期化",
+  "method": "実釣時刻が明確な陸っぱり釣果のみを学習対象",
+  "areas": {
+    "越前": {
+      "sample_count": 0,
+      "reliability": "low",
+      "phase_counts": {
+        "rising": 0,
+        "falling": 0
+      },
+      "bins": {},
+      "top_patterns": [],
+      "samples": []
+    },
+    "敦賀": {
+      "sample_count": 0,
+      "reliability": "low",
+      "phase_counts": {
+        "rising": 0,
+        "falling": 0
+      },
+      "bins": {},
+      "top_patterns": [],
+      "samples": []
+    },
+    "若狭": {
+      "sample_count": 0,
+      "reliability": "low",
+      "phase_counts": {
+        "rising": 0,
+        "falling": 0
+      },
+      "bins": {},
+      "top_patterns": [],
+      "samples": []
+    },
+    "舞鶴": {
+      "sample_count": 0,
+      "reliability": "low",
+      "phase_counts": {
+        "rising": 0,
+        "falling": 0
+      },
+      "bins": {},
+      "top_patterns": [],
+      "samples": []
+    },
+    "丹後": {
+      "sample_count": 0,
+      "reliability": "low",
+      "phase_counts": {
+        "rising": 0,
+        "falling": 0
+      },
+      "bins": {},
+      "top_patterns": [],
+      "samples": []
+    }
+  }
+}
