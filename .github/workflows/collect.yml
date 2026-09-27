@@ -1,6 +1,10 @@
 name: Collect aori catches
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/collect.py"
+      - ".github/workflows/collect.yml"
   schedule:
     - cron: "17 0,6,12,18 * * *"
 permissions:
