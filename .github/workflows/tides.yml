@@ -21,12 +21,13 @@ jobs:
           python-version: "3.12"
       - run: pip install requests
       - run: python scripts/update_tides.py
-      - name: Commit tide cache
+      - run: python scripts/build_tide_patterns.py
+      - name: Commit tide cache and patterns
         run: |
-          if [ -z "$(git status --porcelain -- data/tides.json)" ]; then exit 0; fi
+          if [ -z "$(git status --porcelain -- data/tides.json data/tide-patterns.json)" ]; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/tides.json
+          git add data/tides.json data/tide-patterns.json
           git commit -m "Update JMA tide cache"
           git pull --rebase origin main
           git push
