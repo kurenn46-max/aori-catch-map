@@ -18,7 +18,6 @@
     .dateRow{grid-template-columns:repeat(4,1fr)}
     .intelRow button{font-size:11px;padding:7px 3px}
     #targetToggle{background:#3a2b0b;border-color:#8a6a19;color:#ffe9a6;font-weight:850}
-    #addCatchToggle{background:#3b174e;border-color:#7d4a99;color:#f2dbff;font-weight:850}
     .actionRow{grid-template-columns:1.15fr .8fr 1.35fr .72fr}
     button,select{min-width:0;border:1px solid #2a4d6b;background:#10263b;color:#eaf5ff;border-radius:999px;padding:7px 7px;font-weight:750;white-space:nowrap;font-size:12px}
     button.active{background:#d8f4ff;color:#052033;border-color:#d8f4ff}
@@ -66,11 +65,6 @@
     .reasonTags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.reasonTag{font-size:10px;padding:3px 7px;border-radius:999px;background:#132f46;border:1px solid #2b526e;color:#cfe8fa}
     .rankDetails{font-size:11px;line-height:1.6;color:#b6c9d9;margin-top:8px}.warnText{color:#ffd39b}
     .scoreNote{font-size:11px;line-height:1.55;color:#98adbf;margin-top:10px}
-    #addCatchPanel{position:fixed;left:0;right:0;bottom:0;height:min(84vh,760px);z-index:1500;background:#07131f;border-top:1px solid #6c3e83;border-radius:18px 18px 0 0;transform:translateY(105%);transition:transform .22s ease;box-shadow:0 -15px 45px #0009;overflow:auto;padding:12px 12px calc(20px + env(safe-area-inset-bottom))}
-    #addCatchPanel.open{transform:translateY(0)}
-    .formGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.formFull{grid-column:1/-1}.formGrid label{display:block;font-size:10px;color:#a9bfd2;margin:0 0 3px 3px}
-    .formGrid input,.formGrid select,.formGrid textarea{width:100%;border:1px solid #2a4d6b;background:#0d2235;color:#eef6ff;border-radius:10px;padding:10px;font:inherit;font-size:13px}
-    .formGrid textarea{min-height:74px;resize:vertical}.coordRow{display:grid;grid-template-columns:1fr 1fr auto;gap:6px}.formNote{font-size:10px;color:#9fb2c4;line-height:1.55;margin:10px 2px}.submitCatch{width:100%;border-radius:12px;background:#5b2672;border-color:#8f5da7;color:white;padding:12px;font-size:14px}
     @media(max-width:380px){button,select{font-size:11px;padding:6px 4px}.title{font-size:17px}.actionRow{grid-template-columns:1fr .78fr 1.35fr .65fr}}
   </style>
 </head>
@@ -87,7 +81,6 @@
     <button data-view="local">🚧現地</button>
     <button data-view="shelter">🛡風裏</button>
     <button id="targetToggle">🎯今狙う</button>
-    <button id="addCatchToggle">➕釣果追加</button>
   </div>
 
   <div class="controlRow modeRow" id="modeRow">
@@ -147,31 +140,6 @@
   </div>
   <div class="rankList" id="rankList"></div>
   <div class="scoreNote">※「期待指数」は釣れる確率ではありません。公開釣果・ベイト・人圧・風波・水温・朝夕まずめ・気象庁の天文潮位を組み合わせた場所/時間比較用の相対指数です。若狭は代表潮位として敦賀を使用します。局地風・水色・実際の潮流などは現地差があります。</div>
-</section>
-
-<section id="addCatchPanel">
-  <div class="targetHead">
-    <div><h2>➕ 釣果を追加</h2><div class="targetMeta">自分の実釣をDBへ追加</div></div>
-    <button class="closeBtn" id="addCatchClose">閉じる</button>
-  </div>
-  <div class="formGrid">
-    <div><label>日付</label><input type="date" id="mcDate"></div>
-    <div><label>時刻</label><input type="time" id="mcTime"></div>
-    <div><label>エリア</label><select id="mcArea"><option>越前</option><option>敦賀</option><option selected>若狭</option><option>舞鶴</option><option>丹後</option></select></div>
-    <div><label>陸 / 船</label><select id="mcType"><option value="shore">陸っぱり</option><option value="boat">ボート</option></select></div>
-    <div class="formFull"><label>場所名</label><input id="mcPlace" placeholder="例：白杉、常神、小橋"></div>
-    <div><label>結果</label><select id="mcStatus"><option value="catch">釣れた</option><option value="blank">ボウズ</option><option value="chase_only">チェイスのみ</option><option value="sighting_only">見えイカのみ</option></select></div>
-    <div><label>釣法</label><input id="mcMethod" value="エギング"></div>
-    <div><label>杯数</label><input type="number" min="0" id="mcCount" placeholder="例 7"></div>
-    <div><label>最大サイズ</label><input id="mcSize" placeholder="例 300g / 胴長18cm"></div>
-    <div><label>釣行時間(h)</label><input type="number" min="0" step="0.25" id="mcDuration" placeholder="例 3"></div>
-    <div><label>人数</label><input type="number" min="1" step="1" id="mcAnglers" value="1"></div>
-    <div><label>位置精度</label><select id="mcPrecision"><option value="area">エリア中心（秘密ポイント向け）</option><option value="place">場所名レベル</option><option value="exact">正確な位置</option></select></div>
-    <div class="formFull"><label>緯度・経度（任意）</label><div class="coordRow"><input id="mcLat" inputmode="decimal" placeholder="緯度"><input id="mcLng" inputmode="decimal" placeholder="経度"><button type="button" id="mcGeo">📍</button></div></div>
-    <div class="formFull"><label>メモ（任意）</label><textarea id="mcNote" placeholder="濁り、エギ、レンジ、チェイス、人の多さなど"></textarea></div>
-  </div>
-  <div class="formNote">※送信内容は公開GitHubリポジトリのIssueを経由してDBへ反映されます。秘密ポイントは「エリア中心」を選び、緯度経度を空欄にしてください。</div>
-  <button class="submitCatch" id="mcSubmit">GitHubへ送信 → DB反映</button>
 </section>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -690,57 +658,6 @@ document.querySelectorAll('button[data-target-day]').forEach(b=>b.addEventListen
   b.classList.add('active');targetDayOffset=Number(b.dataset.targetDay);openTargetPanel();
 }));
 document.getElementById('targetClose').addEventListener('click',()=>document.getElementById('targetPanel').classList.remove('open'));
-
-function openAddCatch(){
-  const p=document.getElementById('addCatchPanel');
-  p.classList.add('open');
-  document.getElementById('mcDate').value=jstDay(0);
-  const parts=new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
-  const hh=parts.find(x=>x.type==='hour')?.value||'00',mm=parts.find(x=>x.type==='minute')?.value||'00';
-  document.getElementById('mcTime').value=hh+':'+mm;
-}
-document.getElementById('addCatchToggle').addEventListener('click',openAddCatch);
-document.getElementById('addCatchClose').addEventListener('click',()=>document.getElementById('addCatchPanel').classList.remove('open'));
-document.getElementById('mcGeo').addEventListener('click',()=>{
-  if(!navigator.geolocation){alert('この端末では現在地を取得できません');return}
-  navigator.geolocation.getCurrentPosition(pos=>{
-    document.getElementById('mcLat').value=pos.coords.latitude.toFixed(6);
-    document.getElementById('mcLng').value=pos.coords.longitude.toFixed(6);
-    document.getElementById('mcPrecision').value='exact';
-  },()=>alert('現在地を取得できませんでした'));
-});
-document.getElementById('mcStatus').addEventListener('change',e=>{
-  if(e.target.value==='blank')document.getElementById('mcCount').value='0';
-});
-document.getElementById('mcSubmit').addEventListener('click',()=>{
-  const get=id=>document.getElementById(id).value.trim();
-  const date=get('mcDate'),time=get('mcTime'),area=get('mcArea'),place=get('mcPlace');
-  if(!date||!area||!place){alert('日付・エリア・場所名は必須やで');return}
-  const one=v=>String(v||'').replace(/[\r\n]+/g,' ').replace(/=/g,'＝');
-  const status=get('mcStatus'),count=get('mcCount');
-  const title='[釣果追加] '+date+' '+area+' '+place+(count!==''?' '+count+'杯':'');
-  const body=[
-    'MANUAL_CATCH_V1',
-    'date='+one(date),
-    'time='+one(time),
-    'area='+one(area),
-    'place='+one(place),
-    'type='+one(get('mcType')),
-    'method='+one(get('mcMethod')),
-    'count='+one(count),
-    'maxSize='+one(get('mcSize')),
-    'duration_hours='+one(get('mcDuration')),
-    'angler_count='+one(get('mcAnglers')),
-    'result_status='+one(status),
-    'precision='+one(get('mcPrecision')),
-    'lat='+one(get('mcLat')),
-    'lng='+one(get('mcLng')),
-    'title='+one(area+' '+place+' 手動実釣'),
-    'note='+one(get('mcNote'))
-  ].join('\n');
-  const url='https://github.com/kurenn46-max/aori-catch-map/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
-  window.open(url,'_blank','noopener');
-});
 
 document.getElementById('collectNow').addEventListener('click',()=>{
   const ok=confirm('最新の釣果収集を開始します。GitHubの画面が開くので「Run workflow」を押してください。');
