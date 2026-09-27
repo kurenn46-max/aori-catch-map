@@ -24,6 +24,7 @@
     #collectNow{background:#114a37;border-color:#2b8f67;color:#d9ffea;font-weight:850}
     .intelMarker{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:2px solid white;box-shadow:0 2px 9px #0008;font-size:17px;background:#17314a}
     .seaMarker{background:#0f4f73}.pressureMarker{background:#6a392b}.baitMarker{background:#245c42}.localMarker{background:#594a22}
+    .shelterGood{background:#17633d}.shelterMid{background:#6a571b}.shelterBad{background:#71332e}
     #reloadData{font-size:16px;padding-left:3px;padding-right:3px}
     #mapWrap{position:relative;flex:1;min-height:0}
     #map{position:absolute;inset:0}
@@ -78,6 +79,7 @@
     <button data-view="pressure">👥人圧</button>
     <button data-view="bait">🐟ベイト</button>
     <button data-view="local">🚧現地</button>
+    <button data-view="shelter">🛡風裏</button>
     <button id="targetToggle">🎯今狙う</button>
   </div>
 
@@ -146,7 +148,7 @@ const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},targetDayOffset=0;
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],targetDayOffset=0;
 const SEA_AREAS=[
   {area:'越前',lat:35.914,lng:135.991},
   {area:'敦賀',lat:35.681,lng:136.049},
@@ -185,6 +187,7 @@ function render(){
     map.removeLayer(groups.shore);map.removeLayer(groups.boat);
     if(!map.hasLayer(groups.intel))groups.intel.addTo(map);
     if(viewMode==='sea'){renderSea(area);return}
+    if(viewMode==='shelter'){renderShelter(area);return}
     renderIntel(area);return;
   }
   map.removeLayer(groups.intel);
@@ -232,7 +235,7 @@ function renderIntel(area){
   document.getElementById('spotCount').textContent=rows.length;
   document.getElementById('shoreCount').textContent='—';
   document.getElementById('boatCount').textContent='—';
-  const labels={pressure:'人圧・スレ',bait:'ベイト',local:'現地状況'};
+  const labels={pressure:'人圧・スレ',bait:'ベイト',local:'現地状況',shelter:'風裏候補'};
   document.getElementById('status').textContent=(labels[viewMode]||'情報')+'：'+rows.length+'件';
 }
 async function renderSea(area){
@@ -260,6 +263,67 @@ async function renderSea(area){
   document.getElementById('shoreCount').textContent='—';
   document.getElementById('boatCount').textContent='—';
   document.getElementById('status').textContent='最新海況：'+ok+'エリア取得';
+}
+function angularDiff(a,b){
+  const d=Math.abs((((a-b)%360)+540)%360-180);
+  return d;
+}
+function shelterEstimate(spot,windDir,windSpeed){
+  if(!Number.isFinite(windDir)||!Number.isFinite(windSpeed))return {level:'不明',reduction:0,effective:windSpeed,score:0};
+  const sd=Math.min(...(spot.sheltered_from||[]).map(x=>angularDiff(windDir,x)),180);
+  const od=Math.min(...(spot.open_to||[]).map(x=>angularDiff(windDir,x)),180);
+  let factor=0,level='横風/中立',score=0;
+  if(sd<=22){
+    factor=(spot.base_shelter||0.5)*0.62; level='風裏◎'; score=3;
+  }else if(sd<=45){
+    factor=(spot.base_shelter||0.5)*0.42; level='風裏○'; score=2;
+  }else if(sd<=70){
+    factor=(spot.base_shelter||0.5)*0.18; level='やや風裏'; score=1;
+  }
+  if(od<=30){factor=0;level='風表';score=-2}
+  else if(od<=55&&score<=1){factor=0;level='風表寄り';score=-1}
+  const effective=Math.max(0,windSpeed*(1-factor));
+  return {level,reduction:factor,effective,score,sd,od};
+}
+function shelterIcon(level){
+  const cls=level.includes('◎')?'shelterGood':level.includes('○')||level.includes('やや')?'shelterMid':'shelterBad';
+  return L.divIcon({className:'',html:`<div class="intelMarker ${cls}">🛡</div>`,iconSize:[30,30],iconAnchor:[15,15]});
+}
+async function renderShelter(area){
+  document.getElementById('status').textContent='風裏候補を計算中…';
+  const rows=windShelters.filter(x=>area==='all'||x.area===area);
+  let ok=0,good=0;
+  await Promise.all(rows.map(async spot=>{
+    try{
+      const url=`https://api.open-meteo.com/v1/forecast?latitude=${spot.lat}&longitude=${spot.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
+      const w=await fetch(url).then(r=>r.json()),c=w.current||{};
+      const wind=Number(c.wind_speed_10m),dir=Number(c.wind_direction_10m),gust=Number(c.wind_gusts_10m);
+      const est=shelterEstimate(spot,dir,wind);
+      if(est.score>=2)good++;
+      const popup=`<div class="pop"><h3>${esc(spot.place)}</h3>
+        <div class="meta"><b>${esc(est.level)}</b><br>
+        広域風：${Number.isFinite(wind)?wind.toFixed(1):'—'} m/s　風向：${Number.isFinite(dir)?dir+'°':'—'}<br>
+        最大瞬間風速：${Number.isFinite(gust)?gust.toFixed(1):'—'} m/s<br>
+        簡易実効風速：<b>${Number.isFinite(est.effective)?est.effective.toFixed(1):'—'} m/s</b><br>
+        風の減衰目安：${Math.round(est.reduction*100)}%<br>
+        ${esc(spot.note||'')}<br>
+        <span style="font-size:10px;color:#9fb2c4">地形・湾向きからの簡易推定。現地の吹き返し・谷風・建物影響は未反映。</span></div></div>`;
+      L.marker([spot.lat,spot.lng],{icon:shelterIcon(est.level)}).bindPopup(popup).addTo(groups.intel);ok++;
+    }catch(e){console.error(e)}
+  }));
+  document.getElementById('spotCount').textContent=ok;
+  document.getElementById('shoreCount').textContent='🛡'+good;
+  document.getElementById('boatCount').textContent='—';
+  document.getElementById('status').textContent='風裏候補：'+good+' / '+ok+'地点';
+}
+function bestShelter(area,windDir,windSpeed){
+  const candidates=windShelters.filter(x=>x.area===area);
+  let best=null;
+  for(const spot of candidates){
+    const est=shelterEstimate(spot,windDir,windSpeed);
+    if(!best || est.effective<best.est.effective)best={spot,est};
+  }
+  return best;
 }
 function daysAgo(date){
   if(!date)return 999;
@@ -457,6 +521,14 @@ function hourlyExpectation(area,day){
       else if(x.wind<=7){env+=1}
       else{env-=12;tags.push('強風')}
     }
+    const shelter=bestShelter(area,x.dir,x.wind);
+    if(shelter && Number.isFinite(x.wind) && x.wind>4){
+      const saved=x.wind-shelter.est.effective;
+      if(shelter.est.score>=2 && saved>=1.2){
+        env+=Math.min(8,Math.round(saved*2));
+        tags.push('風裏候補');
+      }
+    }
     if(Number.isFinite(x.gust)&&x.gust>=10){env-=5;tags.push('瞬間風強')}
     if(Number.isFinite(x.wave)){
       if(x.wave<=0.4){env+=10;tags.push('波◎')}
@@ -478,7 +550,7 @@ function hourlyExpectation(area,day){
     else if(nearHour(x.hour,day.sunrise,2)||nearHour(x.hour,day.sunset,2)){env+=5;tags.push('薄明')}
     env=Math.max(0,Math.min(100,env));
     const score=Math.round(base.score*.56+env*.44);
-    return {...x,score,tide,tags,base,hist};
+    return {...x,score,tide,tags,base,hist,shelter};
   });
   return scored.sort((a,b)=>b.score-a.score);
 }
@@ -520,9 +592,10 @@ async function openTargetPanel(){
     const card=document.createElement('div');card.className='rankCard';
     card.innerHTML=`<div class="rankTop"><div><div class="rankName">${i+1}. ${esc(r.area)}</div><div class="small">${esc(r.day.date)}・最新陸釣果 ${esc(best.base.summary.latest_date||'なし')}</div></div><div class="score ${cls}">${best.score}<small>/100</small></div></div>
       <div class="reasonTags">${best.tags.slice(0,6).map(x=>'<span class="reasonTag">'+esc(x)+'</span>').join('')}</div>
-      <div class="bestTimes">${r.best3.map(x=>'<div class="bestTime"><span class="bestHour">'+String(x.hour).padStart(2,'0')+'時</span><span class="bestScore '+(x.score>=75?'scoreHigh':x.score>=55?'scoreMid':'scoreLow')+'">'+x.score+'</span><span>'+esc(x.tide.label)+' / 風'+(Number.isFinite(x.wind)?x.wind.toFixed(1):'—')+' / 波'+(Number.isFinite(x.wave)?x.wave.toFixed(2):'—')+'m'+(x.tags.includes('まずめ')?' / まずめ':'')+'</span></div>').join('')}</div>
+      <div class="bestTimes">${r.best3.map(x=>'<div class="bestTime"><span class="bestHour">'+String(x.hour).padStart(2,'0')+'時</span><span class="bestScore '+(x.score>=75?'scoreHigh':x.score>=55?'scoreMid':'scoreLow')+'">'+x.score+'</span><span>'+esc(x.tide.label)+' / 風'+(Number.isFinite(x.wind)?x.wind.toFixed(1):'—')+' / 波'+(Number.isFinite(x.wave)?x.wave.toFixed(2):'—')+'m'+(x.tags.includes('まずめ')?' / まずめ':'')+(x.shelter&&x.shelter.est.score>=2?' / 🛡'+esc(x.shelter.spot.place):'')+'</span></div>').join('')}</div>
       <div class="tideLine">潮参考：${esc(station)}${stationSuffix}　${esc(high)}　${esc(low)}<br>過去潮実績：${esc(topTidePattern(r.area))}</div>
       <div class="rankDetails">本命時間の海況：風 ${Number.isFinite(best.wind)?best.wind.toFixed(1)+'m/s':'—'}（最大瞬間 ${Number.isFinite(best.gust)?best.gust.toFixed(1)+'m/s':'—'}）・波 ${Number.isFinite(best.wave)?best.wave.toFixed(2)+'m':'—'}・水温 ${Number.isFinite(best.sst)?best.sst.toFixed(1)+'℃':'—'}<br>
+      ${best.shelter&&best.shelter.est.score>=1?'風裏候補：<b>'+esc(best.shelter.spot.place)+'</b>（広域'+(Number.isFinite(best.wind)?best.wind.toFixed(1):'—')+'→簡易実効'+best.shelter.est.effective.toFixed(1)+'m/s）<br>':''}
       直近7日：陸${best.base.summary.last7?.shore||0}件 / 船${best.base.summary.last7?.boat||0}件　ベイト${best.base.baitCount}件　人圧${best.base.pressureCount}件　CPUE参考：${cpue}
       ${best.base.warnings.length?'<br><span class="warnText">注意：'+best.base.warnings.map(esc).join(' / ')+'</span>':''}</div>`;
     list.appendChild(card);
@@ -601,9 +674,10 @@ document.getElementById('reloadData').addEventListener('click',()=>{
     fetch('./data/intel.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/archive/2026.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
-    fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json())
-  ]).then(([d,s,i,a,t,tp])=>{
-    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};render();renderSummary();
+    fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json()),
+    fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json())
+  ]).then(([d,s,i,a,t,tp,ws])=>{
+    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];render();renderSummary();
     b.textContent='✓';setTimeout(()=>b.textContent='↻',1400);
   }).catch(()=>{b.textContent='!';setTimeout(()=>b.textContent='↻',1600)});
 });
@@ -614,8 +688,9 @@ Promise.all([
   fetch('./data/intel.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/archive/2026.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
-  fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json())
-]).then(([d,s,i,a,t,tp])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};render();renderSummary()})
+  fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json()),
+  fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json())
+]).then(([d,s,i,a,t,tp,ws])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];render();renderSummary()})
 .catch(e=>{document.getElementById('status').textContent='データ読込に失敗しました';console.error(e)});
 </script>
 </body>
