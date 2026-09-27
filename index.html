@@ -13,12 +13,16 @@
     header{padding:9px 10px 8px;background:linear-gradient(180deg,#0b1d31,#081522);border-bottom:1px solid #183551;z-index:1000}
     .title{display:flex;align-items:center;gap:7px;font-weight:800;font-size:18px}.sub{font-size:11px;color:#9db2c8;margin-top:2px}
     .controlRow{display:grid;gap:6px;margin-top:7px}
+    .intelRow{grid-template-columns:repeat(5,1fr)}
     .modeRow{grid-template-columns:repeat(3,1fr)}
     .dateRow{grid-template-columns:repeat(4,1fr)}
+    .intelRow button{font-size:11px;padding:7px 3px}
     .actionRow{grid-template-columns:1.15fr .8fr 1.35fr .72fr}
     button,select{min-width:0;border:1px solid #2a4d6b;background:#10263b;color:#eaf5ff;border-radius:999px;padding:7px 7px;font-weight:750;white-space:nowrap;font-size:12px}
     button.active{background:#d8f4ff;color:#052033;border-color:#d8f4ff}
     #collectNow{background:#114a37;border-color:#2b8f67;color:#d9ffea;font-weight:850}
+    .intelMarker{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:2px solid white;box-shadow:0 2px 9px #0008;font-size:17px;background:#17314a}
+    .seaMarker{background:#0f4f73}.pressureMarker{background:#6a392b}.baitMarker{background:#245c42}.localMarker{background:#594a22}
     #reloadData{font-size:16px;padding-left:3px;padding-right:3px}
     #mapWrap{position:relative;flex:1;min-height:0}
     #map{position:absolute;inset:0}
@@ -55,13 +59,21 @@
   <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">越前〜丹後</span></div>
   <div class="sub">公開釣果を蓄積・陸っぱり/ボート分離・傾向を自動集計</div>
 
-  <div class="controlRow modeRow">
+  <div class="controlRow intelRow">
+    <button data-view="catch" class="active">🦑釣果</button>
+    <button data-view="sea">🌊海況</button>
+    <button data-view="pressure">👥人圧</button>
+    <button data-view="bait">🐟ベイト</button>
+    <button data-view="local">🚧現地</button>
+  </div>
+
+  <div class="controlRow modeRow" id="modeRow">
     <button data-mode="all" class="active">全部</button>
     <button data-mode="shore">🟢 陸っぱり</button>
     <button data-mode="boat">🔵 ボート</button>
   </div>
 
-  <div class="controlRow dateRow">
+  <div class="controlRow dateRow" id="dateRow">
     <button data-range="today">今日</button>
     <button data-range="yesterday">昨日</button>
     <button data-range="7" class="active">7日</button>
@@ -71,7 +83,7 @@
   <div class="controlRow actionRow">
     <select id="area"><option value="all">全エリア</option><option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option></select>
     <button id="trendToggle">📊 傾向</button>
-    <button id="collectNow">🔄 情報収集</button>
+    <button id="collectNow">🔄 釣果収集</button>
     <button id="reloadData" aria-label="最新データを再読込">↻</button>
   </div>
 </header>
@@ -106,8 +118,15 @@
 const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
-const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7';
+const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[];
+const SEA_AREAS=[
+  {area:'越前',lat:35.914,lng:135.991},
+  {area:'敦賀',lat:35.681,lng:136.049},
+  {area:'若狭',lat:35.555,lng:135.760},
+  {area:'舞鶴',lat:35.507,lng:135.376},
+  {area:'丹後',lat:35.674,lng:135.287}
+];
 
 function markerIcon(type){
   const color=type==='shore'?'#37e38c':'#4bb3ff';
@@ -133,8 +152,15 @@ function dateMatch(s){
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function render(){
-  groups.shore.clearLayers();groups.boat.clearLayers();
+  groups.shore.clearLayers();groups.boat.clearLayers();groups.intel.clearLayers();
   const area=document.getElementById('area').value;
+  if(viewMode!=='catch'){
+    map.removeLayer(groups.shore);map.removeLayer(groups.boat);
+    if(!map.hasLayer(groups.intel))groups.intel.addTo(map);
+    if(viewMode==='sea'){renderSea(area);return}
+    renderIntel(area);return;
+  }
+  map.removeLayer(groups.intel);
   const rows=allData.filter(x=>(mode==='all'||x.type===mode)&&(area==='all'||x.area===area)&&dateMatch(x.date));
   for(const x of rows){
     if(!groups[x.type] || !Number.isFinite(Number(x.lat)) || !Number.isFinite(Number(x.lng))) continue;
@@ -156,6 +182,55 @@ function render(){
   document.getElementById('status').textContent=label+'：実釣果データ '+rows.length+'件';
 }
 
+function intelIcon(category){
+  const cfg={pressure:['👥','pressureMarker'],bait:['🐟','baitMarker'],local:['🚧','localMarker']};
+  const [icon,cls]=cfg[category]||['ℹ️',''];
+  return L.divIcon({className:'',html:`<div class="intelMarker ${cls}">${icon}</div>`,iconSize:[30,30],iconAnchor:[15,15]});
+}
+function seaIcon(){
+  return L.divIcon({className:'',html:'<div class="intelMarker seaMarker">🌊</div>',iconSize:[30,30],iconAnchor:[15,15]});
+}
+function renderIntel(area){
+  const rows=intelData.filter(x=>x.category===viewMode && (area==='all'||x.area===area));
+  for(const x of rows){
+    if(!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lng)))continue;
+    const popup=`<div class="pop"><h3>${esc(x.place||x.area||'現地情報')}</h3>
+      <div class="meta"><b>${esc(x.title||'')}</b><br>${esc(x.detail||'')}<br>日付：${esc(x.date||'不明')}<br>情報元：${esc(x.source||'不明')}<br>確度：${esc(x.confidence||'未評価')}</div>
+      ${x.url?'<div style="margin-top:6px"><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a></div>':''}</div>`;
+    L.marker([Number(x.lat),Number(x.lng)],{icon:intelIcon(x.category)}).bindPopup(popup).addTo(groups.intel);
+  }
+  document.getElementById('spotCount').textContent=rows.length;
+  document.getElementById('shoreCount').textContent='—';
+  document.getElementById('boatCount').textContent='—';
+  const labels={pressure:'人圧・スレ',bait:'ベイト',local:'現地状況'};
+  document.getElementById('status').textContent=(labels[viewMode]||'情報')+'：'+rows.length+'件';
+}
+async function renderSea(area){
+  document.getElementById('status').textContent='海況を取得中…';
+  const targets=SEA_AREAS.filter(x=>area==='all'||x.area===area);
+  let ok=0;
+  await Promise.all(targets.map(async p=>{
+    try{
+      const weatherUrl=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
+      const marineUrl=`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&current=wave_height,swell_wave_height,sea_surface_temperature,sea_level_height_msl,ocean_current_velocity&timezone=Asia%2FTokyo`;
+      const [w,m]=await Promise.all([fetch(weatherUrl).then(r=>r.json()),fetch(marineUrl).then(r=>r.json())]);
+      const wc=w.current||{},mc=m.current||{};
+      const popup=`<div class="pop"><h3>${p.area} 海況</h3><div class="meta">
+        風：<b>${wc.wind_speed_10m??'—'} m/s</b>　突風 ${wc.wind_gusts_10m??'—'} m/s<br>
+        風向：${wc.wind_direction_10m??'—'}°　降水 ${wc.precipitation??'—'} mm<br>
+        波：<b>${mc.wave_height??'—'} m</b>　うねり ${mc.swell_wave_height??'—'} m<br>
+        海面水温：<b>${mc.sea_surface_temperature??'—'} ℃</b><br>
+        海面高：${mc.sea_level_height_msl??'—'} m（参考）<br>
+        海流：${mc.ocean_current_velocity??'—'} km/h<br>
+        更新：${esc(wc.time||mc.time||'')}</div></div>`;
+      L.marker([p.lat,p.lng],{icon:seaIcon()}).bindPopup(popup).addTo(groups.intel);ok++;
+    }catch(e){console.error(e)}
+  }));
+  document.getElementById('spotCount').textContent=ok;
+  document.getElementById('shoreCount').textContent='—';
+  document.getElementById('boatCount').textContent='—';
+  document.getElementById('status').textContent='最新海況：'+ok+'エリア取得';
+}
 function trendInfo(a){
   if(a.trend==='up')return ['↗','上向き','trendUp'];
   if(a.trend==='down')return ['↘','減少','trendDown'];
@@ -189,6 +264,13 @@ function renderSummary(){
   document.getElementById('dbNote').textContent='※ '+summary.note;
 }
 
+document.querySelectorAll('button[data-view]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('button[data-view]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');viewMode=b.dataset.view;
+  document.getElementById('modeRow').style.display=viewMode==='catch'?'grid':'none';
+  document.getElementById('dateRow').style.display=viewMode==='catch'?'grid':'none';
+  render();
+}));
 document.querySelectorAll('button[data-mode]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('button[data-mode]').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;render();
 }));
@@ -211,17 +293,19 @@ document.getElementById('reloadData').addEventListener('click',()=>{
   b.textContent='…';
   Promise.all([
     fetch('./data/catches.json?'+Date.now()).then(r=>r.json()),
-    fetch('./data/summary.json?'+Date.now()).then(r=>r.json())
-  ]).then(([d,s])=>{
-    allData=d.catches||[];summary=s;render();renderSummary();
+    fetch('./data/summary.json?'+Date.now()).then(r=>r.json()),
+    fetch('./data/intel.json?'+Date.now()).then(r=>r.json())
+  ]).then(([d,s,i])=>{
+    allData=d.catches||[];summary=s;intelData=i.items||[];render();renderSummary();
     b.textContent='✓';setTimeout(()=>b.textContent='↻',1400);
   }).catch(()=>{b.textContent='!';setTimeout(()=>b.textContent='↻',1600)});
 });
 
 Promise.all([
   fetch('./data/catches.json?'+Date.now()).then(r=>r.json()),
-  fetch('./data/summary.json?'+Date.now()).then(r=>r.json())
-]).then(([d,s])=>{allData=d.catches||[];summary=s;render();renderSummary()})
+  fetch('./data/summary.json?'+Date.now()).then(r=>r.json()),
+  fetch('./data/intel.json?'+Date.now()).then(r=>r.json())
+]).then(([d,s,i])=>{allData=d.catches||[];summary=s;intelData=i.items||[];render();renderSummary()})
 .catch(e=>{document.getElementById('status').textContent='データ読込に失敗しました';console.error(e)});
 </script>
 </body>
