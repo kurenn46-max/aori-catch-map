@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "strategy": "Public catch-search aggregation; low-frequency collection; area-level geolocation when exact location is unavailable.",
+  "refresh_jst": [
+    "03:17",
+    "09:17",
+    "15:17",
+    "21:17"
+  ],
+  "regions": [
+    "越前",
+    "敦賀",
+    "若狭",
+    "舞鶴",
+    "丹後"
+  ],
+  "modes": [
+    "shore",
+    "boat"
+  ],
+  "warning": "各投稿の利用条件・robots/アクセス制限を尊重し、取得不能な情報源は無理に回避しない。"
+}
