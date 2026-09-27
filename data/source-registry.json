@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-27T16:50:00+09:00",
+  "updated_at": "2026-09-27T17:00:00+09:00",
   "policy": "固定巡回 + 横断検索の二重取り。集約サイトは発見用、可能なら一次情報へ辿る。同一釣果は重複排除。",
   "regions": [
     "越前",
@@ -345,5 +345,18 @@
       "底物や根魚の釣果だけではベイト濃度の強い指標にしない",
       "船沖の魚情報はshore_relevance=lowとして岸の評価と分離"
     ]
+  },
+  "catch_quality_fields": {
+    "duration_hours": "釣行時間が確認できた場合のみ",
+    "angler_count": "人数が確認できた場合のみ",
+    "cpue": "count/(duration_hours*angler_count)。3項目すべて確認できた場合のみ算出",
+    "session_rate": "人数不明でもcountとduration_hoursが確認できた場合の全体杯数/時間",
+    "result_status": [
+      "catch",
+      "blank",
+      "chase_only",
+      "sighting_only"
+    ],
+    "rule": "0杯・チェイスのみ・見えイカのみも、実釣日/場所/出典が確認できれば重要な負の情報として保存する"
   }
 }
