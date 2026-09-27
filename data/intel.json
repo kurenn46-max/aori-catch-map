@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T16:45:00+09:00",
+  "updated_at": "2026-09-27T16:50:00+09:00",
   "note": "場所選び用の確認済み公開情報。pressure=人圧/スレ、bait=ベイト、local=現地ルール・規制。一次情報を優先し、岸ベイトと沖情報を区別する。",
   "items": [
     {
@@ -63,7 +63,13 @@
       "source": "遊幸丸",
       "url": "https://reserve.castingnet.jp/ship00119c.html",
       "confidence": "B",
-      "precision": "area"
+      "precision": "area",
+      "bait_species": [
+        "大アジ",
+        "サバ"
+      ],
+      "signal_type": "direct_bait",
+      "shore_relevance": "low"
     },
     {
       "id": "pressure-tsuruga-20260918-rain-low",
@@ -93,7 +99,13 @@
       "source": "IzumiFishing",
       "url": "https://izumifishing.com/2026-9-12/",
       "confidence": "A",
-      "precision": "area"
+      "precision": "area",
+      "bait_species": [
+        "アジ",
+        "サヨリ"
+      ],
+      "signal_type": "direct_bait",
+      "shore_relevance": "high"
     },
     {
       "id": "bait-echizen-20260905-mameaji",
@@ -108,7 +120,12 @@
       "source": "ANGLERS",
       "url": "https://anglers.jp/fishings/5499324",
       "confidence": "A",
-      "precision": "area"
+      "precision": "area",
+      "bait_species": [
+        "豆アジ"
+      ],
+      "signal_type": "direct_bait",
+      "shore_relevance": "high"
     }
   ]
 }
