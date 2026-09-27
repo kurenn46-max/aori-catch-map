@@ -70,6 +70,8 @@ for area in AREAS:
         "area":area,
         "latest_date":max([x.get("date","") for x in rs],default=None),
         "last7":counts(l7),"prev7":counts(p7),"last30":counts(l30),
+        "season":counts([x for x in rs if x.get("date") and x.get("date") >= f"{ref.year}-08-01" and parse_day(x["date"]) <= ref]),
+        "season_first_date":min([x.get("date") for x in rs if x.get("date") and x.get("date") >= f"{ref.year}-08-01"], default=None),
         "trend":trend,"change_pct":change,
         "source_count":len({x.get("source") for x in l30 if x.get("source")}),
         "size_top":sizes.most_common(1)[0][0] if sizes else "情報少"
@@ -81,12 +83,17 @@ for i in range(13,-1,-1):
     rs=[x for x in records if x.get("date")==day]
     daily.append({"date":day,**counts(rs)})
 
+season_rows=[x for x in records if x.get("date") and x.get("date") >= f"{ref.year}-08-01" and parse_day(x["date"]) <= ref]
+aug=[x for x in season_rows if x.get("date","").startswith(f"{ref.year}-08")]
+sep=[x for x in season_rows if x.get("date","").startswith(f"{ref.year}-09")]
 summary={
     "updated_at":stamp,
     "reference_date":iso_day(ref),
+    "season_start":f"{ref.year}-08-01",
     "total_records":len(records),
     "source_count":len({x.get("source") for x in records if x.get("source")}),
-    "note":"件数は公開Web上で確認できた釣果投稿数。実際の資源量・釣獲量そのものではない。",
+    "note":"件数は公開Web上で確認できた釣果投稿/釣行記録。実際の資源量・総釣獲量そのものではない。",
+    "season":{"total":counts(season_rows),"august":counts(aug),"september":counts(sep),"first_date":min([x.get("date") for x in season_rows],default=None)},
     "areas":areas,
     "daily14":daily
 }
