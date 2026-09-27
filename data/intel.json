@@ -16,7 +16,9 @@
       "url": "https://www.ishiguro-gr.com/enjoy/fishing-post/detail.php?id=247",
       "confidence": "A",
       "precision": "place",
-      "active": true
+      "active": true,
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     },
     {
       "id": "local-inokuma-cleaningfee-active",
@@ -32,7 +34,9 @@
       "url": "https://www.ishiguro-gr.com/enjoy/fishing-post/detail.php?id=248",
       "confidence": "A",
       "precision": "place",
-      "active": true
+      "active": true,
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     },
     {
       "id": "local-tsuruga-port-restrictions-active",
@@ -48,7 +52,9 @@
       "url": "https://www.pref.fukui.lg.jp/doc/tu-kouwan/",
       "confidence": "A",
       "precision": "place",
-      "active": true
+      "active": true,
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     },
     {
       "id": "bait-tsuruga-20260919-offshore-aji",
@@ -70,7 +76,9 @@
       ],
       "signal_type": "direct_bait",
       "shore_relevance": "low",
-      "effect": "weak_positive"
+      "effect": "weak_positive",
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     },
     {
       "id": "pressure-tsuruga-20260918-rain-low",
@@ -87,7 +95,9 @@
       "confidence": "A",
       "precision": "area",
       "pressure_level": "low",
-      "effect": "positive"
+      "effect": "positive",
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     },
     {
       "id": "bait-obama-20260912-ajisayori",
@@ -109,7 +119,9 @@
       ],
       "signal_type": "direct_bait",
       "shore_relevance": "high",
-      "effect": "positive"
+      "effect": "positive",
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     },
     {
       "id": "bait-echizen-20260905-mameaji",
@@ -130,7 +142,9 @@
       ],
       "signal_type": "direct_bait",
       "shore_relevance": "high",
-      "effect": "negative"
+      "effect": "negative",
+      "first_seen_at": "2026-09-27T17:00:00+09:00",
+      "last_seen_at": "2026-09-27T17:00:00+09:00"
     }
   ]
 }
