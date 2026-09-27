@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T16:50:00+09:00",
+  "updated_at": "2026-09-27T17:00:00+09:00",
   "note": "場所選び用の確認済み公開情報。pressure=人圧/スレ、bait=ベイト、local=現地ルール・規制。一次情報を優先し、岸ベイトと沖情報を区別する。",
   "items": [
     {
@@ -69,7 +69,8 @@
         "サバ"
       ],
       "signal_type": "direct_bait",
-      "shore_relevance": "low"
+      "shore_relevance": "low",
+      "effect": "weak_positive"
     },
     {
       "id": "pressure-tsuruga-20260918-rain-low",
@@ -84,7 +85,9 @@
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
       "confidence": "A",
-      "precision": "area"
+      "precision": "area",
+      "pressure_level": "low",
+      "effect": "positive"
     },
     {
       "id": "bait-obama-20260912-ajisayori",
@@ -105,7 +108,8 @@
         "サヨリ"
       ],
       "signal_type": "direct_bait",
-      "shore_relevance": "high"
+      "shore_relevance": "high",
+      "effect": "positive"
     },
     {
       "id": "bait-echizen-20260905-mameaji",
@@ -125,7 +129,8 @@
         "豆アジ"
       ],
       "signal_type": "direct_bait",
-      "shore_relevance": "high"
+      "shore_relevance": "high",
+      "effect": "negative"
     }
   ]
 }
