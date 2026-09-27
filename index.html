@@ -129,7 +129,8 @@ function trendInfo(a){
 }
 function renderSummary(){
   if(!summary)return;
-  document.getElementById('trendMeta').textContent=`DB累計 ${summary.total_records}件・情報源 ${summary.source_count}系統・基準日 ${summary.reference_date}`;
+  const season=summary.season||{};const st=season.total||{total:0,shore:0,boat:0};
+  document.getElementById('trendMeta').textContent=`今季8月〜 ${st.total}件（陸${st.shore}/船${st.boat}）・DB累計 ${summary.total_records}件・基準日 ${summary.reference_date}`;
   const grid=document.getElementById('areaGrid');grid.innerHTML='';
   for(const a of summary.areas||[]){
     const [icon,label,cls]=trendInfo(a);
@@ -139,7 +140,7 @@ function renderSummary(){
       <div class="big">${a.last7.total}<span style="font-size:11px;color:#9db2c8"> 件/7日</span></div>
       <div class="small">${label} ${change}　前7日 ${a.prev7.total}件</div>
       <div class="split"><span class="shoreText">陸 ${a.last7.shore}</span><span class="boatText">船 ${a.last7.boat}</span></div>
-      <div class="small" style="margin-top:6px">30日 ${a.last30.total}件・情報源 ${a.source_count}<br>多いサイズ帯：${esc(a.size_top)}</div>`;
+      <div class="small" style="margin-top:6px">30日 ${a.last30.total}件・情報源 ${a.source_count}<br>今季 ${(a.season||{}).total||0}件・初確認 ${a.season_first_date||'—'}<br>多いサイズ帯：${esc(a.size_top)}</div>`;
     grid.appendChild(card);
   }
   const daily=summary.daily14||[],max=Math.max(1,...daily.map(x=>x.total||0)),bars=document.getElementById('dailyBars');bars.innerHTML='';
