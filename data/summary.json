@@ -1,9 +1,28 @@
 {
-  "updated_at": "2026-09-27T15:28:26+09:00",
+  "updated_at": "2026-09-27T16:10:00+09:00",
   "reference_date": "2026-09-27",
-  "total_records": 22,
-  "source_count": 8,
-  "note": "件数は公開Web上で確認できた釣果投稿数。実際の資源量・釣獲量そのものではない。",
+  "season_start": "2026-08-01",
+  "total_records": 44,
+  "source_count": 9,
+  "note": "件数は公開Web上で確認できた釣果投稿/釣行記録。実際の資源量・総釣獲量そのものではない。8月分は2026-09-27に遡及収集。",
+  "season": {
+    "total": {
+      "total": 44,
+      "shore": 37,
+      "boat": 7
+    },
+    "august": {
+      "total": 22,
+      "shore": 20,
+      "boat": 2
+    },
+    "september": {
+      "total": 22,
+      "shore": 17,
+      "boat": 5
+    },
+    "first_date": "2026-08-08"
+  },
   "areas": [
     {
       "area": "越前",
@@ -19,13 +38,19 @@
         "boat": 0
       },
       "last30": {
-        "total": 3,
-        "shore": 3,
+        "total": 4,
+        "shore": 4,
         "boat": 0
       },
+      "season": {
+        "total": 9,
+        "shore": 9,
+        "boat": 0
+      },
+      "season_first_date": "2026-08-08",
       "trend": "up",
       "change_pct": 100,
-      "source_count": 2,
+      "source_count": 3,
       "size_top": "100g以下"
     },
     {
@@ -46,6 +71,12 @@
         "shore": 5,
         "boat": 0
       },
+      "season": {
+        "total": 8,
+        "shore": 8,
+        "boat": 0
+      },
+      "season_first_date": "2026-08-21",
       "trend": "up",
       "change_pct": 300,
       "source_count": 1,
@@ -69,6 +100,12 @@
         "shore": 3,
         "boat": 1
       },
+      "season": {
+        "total": 9,
+        "shore": 6,
+        "boat": 3
+      },
+      "season_first_date": "2026-08-09",
       "trend": "new",
       "change_pct": null,
       "source_count": 1,
@@ -88,10 +125,16 @@
         "boat": 1
       },
       "last30": {
-        "total": 7,
-        "shore": 5,
+        "total": 10,
+        "shore": 8,
         "boat": 2
       },
+      "season": {
+        "total": 14,
+        "shore": 12,
+        "boat": 2
+      },
+      "season_first_date": "2026-08-09",
       "trend": "up",
       "change_pct": 50,
       "source_count": 5,
@@ -115,6 +158,12 @@
         "shore": 1,
         "boat": 2
       },
+      "season": {
+        "total": 4,
+        "shore": 2,
+        "boat": 2
+      },
+      "season_first_date": "2026-08-26",
       "trend": "up",
       "change_pct": 100,
       "source_count": 3,
