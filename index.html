@@ -55,6 +55,8 @@
     <select id="days"><option value="3">3日</option><option value="7" selected>7日</option><option value="14">14日</option><option value="30">30日</option></select>
     <select id="area"><option value="all">全エリア</option><option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option></select>
     <button id="trendToggle">📊 傾向</button>
+    <button id="collectNow">🔄 情報収集</button>
+    <button id="reloadData">↻ 最新読込</button>
   </div>
 </header>
 <div id="map"></div>
@@ -161,6 +163,28 @@ document.getElementById('area').addEventListener('change',render);
 const panel=document.getElementById('trendPanel');
 document.getElementById('trendToggle').addEventListener('click',()=>{panel.classList.add('open');renderSummary()});
 document.getElementById('trendClose').addEventListener('click',()=>panel.classList.remove('open'));
+
+document.getElementById('collectNow').addEventListener('click',()=>{
+  const ok=confirm('最新の釣果収集を開始します。GitHubの画面が開くので「Run workflow」を押してください。');
+  if(!ok)return;
+  window.open('https://github.com/kurenn46-max/aori-catch-map/actions/workflows/collect.yml','_blank','noopener');
+});
+
+document.getElementById('reloadData').addEventListener('click',()=>{
+  const b=document.getElementById('reloadData');
+  b.textContent='読込中…';
+  Promise.all([
+    fetch('./data/catches.json?'+Date.now()).then(r=>r.json()),
+    fetch('./data/summary.json?'+Date.now()).then(r=>r.json())
+  ]).then(([d,s])=>{
+    allData=d.catches||[];summary=s;render();renderSummary();
+    b.textContent='✓ 更新済み';
+    setTimeout(()=>b.textContent='↻ 最新読込',1600);
+  }).catch(()=>{
+    b.textContent='読込失敗';
+    setTimeout(()=>b.textContent='↻ 最新読込',1800);
+  });
+});
 
 Promise.all([
   fetch('./data/catches.json?'+Date.now()).then(r=>r.json()),
