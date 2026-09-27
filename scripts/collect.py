@@ -6,17 +6,19 @@ from pathlib import Path
 from urllib.parse import quote_plus
 import xml.etree.ElementTree as ET
 import requests
+from bs4 import BeautifulSoup
 
 JST=timezone(timedelta(hours=9))
 NOW=datetime.now(JST)
 MAX_DAYS=30
-UA={"User-Agent":"Mozilla/5.0 (compatible; AoriCatchMap/1.1; +https://github.com/kurenn46-max/aori-catch-map)"}
+UA={"User-Agent":"Mozilla/5.0 (compatible; AoriCatchMap/1.2; +https://github.com/kurenn46-max/aori-catch-map)"}
 
-AREAS=[
- ("越前","越前",35.914,135.991),("敦賀","敦賀",35.645,136.055),
- ("若狭","若狭",35.555,135.760),("若狭","小浜",35.495,135.746),
- ("舞鶴","舞鶴",35.474,135.386),("丹後","丹後",35.650,135.150),
- ("丹後","伊根",35.674,135.287)
+YAMARIA=[
+ ("越前","越前",86,35.914,135.991),
+ ("敦賀","敦賀",85,35.645,136.055),
+ ("若狭","小浜",84,35.495,135.746),
+ ("舞鶴","舞鶴",114,35.474,135.386),
+ ("丹後","丹後",115,35.650,135.150),
 ]
 POINTS={
  "越前海岸":(35.914,135.991),"越前岬":(35.980,135.958),"甲楽城":(35.827,136.020),
@@ -30,104 +32,115 @@ def clean(s):
     s=html.unescape(re.sub(r"<[^>]+>"," ",s or ""))
     return re.sub(r"\s+"," ",s).strip()
 
-def feeds_for(query):
+def age_ok(date):
+    try:d=datetime.strptime(date,"%Y-%m-%d").replace(tzinfo=JST)
+    except ValueError:return False
+    return 0 <= (NOW-d).days <= MAX_DAYS
+
+def yamaria_rows(area,place,city_id,lat,lng):
+    url=f"https://www.yamaria.com/community/catch/egiou/cities/{city_id}"
+    r=requests.get(url,headers=UA,timeout=25)
+    r.raise_for_status()
+    text=BeautifulSoup(r.text,"html.parser").get_text(" ",strip=True)
+    # Each latest result contains HIT, user, date/time, size class, area and fishing-place type.
+    pat=re.compile(
+      r"(\d+)\s*HIT\s+(.+?)\s+さん\s+(20\d{2}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s+"
+      r"アオリイカ：\s*([^\s]+)\s+釣果場所：\s*([^\s]+)\s+([^\s]+)\s+釣り場所：\s*([^\s]+)"
+    )
+    rows=[]
+    for m in pat.finditer(text):
+        hits,user,date,tm,size,pref,reported_place,fish_place=m.groups()
+        if not age_ok(date):continue
+        typ="boat" if any(k in fish_place for k in ["ボート","船"]) else "shore"
+        method="ティップラン" if typ=="boat" else "エギング"
+        shown_place=reported_place if reported_place not in ["福井","京都"] else place
+        plat,plng=POINTS.get(shown_place,(lat,lng))
+        raw=m.group(0)
+        rid=hashlib.sha1((url+raw).encode()).hexdigest()[:14]
+        rows.append({
+          "id":rid,"date":date,"area":area,"place":shown_place,
+          "lat":plat,"lng":plng,"type":typ,"method":method,
+          "count":None,"maxSize":size,"time":tm,
+          "source":"エギCOM","url":url,"title":f"{user}さん / {fish_place}",
+          "demo":False,"precision":"area","reportPlace":fish_place
+        })
+    print(f"エギCOM / {place}: {len(rows)}")
+    return rows
+
+def rss_items(query):
     q=quote_plus(query)
-    return [
+    feeds=[
       ("Google News",f"https://news.google.com/rss/search?q={q}&hl=ja&gl=JP&ceid=JP:ja"),
       ("Bing News",f"https://www.bing.com/news/search?q={q}&format=rss&setlang=ja-jp")
     ]
-
-def parse_date(s):
-    try:
-        d=parsedate_to_datetime(s)
-        if d.tzinfo is None: d=d.replace(tzinfo=timezone.utc)
-        return d.astimezone(JST)
-    except Exception:
-        return None
-
-def infer_count(text):
-    vals=[]
-    for m in re.finditer(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ|匹|枚)",text):
-        n=int(m.group(1))
-        if 0<n<=100: vals.append(n)
-    return max(vals) if vals else 1
-
-def infer_size(text):
-    m=re.search(r"胴長\s*(\d+(?:\.\d+)?)\s*cm",text)
-    if m:return "胴長"+m.group(1)+"cm"
-    m=re.search(r"(?<!\d)(\d+(?:\.\d+)?)\s*kg",text,re.I)
-    if m:return m.group(1)+"kg"
-    return "不明"
-
-def infer_place(text,term,lat,lng):
-    for p,(a,b) in POINTS.items():
-        if p in text:return p,a,b
-    return term,lat,lng
-
-def read_feed(provider,url):
-    r=requests.get(url,headers=UA,timeout=25)
-    r.raise_for_status()
-    root=ET.fromstring(r.content)
     out=[]
-    for item in root.findall(".//item"):
-        get=lambda tag: (item.findtext(tag) or "")
-        source=item.find("source")
-        out.append({
-          "title":clean(get("title")),
-          "desc":clean(get("description")),
-          "link":clean(get("link")),
-          "published":clean(get("pubDate")),
-          "source":clean(source.text if source is not None else provider)
-        })
+    for provider,url in feeds:
+        try:
+            r=requests.get(url,headers=UA,timeout=25); r.raise_for_status()
+            root=ET.fromstring(r.content)
+            for item in root.findall(".//item"):
+                source=item.find("source")
+                out.append({
+                  "provider":provider,"title":clean(item.findtext("title") or ""),
+                  "desc":clean(item.findtext("description") or ""),
+                  "link":clean(item.findtext("link") or ""),
+                  "published":clean(item.findtext("pubDate") or ""),
+                  "source":clean(source.text if source is not None else provider)
+                })
+        except Exception as e: print(f"WARN RSS {provider}: {e}")
     return out
+
+def rss_rows():
+    rows=[]
+    queries=[
+      ("越前","越前",35.914,135.991,"アオリイカ 越前 エギング 釣果"),
+      ("敦賀","敦賀",35.645,136.055,"アオリイカ 敦賀 エギング 釣果"),
+      ("若狭","小浜",35.495,135.746,"アオリイカ 小浜 エギング 釣果"),
+      ("舞鶴","舞鶴",35.474,135.386,"アオリイカ 舞鶴 エギング 釣果"),
+      ("丹後","丹後",35.650,135.150,"アオリイカ 丹後 ティップラン 釣果"),
+    ]
+    for area,place,lat,lng,q in queries:
+      for it in rss_items(q):
+        # High precision rule: Aori must be explicit in the headline.
+        if "アオリ" not in it["title"]:continue
+        try:d=parsedate_to_datetime(it["published"]).astimezone(JST)
+        except Exception:continue
+        if not (0 <= (NOW-d).days <= MAX_DAYS):continue
+        title=it["title"]
+        typ="boat" if any(k in title for k in ["ティップラン","船","ボート","沖"]) else "shore"
+        method="ティップラン" if typ=="boat" else "エギング"
+        rid=hashlib.sha1((it["link"]+area).encode()).hexdigest()[:14]
+        rows.append({
+          "id":rid,"date":d.date().isoformat(),"area":area,"place":place,
+          "lat":lat,"lng":lng,"type":typ,"method":method,"count":None,
+          "maxSize":"不明","time":"不明","source":it["source"] or it["provider"],
+          "url":it["link"],"title":title[:120],"demo":False,"precision":"area"
+        })
+    return rows
 
 def main():
     rows=[]; seen=set()
-    for area,term,lat,lng in AREAS:
-        for typ,extra,method in [
-          ("shore","エギング","エギング"),
-          ("boat","ティップラン","ティップラン")
-        ]:
-            query=f'アオリイカ {term} {extra} 釣果'
-            for provider,url in feeds_for(query):
-                try:
-                    items=read_feed(provider,url)
-                    print(f"{provider} / {term} / {typ}: {len(items)}")
-                except Exception as e:
-                    print(f"WARN {provider} {term}: {e}")
-                    continue
-                for it in items:
-                    d=parse_date(it["published"])
-                    if not d: continue
-                    age=(NOW-d).days
-                    if age<0 or age>MAX_DAYS: continue
-                    blob=clean(it["title"]+" "+it["desc"])
-                    if "アオリ" not in blob: continue
-                    # Avoid obvious non-target fishing unless Aori is central in the title.
-                    place,plat,plng=infer_place(blob,term,lat,lng)
-                    key=(it["link"],typ)
-                    if key in seen: continue
-                    seen.add(key)
-                    rid=hashlib.sha1((it["link"]+typ).encode()).hexdigest()[:14]
-                    rows.append({
-                      "id":rid,"date":d.date().isoformat(),"area":area,"place":place,
-                      "lat":plat,"lng":plng,"type":typ,"method":method,
-                      "count":infer_count(blob),"maxSize":infer_size(blob),"time":"不明",
-                      "source":it["source"] or provider,"url":it["link"],
-                      "title":it["title"][:120],"demo":False,"precision":"area"
-                    })
-    rows.sort(key=lambda x:(x["date"],x["area"],x["place"]),reverse=True)
+    for args in YAMARIA:
+        try: batch=yamaria_rows(*args)
+        except Exception as e:
+            print(f"WARN エギCOM {args[1]}: {e}"); batch=[]
+        for x in batch:
+            k=(x["date"],x["area"],x["place"],x["type"],x["time"],x["title"])
+            if k not in seen:seen.add(k);rows.append(x)
+    for x in rss_rows():
+        k=(x["url"],x["type"])
+        if k not in seen:seen.add(k);rows.append(x)
+    rows.sort(key=lambda x:(x["date"],x.get("time","")),reverse=True)
     if not rows:
-        print("No fresh RSS records found; existing data preserved.")
+        print("No fresh records found; existing data preserved.")
         return
-    payload={
+    Path("data").mkdir(exist_ok=True)
+    Path("data/catches.json").write_text(json.dumps({
       "updated_at":NOW.isoformat(timespec="seconds"),
-      "note":"公開RSS検索から自動収集。陸/ボートは検索条件で分類。場所が本文から特定できない場合はエリア概算位置。",
-      "catches":rows[:250]
-    }
-    p=Path("data/catches.json")
-    p.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(f"Wrote {len(rows[:250])} records")
+      "note":"エギCOM公開最新釣果を主データに、公開ニュースRSSを補助データとして自動収集。地点はエリア概算。",
+      "catches":rows[:300]
+    },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print(f"Wrote {len(rows[:300])} records")
 
 if __name__=="__main__":
     main()
