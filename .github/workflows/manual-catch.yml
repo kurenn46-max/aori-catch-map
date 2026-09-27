@@ -1,0 +1,49 @@
+name: Import manual catch
+on:
+  issues:
+    types: [opened]
+permissions:
+  contents: write
+  issues: write
+jobs:
+  import:
+    if: startsWith(github.event.issue.body, 'MANUAL_CATCH_V1')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Import issue payload
+        run: python scripts/import_manual_catch.py
+      - name: Rebuild summaries
+        run: |
+          python scripts/archive_and_summary.py
+          python scripts/build_tide_patterns.py
+      - name: Commit database
+        run: |
+          if [ -z "$(git status --porcelain -- data/catches.json data/archive data/summary.json data/tide-patterns.json)" ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/catches.json data/archive data/summary.json data/tide-patterns.json
+          git commit -m "Import manual catch #${{ github.event.issue.number }}"
+          git pull --rebase origin main
+          git push
+      - name: Close imported issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ 釣果DBへ反映しました。'
+            })
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed'
+            })
