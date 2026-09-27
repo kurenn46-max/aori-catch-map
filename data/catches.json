@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-09-27T15:28:26+09:00",
-  "note": "公開Webで確認できた直近釣果。位置は公開情報のエリア中心で、秘密の釣り座を示すものではありません。",
+  "updated_at": "2026-09-27T16:23:11+09:00",
+  "note": "手動収集の結果を既存の確認済みデータへ追記。既存データは上書き削除しない。",
   "catches": [
     {
       "id": "egi-tsuruga-20260927-0757",
@@ -395,6 +395,24 @@
       "source": "つり具のブンブン",
       "url": "https://bunbun-fishing.com/fishing/216217/",
       "title": "舞鶴方面エギング釣行2",
+      "demo": false,
+      "precision": "area"
+    },
+    {
+      "id": "315360215ab273",
+      "date": "2026-09-11",
+      "area": "越前",
+      "place": "越前",
+      "lat": 35.914,
+      "lng": 135.991,
+      "type": "shore",
+      "method": "エギング",
+      "count": null,
+      "maxSize": "不明",
+      "time": "不明",
+      "source": "福井新聞社",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE83cDkybTRjOXZpRXhVTGY3bV9UWFRsMVAxWjNNNU5NLU8wWnB1cnBXOElYbGQ2RUFra1owY2FvRTN2X2ZRRFZnYms3ZUN6dk9BQ0tYT2NDT0kwWklZVHc?oc=5",
+      "title": "アオリイカ数狙える 三国新港の豆アジは不調 | 福井のニュース | 福井新聞ONLINE - 福井新聞社",
       "demo": false,
       "precision": "area"
     }
