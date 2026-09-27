@@ -10,18 +10,24 @@
   <style>
     *{box-sizing:border-box}html,body{margin:0;height:100%;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#07111e;color:#eef6ff}
     body{display:flex;flex-direction:column;overflow:hidden}
-    header{padding:10px 12px 8px;background:linear-gradient(180deg,#0b1d31,#081522);border-bottom:1px solid #183551;z-index:1000}
-    .title{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}.sub{font-size:11px;color:#9db2c8;margin-top:2px}
-    .controls{display:flex;gap:7px;overflow-x:auto;padding-top:8px;scrollbar-width:none}.controls::-webkit-scrollbar{display:none}
-    button,select{border:1px solid #2a4d6b;background:#10263b;color:#eaf5ff;border-radius:999px;padding:8px 11px;font-weight:700;white-space:nowrap}
+    header{padding:9px 10px 8px;background:linear-gradient(180deg,#0b1d31,#081522);border-bottom:1px solid #183551;z-index:1000}
+    .title{display:flex;align-items:center;gap:7px;font-weight:800;font-size:18px}.sub{font-size:11px;color:#9db2c8;margin-top:2px}
+    .controlRow{display:grid;gap:6px;margin-top:7px}
+    .modeRow{grid-template-columns:repeat(3,1fr)}
+    .dateRow{grid-template-columns:repeat(4,1fr)}
+    .actionRow{grid-template-columns:1.15fr .8fr 1.35fr .72fr}
+    button,select{min-width:0;border:1px solid #2a4d6b;background:#10263b;color:#eaf5ff;border-radius:999px;padding:7px 7px;font-weight:750;white-space:nowrap;font-size:12px}
     button.active{background:#d8f4ff;color:#052033;border-color:#d8f4ff}
-    #map{flex:1;min-height:0}
-    .stats{position:absolute;left:10px;right:10px;top:120px;z-index:800;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;pointer-events:none}
+    #collectNow{background:#114a37;border-color:#2b8f67;color:#d9ffea;font-weight:850}
+    #reloadData{font-size:16px;padding-left:3px;padding-right:3px}
+    #mapWrap{position:relative;flex:1;min-height:0}
+    #map{position:absolute;inset:0}
+    .stats{position:absolute;left:10px;right:10px;top:10px;z-index:800;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;pointer-events:none}
     .card{background:rgba(6,18,32,.90);backdrop-filter:blur(9px);border:1px solid rgba(120,180,225,.28);border-radius:12px;padding:7px 8px;box-shadow:0 8px 24px rgba(0,0,0,.22)}
     .card b{display:block;font-size:17px}.card span{font-size:10px;color:#aac0d4}
     .legend{position:absolute;right:10px;bottom:18px;z-index:800;background:rgba(6,18,32,.92);border:1px solid rgba(120,180,225,.28);border-radius:12px;padding:8px 10px;font-size:11px;line-height:1.7}
     .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}.shoreDot{background:#37e38c}.boatDot{background:#4bb3ff}
-    .status{position:absolute;left:10px;bottom:18px;z-index:800;max-width:62%;background:rgba(6,18,32,.92);border:1px solid rgba(120,180,225,.28);border-radius:10px;padding:7px 9px;font-size:11px;color:#b9d0e4}
+    .status{position:absolute;left:10px;bottom:18px;z-index:800;max-width:63%;background:rgba(6,18,32,.92);border:1px solid rgba(120,180,225,.28);border-radius:10px;padding:7px 9px;font-size:11px;color:#b9d0e4}
     .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#0b1b2a;color:#eef6ff}.leaflet-popup-content{margin:11px 13px;min-width:190px}
     .pop h3{margin:0 0 4px;font-size:15px}.pop .meta{font-size:12px;color:#bad0e3;line-height:1.55}.pop a{color:#7fd2ff}
     .badge{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:800;margin-right:4px}
@@ -41,32 +47,45 @@
     .barWrap{flex:1;min-width:11px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
     .barBoat{background:#4bb3ff;min-height:0}.barShore{background:#37e38c;min-height:0}.barLabel{font-size:8px;color:#7890a5;text-align:center;margin-top:4px}
     .dbNote{font-size:11px;color:#9db2c8;margin-top:10px;line-height:1.5}
-    @media(max-width:520px){.stats{top:120px}.title{font-size:17px}.controls{padding-top:7px}button,select{padding:7px 10px;font-size:12px}.areaGrid{grid-template-columns:repeat(5,155px)}}
+    @media(max-width:380px){button,select{font-size:11px;padding:6px 4px}.title{font-size:17px}.actionRow{grid-template-columns:1fr .78fr 1.35fr .65fr}}
   </style>
 </head>
 <body>
 <header>
   <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">越前〜丹後</span></div>
   <div class="sub">公開釣果を蓄積・陸っぱり/ボート分離・傾向を自動集計</div>
-  <div class="controls">
+
+  <div class="controlRow modeRow">
     <button data-mode="all" class="active">全部</button>
     <button data-mode="shore">🟢 陸っぱり</button>
     <button data-mode="boat">🔵 ボート</button>
-    <select id="days"><option value="3">3日</option><option value="7" selected>7日</option><option value="14">14日</option><option value="30">30日</option></select>
+  </div>
+
+  <div class="controlRow dateRow">
+    <button data-range="today">今日</button>
+    <button data-range="yesterday">昨日</button>
+    <button data-range="7" class="active">7日</button>
+    <button data-range="30">30日</button>
+  </div>
+
+  <div class="controlRow actionRow">
     <select id="area"><option value="all">全エリア</option><option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option></select>
     <button id="trendToggle">📊 傾向</button>
     <button id="collectNow">🔄 情報収集</button>
-    <button id="reloadData">↻ 最新読込</button>
+    <button id="reloadData" aria-label="最新データを再読込">↻</button>
   </div>
 </header>
-<div id="map"></div>
-<div class="stats">
-  <div class="card"><b id="spotCount">0</b><span>表示投稿</span></div>
-  <div class="card"><b id="shoreCount">0</b><span>陸っぱり</span></div>
-  <div class="card"><b id="boatCount">0</b><span>ボート</span></div>
+
+<div id="mapWrap">
+  <div id="map"></div>
+  <div class="stats">
+    <div class="card"><b id="spotCount">0</b><span>表示投稿</span></div>
+    <div class="card"><b id="shoreCount">0</b><span>陸っぱり</span></div>
+    <div class="card"><b id="boatCount">0</b><span>ボート</span></div>
+  </div>
+  <div class="status" id="status">データ読込中…</div>
+  <div class="legend"><div><span class="dot shoreDot"></span>陸っぱり</div><div><span class="dot boatDot"></span>ボート</div></div>
 </div>
-<div class="status" id="status">データ読込中…</div>
-<div class="legend"><div><span class="dot shoreDot"></span>陸っぱり</div><div><span class="dot boatDot"></span>ボート</div></div>
 
 <section id="trendPanel">
   <div class="trendHead">
@@ -88,21 +107,35 @@ const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null;
+let allData=[],mode='all',summary=null,rangeFilter='7';
 
 function markerIcon(type){
   const color=type==='shore'?'#37e38c':'#4bb3ff';
   return L.divIcon({className:'',html:`<div style="width:22px;height:22px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px #0008"></div>`,iconSize:[22,22],iconAnchor:[11,11]});
 }
 function dateOnly(s){return new Date(s+'T12:00:00+09:00')}
-function withinDays(s,d){const now=new Date();const diff=(now-dateOnly(s))/86400000;return diff<=d&&diff>=-1}
+function jstDay(offset=0){
+  const now=new Date();
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  const y=parts.find(x=>x.type==='year').value,m=parts.find(x=>x.type==='month').value,d=parts.find(x=>x.type==='day').value;
+  const base=new Date(`${y}-${m}-${d}T12:00:00+09:00`);
+  base.setDate(base.getDate()+offset);
+  return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(base);
+}
+function dateMatch(s){
+  if(rangeFilter==='today') return s===jstDay(0);
+  if(rangeFilter==='yesterday') return s===jstDay(-1);
+  const days=Number(rangeFilter);
+  const now=dateOnly(jstDay(0));
+  const diff=(now-dateOnly(s))/86400000;
+  return diff>=0 && diff<days;
+}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function render(){
   groups.shore.clearLayers();groups.boat.clearLayers();
-  const days=Number(document.getElementById('days').value);
   const area=document.getElementById('area').value;
-  const rows=allData.filter(x=>(mode==='all'||x.type===mode)&&(area==='all'||x.area===area)&&withinDays(x.date,days));
+  const rows=allData.filter(x=>(mode==='all'||x.type===mode)&&(area==='all'||x.area===area)&&dateMatch(x.date));
   for(const x of rows){
     if(!groups[x.type] || !Number.isFinite(Number(x.lat)) || !Number.isFinite(Number(x.lng))) continue;
     const badge=x.type==='shore'?'陸っぱり':'ボート';
@@ -119,7 +152,8 @@ function render(){
   document.getElementById('spotCount').textContent=rows.length;
   document.getElementById('shoreCount').textContent=rows.filter(x=>x.type==='shore').length;
   document.getElementById('boatCount').textContent=rows.filter(x=>x.type==='boat').length;
-  document.getElementById('status').textContent='実釣果データ '+rows.length+'件表示中';
+  const label=rangeFilter==='today'?'今日':rangeFilter==='yesterday'?'昨日':rangeFilter+'日';
+  document.getElementById('status').textContent=label+'：実釣果データ '+rows.length+'件';
 }
 
 function trendInfo(a){
@@ -158,7 +192,9 @@ function renderSummary(){
 document.querySelectorAll('button[data-mode]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('button[data-mode]').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;render();
 }));
-document.getElementById('days').addEventListener('change',render);
+document.querySelectorAll('button[data-range]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('button[data-range]').forEach(x=>x.classList.remove('active'));b.classList.add('active');rangeFilter=b.dataset.range;render();
+}));
 document.getElementById('area').addEventListener('change',render);
 const panel=document.getElementById('trendPanel');
 document.getElementById('trendToggle').addEventListener('click',()=>{panel.classList.add('open');renderSummary()});
@@ -172,18 +208,14 @@ document.getElementById('collectNow').addEventListener('click',()=>{
 
 document.getElementById('reloadData').addEventListener('click',()=>{
   const b=document.getElementById('reloadData');
-  b.textContent='読込中…';
+  b.textContent='…';
   Promise.all([
     fetch('./data/catches.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/summary.json?'+Date.now()).then(r=>r.json())
   ]).then(([d,s])=>{
     allData=d.catches||[];summary=s;render();renderSummary();
-    b.textContent='✓ 更新済み';
-    setTimeout(()=>b.textContent='↻ 最新読込',1600);
-  }).catch(()=>{
-    b.textContent='読込失敗';
-    setTimeout(()=>b.textContent='↻ 最新読込',1800);
-  });
+    b.textContent='✓';setTimeout(()=>b.textContent='↻',1400);
+  }).catch(()=>{b.textContent='!';setTimeout(()=>b.textContent='↻',1600)});
 });
 
 Promise.all([
