@@ -1,0 +1,312 @@
+{
+  "version": 1,
+  "updated_at": "2026-09-27T16:20:00+09:00",
+  "policy": "固定巡回 + 横断検索の二重取り。集約サイトは発見用、可能なら一次情報へ辿る。同一釣果は重複排除。",
+  "regions": [
+    "越前",
+    "敦賀",
+    "若狭",
+    "舞鶴",
+    "丹後"
+  ],
+  "sources": [
+    {
+      "name": "エギCOM",
+      "type": "catch_platform",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://www.yamaria.com/community/catch/egiou/",
+      "role": "primary"
+    },
+    {
+      "name": "ANGLERS",
+      "type": "catch_platform",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://anglers.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "カンパリ",
+      "type": "catch_platform",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://fishing.ne.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "魚速釣果検索",
+      "type": "aggregator",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://plus.uosoku.com/",
+      "role": "discovery"
+    },
+    {
+      "name": "上州屋",
+      "type": "tackle_shop",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://www.johshuya.co.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "FISHERS本間釣具店",
+      "type": "tackle_shop",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀"
+      ],
+      "url": "https://www.fishers.co.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "FISHINGPOINT",
+      "type": "tackle_shop",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀"
+      ],
+      "url": "https://www.point-i.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "フナヤ釣具店",
+      "type": "local_tackle_shop",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "釣具のイシグロ",
+      "type": "tackle_shop",
+      "priority": "A",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭"
+      ],
+      "url": "https://www.ishiguro-gr.com/",
+      "role": "primary"
+    },
+    {
+      "name": "つり具のブンブン",
+      "type": "tackle_shop",
+      "priority": "A",
+      "regions": [
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://bunbun-fishing.com/",
+      "role": "primary"
+    },
+    {
+      "name": "アングラーズ西舞鶴店",
+      "type": "tackle_shop",
+      "priority": "A",
+      "regions": [
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://www.anglers.co.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "丹後釣具店",
+      "type": "local_tackle_shop",
+      "priority": "A",
+      "regions": [
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "ビック釣具店",
+      "type": "local_tackle_shop",
+      "priority": "A",
+      "regions": [
+        "若狭"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "つりそく",
+      "type": "fishing_media",
+      "priority": "B",
+      "regions": [
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://www.tsurisoku.com/",
+      "role": "primary"
+    },
+    {
+      "name": "両丹日日新聞 釣り情報",
+      "type": "local_media",
+      "priority": "B",
+      "regions": [
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://www.ryoutan.co.jp/fishing/",
+      "role": "primary"
+    },
+    {
+      "name": "福井新聞",
+      "type": "local_media",
+      "priority": "B",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭"
+      ],
+      "url": "https://www.fukuishimbun.co.jp/",
+      "role": "primary"
+    },
+    {
+      "name": "TRITON",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "舞鶴"
+      ],
+      "url": "https://triton-maizuru.com/",
+      "role": "primary"
+    },
+    {
+      "name": "Calm",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "舞鶴"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "SPRINTER",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "ZERO-1 FISHING SERVICE",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "丹後"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "すばる",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "丹後"
+      ],
+      "url": "https://subarutango.jimdofree.com/",
+      "role": "primary"
+    },
+    {
+      "name": "こみなみ丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "若狭"
+      ],
+      "url": "",
+      "role": "primary"
+    },
+    {
+      "name": "公開X/Instagram/Facebook",
+      "type": "social",
+      "priority": "B",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "",
+      "role": "discovery"
+    },
+    {
+      "name": "YouTube公開実釣",
+      "type": "video",
+      "priority": "B",
+      "regions": [
+        "越前",
+        "敦賀",
+        "若狭",
+        "舞鶴",
+        "丹後"
+      ],
+      "url": "https://www.youtube.com/",
+      "role": "discovery"
+    }
+  ],
+  "required_fields": [
+    "date",
+    "area",
+    "place",
+    "type",
+    "source",
+    "url"
+  ],
+  "reject_if": [
+    "実釣日不明",
+    "陸/船不明",
+    "出典URLなし",
+    "対象海域外",
+    "転載元不明"
+  ]
+}
