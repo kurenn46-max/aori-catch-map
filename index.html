@@ -18,6 +18,8 @@
     .dateRow{grid-template-columns:repeat(4,1fr)}
     .intelRow button{font-size:11px;padding:7px 3px}
     #targetToggle{background:#3a2b0b;border-color:#8a6a19;color:#ffe9a6;font-weight:850}
+    #newToggle{background:#4b1d18;border-color:#9b4d42;color:#ffd9d3;font-weight:850}
+    #freshToggle{background:#123c4e;border-color:#2f718a;color:#d7f4ff;font-weight:850}
     .actionRow{grid-template-columns:1.15fr .8fr 1.35fr .72fr}
     button,select{min-width:0;border:1px solid #2a4d6b;background:#10263b;color:#eaf5ff;border-radius:999px;padding:7px 7px;font-weight:750;white-space:nowrap;font-size:12px}
     button.active{background:#d8f4ff;color:#052033;border-color:#d8f4ff}
@@ -65,6 +67,14 @@
     .reasonTags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.reasonTag{font-size:10px;padding:3px 7px;border-radius:999px;background:#132f46;border:1px solid #2b526e;color:#cfe8fa}
     .rankDetails{font-size:11px;line-height:1.6;color:#b6c9d9;margin-top:8px}.warnText{color:#ffd39b}
     .scoreNote{font-size:11px;line-height:1.55;color:#98adbf;margin-top:10px}
+    #freshPanel,#newPanel{position:fixed;left:0;right:0;bottom:0;height:min(72vh,660px);z-index:1450;background:#07131f;border-top:1px solid #315c73;border-radius:18px 18px 0 0;transform:translateY(105%);transition:transform .22s ease;box-shadow:0 -15px 45px #0009;overflow:auto;padding:12px 12px calc(20px + env(safe-area-inset-bottom))}
+    #freshPanel.open,#newPanel.open{transform:translateY(0)}
+    .freshGrid{display:grid;gap:8px}.freshCard,.newCard{background:#0d2235;border:1px solid #284660;border-radius:14px;padding:11px}
+    .freshTop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.freshScore{font-size:27px;font-weight:900}.freshScore small{font-size:10px;color:#9fb2c4}
+    .freshBar{height:7px;background:#07131f;border-radius:999px;overflow:hidden;margin:8px 0}.freshFill{height:100%;border-radius:999px;background:linear-gradient(90deg,#5ba9d0,#7ce7ad)}
+    .freshMeta,.newMeta{font-size:11px;color:#b6c9d9;line-height:1.6}.freshGood{color:#7cf2b0}.freshMid{color:#ffd77e}.freshOld{color:#ffaaa0}
+    .newBadge{display:inline-block;font-size:9px;font-weight:900;padding:2px 6px;border-radius:999px;background:#7b2b20;color:#ffe5df;margin-right:5px}.newList{display:grid;gap:7px}.newTitle{font-weight:800;font-size:13px}.newTime{font-size:10px;color:#92a8ba}
+    .coverageBox{background:#0a1a29;border:1px solid #203d55;border-radius:10px;padding:9px;margin-bottom:9px;font-size:11px;color:#b6c9d9;line-height:1.55}
     @media(max-width:380px){button,select{font-size:11px;padding:6px 4px}.title{font-size:17px}.actionRow{grid-template-columns:1fr .78fr 1.35fr .65fr}}
   </style>
 </head>
@@ -80,6 +90,8 @@
     <button data-view="bait">🐟ベイト</button>
     <button data-view="local">🚧現地</button>
     <button data-view="shelter">🛡風裏</button>
+    <button id="newToggle">🔥新着</button>
+    <button id="freshToggle">🕒鮮度</button>
     <button id="targetToggle">🎯今狙う</button>
   </div>
 
@@ -142,13 +154,32 @@
   <div class="scoreNote">※「期待指数」は釣れる確率ではありません。公開釣果・ベイト・人圧・風波・水温・朝夕まずめ・気象庁の天文潮位を組み合わせた場所/時間比較用の相対指数です。若狭は代表潮位として敦賀を使用します。局地風・水色・実際の潮流などは現地差があります。</div>
 </section>
 
+<section id="freshPanel">
+  <div class="targetHead">
+    <div><h2>🕒 情報鮮度</h2><div class="targetMeta" id="freshMeta">実釣日と収集状況から算出</div></div>
+    <button class="closeBtn" id="freshClose">閉じる</button>
+  </div>
+  <div class="coverageBox" id="coverageBox">巡回状況を確認中…</div>
+  <div class="freshGrid" id="freshGrid"></div>
+  <div class="scoreNote">※鮮度は「釣れる確率」ではありません。最新釣果の新しさ、直近の情報量、独立した情報源数、ベイト・人圧・現地情報の新しさをまとめた指標です。</div>
+</section>
+
+<section id="newPanel">
+  <div class="targetHead">
+    <div><h2>🔥 新着情報</h2><div class="targetMeta" id="newMeta">前回確認後の追加情報</div></div>
+    <button class="closeBtn" id="newClose">閉じる</button>
+  </div>
+  <div class="newList" id="newList"></div>
+  <div class="scoreNote">※初回は直近24時間に収集された情報を表示します。次回からはこの端末で前回「新着」を開いた時刻以降を表示します。</div>
+</section>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],targetDayOffset=0;
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},targetDayOffset=0;
 const SEA_AREAS=[
   {area:'越前',lat:35.914,lng:135.991},
   {area:'敦賀',lat:35.681,lng:136.049},
@@ -198,7 +229,7 @@ function render(){
     const countText=(x.count===null||x.count===undefined)?'不明':esc(x.count)+'杯';
     const html=`<div class="pop"><h3>${esc(x.place)}</h3>
       <div><span class="badge ${x.type}">${badge}</span></div>
-      <div class="meta">日付：${esc(x.date)}<br>杯数：<b>${countText}</b><br>サイズ：<b>${esc(x.maxSize||'不明')}</b><br>釣法：${esc(x.method||'不明')}<br>時間：${esc(x.time||'不明')}<br>情報元：${esc(x.source||'不明')}</div>
+      <div class="meta">日付：${esc(x.date)}　鮮度：${esc(freshnessLabel(x.date))}<br>杯数：<b>${countText}</b><br>サイズ：<b>${esc(x.maxSize||'不明')}</b><br>釣法：${esc(x.method||'不明')}<br>時間：${esc(x.time||'不明')}<br>情報元：${esc(x.source||'不明')}</div>
       ${x.url?'<div style="margin-top:6px"><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a></div>':''}</div>`;
     L.marker([Number(x.lat),Number(x.lng)],{icon:markerIcon(x.type)}).bindPopup(html).addTo(groups[x.type]);
   }
@@ -325,6 +356,108 @@ function bestShelter(area,windDir,windSpeed){
   }
   return best;
 }
+function dayAge(date){
+  if(!date)return 999;
+  const now=dateOnly(jstDay(0));
+  return Math.max(0,Math.floor((now-dateOnly(date))/86400000));
+}
+function decayWeight(date){
+  const d=dayAge(date);
+  if(d===0)return 1;
+  if(d===1)return .82;
+  if(d===2)return .62;
+  if(d===3)return .45;
+  if(d<=7)return .25;
+  if(d<=14)return .12;
+  return .05;
+}
+function freshnessLabel(date){
+  const d=dayAge(date);
+  if(d===0)return '🟢 今日';
+  if(d===1)return '🟢 昨日';
+  if(d<=3)return '🟡 '+d+'日前';
+  if(d<=7)return '🟠 '+d+'日前';
+  return '⚪ '+d+'日前';
+}
+function areaFreshness(area){
+  const catches=allData.filter(x=>x.area===area);
+  const shore=catches.filter(x=>x.type==='shore');
+  const latest=shore.map(x=>x.date).filter(Boolean).sort().at(-1)||catches.map(x=>x.date).filter(Boolean).sort().at(-1)||null;
+  const age=dayAge(latest);
+  let recency=age===0?60:age===1?50:age===2?38:age===3?28:age<=7?15:age<=14?7:2;
+  const recent7=catches.filter(x=>dayAge(x.date)<=7);
+  const recent2=catches.filter(x=>dayAge(x.date)<=2);
+  const sources=new Set(recent7.map(x=>x.source).filter(Boolean));
+  const volume=Math.min(10,recent2.length*2);
+  const diversity=Math.min(10,sources.size*2);
+  const intel=intelData.filter(x=>x.area===area);
+  const latestIntel=intel.map(x=>x.date).filter(Boolean).sort().at(-1)||null;
+  const ia=dayAge(latestIntel);
+  const intelFresh=ia===0?20:ia===1?15:ia<=3?10:ia<=7?5:0;
+  const score=Math.max(0,Math.min(100,Math.round(recency+volume+diversity+intelFresh)));
+  return {area,score,latest,age,recent2:recent2.length,recent7:recent7.length,sources:sources.size,latestIntel,ia};
+}
+function renderFreshness(){
+  const grid=document.getElementById('freshGrid');grid.innerHTML='';
+  const rows=['越前','敦賀','若狭','舞鶴','丹後'].map(area=>areaFreshness(area)).sort((a,b)=>b.score-a.score);
+  rows.forEach(r=>{
+    const cls=r.score>=75?'freshGood':r.score>=50?'freshMid':'freshOld';
+    const c=document.createElement('div');c.className='freshCard';
+    c.innerHTML=`<div class="freshTop"><div><div class="rankName">${esc(r.area)}</div><div class="small">最新釣果 ${esc(r.latest||'なし')}・${esc(freshnessLabel(r.latest))}</div></div><div class="freshScore ${cls}">${r.score}<small>/100</small></div></div>
+      <div class="freshBar"><div class="freshFill" style="width:${r.score}%"></div></div>
+      <div class="freshMeta">直近48h相当：${r.recent2}件　7日：${r.recent7}件　情報源：${r.sources}系統<br>ベイト/人圧/現地の最新：${r.latestIntel?esc(r.latestIntel)+'・'+esc(freshnessLabel(r.latestIntel)):'なし'}</div>`;
+    grid.appendChild(c);
+  });
+  const checks=sourceStatus?.checks||[];
+  const updated=sourceStatus?.updated_at||null;
+  if(!checks.length){
+    document.getElementById('coverageBox').innerHTML='巡回カバー率：<b>未集計</b><br>固定情報源のチェック結果がまだ記録されていません。釣果・ベイト等の鮮度は実データから計算しています。';
+  }else{
+    const ok=checks.filter(x=>['ok','no_new'].includes(x.status)).length;
+    const bad=checks.filter(x=>['blocked','error'].includes(x.status)).length;
+    document.getElementById('coverageBox').innerHTML='最終巡回：<b>'+esc(updated||'不明')+'</b><br>確認 '+ok+'/'+checks.length+'　取得不能/エラー '+bad;
+  }
+  document.getElementById('freshMeta').textContent='新しい順に強く評価・古い情報は自動減衰';
+}
+function collectedAt(x){
+  return x.first_seen_at||x.last_seen_at||null;
+}
+function renderNew(){
+  const key='aori_new_seen_v1';
+  const stored=localStorage.getItem(key);
+  const now=Date.now();
+  const cutoff=stored?Date.parse(stored):now-24*3600000;
+  const items=[];
+  allData.forEach(x=>{
+    const t=collectedAt(x);if(!t)return;
+    const ms=Date.parse(t);if(Number.isFinite(ms)&&ms>cutoff)items.push({kind:'釣果',t:ms,title:(x.area||'')+' '+(x.place||'')+' '+(x.count!=null?x.count+'杯':''),detail:(x.type==='shore'?'陸':'船')+' / '+(x.source||''),url:x.url});
+  });
+  intelData.forEach(x=>{
+    const t=collectedAt(x);if(!t)return;
+    const ms=Date.parse(t);if(Number.isFinite(ms)&&ms>cutoff){
+      const names={bait:'ベイト',pressure:'人圧',local:'現地'};
+      items.push({kind:names[x.category]||'情報',t:ms,title:(x.area||'')+' '+(x.title||x.place||''),detail:x.source||'',url:x.url});
+    }
+  });
+  items.sort((a,b)=>b.t-a.t);
+  const list=document.getElementById('newList');list.innerHTML='';
+  if(!items.length){
+    list.innerHTML='<div class="newCard"><div class="newTitle">新着なし</div><div class="newMeta">前回確認後に追加された情報はありません。</div></div>';
+  }else{
+    items.slice(0,40).forEach(x=>{
+      const c=document.createElement('div');c.className='newCard';
+      const when=new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(x.t));
+      c.innerHTML=`<div class="newTitle"><span class="newBadge">NEW</span>${esc(x.kind)}｜${esc(x.title)}</div><div class="newMeta">${esc(x.detail)}<br><span class="newTime">収集 ${esc(when)}</span>${x.url?'<br><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a>':''}</div>`;
+      list.appendChild(c);
+    });
+  }
+  document.getElementById('newMeta').textContent=(stored?'前回確認後':'初回：直近24時間')+'・'+items.length+'件';
+  localStorage.setItem(key,new Date(now).toISOString());
+}
+function recentFreshCatchSignal(area){
+  const rs=allData.filter(x=>x.area===area&&x.type==='shore'&&(x.result_status||'catch')==='catch');
+  return rs.reduce((sum,x)=>sum+decayWeight(x.date),0);
+}
 function daysAgo(date){
   if(!date)return 999;
   const now=dateOnly(jstDay(0));
@@ -373,10 +506,13 @@ function scoreArea(area,sea){
   const a=(summary?.areas||[]).find(x=>x.area===area)||{last7:{shore:0,boat:0,total:0},prev7:{shore:0,total:0},source_count:0,trend:'none',latest_date:null};
   let score=35;const reasons=[];const warnings=[];
   const age=daysAgo(a.latest_date);
-  if(age<=1){score+=18;reasons.push('48h以内の釣果')}
-  else if(age<=3){score+=12;reasons.push('3日以内の釣果')}
-  else if(age<=7){score+=6;reasons.push('7日以内の釣果')}
-  else{score-=5;warnings.push('直近釣果が古い')}
+  const freshSignal=recentFreshCatchSignal(area);
+  score+=Math.min(18,Math.round(freshSignal*4));
+  if(age===0){score+=6;reasons.push('今日の釣果')}
+  else if(age===1){score+=4;reasons.push('昨日の釣果')}
+  else if(age<=3){score+=1;reasons.push('3日以内の釣果')}
+  else if(age>7){score-=6;warnings.push('直近釣果が古い')}
+  if(freshSignal>=2)reasons.push('新鮮な複数実績')
   if(a.trend==='up'||a.trend==='new'){score+=8;reasons.push('報告上向き')}
   else if(a.trend==='flat'){score+=3}
   else if(a.trend==='down'){score-=5;warnings.push('報告減少')}
@@ -387,9 +523,10 @@ function scoreArea(area,sea){
   const bait=recentIntel(area,'bait',14);
   let baitAdj=0;
   bait.forEach(x=>{
-    if(x.effect==='negative') baitAdj-=x.shore_relevance==='high'?5:2;
-    else if(x.effect==='positive') baitAdj+=x.shore_relevance==='high'?8:x.shore_relevance==='medium'?4:1;
-    else if(x.effect==='weak_positive') baitAdj+=1;
+    const w=decayWeight(x.date);
+    if(x.effect==='negative') baitAdj-=(x.shore_relevance==='high'?5:2)*w;
+    else if(x.effect==='positive') baitAdj+=(x.shore_relevance==='high'?8:x.shore_relevance==='medium'?4:1)*w;
+    else if(x.effect==='weak_positive') baitAdj+=1*w;
   });
   baitAdj=Math.max(-6,Math.min(10,baitAdj));score+=baitAdj;
   if(baitAdj>=5)reasons.push('岸ベイト材料あり');
@@ -397,9 +534,10 @@ function scoreArea(area,sea){
 
   const pressure=recentIntel(area,'pressure',14);
   pressure.forEach(x=>{
-    if(x.pressure_level==='low'){score+=3;reasons.push('人圧低め材料')}
-    if(x.pressure_level==='medium'){score-=2}
-    if(x.pressure_level==='high'){score-=7;warnings.push('人圧高め')}
+    const w=decayWeight(x.date);
+    if(x.pressure_level==='low'){score+=3*w;if(w>=.45)reasons.push('人圧低め材料')}
+    if(x.pressure_level==='medium'){score-=2*w}
+    if(x.pressure_level==='high'){score-=7*w;if(w>=.45)warnings.push('人圧高め')}
   });
 
   if(sea){
@@ -652,6 +790,10 @@ document.getElementById('area').addEventListener('change',render);
 const panel=document.getElementById('trendPanel');
 document.getElementById('trendToggle').addEventListener('click',()=>{panel.classList.add('open');renderSummary()});
 document.getElementById('trendClose').addEventListener('click',()=>panel.classList.remove('open'));
+document.getElementById('newToggle').addEventListener('click',()=>{document.getElementById('newPanel').classList.add('open');renderNew()});
+document.getElementById('newClose').addEventListener('click',()=>document.getElementById('newPanel').classList.remove('open'));
+document.getElementById('freshToggle').addEventListener('click',()=>{document.getElementById('freshPanel').classList.add('open');renderFreshness()});
+document.getElementById('freshClose').addEventListener('click',()=>document.getElementById('freshPanel').classList.remove('open'));
 document.getElementById('targetToggle').addEventListener('click',openTargetPanel);
 document.querySelectorAll('button[data-target-day]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('button[data-target-day]').forEach(x=>x.classList.remove('active'));
@@ -675,9 +817,10 @@ document.getElementById('reloadData').addEventListener('click',()=>{
     fetch('./data/archive/2026.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json()),
-    fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json())
-  ]).then(([d,s,i,a,t,tp,ws])=>{
-    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];render();renderSummary();
+    fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json()),
+    fetch('./data/source-status.json?'+Date.now()).then(r=>r.json())
+  ]).then(([d,s,i,a,t,tp,ws,ss])=>{
+    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];sourceStatus=ss||{checks:[]};render();renderSummary();
     b.textContent='✓';setTimeout(()=>b.textContent='↻',1400);
   }).catch(()=>{b.textContent='!';setTimeout(()=>b.textContent='↻',1600)});
 });
@@ -689,8 +832,9 @@ Promise.all([
   fetch('./data/archive/2026.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json()),
-  fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json())
-]).then(([d,s,i,a,t,tp,ws])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];render();renderSummary()})
+  fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json()),
+  fetch('./data/source-status.json?'+Date.now()).then(r=>r.json())
+]).then(([d,s,i,a,t,tp,ws,ss])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];sourceStatus=ss||{checks:[]};render();renderSummary()})
 .catch(e=>{document.getElementById('status').textContent='データ読込に失敗しました';console.error(e)});
 </script>
 </body>
