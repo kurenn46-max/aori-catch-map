@@ -6,7 +6,7 @@ const fs=require('fs'),assert=require('assert/strict');
  const context=await browser.newContext({...devices['Pixel 7'],locale:'ja-JP',timezoneId:'Asia/Tokyo',permissions:['geolocation'],geolocation:{latitude:35.633,longitude:135.82}});
  const page=await context.newPage(),errors=[],failures=[],checks=[];
  page.on('pageerror',e=>errors.push(String(e)));
- page.on('response',r=>{if(/tsunekami-map\/(contours.geojson|coarse.json|shallow.js)/.test(r.url())&&r.status()!==200)failures.push(r.url()+' '+r.status());});
+ page.on('response',r=>{if(/tsunekami-map\/(contours.geojson|coarse.json|shallow.js)/.test(r.url())&&![200,304].includes(r.status()))failures.push(r.url()+' '+r.status());});
  page.on('requestfailed',r=>{if(/tsunekami-map\/(contours.geojson|coarse.json)/.test(r.url()))failures.push(r.url()+' '+r.failure()?.errorText);});
  async function ck(name,fn){try{let extra=await fn();checks.push({name,result:'PASS',extra:extra||''});}catch(e){checks.push({name,result:'FAIL',error:e.stack||String(e)});await page.screenshot({path:'test-results/tsunekami/FAIL-'+checks.length+'.png'});}}
  try{
@@ -49,7 +49,7 @@ const fs=require('fs'),assert=require('assert/strict');
     await f.setInputFiles({name:'TEST_ONLY_FAKE_CONTOURS.geojson',mimeType:'application/geo+json',buffer:Buffer.from(JSON.stringify(fixture))});
     await page.waitForFunction(()=>window.TsunekamiShallow.count()===4,{timeout:7000});
     assert.match(await page.locator('#shallowCount').innerText(),/4件/);
-    const layers=await page.locator('.depth-private').count();assert.equal(layers,4,'all four locally imported shapes must render');
+    const layers=await page.evaluate(()=>window.TsunekamiShallow.drawnCount());assert.equal(layers,4,'all four imported shape layers must be attached to the Leaflet map');
     await page.locator('#close').click();return 'only generated fixture imported locally in test browser';
   });
   await ck('Private import persists within same browser and can be deleted',async()=>{
