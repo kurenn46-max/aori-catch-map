@@ -49,7 +49,7 @@ const fs=require('fs'),assert=require('assert/strict');
     await f.setInputFiles({name:'TEST_ONLY_FAKE_CONTOURS.geojson',mimeType:'application/geo+json',buffer:Buffer.from(JSON.stringify(fixture))});
     await page.waitForFunction(()=>window.TsunekamiShallow.count()===4,{timeout:7000});
     assert.match(await page.locator('#shallowCount').innerText(),/4件/);
-    const layers=await page.locator('.leaflet-overlay-pane path').count();assert(layers>=3,'imported lines not visible');
+    const layers=await page.locator('.depth-private').count();assert.equal(layers,4,'all four locally imported shapes must render');
     await page.locator('#close').click();return 'only generated fixture imported locally in test browser';
   });
   await ck('Private import persists within same browser and can be deleted',async()=>{
