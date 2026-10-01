@@ -1,0 +1,58 @@
+name: Verify Tsunekami contour map before release
+on:
+  push:
+    branches: ['research/tsunekami-depth']
+    paths:
+      - 'scripts/build_tsunekami_map_data.py'
+      - 'tsunekami-map/index.html'
+      - 'tests/tsunekami-map-smoke.cjs'
+      - '.github/workflows/tsunekami-verified.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install geometry and headless browser
+        run: |
+          python3 -m pip install --break-system-packages shapely==2.1.2
+          npm install --no-save playwright@1.56.0
+          npx playwright install chromium --with-deps
+      - name: Build official depth lines and model from verified sources
+        run: python3 scripts/build_tsunekami_map_data.py
+      - name: Bundle pinned Leaflet exactly like the live Pages build
+        run: |
+          npm install --prefix /tmp/leaflet-for-map --no-save --no-audit --no-fund leaflet@1.9.4
+          mkdir -p shore-map/assets
+          cp /tmp/leaflet-for-map/node_modules/leaflet/dist/leaflet.js shore-map/assets/leaflet.js
+          cp /tmp/leaflet-for-map/node_modules/leaflet/dist/leaflet.css shore-map/assets/leaflet.css
+          cp -r /tmp/leaflet-for-map/node_modules/leaflet/dist/images shore-map/assets/images
+      - name: Start local website
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/tsunekami-map.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/tsunekami-map/ > /dev/null
+      - name: Android-sized real-depth mobile test
+        run: node tests/tsunekami-map-smoke.cjs
+      - name: Upload mobile screenshots and test logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tsunekami-mobile-verified
+          path: test-results/tsunekami/
+          retention-days: 10
+      - name: Commit data only after tests have passed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tsunekami-map/contours.geojson tsunekami-map/coarse.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Add tested official Tsunekami 20m/50m contours and clearly marked coarse depth model"
+            git push origin HEAD:research/tsunekami-depth
+          fi
