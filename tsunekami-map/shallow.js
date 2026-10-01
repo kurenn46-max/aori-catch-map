@@ -109,6 +109,6 @@ function open(){
 }
 window.TsunekamiShallow={
  start:function(map,L,opts){state.map=map;state.L=L;state.group=L.layerGroup().addTo(map);state.status=opts.status||state.status;state.onModel=opts.onModel||state.onModel;restore();},
- open:open,count:function(){return state.records.length;},isReady:function(){return !!state.group;}
+ open:open,count:function(){return state.records.length;},drawnCount:function(){return state.group?state.group.getLayers().length:0;},isReady:function(){return !!state.group;}
 };
 })();
