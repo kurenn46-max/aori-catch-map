@@ -65,7 +65,7 @@ function draw(){
     .bindPopup('水深記録：'+d+'m<br>端末内の資料から表示。出典と測量日を確認してな。').addTo(state.group);
   }
  }
- state.group.bringToFront();
+ state.group.eachLayer(function(layer){if(typeof layer.bringToFront==='function')layer.bringToFront();});
  var t=document.getElementById('shallowCount');if(t)t.textContent='端末内の浅場データ：'+state.records.length+'件';
 }
 function persist(){
