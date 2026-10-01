@@ -58,10 +58,10 @@ function parseText(input){
 function draw(){
  if(!state.group)return;state.group.clearLayers();
  for(var r of state.records){var d=r.depth,color=shade(d);
-  if(r.kind==='line'){state.L.polyline(r.coords,{color:color,weight:d<=10?4:3,opacity:.95})
+  if(r.kind==='line'){state.L.polyline(r.coords,{color:color,weight:d<=10?4:3,opacity:.95,className:'depth-private'})
    .bindPopup('読み込み済み等深線：'+d+'m<br>端末内の資料から表示。測量日・出典は元資料を確認してな。').addTo(state.group);
   }else{
-   state.L.circleMarker(r.coords,{radius:5,color:'#fff',weight:1.5,fillColor:color,fillOpacity:.95})
+   state.L.circleMarker(r.coords,{radius:5,color:'#fff',weight:1.5,fillColor:color,fillOpacity:.95,className:'depth-private'})
     .bindPopup('水深記録：'+d+'m<br>端末内の資料から表示。出典と測量日を確認してな。').addTo(state.group);
   }
  }
@@ -105,7 +105,7 @@ function open(){
  clear.onclick=function(){if(!confirm('この端末に読み込んだ浅場データを全部削除する？'))return;state.records=[];persist();draw();c.textContent='端末内の浅場データ：0件';state.status('端末内の取込データを削除したで。');};
  var approx=el('button','沖側の概算水深を切り替える',body);approx.style.cssText='margin:9px 0 0 6px;padding:9px;border:1px solid #b6d4df;border-radius:9px;background:#e6f2f7;color:#14556b';approx.onclick=state.onModel;
  row(body,'h3','実際の浅い海図を確認する');link(body,'日本水路協会・小型船用電子データ（5m・10m）','https://www.jha.or.jp/jp/shop/products/digital/index.html');link(body,'new pec（全国沿岸・2m/5m/10m）','https://www.newpec.jp/');link(body,'国土地理院の地図','https://maps.gsi.go.jp/');
- row(body,'p','取込形式：GeoJSONのPoint／LineString／MultiLineStringにdepth_m属性、またはCSVのlatitude,longitude,depth_m（点データ）。線はline_id列で結合できる。MIRC系の緯度 経度 水深 属性（4列、空行で線を区切る）にも対応。').className='muted';
+ row(body,'p','取込形式：GeoJSONのPoint／LineString／MultiLineStringにdepth_m属性、またはCSVのlatitude,longitude,depth_m（点データ）。線はline_id列で結合できる。MIRC系の緯度 経度 水深 属性（4列、空行で線を区切る）にも対応。JHAのERC専用形式は、そのままでは読み込めず、利用許諾の範囲で別途形式変換が必要。').className='muted';
 }
 window.TsunekamiShallow={
  start:function(map,L,opts){state.map=map;state.L=L;state.group=L.layerGroup().addTo(map);state.status=opts.status||state.status;state.onModel=opts.onModel||state.onModel;restore();},
