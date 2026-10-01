@@ -34,9 +34,9 @@ function sourcePanel(){const p=$('details');p.textContent='';
 function par(tag,txt,cl){let e=document.createElement(tag);e.textContent=txt;if(cl)e.className=cl;p.append(e);return e;}
 par('p','航空写真に海しるAPIの20m・50m等深線を重ねた常神限定マップやで。地図を動かして細部を確認できる。');
 par('h3','オレンジ＝20m ／ 紫＝50m');
-par('p','等深線は水深グリッドから作成された公式の線データ。線上が該当する水深を表すが、線の間の任意地点の水深は分からへん。5m・10m線はこのデータには入っていない。');
+par('p','等深線は水深グリッドから作成された公式の線データ。線上の目安になるが、岸際では海岸線や実際の水深とずれる可能性がある。線の間の任意地点の水深は分からへん。5m・10m線はこのデータには入っていない。');
 par('h3','概算ボタン');
-par('p','GMRTの地形モデルから得た沖側の概算を約430m間隔で表示する。常神沿岸で高精度の海中測量データは確認できてへん。表示する数字は5m単位に丸めた地形モデルの参考値で、実測水深ではない。');
+par('p','GMRTの地形モデルから得た沖側の概算を約430m間隔で表示する。常神沿岸で高精度の海中測量データは確認できてへん。表示する数字は5m単位に丸めた地形モデルの参考値で、実測値ではない。');
 par('h3','岸からの距離');
 par('p','エリア切替時の岸マークは漁港付近の基準地点。実際の釣り座を指定したい場合は「岸指定」を押して地図をタップ。300m・500m・1kmはその地点からの半径やで。');
 const note=par('div','注意：岸近く・根・急な駆け上がりはこの資料で判別できない。公式等深線も安全を保証せず、航海用途には使えない。最新の海図・立入規制を別に確認してな。','warning');
@@ -61,7 +61,7 @@ const fs=(j.features||[]).filter(f=>[20,50].includes(f.properties?.depth_m)&&['L
 if(!depths.has(20)||!depths.has(50))throw Error('20m・50mの両方を確認できません。');
 contours=fs;status.contoursLoaded=fs.length;status.depthValues=[...depths].sort((a,b)=>a-b);
 official=L.geoJSON(fs,{style:f=>({color:f.properties.depth_m===20?'#ef8c13':'#944fd2',weight:f.properties.depth_m===20?4:3.3,opacity:.95}),onEachFeature:(f,layer)=>{layer.bindPopup('<strong>公式等深線：'+f.properties.depth_m+'m</strong><br>出典：海しるAPI。水深のグリッドデータから作成。<br>線以外の正確な水深は示していません。');}}).addTo(map);
-labelsForZone();$('status').textContent='公式20m・50mの水深線を表示中';say('20m・50mの等深線を表示したで。',4400);
+labelsForZone();$('status').textContent='参考等深線 20m・50m（岸際は誤差注意）';say('20m・50mの等深線を表示したで。',4400);
 }).catch(e=>{err('水深データの読込失敗：'+e.message);$('status').textContent='水深線を取得できていません';});}
 function loadModel(){return fetch('./coarse.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('概算水深ファイル '+r.status);return r.json();}).then(j=>{model=Array.isArray(j.nodes)?j.nodes:[];status.modelNodes=model.length;if(!model.length)throw Error('概算値は利用できません');}).catch(e=>{status.errors.push('概算モデル：'+e.message);model=[];});}
 function toggleModel(){if(!model.length){say('この付近の概算水深はまだ利用できへん。');return;}showModel=!showModel;$('coarse').classList.toggle('on',showModel);modelGroup.clearLayers();
@@ -79,7 +79,7 @@ $('area').onchange=e=>moveZone(e.target.value);
 $('base').onclick=function(){showPhoto=!showPhoto;if(showPhoto){if(map.getZoom()<14)map.setZoom(14);photo.addTo(map);this.textContent='航空写真';}else{map.removeLayer(photo);this.textContent='標準地図';}if(official)official.bringToFront();};
 $('zi').onclick=()=>map.zoomIn();$('zo').onclick=()=>map.zoomOut();
 $('gps').onclick=()=>{if(!navigator.geolocation){say('位置情報に対応してへん。');return;}say('現在地を取得中…',0);navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],17);say('現在地へ移動したで。',3300);},()=>say('GPSを取得できへん。位置情報を許可してな。'),{enableHighAccuracy:true,timeout:12000});};
-$('pick').onclick=()=>{picking=true;this.classList.add('on');say('釣り座の正確な位置をタップしてな。',0);};
+$('pick').onclick=()=>{picking=true;$('pick').classList.add('on');say('釣り座の正確な位置をタップしてな。',0);};
 document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>setRange(Number(b.dataset.range)));
 $('coarse').onclick=toggleModel;$('info').onclick=()=>{$('details').textContent='';sourcePanel();$('shade').hidden=false;$('sheet').hidden=false;};$('shade').onclick=hideSheet;$('close').onclick=hideSheet;
 map.on('click',e=>{if(picking){shore=e.latlng;picking=false;$('pick').classList.remove('on');drawShore();say('釣り座を変更したで。',3900);return;}
