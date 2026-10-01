@@ -1,0 +1,26 @@
+name: Prepare verified Tsunekami port aerial PDF base
+on:
+  push:
+    branches: ['research/tsunekami-port-sheet']
+    paths:
+      - 'scripts/get_tsunekami_port_aerial.py'
+      - '.github/workflows/get-tsunekami-port-aerial.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  imagery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Pillow
+        run: python -m pip install pillow
+      - name: Fetch georeferenced GSI imagery centered on official JCG port coordinates
+        run: python scripts/get_tsunekami_port_aerial.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tsunekami-port-imagery
+          path: tsunekami-port-assets/
+          retention-days: 4
