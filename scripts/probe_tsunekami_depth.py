@@ -48,6 +48,16 @@ def go():
   for name,(lat,lon) in sites.items():
     for direction,dlat,dlon in [("N",.003,0),("W",0,-.003)]:
       queries.append((f"point_{name}_{direction}",base+"PointServer?"+urllib.parse.urlencode({"latitude":lat+dlat,"longitude":lon+dlon,"format":"json"})))
+  # Published trial key, not a user secret. Cache only bounded public data.
+  public_trial="0e83ad5d93214e04abf37c970c32b641"
+  envelope={"xmin":135.792,"ymin":35.592,"xmax":135.880,"ymax":35.663,"spatialReference":{"wkid":4326}}
+  for lid,depth in [(10,20),(11,50),(12,100),(13,150),(14,200)]:
+    base_api="https://api.msil.go.jp/depth-contour/v2/MapServer/"+str(lid)+"/query"
+    common={"where":"1=1","geometry":json.dumps(envelope),"geometryType":"esriGeometryEnvelope","inSR":"4326","spatialRel":"esriSpatialRelIntersects","subscription-key":public_trial}
+    qs=urllib.parse.urlencode(dict(common,returnCountOnly="true",f="json"))
+    queries.append((f"msil_{depth}m_count",base_api+"?"+qs))
+    qs=urllib.parse.urlencode(dict(common,outFields="*",returnGeometry="true",resultRecordCount="1000",f="geojson"))
+    queries.append((f"msil_{depth}m_geojson",base_api+"?"+qs))
   report=[]
   for tag,url in queries:
     entry=get(tag,url);report.append(entry);print(json.dumps(entry,ensure_ascii=False),flush=True)
