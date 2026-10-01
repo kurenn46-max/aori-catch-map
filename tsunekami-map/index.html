@@ -14,13 +14,14 @@
 @media(min-width:800px){#foot{left:50%;right:auto;transform:translateX(-50%);width:420px;border-radius:16px 16px 0 0}#sheet{max-width:440px;left:auto;right:10px;border-radius:16px;bottom:65px}}
 </style></head><body>
 <div id="map" aria-label="常神半島周辺。指で移動・拡大できます"></div>
-<div id="top"><div id="brand">🌊 常神水深</div><select id="area" aria-label="エリアを選択"><option value="tsunekami">常神</option><option value="miko">神子</option><option value="ogawa">小川</option><option value="yushi">遊子</option></select><button id="base">航空写真</button><button id="info" aria-label="資料と使い方">資料</button></div>
+<div id="top"><div id="brand">🌊 常神・浅場</div><select id="area" aria-label="エリアを選択"><option value="tsunekami">常神</option><option value="miko">神子</option><option value="ogawa">小川</option><option value="yushi">遊子</option></select><button id="base">航空写真</button><button id="info" aria-label="資料と使い方">資料</button></div>
 <div id="side"><button id="zi" aria-label="拡大">＋</button><button id="zo" aria-label="縮小">−</button><button id="gps" aria-label="現在地">◎</button></div>
 <div id="toast" role="status">20m・50mの公式等深線を読み込み中…</div>
-<div id="legend"><strong id="status">公式の等深線を読み込み中</strong><span class="key"></span>20m <span class="key fifty"></span>50m <span id="rangeStatus"> / 岸から300m</span></div>
-<div id="foot"><button data-range="300" class="on">300m</button><button data-range="500">500m</button><button data-range="1000">1km</button><button id="pick">📍岸指定</button><button id="coarse">概算</button></div>
+<div id="legend"><strong id="status">20m・50m線を読み込み中／2m・5m・10mは取込対応</strong><span class="key"></span>20m <span class="key fifty"></span>50m <span id="rangeStatus"> / 岸から300m</span></div>
+<div id="foot"><button data-range="300" class="on">300m</button><button data-range="500">500m</button><button data-range="1000">1km</button><button id="pick">📍岸指定</button><button id="coarse">浅場</button></div>
 <div id="shade" hidden></div><section id="sheet" hidden role="dialog" aria-modal="true"><button id="close" aria-label="閉じる">×</button><h2>水深資料・使い方</h2><div id="details"></div></section>
 <script src="../shore-map/assets/leaflet.js" onerror="this.onerror=null;this.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'"></script>
+<script src="./shallow.js"></script>
 <script>
 (function(){
 'use strict';
@@ -32,11 +33,11 @@ function say(t,time=4800){$('toast').textContent=t;$('toast').hidden=false;clear
 function hideSheet(){$('sheet').hidden=true;$('shade').hidden=true;}
 function sourcePanel(){const p=$('details');p.textContent='';
 function par(tag,txt,cl){let e=document.createElement(tag);e.textContent=txt;if(cl)e.className=cl;p.append(e);return e;}
-par('p','航空写真に海しるAPIの20m・50m等深線を重ねた常神限定マップやで。地図を動かして細部を確認できる。');
+par('p','海しるAPIの20m・50m等深線と、ご自身が利用を許可された浅場の水深データを重ねる常神限定マップ。5m・10mの公開データを取得できたとは表示せえへん。');
 par('h3','オレンジ＝20m ／ 紫＝50m');
 par('p','等深線は水深グリッドから作成された公式の線データ。線上の目安になるが、岸際では海岸線や実際の水深とずれる可能性がある。線の間の任意地点の水深は分からへん。5m・10m線はこのデータには入っていない。');
-par('h3','概算ボタン');
-par('p','GMRTの地形モデルから得た沖側の概算を約430m間隔で表示する。常神沿岸で高精度の海中測量データは確認できてへん。表示する数字は5m単位に丸めた地形モデルの参考値で、実測値ではない。');
+par('h3','浅場ボタン・概算');
+par('p','浅場ボタンで許可のあるGeoJSON／CSV／4列テキストを読み込める。沖側の概算は浅場メニューから切り替えられる。GMRTの地形モデルを約430m間隔で表示する参考値で、実測値ではない。');
 par('h3','岸からの距離');
 par('p','エリア切替時の岸マークは漁港付近の基準地点。実際の釣り座を指定したい場合は「岸指定」を押して地図をタップ。300m・500m・1kmはその地点からの半径やで。');
 const note=par('div','注意：岸近く・根・急な駆け上がりはこの資料で判別できない。公式等深線も安全を保証せず、航海用途には使えない。最新の海図・立入規制を別に確認してな。','warning');
@@ -64,7 +65,7 @@ official=L.geoJSON(fs,{style:f=>({color:f.properties.depth_m===20?'#ef8c13':'#94
 labelsForZone();$('status').textContent='参考等深線 20m・50m（岸際は誤差注意）';say('20m・50mの等深線を表示したで。',4400);
 }).catch(e=>{err('水深データの読込失敗：'+e.message);$('status').textContent='水深線を取得できていません';});}
 function loadModel(){return fetch('./coarse.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('概算水深ファイル '+r.status);return r.json();}).then(j=>{model=Array.isArray(j.nodes)?j.nodes:[];status.modelNodes=model.length;if(!model.length)throw Error('概算値は利用できません');}).catch(e=>{status.errors.push('概算モデル：'+e.message);model=[];});}
-function toggleModel(){if(!model.length){say('この付近の概算水深はまだ利用できへん。');return;}showModel=!showModel;$('coarse').classList.toggle('on',showModel);modelGroup.clearLayers();
+function toggleModel(){if(!model.length){say('この付近の概算水深はまだ利用できへん。');return;}showModel=!showModel;modelGroup.clearLayers();
 if(showModel){for(const [lat,lon,dep] of model){let marker=L.marker([lat,lon],{icon:L.divIcon({className:'',html:'<span class="coarsepin">約'+dep+'m</span>',iconSize:[53,21],iconAnchor:[26,10]})});marker.bindPopup('<strong>モデル概算：約'+dep+'m</strong><br>GMRT 4.5の補間値。約430m間隔の表示で、魚探等の実測値ではない。<br>浅瀬や根の判断には使わないでな。');marker.addTo(modelGroup);}say('青い「約○m」は概算。公式等深線とは別物やで。',5500);}else say('概算を非表示にして、公式等深線だけにしたで。',3200);
 }
 function start(){if(typeof L==='undefined'){err('地図ライブラリが起動できません。Chromeで再読み込みしてな。');return;}status.started=true;
@@ -73,7 +74,7 @@ std=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',{maxZ
 photo=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg',{minZoom:14,maxZoom:19,maxNativeZoom:18,attribution:'国土地理院（航空写真）',keepBuffer:1}).addTo(map);
 std.on('tileload',()=>status.imageTiles++);photo.on('tileload',()=>status.imageTiles++);
 std.on('tileerror',()=>say('地図画像を読み込めません。ネット接続を確認してな。',4600));
-modelGroup=L.layerGroup().addTo(map);labels=L.layerGroup().addTo(map);
+modelGroup=L.layerGroup().addTo(map);labels=L.layerGroup().addTo(map);if(window.TsunekamiShallow){window.TsunekamiShallow.start(map,L,{status:say,onModel:toggleModel});status.shallowReady=true;}else{status.errors.push('浅場読込モジュールがありません');}
 shore=L.latLng(Z.tsunekami.pt);drawShore();
 $('area').onchange=e=>moveZone(e.target.value);
 $('base').onclick=function(){showPhoto=!showPhoto;if(showPhoto){if(map.getZoom()<14)map.setZoom(14);photo.addTo(map);this.textContent='航空写真';}else{map.removeLayer(photo);this.textContent='標準地図';}if(official)official.bringToFront();};
@@ -81,7 +82,7 @@ $('zi').onclick=()=>map.zoomIn();$('zo').onclick=()=>map.zoomOut();
 $('gps').onclick=()=>{if(!navigator.geolocation){say('位置情報に対応してへん。');return;}say('現在地を取得中…',0);navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],17);say('現在地へ移動したで。',3300);},()=>say('GPSを取得できへん。位置情報を許可してな。'),{enableHighAccuracy:true,timeout:12000});};
 $('pick').onclick=()=>{map.closePopup();document.querySelectorAll('.leaflet-popup').forEach(el=>{el.style.pointerEvents='none';});picking=true;$('pick').classList.add('on');say('釣り座の正確な位置をタップしてな。',0);};
 document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>setRange(Number(b.dataset.range)));
-$('coarse').onclick=toggleModel;$('info').onclick=()=>{$('details').textContent='';sourcePanel();$('shade').hidden=false;$('sheet').hidden=false;};$('shade').onclick=hideSheet;$('close').onclick=hideSheet;
+$('coarse').onclick=()=>{if(window.TsunekamiShallow){window.TsunekamiShallow.open();}else say('浅場機能を読み込めません。');};$('info').onclick=()=>{$('sheet').querySelector('h2').textContent='水深資料・使い方';$('details').textContent='';sourcePanel();$('shade').hidden=false;$('sheet').hidden=false;};$('shade').onclick=hideSheet;$('close').onclick=hideSheet;
 map.on('click',e=>{if(picking){shore=e.latlng;picking=false;$('pick').classList.remove('on');drawShore();say('釣り座を変更したで。',3900);return;}
 const d=shore?dist(shore,e.latlng):null;const near=contours.length?nearestLine(e.latlng):null;
 let html='<strong>釣り座から '+(d===null?'不明':Math.round(d)+'m')+'</strong><br>この地点の正確な水深は未取得。';
