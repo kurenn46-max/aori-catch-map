@@ -1,0 +1,25 @@
+name: Research Tsunekami actual water depths
+on:
+  push:
+    branches: ['research/tsunekami-depth']
+    paths:
+      - 'scripts/probe_tsunekami_depth.py'
+      - '.github/workflows/tsunekami-depth-probe.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe-depth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check public bathymetry sources
+        run: python3 scripts/probe_tsunekami_depth.py
+      - name: Save source data and verification results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tsunekami-depth-source-check
+          path: depth-probe/
+          retention-days: 10

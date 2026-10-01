@@ -26,6 +26,10 @@ jobs:
         env:
           TEST_URL: https://kurenn46-max.github.io/aori-catch-map/shore-map/
         run: node tests/shore-map-smoke.cjs
+      - name: Verify published Tsunekami depth map in Android-sized browser
+        env:
+          TEST_URL: https://kurenn46-max.github.io/aori-catch-map/tsunekami-map/
+        run: node tests/tsunekami-map-smoke.cjs
       - name: Save live-site screenshots and results
         uses: actions/upload-artifact@v4
         if: always()
