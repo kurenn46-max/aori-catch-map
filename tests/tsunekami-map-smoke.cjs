@@ -6,7 +6,7 @@ const fs=require('fs'),assert=require('assert/strict');
  const context=await browser.newContext({...devices['Pixel 7'],locale:'ja-JP',timezoneId:'Asia/Tokyo',permissions:['geolocation'],geolocation:{latitude:35.633,longitude:135.82}});
  const page=await context.newPage(),errors=[],failures=[],checks=[];
  page.on('pageerror',e=>errors.push(String(e)));
- page.on('response',r=>{if(/tsunekami-map\/(contours.geojson|coarse.json)/.test(r.url())&&r.status()!==200)failures.push(r.url()+' '+r.status());});
+ page.on('response',r=>{if(/tsunekami-map\/(contours.geojson|coarse.json|shallow.js)/.test(r.url())&&r.status()!==200)failures.push(r.url()+' '+r.status());});
  page.on('requestfailed',r=>{if(/tsunekami-map\/(contours.geojson|coarse.json)/.test(r.url()))failures.push(r.url()+' '+r.failure()?.errorText);});
  async function ck(name,fn){try{let extra=await fn();checks.push({name,result:'PASS',extra:extra||''});}catch(e){checks.push({name,result:'FAIL',error:e.stack||String(e)});await page.screenshot({path:'test-results/tsunekami/FAIL-'+checks.length+'.png'});}}
  try{
@@ -14,7 +14,7 @@ const fs=require('fs'),assert=require('assert/strict');
   await ck('Map starts and official depth files load',async()=>{
     await page.waitForFunction(()=>window.__tsunekamiTest?.dataReady,{timeout:30000});
     const x=await page.evaluate(()=>window.__tsunekamiTest);
-    assert.equal(x.started,true);assert(x.contoursLoaded>=2,'No official contour features');assert(x.depthValues.includes(20)&&x.depthValues.includes(50),'Missing true 20/50m contour');assert(x.modelNodes>=30,'Model unavailable');assert.equal(x.errors.length,0,'App data errors: '+x.errors);return JSON.stringify(x);
+    assert.equal(x.started,true);assert.equal(x.shallowReady,true,'private shallow module missing');assert(x.contoursLoaded>=2,'No official contour features');assert(x.depthValues.includes(20)&&x.depthValues.includes(50),'Missing true 20/50m contour');assert(x.modelNodes>=30,'Model unavailable');assert.equal(x.errors.length,0,'App data errors: '+x.errors);return JSON.stringify(x);
   });
   await ck('GSI imagery actually displays',async()=>{
     await page.waitForFunction(()=>[...document.querySelectorAll('img.leaflet-tile')].some(x=>x.complete&&x.naturalWidth>0),{timeout:30000});return 'real image pixels loaded';
@@ -32,11 +32,42 @@ const fs=require('fs'),assert=require('assert/strict');
   await ck('Switch 300m/500m/1km',async()=>{
     for(const m of [500,1000,300]){await page.locator('[data-range="'+m+'"]').click();assert.equal(await page.locator('[data-range="'+m+'"]').evaluate(e=>e.classList.contains('on')),true);}
   });
-  await ck('Estimated depths are explicitly approximate',async()=>{
-    await page.locator('#coarse').click();assert.equal(await page.locator('#coarse').evaluate(e=>e.classList.contains('on')),true);
+  await ck('No fake shallow depths are preloaded',async()=>{
+    const n=await page.evaluate(()=>window.TsunekamiShallow.count());assert.equal(n,0);
+    assert.equal(await page.locator('.depth-private').count(),0);
+  });
+  await ck('Private 2m/5m/10m GeoJSON import needs permission and displays actual file values',async()=>{
+    await page.locator('#coarse').click();
+    const f=page.locator('#shallowFile');assert.equal(await f.isDisabled(),true);
+    await page.locator('#shallowConsent').check();assert.equal(await f.isDisabled(),false);
+    const fixture={type:'FeatureCollection',features:[
+      {type:'Feature',properties:{depth_m:2},geometry:{type:'LineString',coordinates:[[135.820,35.637],[135.821,35.637]]}},
+      {type:'Feature',properties:{depth_m:5},geometry:{type:'LineString',coordinates:[[135.821,35.638],[135.822,35.638]]}},
+      {type:'Feature',properties:{depth_m:10},geometry:{type:'LineString',coordinates:[[135.823,35.640],[135.824,35.640]]}},
+      {type:'Feature',properties:{depth_m:8.5},geometry:{type:'Point',coordinates:[135.822,35.639]}}
+    ]};
+    await f.setInputFiles({name:'TEST_ONLY_FAKE_CONTOURS.geojson',mimeType:'application/geo+json',buffer:Buffer.from(JSON.stringify(fixture))});
+    await page.waitForFunction(()=>window.TsunekamiShallow.count()===4,{timeout:7000});
+    assert.match(await page.locator('#shallowCount').innerText(),/4件/);
+    const layers=await page.locator('.leaflet-overlay-pane path').count();assert(layers>=3,'imported lines not visible');
+    await page.locator('#close').click();return 'only generated fixture imported locally in test browser';
+  });
+  await ck('Private import persists within same browser and can be deleted',async()=>{
+    await page.reload({waitUntil:'domcontentloaded'});
+    await page.waitForFunction(()=>window.__tsunekamiTest?.dataReady && window.__tsunekamiTest.shallowReady,{timeout:30000});
+    assert.equal(await page.evaluate(()=>window.TsunekamiShallow.count()),4);
+    await page.locator('#coarse').click();
+    await page.getByRole('button',{name:'端末内の水深データを削除'}).click();
+    await page.waitForFunction(()=>window.TsunekamiShallow.count()===0,{timeout:5000});
+    await page.locator('#close').click();
+  });
+  await ck('Estimated depths can be shown only through a separate clearly labelled action',async()=>{
+    await page.locator('#coarse').click();
+    await page.getByRole('button',{name:'沖側の概算水深を切り替える'}).click();
     assert(await page.locator('.coarsepin').count()>10,'coarse data labels absent');
     assert.match(await page.locator('.coarsepin').first().innerText(),/約/);
-    await page.locator('#coarse').click();
+    await page.getByRole('button',{name:'沖側の概算水深を切り替える'}).click();
+    await page.locator('#close').click();
   });
   await ck('Photo/standard switch',async()=>{
     await page.locator('#base').click();assert.equal(await page.locator('#base').innerText(),'標準地図');await page.locator('#base').click();assert.equal(await page.locator('#base').innerText(),'航空写真');
@@ -49,7 +80,7 @@ const fs=require('fs'),assert=require('assert/strict');
     await page.locator('#pick').click();await page.locator('#map').click({position:{x:180,y:460}});assert.equal(await page.locator('#pick').evaluate(e=>e.classList.contains('on')),false);
   });
   await ck('Sources and limitations are accessible',async()=>{
-    await page.locator('#info').click();assert.match(await page.locator('#details').innerText(),/公式等深線/);assert.match(await page.locator('#details').innerText(),/実測値ではない/);await page.locator('#close').click();
+    await page.locator('#info').click();assert.match(await page.locator('#details').innerText(),/20m・50m/);assert.match(await page.locator('#details').innerText(),/実測値ではない/);await page.locator('#close').click();
   });
   await ck('No runtime/data request errors',async()=>{assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);});
   await page.screenshot({path:'test-results/tsunekami/02-final.png',fullPage:true});
