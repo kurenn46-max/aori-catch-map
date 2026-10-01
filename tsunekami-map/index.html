@@ -79,7 +79,7 @@ $('area').onchange=e=>moveZone(e.target.value);
 $('base').onclick=function(){showPhoto=!showPhoto;if(showPhoto){if(map.getZoom()<14)map.setZoom(14);photo.addTo(map);this.textContent='航空写真';}else{map.removeLayer(photo);this.textContent='標準地図';}if(official)official.bringToFront();};
 $('zi').onclick=()=>map.zoomIn();$('zo').onclick=()=>map.zoomOut();
 $('gps').onclick=()=>{if(!navigator.geolocation){say('位置情報に対応してへん。');return;}say('現在地を取得中…',0);navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],17);say('現在地へ移動したで。',3300);},()=>say('GPSを取得できへん。位置情報を許可してな。'),{enableHighAccuracy:true,timeout:12000});};
-$('pick').onclick=()=>{map.closePopup();picking=true;$('pick').classList.add('on');say('釣り座の正確な位置をタップしてな。',0);};
+$('pick').onclick=()=>{map.closePopup();document.querySelectorAll('.leaflet-popup').forEach(el=>{el.style.pointerEvents='none';});picking=true;$('pick').classList.add('on');say('釣り座の正確な位置をタップしてな。',0);};
 document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>setRange(Number(b.dataset.range)));
 $('coarse').onclick=toggleModel;$('info').onclick=()=>{$('details').textContent='';sourcePanel();$('shade').hidden=false;$('sheet').hidden=false;};$('shade').onclick=hideSheet;$('close').onclick=hideSheet;
 map.on('click',e=>{if(picking){shore=e.latlng;picking=false;$('pick').classList.remove('on');drawShore();say('釣り座を変更したで。',3900);return;}
