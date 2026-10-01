@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b3145">
+<title>常神の岸釣り水深マップ | 常神・神子・小川・遊子</title>
+<link rel="stylesheet" href="../shore-map/assets/leaflet.css" onerror="this.onerror=null;this.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'">
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;background:#d6e5eb;color:#16425a}button,select{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,select:focus-visible{outline:3px solid #ffd36c;outline-offset:2px}
+#map{position:fixed;inset:0;background:#bdcfdd}#top{position:fixed;z-index:1500;top:0;left:0;right:0;min-height:57px;padding:calc(8px + env(safe-area-inset-top)) 8px 8px;background:#0b3145f2;display:flex;align-items:center;gap:7px;color:#fff;box-shadow:0 2px 8px #04263655}#brand{font-weight:900;font-size:15px;white-space:nowrap}#area{flex:1;min-width:0;border-radius:10px;padding:9px 5px;border:1px solid #80b0c3;color:#fff;background:#1d5368;font-size:13px;font-weight:850}#base,#info{min-width:41px;padding:9px 7px;border:1px solid #80b0c3;border-radius:10px;background:#205970;color:#fff;font-size:12px;font-weight:750}
+#side{z-index:1500;position:fixed;top:calc(73px + env(safe-area-inset-top));right:8px;display:grid;gap:8px}#side button{width:44px;height:44px;background:#fffffff5;border:1px solid #aac8d0;border-radius:12px;font-weight:900;color:#105b78;font-size:23px;box-shadow:0 2px 8px #1232}
+#foot{position:fixed;z-index:1500;bottom:0;left:0;right:0;padding:8px 7px calc(8px + env(safe-area-inset-bottom));background:#fcfffff7;display:grid;grid-template-columns:1.05fr 1.05fr 1.05fr 1fr 1.04fr;gap:5px;box-shadow:0 -2px 15px #1233}#foot button{min-width:0;min-height:42px;padding:9px 1px;font-size:12px;font-weight:900;color:#18576a;background:#e6f2f5;border:1px solid #bed8de;border-radius:15px;white-space:nowrap}#foot button.on{color:white;background:#0c7894;border-color:#0c7894}
+#legend{position:fixed;z-index:1350;left:8px;bottom:calc(70px + env(safe-area-inset-bottom));max-width:calc(100vw - 70px);background:#0b3145eb;color:white;border-radius:11px;padding:7px 9px;font-size:11px;box-shadow:0 2px 8px #1234;line-height:1.4;pointer-events:none}#legend strong{display:block;font-size:12px;margin-bottom:3px}#legend .key{display:inline-block;border-top:4px solid #ffa134;width:20px;vertical-align:middle;margin:0 4px}#legend .key.fifty{border-color:#b978fa}#toast{position:fixed;z-index:1400;top:calc(67px + env(safe-area-inset-top));left:8px;right:60px;max-width:480px;background:#fffef6;border:1px solid #d1dad9;border-radius:10px;color:#164961;box-shadow:0 2px 10px #1234;padding:8px 10px;font-size:12px;line-height:1.5}#toast[hidden],#shade[hidden],#sheet[hidden]{display:none}
+#shade{z-index:1700;position:fixed;inset:0;background:#00192560}#sheet{z-index:1701;position:fixed;bottom:0;left:0;right:0;max-height:76dvh;overflow:auto;border-radius:18px 18px 0 0;background:#fff;padding:15px 15px calc(22px + env(safe-area-inset-bottom));font-size:13px;line-height:1.65}#sheet h2{font-size:17px;margin:0 0 7px}#sheet h3{font-size:14px;margin:13px 0 4px}#sheet p{margin:7px 0}#sheet a{color:#006d97}#sheet .muted{color:#5c7884;font-size:12px}#close{float:right;border:0;border-radius:10px;padding:5px 11px;font-size:20px;background:#e7f2f5;color:#125c78}#sheet .warning{background:#fff4d7;border-left:4px solid #c68e25;padding:9px 10px;border-radius:5px}
+.leaflet-bottom{bottom:calc(52px + env(safe-area-inset-bottom))}.leaflet-control-attribution{font-size:9px!important;background:#ffffffe2!important}.leaflet-popup-content{font-size:13px;line-height:1.6;min-width:160px}
+.shore{background:#fca323;border:2px solid white;border-radius:50% 50% 46% 10%;width:26px;height:26px;transform:rotate(-45deg);box-shadow:0 2px 7px #1237;display:flex;justify-content:center;align-items:center}.shore span{transform:rotate(45deg);font-size:12px;font-weight:900;color:#183847}.label-depth{font-size:12px;font-weight:900;color:white;text-shadow:0 1px 2px #234;background:#df7919e9;border:1px solid white;border-radius:8px;white-space:nowrap;display:inline-block;padding:2px 5px;box-shadow:0 2px 6px #1234}.label-depth.fifty{background:#7b45beea}.coarsepin{display:inline-block;color:white;background:#39698bcc;border:1px solid white;font-weight:750;font-size:11px;border-radius:7px;padding:2px 3px;white-space:nowrap}.click{display:inline-block;background:#096e91;color:#fff;border:0;border-radius:7px;padding:8px 10px;font-size:12px;font-weight:750}
+@media(min-width:800px){#foot{left:50%;right:auto;transform:translateX(-50%);width:420px;border-radius:16px 16px 0 0}#sheet{max-width:440px;left:auto;right:10px;border-radius:16px;bottom:65px}}
+</style></head><body>
+<div id="map" aria-label="常神半島周辺。指で移動・拡大できます"></div>
+<div id="top"><div id="brand">🌊 常神水深</div><select id="area" aria-label="エリアを選択"><option value="tsunekami">常神</option><option value="miko">神子</option><option value="ogawa">小川</option><option value="yushi">遊子</option></select><button id="base">航空写真</button><button id="info" aria-label="資料と使い方">資料</button></div>
+<div id="side"><button id="zi" aria-label="拡大">＋</button><button id="zo" aria-label="縮小">−</button><button id="gps" aria-label="現在地">◎</button></div>
+<div id="toast" role="status">20m・50mの公式等深線を読み込み中…</div>
+<div id="legend"><strong id="status">公式の等深線を読み込み中</strong><span class="key"></span>20m <span class="key fifty"></span>50m <span id="rangeStatus"> / 岸から300m</span></div>
+<div id="foot"><button data-range="300" class="on">300m</button><button data-range="500">500m</button><button data-range="1000">1km</button><button id="pick">📍岸指定</button><button id="coarse">概算</button></div>
+<div id="shade" hidden></div><section id="sheet" hidden role="dialog" aria-modal="true"><button id="close" aria-label="閉じる">×</button><h2>水深資料・使い方</h2><div id="details"></div></section>
+<script src="../shore-map/assets/leaflet.js" onerror="this.onerror=null;this.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'"></script>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const Z={tsunekami:{name:'常神',pt:[35.636976,135.820512]},miko:{name:'神子',pt:[35.622245,135.838593]},ogawa:{name:'小川',pt:[35.606744,135.844873]},yushi:{name:'遊子',pt:[35.602463,135.856136]}};
+const status=window.__tsunekamiTest={started:false,contoursLoaded:0,depthValues:[],modelNodes:0,imageTiles:0,errors:[]};
+let map,std,photo,official,labels,modelGroup,shoreMark,rangeCircle,selected='tsunekami',shore=null,range=300,picking=false,showModel=false,showPhoto=true,contours=[],model=[],lastSeaPoint=null;
+function say(t,time=4800){$('toast').textContent=t;$('toast').hidden=false;clearTimeout(say.timer);if(time>0)say.timer=setTimeout(()=>{$('toast').hidden=true;},time);}
+function hideSheet(){$('sheet').hidden=true;$('shade').hidden=true;}
+function sourcePanel(){const p=$('details');p.textContent='';
+function par(tag,txt,cl){let e=document.createElement(tag);e.textContent=txt;if(cl)e.className=cl;p.append(e);return e;}
+par('p','航空写真に海しるAPIの20m・50m等深線を重ねた常神限定マップやで。地図を動かして細部を確認できる。');
+par('h3','オレンジ＝20m ／ 紫＝50m');
+par('p','等深線は水深グリッドから作成された公式の線データ。線上が該当する水深を表すが、線の間の任意地点の水深は分からへん。5m・10m線はこのデータには入っていない。');
+par('h3','概算ボタン');
+par('p','GMRTの地形モデルから得た沖側の概算を約430m間隔で表示する。常神沿岸で高精度の海中測量データは確認できてへん。表示する数字は5m単位に丸めた地形モデルの参考値で、実測水深ではない。');
+par('h3','岸からの距離');
+par('p','エリア切替時の岸マークは漁港付近の基準地点。実際の釣り座を指定したい場合は「岸指定」を押して地図をタップ。300m・500m・1kmはその地点からの半径やで。');
+const note=par('div','注意：岸近く・根・急な駆け上がりはこの資料で判別できない。公式等深線も安全を保証せず、航海用途には使えない。最新の海図・立入規制を別に確認してな。','warning');
+par('h3','出典');
+const sources=[['海しるAPI（海上保安庁）','https://portal.msil.go.jp/'],['国土地理院の地理院タイル','https://maps.gsi.go.jp/development/ichiran.html'],['GMRT 4.5（モデル概算）','https://www.gmrt.org/'],['海図・詳しいデータ（日本水路協会）','https://www.jha.or.jp/jp/shop/products/digital/index.html']];
+for(const [title,url] of sources){const e=document.createElement('p'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';a.textContent=title+' ↗';e.append(a);p.append(e);}
+par('p','このアプリは海しるAPIを利用して取得した情報をもとに作成していますが、サービスの内容は海上保安庁によって保証されていません。','muted');
+}
+function moveZone(id){selected=id;shore=L.latLng(Z[id].pt);map.setView(shore,16,{animate:false});drawShore();$('area').value=id;say(Z[id].name+'周辺。20m線を確認してな。',3600);}
+function drawShore(){if(shoreMark)map.removeLayer(shoreMark);if(rangeCircle)map.removeLayer(rangeCircle);shoreMark=L.marker(shore,{icon:L.divIcon({className:'',html:'<div class="shore"><span>岸</span></div>',iconSize:[26,26],iconAnchor:[13,26]}),zIndexOffset:900}).addTo(map).bindPopup('釣り座（仮の基準位置）<br>岸指定で正確な立ち位置に変更できるで。');rangeCircle=L.circle(shore,{radius:range,color:'#e9a232',weight:2,dashArray:'6 5',fillColor:'#edae26',fillOpacity:.04,interactive:false}).addTo(map);if(official)official.bringToFront();$('rangeStatus').textContent=' / 岸から'+(range===1000?'1km':range+'m');}
+function setRange(v){range=v;document.querySelectorAll('[data-range]').forEach(b=>b.classList.toggle('on',Number(b.dataset.range)===range));drawShore();if(shore)map.fitBounds(rangeCircle.getBounds(),{paddingTopLeft:[12,95],paddingBottomRight:[58,95],maxZoom:17,animate:false});}
+function err(m){status.errors.push(String(m));say(String(m),0);}
+function geometryCoords(geom){if(geom.type==='LineString')return [geom.coordinates];if(geom.type==='MultiLineString')return geom.coordinates;return [];}
+function dist(a,b){return map.distance(a,b);}
+function nearestLine(point){let closest={m:Infinity,depth:null};for(const f of contours){for(const seg of geometryCoords(f.geometry))for(const [lon,lat] of seg){let m=dist(point,L.latLng(lat,lon));if(m<closest.m)closest={m,depth:f.properties.depth_m};}}return closest;}
+function labelsForZone(){labels.clearLayers();for(const f of contours){const dep=f.properties.depth_m;for(const z of Object.values(Z)){let closest={d:Infinity,lat:null,lon:null};for(const seg of geometryCoords(f.geometry))for(const [lon,lat] of seg){let d=dist(z.pt,[lat,lon]);if(d<closest.d)closest={d,lat,lon};}
+if(closest.lat===null||closest.d>1550)continue;
+L.marker([closest.lat,closest.lon],{interactive:false,icon:L.divIcon({className:'',html:'<span class="label-depth '+(dep===50?'fifty':'')+'">'+dep+'m</span>',iconSize:[36,25],iconAnchor:[18,11]})}).addTo(labels);
+}}}
+function loadOfficial(){return fetch('./contours.geojson',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('公式等深線データが見つからへん（'+r.status+'）');return r.json();}).then(j=>{
+const fs=(j.features||[]).filter(f=>[20,50].includes(f.properties?.depth_m)&&['LineString','MultiLineString'].includes(f.geometry?.type));const depths=new Set(fs.map(f=>f.properties.depth_m));
+if(!depths.has(20)||!depths.has(50))throw Error('20m・50mの両方を確認できません。');
+contours=fs;status.contoursLoaded=fs.length;status.depthValues=[...depths].sort((a,b)=>a-b);
+official=L.geoJSON(fs,{style:f=>({color:f.properties.depth_m===20?'#ef8c13':'#944fd2',weight:f.properties.depth_m===20?4:3.3,opacity:.95}),onEachFeature:(f,layer)=>{layer.bindPopup('<strong>公式等深線：'+f.properties.depth_m+'m</strong><br>出典：海しるAPI。水深のグリッドデータから作成。<br>線以外の正確な水深は示していません。');}}).addTo(map);
+labelsForZone();$('status').textContent='公式20m・50mの水深線を表示中';say('20m・50mの等深線を表示したで。',4400);
+}).catch(e=>{err('水深データの読込失敗：'+e.message);$('status').textContent='水深線を取得できていません';});}
+function loadModel(){return fetch('./coarse.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('概算水深ファイル '+r.status);return r.json();}).then(j=>{model=Array.isArray(j.nodes)?j.nodes:[];status.modelNodes=model.length;if(!model.length)throw Error('概算値は利用できません');}).catch(e=>{status.errors.push('概算モデル：'+e.message);model=[];});}
+function toggleModel(){if(!model.length){say('この付近の概算水深はまだ利用できへん。');return;}showModel=!showModel;$('coarse').classList.toggle('on',showModel);modelGroup.clearLayers();
+if(showModel){for(const [lat,lon,dep] of model){let marker=L.marker([lat,lon],{icon:L.divIcon({className:'',html:'<span class="coarsepin">約'+dep+'m</span>',iconSize:[53,21],iconAnchor:[26,10]})});marker.bindPopup('<strong>モデル概算：約'+dep+'m</strong><br>GMRT 4.5の補間値。約430m間隔の表示で、魚探等の実測値ではない。<br>浅瀬や根の判断には使わないでな。');marker.addTo(modelGroup);}say('青い「約○m」は概算。公式等深線とは別物やで。',5500);}else say('概算を非表示にして、公式等深線だけにしたで。',3200);
+}
+function start(){if(typeof L==='undefined'){err('地図ライブラリが起動できません。Chromeで再読み込みしてな。');return;}status.started=true;
+map=L.map('map',{zoomControl:false,minZoom:11,maxZoom:19,preferCanvas:true}).setView(Z.tsunekami.pt,16);
+std=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',{maxZoom:19,maxNativeZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>',keepBuffer:1}).addTo(map);
+photo=L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg',{minZoom:14,maxZoom:19,maxNativeZoom:18,attribution:'国土地理院（航空写真）',keepBuffer:1}).addTo(map);
+std.on('tileload',()=>status.imageTiles++);photo.on('tileload',()=>status.imageTiles++);
+std.on('tileerror',()=>say('地図画像を読み込めません。ネット接続を確認してな。',4600));
+modelGroup=L.layerGroup().addTo(map);labels=L.layerGroup().addTo(map);
+shore=L.latLng(Z.tsunekami.pt);drawShore();
+$('area').onchange=e=>moveZone(e.target.value);
+$('base').onclick=function(){showPhoto=!showPhoto;if(showPhoto){if(map.getZoom()<14)map.setZoom(14);photo.addTo(map);this.textContent='航空写真';}else{map.removeLayer(photo);this.textContent='標準地図';}if(official)official.bringToFront();};
+$('zi').onclick=()=>map.zoomIn();$('zo').onclick=()=>map.zoomOut();
+$('gps').onclick=()=>{if(!navigator.geolocation){say('位置情報に対応してへん。');return;}say('現在地を取得中…',0);navigator.geolocation.getCurrentPosition(p=>{map.setView([p.coords.latitude,p.coords.longitude],17);say('現在地へ移動したで。',3300);},()=>say('GPSを取得できへん。位置情報を許可してな。'),{enableHighAccuracy:true,timeout:12000});};
+$('pick').onclick=()=>{picking=true;this.classList.add('on');say('釣り座の正確な位置をタップしてな。',0);};
+document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>setRange(Number(b.dataset.range)));
+$('coarse').onclick=toggleModel;$('info').onclick=()=>{$('details').textContent='';sourcePanel();$('shade').hidden=false;$('sheet').hidden=false;};$('shade').onclick=hideSheet;$('close').onclick=hideSheet;
+map.on('click',e=>{if(picking){shore=e.latlng;picking=false;$('pick').classList.remove('on');drawShore();say('釣り座を変更したで。',3900);return;}
+const d=shore?dist(shore,e.latlng):null;const near=contours.length?nearestLine(e.latlng):null;
+let html='<strong>釣り座から '+(d===null?'不明':Math.round(d)+'m')+'</strong><br>この地点の正確な水深は未取得。';
+if(near&&isFinite(near.m))html+='<br>最寄りの'+near.depth+'m線まで約'+Math.round(near.m)+'m（目安）';
+L.popup().setLatLng(e.latlng).setContent(html).openOn(map);
+});
+Promise.all([loadOfficial(),loadModel()]).then(()=>{status.dataReady=true;});
+}
+let tries=0;function boot(){if(typeof L!=='undefined')return start();if(++tries<64)setTimeout(boot,250);else err('地図の起動に失敗しました。');}
+boot();
+})();
+</script></body></html>
