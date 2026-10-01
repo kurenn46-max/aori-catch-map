@@ -1,0 +1,39 @@
+name: Shore map pre-release smoke test
+on:
+  push:
+    branches:
+      - 'test/shore-map-verified'
+    paths:
+      - 'shore-map/**'
+      - 'tests/shore-map-smoke.cjs'
+      - '.github/workflows/shore-map-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright browser
+        run: |
+          npm install --no-save playwright@1.56.0
+          npx playwright install chromium --with-deps
+      - name: Start local static site
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/shore-map-http.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/shore-map/ > /dev/null
+      - name: Test Chromium in Android-sized viewport with real map tiles
+        run: node tests/shore-map-smoke.cjs
+      - name: Save screenshots, errors and result JSON
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shore-map-mobile-test
+          path: test-results/
+          if-no-files-found: warn
