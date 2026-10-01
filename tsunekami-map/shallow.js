@@ -96,7 +96,7 @@ function open(){
    var content=await f.text(),rows=parseText(content);
    if(!rows.length)throw Error('対象範囲の水深データが0件。緯度・経度・水深とファイル形式を確認してな。');
    if(state.records.length+rows.length>3500||countVertices(rows)+countVertices(state.records)>30000)throw Error('データが多すぎる。常神周辺だけに絞ってな。');
-   state.records=state.records.concat(rows);persist();draw();c.textContent='端末内の浅場データ：'+state.records.length+'件';
+   state.records=state.records.concat(rows);persist();draw();var pts=rows.flatMap(r=>r.kind==='line'?r.coords:[r.coords]);if(pts.length){state.map.fitBounds(state.L.latLngBounds(pts),{padding:[70,70],maxZoom:17,animate:false});}c.textContent='端末内の浅場データ：'+state.records.length+'件';
    state.status(rows.length+'件を端末内に読み込んだで。',5100);
   }catch(e){state.status('読込できへん：'+e.message,7400);}
   this.value='';
