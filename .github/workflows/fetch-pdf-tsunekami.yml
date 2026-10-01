@@ -1,0 +1,27 @@
+name: Fetch georeferenced aerial maps for private PDF
+on:
+  push:
+    branches: ['research/tsunekami-pdf-assets']
+    paths:
+      - 'scripts/fetch_pdf_tsunekami_tiles.py'
+      - '.github/workflows/fetch-pdf-tsunekami.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare image processing
+        run: python -m pip install pillow
+      - name: Download genuine GSI georeferenced map tiles
+        run: python scripts/fetch_pdf_tsunekami_tiles.py
+      - name: Package PDF reference assets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsunekami-pdf-map-assets
+          path: pdf-source/
+          retention-days: 5
