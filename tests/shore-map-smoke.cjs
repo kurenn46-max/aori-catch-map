@@ -9,7 +9,7 @@ const assert = require('assert/strict');
   const errors=[], resources=[], failures=[];
   page.on('pageerror',e => errors.push(String(e)));
   page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text());});
-  page.on('response',r=>{if(/(cyberjapandata\.gsi\.go\.jp|unpkg\.com|jsdelivr\.net)/.test(r.url()))resources.push({status:r.status(),url:r.url()});});
+  page.on('response',r=>{if(/(cyberjapandata\.gsi\.go\.jp|unpkg\.com|jsdelivr\.net|\/assets\/leaflet)/.test(r.url()))resources.push({status:r.status(),url:r.url()});});
   page.on('requestfailed',r=>{if(/(cyberjapandata\.gsi\.go\.jp|unpkg\.com|jsdelivr\.net)/.test(r.url()))failures.push({url:r.url(),error:r.failure()?.errorText});});
   async function snap(name){await page.screenshot({path:'test-results/'+name+'.png',fullPage:true,animations:'disabled'});}
   const report={checks:[],errors,resources,failures};
@@ -17,9 +17,9 @@ const assert = require('assert/strict');
   try{
     await page.goto('http://127.0.0.1:8765/shore-map/',{waitUntil:'domcontentloaded',timeout:30000});
     await page.waitForTimeout(3000);
-    await check('Leaflet loads and map initializes',async()=>{
+    await check('Leaflet loads locally and map initializes',async()=>{
       await page.waitForFunction(()=>typeof L!=='undefined' && document.querySelector('.leaflet-container'),{timeout:20000});
-      assert.equal(await page.locator('#fallback').evaluate(e=>getComputedStyle(e).display==='none'),true);
+      assert.equal(await page.locator('#fallback').evaluate(e=>getComputedStyle(e).display==='none'),true);const asset=await page.locator('script[src*=leaflet]').getAttribute('src');assert(asset.startsWith('./assets/'),'Leaflet is not locally bundled');
     });
     await check('Real GSI map photo and basemap tile load',async()=>{
       await page.waitForFunction(()=>[...document.querySelectorAll('#map img.leaflet-tile')].some(im=>im.complete && im.naturalWidth>0),{timeout:25000});
@@ -27,7 +27,7 @@ const assert = require('assert/strict');
     });
     await check('Map dominates mobile viewport',async()=>{
       const dim=await page.locator('#map').boundingBox();
-      assert(dim&&dim.width>350&&dim.height>750,'map bounding box too small');
+      assert(dim&&dim.width>350&&dim.height>750,'map bounding box too small');const nav=await page.locator('#dock').boundingBox();assert(nav.width<=dim.width,'dock overflow');for(const id of ['setShore','listPoints']){const b=await page.locator('#'+id).boundingBox();assert(b&&b.x>=0&&b.x+b.width<=dim.width,'dock button clipped: '+id);}
       return JSON.stringify(dim);
     });
     await snap('initial');
@@ -45,7 +45,7 @@ const assert = require('assert/strict');
     await check('Nearshore coastal layer toggle',async()=>{await page.locator('#coast').click();assert(await page.locator('#coast').evaluate(e=>e.classList.contains('active')));await page.locator('#coast').click();});
     await check('Map tap distance',async()=>{await page.locator('#map').click({position:{x:170,y:400}});assert.match(await page.locator('#distance').innerText(),/岸から/);});
     await check('Depth form, saving and listing',async()=>{
-      await page.locator('#addDepth').click();
+      await page.getByRole('button',{name:'この地点の水深を記録'}).click();
       const dialog=page.locator('#sheet');
       assert.equal(await dialog.isVisible(),true);
       await dialog.locator('input[type=number]').fill('8.5');
@@ -54,7 +54,7 @@ const assert = require('assert/strict');
       assert.match(await page.locator('#sheetBody').innerText(),/8\.5m/);
       await page.locator('#close').click();
     });
-    await check('Region change and GPS',async()=>{await page.locator('#region').selectOption('maizuru');await page.locator('#gps').click();});
+    await check('Region change and GPS with actual visible map tiles',async()=>{await page.locator('#region').selectOption('maizuru');await page.waitForTimeout(2000);await page.locator('#gps').click();await page.waitForTimeout(3000);let n=await page.locator('#map img.leaflet-tile-loaded').evaluateAll(a=>a.filter(im=>im.complete&&im.naturalWidth>0).length);assert(n>=1,'no image visible after region/GPS');return n+' map tiles present';});
     await snap('end');
     await check('No JavaScript runtime errors',async()=>{assert.deepEqual(errors,[]);});
     fs.writeFileSync('test-results/results.json',JSON.stringify(report,null,2));
