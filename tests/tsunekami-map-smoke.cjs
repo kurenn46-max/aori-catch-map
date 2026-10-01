@@ -57,7 +57,7 @@ const fs=require('fs'),assert=require('assert/strict');
     await page.waitForFunction(()=>window.__tsunekamiTest?.dataReady && window.__tsunekamiTest.shallowReady,{timeout:30000});
     assert.equal(await page.evaluate(()=>window.TsunekamiShallow.count()),4);
     await page.locator('#coarse').click();
-    await page.getByRole('button',{name:'端末内の水深データを削除'}).click();
+    page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'端末内の水深データを削除'}).click();
     await page.waitForFunction(()=>window.TsunekamiShallow.count()===0,{timeout:5000});
     await page.locator('#close').click();
   });
