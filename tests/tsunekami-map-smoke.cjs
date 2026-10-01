@@ -42,9 +42,9 @@ const fs=require('fs'),assert=require('assert/strict');
     await page.locator('#shallowConsent').check();assert.equal(await f.isDisabled(),false);
     const fixture={type:'FeatureCollection',features:[
       {type:'Feature',properties:{depth_m:2},geometry:{type:'LineString',coordinates:[[135.820,35.637],[135.821,35.637]]}},
-      {type:'Feature',properties:{depth_m:5},geometry:{type:'LineString',coordinates:[[135.821,35.638],[135.822,35.638]]}},
-      {type:'Feature',properties:{depth_m:10},geometry:{type:'LineString',coordinates:[[135.823,35.640],[135.824,35.640]]}},
-      {type:'Feature',properties:{depth_m:8.5},geometry:{type:'Point',coordinates:[135.822,35.639]}}
+      {type:'Feature',properties:{depth_m:5},geometry:{type:'LineString',coordinates:[[135.821,35.6373],[135.8215,35.6373]]}},
+      {type:'Feature',properties:{depth_m:10},geometry:{type:'LineString',coordinates:[[135.8208,35.6375],[135.8213,35.6375]]}},
+      {type:'Feature',properties:{depth_m:8.5},geometry:{type:'Point',coordinates:[135.8205,35.6372]}}
     ]};
     await f.setInputFiles({name:'TEST_ONLY_FAKE_CONTOURS.geojson',mimeType:'application/geo+json',buffer:Buffer.from(JSON.stringify(fixture))});
     await page.waitForFunction(()=>window.TsunekamiShallow.count()===4,{timeout:7000});
