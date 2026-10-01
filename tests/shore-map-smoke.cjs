@@ -15,7 +15,7 @@ const assert = require('assert/strict');
   const report={checks:[],errors,resources,failures};
   async function check(name,fn){try{let ret=await fn();report.checks.push({name,result:'PASS',details:ret||''});}catch(e){report.checks.push({name,result:'FAIL',details:e.message}); await snap('FAIL-'+report.checks.length);}}
   try{
-    await page.goto('http://127.0.0.1:8765/shore-map/',{waitUntil:'domcontentloaded',timeout:30000});
+    await page.goto((process.env.TEST_URL || 'http://127.0.0.1:8765/shore-map/'),{waitUntil:'domcontentloaded',timeout:30000});
     await page.waitForTimeout(3000);
     await check('Leaflet loads locally and map initializes',async()=>{
       await page.waitForFunction(()=>typeof L!=='undefined' && document.querySelector('.leaflet-container'),{timeout:20000});
