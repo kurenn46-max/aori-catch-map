@@ -319,6 +319,12 @@ def main():
                 "コア自動収集の巡回結果。現在はエギCOM5地域を直接監視。"
                 "その他のA/B優先情報源はChatGPT補完巡回で追加確認する。"
             ),
+            "fallback": {
+                "enabled": True,
+                "mode": "chatgpt-public-web",
+                "schedule": "6時間ごと",
+                "reason": "GitHub Runnerで本文が省略される場合に公開Web経路で補完",
+            },
             "checks": checks,
         },
     )
