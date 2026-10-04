@@ -67,8 +67,8 @@
     .reasonTags{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.reasonTag{font-size:10px;padding:3px 7px;border-radius:999px;background:#132f46;border:1px solid #2b526e;color:#cfe8fa}
     .rankDetails{font-size:11px;line-height:1.6;color:#b6c9d9;margin-top:8px}.warnText{color:#ffd39b}
     .scoreNote{font-size:11px;line-height:1.55;color:#98adbf;margin-top:10px}
-    #freshPanel,#newPanel{position:fixed;left:0;right:0;bottom:0;height:min(72vh,660px);z-index:1450;background:#07131f;border-top:1px solid #315c73;border-radius:18px 18px 0 0;transform:translateY(105%);transition:transform .22s ease;box-shadow:0 -15px 45px #0009;overflow:auto;padding:12px 12px calc(20px + env(safe-area-inset-bottom))}
-    #freshPanel.open,#newPanel.open{transform:translateY(0)}
+    #freshPanel,#newPanel,#strategyPanel{position:fixed;left:0;right:0;bottom:0;height:min(72vh,660px);z-index:1450;background:#07131f;border-top:1px solid #315c73;border-radius:18px 18px 0 0;transform:translateY(105%);transition:transform .22s ease;box-shadow:0 -15px 45px #0009;overflow:auto;padding:12px 12px calc(20px + env(safe-area-inset-bottom))}
+    #freshPanel.open,#newPanel.open,#strategyPanel.open{transform:translateY(0)}
     .freshGrid{display:grid;gap:8px}.freshCard,.newCard{background:#0d2235;border:1px solid #284660;border-radius:14px;padding:11px}
     .freshTop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.freshScore{font-size:27px;font-weight:900}.freshScore small{font-size:10px;color:#9fb2c4}
     .freshBar{height:7px;background:#07131f;border-radius:999px;overflow:hidden;margin:8px 0}.freshFill{height:100%;border-radius:999px;background:linear-gradient(90deg,#5ba9d0,#7ce7ad)}
@@ -93,6 +93,7 @@
     <button id="newToggle">🔥新着</button>
     <button id="freshToggle">🕒鮮度</button>
     <button id="targetToggle">🎯今狙う</button>
+    <button id="strategyToggle">🎣攻略</button>
   </div>
 
   <div class="controlRow modeRow" id="modeRow">
@@ -141,6 +142,15 @@
   <div class="dbNote" id="dbNote">※ 投稿数は公開Webで確認できた情報量。実際のイカの総数や釣れる確率そのものではありません。</div>
 </section>
 
+<section id="strategyPanel">
+  <div class="targetHead">
+    <div><h2>🎣 エギング攻略</h2><div class="targetMeta" id="strategyMeta">釣果を「投稿数」ではなく「実釣セッション」で分析</div></div>
+    <button class="closeBtn" id="strategyClose">閉じる</button>
+  </div>
+  <div class="freshGrid" id="strategyGrid"></div>
+  <div class="scoreNote">※同じ釣り人の連投は原則1釣行として圧縮。直近48時間を現況、7日を短期傾向、30日を時間帯・地形・サイズの学習に使います。公開情報にない条件は推測で補いません。</div>
+</section>
+
 <section id="targetPanel">
   <div class="targetHead">
     <div><h2>🎯 今日・明日の狙い目</h2><div class="targetMeta" id="targetMeta">時間別に計算します</div></div>
@@ -179,7 +189,7 @@ const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},targetDayOffset=0;
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},strategyData={areas:[]},targetDayOffset=0;
 const SEA_AREAS=[
   {area:'越前',lat:35.914,lng:135.991},
   {area:'敦賀',lat:35.681,lng:136.049},
@@ -397,6 +407,44 @@ function areaFreshness(area){
   const score=Math.max(0,Math.min(100,Math.round(recency+volume+diversity+intelFresh)));
   return {area,score,latest,age,recent2:recent2.length,recent7:recent7.length,sources:sources.size,latestIntel,ia};
 }
+function strategyArea(area){
+  return (strategyData?.areas||[]).find(x=>x.area===area)||null;
+}
+function renderStrategy(){
+  const grid=document.getElementById('strategyGrid');grid.innerHTML='';
+  const rows=[...(strategyData?.areas||[])].sort((a,b)=>{
+    const d=(b.last48h_sessions?.shore||0)-(a.last48h_sessions?.shore||0);
+    return d || (b.confidence||0)-(a.confidence||0);
+  });
+  if(!rows.length){
+    grid.innerHTML='<div class="freshCard">攻略データをまだ作成できていません。次回収集後に自動生成します。</div>';
+    return;
+  }
+  rows.forEach((r,i)=>{
+    const gradeClass=r.grade==='A'?'freshGood':r.grade==='B'?'freshMid':'freshOld';
+    const trend=r.trend==='up'?'↗ 上向き':r.trend==='down'?'↘ 減少':r.trend==='new'?'● 新規':'→ 横ばい';
+    const neg=r.negative_7d||{};
+    const negatives=(neg.blank||0)+(neg.chase_only||0)+(neg.sighting_only||0);
+    const c=document.createElement('div');c.className='freshCard';
+    c.innerHTML=`<div class="freshTop"><div><div class="rankName">${i+1}. ${esc(r.area)}</div><div class="small">最新 ${esc(r.latest_date||'なし')} / ${esc(trend)}</div></div><div class="freshScore ${gradeClass}">${esc(r.grade||'C')}<small> 根拠${r.confidence||0}</small></div></div>
+      <div class="reasonTags">
+        <span class="reasonTag">48h 実釣 ${r.last48h_sessions?.shore||0}</span>
+        <span class="reasonTag">7日 成功 ${r.last7_sessions?.catch||0}</span>
+        <span class="reasonTag">7日 負情報 ${negatives}</span>
+        <span class="reasonTag">情報源 ${r.sources_30d||0}</span>
+      </div>
+      <div class="freshMeta" style="margin-top:8px">
+        <b>当たり時間傾向：</b>${esc(r.top_time||'標本不足')}<br>
+        <b>地形傾向：</b>${esc(r.top_terrain||'標本不足')}<br>
+        <b>主力サイズ：</b>${esc(r.top_size||'標本不足')}<br>
+        30日：実釣${r.last30_sessions?.shore||0}セッション / 元投稿${r.raw_posts_30d||0}件<br>
+        ベイト材料 ${r.bait_recent||0}件　人圧材料 ${r.pressure_recent||0}件　現地ルール ${r.local_active||0}件
+      </div>`;
+    grid.appendChild(c);
+  });
+  document.getElementById('strategyMeta').textContent='48h現況＋7日短期＋30日パターン / 同一釣行の連投を圧縮';
+}
+
 function renderFreshness(){
   const grid=document.getElementById('freshGrid');grid.innerHTML='';
   const rows=['越前','敦賀','若狭','舞鶴','丹後'].map(area=>areaFreshness(area)).sort((a,b)=>b.score-a.score);
@@ -507,6 +555,7 @@ async function fetchSeaSnapshot(p){
 }
 function scoreArea(area,sea){
   const a=(summary?.areas||[]).find(x=>x.area===area)||{last7:{shore:0,boat:0,total:0},prev7:{shore:0,total:0},source_count:0,trend:'none',latest_date:null};
+  const strat=strategyArea(area);
   let score=35;const reasons=[];const warnings=[];
   const age=daysAgo(a.latest_date);
   const freshSignal=recentFreshCatchSignal(area);
@@ -520,7 +569,10 @@ function scoreArea(area,sea){
   else if(a.trend==='flat'){score+=3}
   else if(a.trend==='down'){score-=5;warnings.push('報告減少')}
   score+=Math.min(6,(a.source_count||0)*2);
-  if((a.last7?.shore||0)>=3){score+=5;reasons.push('陸の複数報告')}
+  const shoreSessions7=strat?.last7_sessions?.catch ?? (a.last7?.shore||0);
+  if(shoreSessions7>=3){score+=5;reasons.push('陸の複数実釣')}
+  if(strat?.grade==='A')reasons.push('根拠A');
+  else if(strat?.grade==='C')warnings.push('標本少なめ');
   if((a.last7?.boat||0)>=1){score+=2;reasons.push('沖にも魚影材料')}
 
   const bait=recentIntel(area,'bait',14);
@@ -563,7 +615,7 @@ function scoreArea(area,sea){
   }
   const locals=intelData.filter(x=>x.area===area&&x.category==='local'&&x.active);
   if(locals.length)warnings.push('現地規制/利用ルール '+locals.length+'件');
-  return {score:Math.max(0,Math.min(100,Math.round(score))),reasons,warnings,summary:a,effort:areaEffort(area),sea,baitCount:bait.length,pressureCount:pressure.length};
+  return {score:Math.max(0,Math.min(100,Math.round(score))),reasons,warnings,summary:a,strategy:strat,effort:areaEffort(area),sea,baitCount:bait.length,pressureCount:pressure.length};
 }
 function timeToHour(t){
   if(!t)return null;
@@ -737,7 +789,7 @@ async function openTargetPanel(){
       <div class="tideLine">潮参考：${esc(station)}${stationSuffix}　${esc(high)}　${esc(low)}<br>過去潮実績：${esc(topTidePattern(r.area))}</div>
       <div class="rankDetails">本命時間の海況：風 ${Number.isFinite(best.wind)?best.wind.toFixed(1)+'m/s':'—'}（最大瞬間 ${Number.isFinite(best.gust)?best.gust.toFixed(1)+'m/s':'—'}）・波 ${Number.isFinite(best.wave)?best.wave.toFixed(2)+'m':'—'}・水温 ${Number.isFinite(best.sst)?best.sst.toFixed(1)+'℃':'—'}<br>
       ${best.shelter&&best.shelter.est.score>=1?'風裏候補：<b>'+esc(best.shelter.spot.place)+'</b>（広域'+(Number.isFinite(best.wind)?best.wind.toFixed(1):'—')+'→簡易実効'+best.shelter.est.effective.toFixed(1)+'m/s）<br>':''}
-      直近7日：陸${best.base.summary.last7?.shore||0}件 / 船${best.base.summary.last7?.boat||0}件　ベイト${best.base.baitCount}件　人圧${best.base.pressureCount}件　CPUE参考：${cpue}
+      直近7日：実釣${best.base.strategy?.last7_sessions?.catch ?? best.base.summary.last7?.shore ?? 0}セッション / 投稿${best.base.summary.last7?.shore||0}件 / 船${best.base.summary.last7?.boat||0}件　根拠${best.base.strategy?.grade||"—"}　ベイト${best.base.baitCount}件　人圧${best.base.pressureCount}件　CPUE参考：${cpue}
       ${best.base.warnings.length?'<br><span class="warnText">注意：'+best.base.warnings.map(esc).join(' / ')+'</span>':''}</div>`;
     list.appendChild(card);
   });
@@ -797,6 +849,8 @@ document.getElementById('newToggle').addEventListener('click',()=>{document.getE
 document.getElementById('newClose').addEventListener('click',()=>document.getElementById('newPanel').classList.remove('open'));
 document.getElementById('freshToggle').addEventListener('click',()=>{document.getElementById('freshPanel').classList.add('open');renderFreshness()});
 document.getElementById('freshClose').addEventListener('click',()=>document.getElementById('freshPanel').classList.remove('open'));
+document.getElementById('strategyToggle').addEventListener('click',()=>{document.getElementById('strategyPanel').classList.add('open');renderStrategy()});
+document.getElementById('strategyClose').addEventListener('click',()=>document.getElementById('strategyPanel').classList.remove('open'));
 document.getElementById('targetToggle').addEventListener('click',openTargetPanel);
 document.querySelectorAll('button[data-target-day]').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('button[data-target-day]').forEach(x=>x.classList.remove('active'));
@@ -821,9 +875,10 @@ document.getElementById('reloadData').addEventListener('click',()=>{
     fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json()),
     fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json()),
-    fetch('./data/source-status.json?'+Date.now()).then(r=>r.json())
-  ]).then(([d,s,i,a,t,tp,ws,ss])=>{
-    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];sourceStatus=ss||{checks:[]};render();renderSummary();
+    fetch('./data/source-status.json?'+Date.now()).then(r=>r.json()),
+    fetch('./data/strategy.json?'+Date.now()).then(r=>r.json())
+  ]).then(([d,s,i,a,t,tp,ws,ss,st])=>{
+    allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];sourceStatus=ss||{checks:[]};strategyData=st||{areas:[]};render();renderSummary();
     b.textContent='✓';setTimeout(()=>b.textContent='↻',1400);
   }).catch(()=>{b.textContent='!';setTimeout(()=>b.textContent='↻',1600)});
 });
@@ -836,8 +891,9 @@ Promise.all([
   fetch('./data/tides.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/tide-patterns.json?'+Date.now()).then(r=>r.json()),
   fetch('./data/wind-shelters.json?'+Date.now()).then(r=>r.json()),
-  fetch('./data/source-status.json?'+Date.now()).then(r=>r.json())
-]).then(([d,s,i,a,t,tp,ws,ss])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];sourceStatus=ss||{checks:[]};render();renderSummary()})
+  fetch('./data/source-status.json?'+Date.now()).then(r=>r.json()),
+  fetch('./data/strategy.json?'+Date.now()).then(r=>r.json())
+]).then(([d,s,i,a,t,tp,ws,ss,st])=>{allData=d.catches||[];summary=s;intelData=i.items||[];archiveData=a.catches||[];tideData=t||{};tidePatterns=tp||{};windShelters=ws.spots||[];sourceStatus=ss||{checks:[]};strategyData=st||{areas:[]};render();renderSummary()})
 .catch(e=>{document.getElementById('status').textContent='データ読込に失敗しました';console.error(e)});
 </script>
 </body>
