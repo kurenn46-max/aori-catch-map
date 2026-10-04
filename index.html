@@ -415,7 +415,10 @@ function renderFreshness(){
   }else{
     const ok=checks.filter(x=>['ok','no_new'].includes(x.status)).length;
     const bad=checks.filter(x=>['blocked','error'].includes(x.status)).length;
-    document.getElementById('coverageBox').innerHTML='最終巡回：<b>'+esc(updated||'不明')+'</b><br>確認 '+ok+'/'+checks.length+'　取得不能/エラー '+bad;
+    const fb=sourceStatus?.fallback;
+    const badLabel=fb?.enabled&&bad?'GitHub直取得制限 '+bad:'取得不能/エラー '+bad;
+    const fbLine=fb?.enabled?'<br>公開Web補完：<b>稼働</b>（'+esc(fb.schedule||'定期')+'）':'';
+    document.getElementById('coverageBox').innerHTML='最終巡回：<b>'+esc(updated||'不明')+'</b><br>確認 '+ok+'/'+checks.length+'　'+badLabel+fbLine;
   }
   document.getElementById('freshMeta').textContent='新しい順に強く評価・古い情報は自動減衰';
 }
