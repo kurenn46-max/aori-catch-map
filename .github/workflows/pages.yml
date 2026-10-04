@@ -39,3 +39,27 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published catch database
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -e
+          for i in 1 2 3 4 5 6; do
+            if curl -fsSL --max-time 20 "${PAGE_URL%/}/data/catches.json?smoke=$(date +%s)" -o /tmp/catches.json; then
+              if python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("/tmp/catches.json").read_text(encoding="utf-8"))
+          rows=j.get("catches",[])
+          assert isinstance(rows,list) and rows, "published catches are empty"
+          assert j.get("updated_at"), "published updated_at missing"
+          print("published catches", len(rows), "updated", j["updated_at"])
+          PY
+              then
+                exit 0
+              fi
+            fi
+            sleep 5
+          done
+          echo "Published catch database verification failed" >&2
+          exit 1
