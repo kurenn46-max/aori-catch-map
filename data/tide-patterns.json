@@ -1,16 +1,20 @@
 {
-  "updated_at": "2026-10-04T17:05:52+09:00",
+  "updated_at": "2026-10-04T17:08:39+09:00",
   "source": "data/archive/2026.json × 気象庁天文潮位",
   "method": "実釣時刻がHH:MMで明確な陸っぱり釣果のみ。1釣行=1標本。満干潮間の時間進行を0〜10分として2分刻みで集計。",
   "areas": {
     "越前": {
-      "sample_count": 5,
-      "reliability": "medium",
+      "sample_count": 11,
+      "reliability": "high",
       "phase_counts": {
-        "rising": 3,
-        "falling": 2
+        "rising": 4,
+        "falling": 7
       },
       "bins": {
+        "falling_4_6": 3,
+        "falling_2_4": 1,
+        "falling_0_2": 1,
+        "rising_6_8": 1,
         "rising_4_6": 1,
         "falling_6_8": 1,
         "falling_8_10": 1,
@@ -19,25 +23,169 @@
       },
       "top_patterns": [
         {
-          "bin": "rising_4_6",
-          "label": "上げ4〜6分",
-          "count": 1,
-          "share": 0.2
+          "bin": "falling_4_6",
+          "label": "下げ4〜6分",
+          "count": 3,
+          "share": 0.273
         },
         {
-          "bin": "falling_6_8",
-          "label": "下げ6〜8分",
+          "bin": "falling_2_4",
+          "label": "下げ2〜4分",
           "count": 1,
-          "share": 0.2
+          "share": 0.091
         },
         {
-          "bin": "falling_8_10",
-          "label": "下げ8〜10分",
+          "bin": "falling_0_2",
+          "label": "下げ0〜2分",
           "count": 1,
-          "share": 0.2
+          "share": 0.091
         }
       ],
       "samples": [
+        {
+          "id": "yamaria-echizen-20261004-1113-micchi",
+          "date": "2026-10-04",
+          "time": "11:13",
+          "place": "越前",
+          "source": "エギCOM",
+          "station": "ZG",
+          "station_name": "三国",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 5.1,
+          "bin": "falling_4_6",
+          "bin_label": "下げ4〜6分",
+          "prev_event": {
+            "time": "2026-10-04T06:35:00+09:00",
+            "type": "high",
+            "height_cm": 41
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 15
+          }
+        },
+        {
+          "id": "yamaria-echizen-20261004-1043-micchi",
+          "date": "2026-10-04",
+          "time": "10:43",
+          "place": "越前",
+          "source": "エギCOM",
+          "station": "ZG",
+          "station_name": "三国",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 4.5,
+          "bin": "falling_4_6",
+          "bin_label": "下げ4〜6分",
+          "prev_event": {
+            "time": "2026-10-04T06:35:00+09:00",
+            "type": "high",
+            "height_cm": 41
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 15
+          }
+        },
+        {
+          "id": "yamaria-echizen-20261004-1035-kana",
+          "date": "2026-10-04",
+          "time": "10:35",
+          "place": "越前",
+          "source": "エギCOM",
+          "station": "ZG",
+          "station_name": "三国",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 4.4,
+          "bin": "falling_4_6",
+          "bin_label": "下げ4〜6分",
+          "prev_event": {
+            "time": "2026-10-04T06:35:00+09:00",
+            "type": "high",
+            "height_cm": 41
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 15
+          }
+        },
+        {
+          "id": "yamaria-echizen-20261004-1003-kana",
+          "date": "2026-10-04",
+          "time": "10:03",
+          "place": "越前",
+          "source": "エギCOM",
+          "station": "ZG",
+          "station_name": "三国",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 3.8,
+          "bin": "falling_2_4",
+          "bin_label": "下げ2〜4分",
+          "prev_event": {
+            "time": "2026-10-04T06:35:00+09:00",
+            "type": "high",
+            "height_cm": 41
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 15
+          }
+        },
+        {
+          "id": "yamaria-echizen-20261004-0806-ktaa",
+          "date": "2026-10-04",
+          "time": "08:06",
+          "place": "越前",
+          "source": "エギCOM",
+          "station": "ZG",
+          "station_name": "三国",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 1.7,
+          "bin": "falling_0_2",
+          "bin_label": "下げ0〜2分",
+          "prev_event": {
+            "time": "2026-10-04T06:35:00+09:00",
+            "type": "high",
+            "height_cm": 41
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 15
+          }
+        },
+        {
+          "id": "yamaria-echizen-20261004-0212-shuhei",
+          "date": "2026-10-04",
+          "time": "02:12",
+          "place": "越前",
+          "source": "エギCOM",
+          "station": "ZG",
+          "station_name": "三国",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 7.3,
+          "bin": "rising_6_8",
+          "bin_label": "上げ6〜8分",
+          "prev_event": {
+            "time": "2026-10-03T14:16:00+09:00",
+            "type": "low",
+            "height_cm": 15
+          },
+          "next_event": {
+            "time": "2026-10-04T06:35:00+09:00",
+            "type": "high",
+            "height_cm": 41
+          }
+        },
         {
           "id": "egi-echizen-20260926-2310",
           "date": "2026-09-26",
@@ -161,39 +309,185 @@
       ]
     },
     "敦賀": {
-      "sample_count": 7,
-      "reliability": "medium",
+      "sample_count": 13,
+      "reliability": "high",
       "phase_counts": {
-        "rising": 1,
-        "falling": 6
+        "rising": 5,
+        "falling": 8
       },
       "bins": {
-        "falling_8_10": 3,
+        "falling_8_10": 4,
+        "falling_4_6": 1,
+        "rising_8_10": 3,
+        "rising_6_8": 2,
         "falling_6_8": 1,
-        "falling_0_2": 2,
-        "rising_8_10": 1
+        "falling_0_2": 2
       },
       "top_patterns": [
         {
           "bin": "falling_8_10",
           "label": "下げ8〜10分",
+          "count": 4,
+          "share": 0.308
+        },
+        {
+          "bin": "rising_8_10",
+          "label": "上げ8〜10分",
           "count": 3,
-          "share": 0.429
+          "share": 0.231
         },
         {
-          "bin": "falling_0_2",
-          "label": "下げ0〜2分",
+          "bin": "rising_6_8",
+          "label": "上げ6〜8分",
           "count": 2,
-          "share": 0.286
-        },
-        {
-          "bin": "falling_6_8",
-          "label": "下げ6〜8分",
-          "count": 1,
-          "share": 0.143
+          "share": 0.154
         }
       ],
       "samples": [
+        {
+          "id": "yamaria-tsuruga-20261004-1513-junta",
+          "date": "2026-10-04",
+          "time": "15:13",
+          "place": "敦賀",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 9.4,
+          "bin": "falling_8_10",
+          "bin_label": "下げ8〜10分",
+          "prev_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
+        {
+          "id": "yamaria-tsuruga-20261004-1059-junta",
+          "date": "2026-10-04",
+          "time": "10:59",
+          "place": "敦賀",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 4.8,
+          "bin": "falling_4_6",
+          "bin_label": "下げ4〜6分",
+          "prev_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
+        {
+          "id": "yamaria-tsuruga-20261004-0522-junta",
+          "date": "2026-10-04",
+          "time": "05:22",
+          "place": "敦賀",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 9.2,
+          "bin": "rising_8_10",
+          "bin_label": "上げ8〜10分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
+        {
+          "id": "yamaria-tsuruga-20261004-0351-takahiro",
+          "date": "2026-10-04",
+          "time": "03:51",
+          "place": "敦賀",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 8.3,
+          "bin": "rising_8_10",
+          "bin_label": "上げ8〜10分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
+        {
+          "id": "yamaria-tsuruga-20261004-0243-takahiro",
+          "date": "2026-10-04",
+          "time": "02:43",
+          "place": "敦賀",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 7.6,
+          "bin": "rising_6_8",
+          "bin_label": "上げ6〜8分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
+        {
+          "id": "yamaria-tsuruga-20261004-0215-takahiro",
+          "date": "2026-10-04",
+          "time": "02:15",
+          "place": "敦賀",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 7.3,
+          "bin": "rising_6_8",
+          "bin_label": "上げ6〜8分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
         {
           "id": "egi-tsuruga-20260927-0757",
           "date": "2026-09-27",
@@ -365,13 +659,17 @@
       ]
     },
     "若狭": {
-      "sample_count": 4,
-      "reliability": "medium",
+      "sample_count": 12,
+      "reliability": "high",
       "phase_counts": {
-        "rising": 1,
-        "falling": 3
+        "rising": 4,
+        "falling": 8
       },
       "bins": {
+        "falling_6_8": 1,
+        "falling_0_2": 4,
+        "rising_8_10": 1,
+        "rising_4_6": 2,
         "falling_8_10": 1,
         "falling_2_4": 1,
         "rising_0_2": 1,
@@ -379,25 +677,217 @@
       },
       "top_patterns": [
         {
-          "bin": "falling_8_10",
-          "label": "下げ8〜10分",
-          "count": 1,
-          "share": 0.25
+          "bin": "falling_0_2",
+          "label": "下げ0〜2分",
+          "count": 4,
+          "share": 0.333
         },
         {
-          "bin": "falling_2_4",
-          "label": "下げ2〜4分",
-          "count": 1,
-          "share": 0.25
+          "bin": "rising_4_6",
+          "label": "上げ4〜6分",
+          "count": 2,
+          "share": 0.167
         },
         {
-          "bin": "rising_0_2",
-          "label": "上げ0〜2分",
+          "bin": "falling_6_8",
+          "label": "下げ6〜8分",
           "count": 1,
-          "share": 0.25
+          "share": 0.083
         }
       ],
       "samples": [
+        {
+          "id": "yamaria-obama-20261004-1330-hitoshi",
+          "date": "2026-10-04",
+          "time": "13:30",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 7.5,
+          "bin": "falling_6_8",
+          "bin_label": "下げ6〜8分",
+          "prev_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
+        {
+          "id": "yamaria-obama-20261004-0708-163",
+          "date": "2026-10-04",
+          "time": "07:08",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 0.5,
+          "bin": "falling_0_2",
+          "bin_label": "下げ0〜2分",
+          "prev_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
+        {
+          "id": "yamaria-obama-20261004-0659-mine",
+          "date": "2026-10-04",
+          "time": "06:59",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 0.3,
+          "bin": "falling_0_2",
+          "bin_label": "下げ0〜2分",
+          "prev_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
+        {
+          "id": "yamaria-obama-20261004-0644-mine",
+          "date": "2026-10-04",
+          "time": "06:44",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 0.1,
+          "bin": "falling_0_2",
+          "bin_label": "下げ0〜2分",
+          "prev_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          },
+          "next_event": {
+            "time": "2026-10-04T15:43:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
+        {
+          "id": "yamaria-obama-20261004-0640-mine",
+          "date": "2026-10-04",
+          "time": "06:40",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 10.0,
+          "bin": "rising_8_10",
+          "bin_label": "上げ8〜10分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
+        {
+          "id": "yamaria-obama-20261003-2249-futachimaru",
+          "date": "2026-10-03",
+          "time": "22:49",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 5.2,
+          "bin": "rising_4_6",
+          "bin_label": "上げ4〜6分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
+        {
+          "id": "yamaria-obama-20261003-2152-futachimaru",
+          "date": "2026-10-03",
+          "time": "21:52",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 4.6,
+          "bin": "rising_4_6",
+          "bin_label": "上げ4〜6分",
+          "prev_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          },
+          "next_event": {
+            "time": "2026-10-04T06:41:00+09:00",
+            "type": "high",
+            "height_cm": 44
+          }
+        },
+        {
+          "id": "yamaria-obama-20261003-0550-komerappi",
+          "date": "2026-10-03",
+          "time": "05:50",
+          "place": "小浜",
+          "source": "エギCOM",
+          "station": "XM",
+          "station_name": "敦賀",
+          "phase": "falling",
+          "phase_ja": "下げ",
+          "progress": 0.4,
+          "bin": "falling_0_2",
+          "bin_label": "下げ0〜2分",
+          "prev_event": {
+            "time": "2026-10-03T05:27:00+09:00",
+            "type": "high",
+            "height_cm": 45
+          },
+          "next_event": {
+            "time": "2026-10-03T14:14:00+09:00",
+            "type": "low",
+            "height_cm": 19
+          }
+        },
         {
           "id": "egi-obama-20260926-2032",
           "date": "2026-09-26",
@@ -497,42 +987,115 @@
       ]
     },
     "舞鶴": {
-      "sample_count": 10,
+      "sample_count": 13,
       "reliability": "high",
       "phase_counts": {
-        "rising": 4,
+        "rising": 7,
         "falling": 6
       },
       "bins": {
+        "rising_8_10": 2,
+        "rising_0_2": 2,
         "falling_8_10": 2,
         "rising_2_4": 2,
         "falling_0_2": 2,
-        "rising_0_2": 1,
         "falling_4_6": 1,
         "rising_6_8": 1,
         "falling_2_4": 1
       },
       "top_patterns": [
         {
+          "bin": "rising_8_10",
+          "label": "上げ8〜10分",
+          "count": 2,
+          "share": 0.154
+        },
+        {
+          "bin": "rising_0_2",
+          "label": "上げ0〜2分",
+          "count": 2,
+          "share": 0.154
+        },
+        {
           "bin": "falling_8_10",
           "label": "下げ8〜10分",
           "count": 2,
-          "share": 0.2
-        },
-        {
-          "bin": "rising_2_4",
-          "label": "上げ2〜4分",
-          "count": 2,
-          "share": 0.2
-        },
-        {
-          "bin": "falling_0_2",
-          "label": "下げ0〜2分",
-          "count": 2,
-          "share": 0.2
+          "share": 0.154
         }
       ],
       "samples": [
+        {
+          "id": "yamaria-maizuru-20261004-0553-ikahito",
+          "date": "2026-10-04",
+          "time": "05:53",
+          "place": "舞鶴",
+          "source": "エギCOM",
+          "station": "MZ",
+          "station_name": "舞鶴",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 9.5,
+          "bin": "rising_8_10",
+          "bin_label": "上げ8〜10分",
+          "prev_event": {
+            "time": "2026-10-03T14:10:00+09:00",
+            "type": "low",
+            "height_cm": 18
+          },
+          "next_event": {
+            "time": "2026-10-04T06:40:00+09:00",
+            "type": "high",
+            "height_cm": 45
+          }
+        },
+        {
+          "id": "yamaria-maizuru-20261004-0407-ikahito",
+          "date": "2026-10-04",
+          "time": "04:07",
+          "place": "舞鶴",
+          "source": "エギCOM",
+          "station": "MZ",
+          "station_name": "舞鶴",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 8.5,
+          "bin": "rising_8_10",
+          "bin_label": "上げ8〜10分",
+          "prev_event": {
+            "time": "2026-10-03T14:10:00+09:00",
+            "type": "low",
+            "height_cm": 18
+          },
+          "next_event": {
+            "time": "2026-10-04T06:40:00+09:00",
+            "type": "high",
+            "height_cm": 45
+          }
+        },
+        {
+          "id": "yamaria-maizuru-20261003-1641-kuuchan",
+          "date": "2026-10-03",
+          "time": "16:41",
+          "place": "舞鶴",
+          "source": "エギCOM",
+          "station": "MZ",
+          "station_name": "舞鶴",
+          "phase": "rising",
+          "phase_ja": "上げ",
+          "progress": 1.5,
+          "bin": "rising_0_2",
+          "bin_label": "上げ0〜2分",
+          "prev_event": {
+            "time": "2026-10-03T14:10:00+09:00",
+            "type": "low",
+            "height_cm": 18
+          },
+          "next_event": {
+            "time": "2026-10-04T06:40:00+09:00",
+            "type": "high",
+            "height_cm": 45
+          }
+        },
         {
           "id": "egi-maizuru-20260924-0547",
           "date": "2026-09-24",
