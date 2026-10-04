@@ -1,7 +1,7 @@
 {
-  "version": 1,
-  "updated_at": "2026-09-27T17:00:00+09:00",
-  "policy": "固定巡回 + 横断検索の二重取り。集約サイトは発見用、可能なら一次情報へ辿る。同一釣果は重複排除。",
+  "version": 2,
+  "updated_at": "2026-10-04T17:30:00+09:00",
+  "policy": "釣果件数ではなく『次の釣行判断に使える根拠』を集める。固定巡回＋横断検索の二重取り。投稿単位と釣行セッションを分離し、同一釣行の連投で好調度を水増ししない。一次情報を優先し、推測値は事実と分離する。",
   "regions": [
     "越前",
     "敦賀",
@@ -358,5 +358,86 @@
       "sighting_only"
     ],
     "rule": "0杯・チェイスのみ・見えイカのみも、実釣日/場所/出典が確認できれば重要な負の情報として保存する"
-  }
+  },
+  "decision_signals": {
+    "priority_order": [
+      "直近48時間の陸っぱり実釣セッション",
+      "同一釣行内の複数HIT・最大サイズ・時間帯",
+      "ボウズ/チェイスのみ/見えイカのみ等の負の実釣情報",
+      "岸ベイト（アジ・イワシ・サヨリ等）",
+      "釣り人密度・ヤエン占有・スレ材料",
+      "風向/平均風/最大瞬間風速/波/うねり",
+      "潮位変化と上げ下げ・まずめ",
+      "表面水温と24h/72h変化",
+      "前24h/72h降水と濁りの実地報告",
+      "釣禁・立入禁止・駐車・工事等の現地条件"
+    ],
+    "optional_catch_fields": [
+      "angler",
+      "session_id",
+      "terrain",
+      "egi_size",
+      "egi_color",
+      "egi_model",
+      "range",
+      "depth_hint",
+      "action",
+      "retrieve_style",
+      "duration_hours",
+      "angler_count",
+      "water_clarity",
+      "bait_seen",
+      "pressure_note",
+      "weather_note"
+    ],
+    "rules": [
+      "投稿数と釣行数を分ける。同じ投稿者・同日・同海域の連投は原則1釣行セッションとして集計する",
+      "HIT数や投稿件数を杯数とみなさない。本文に杯数が明記されない限りcount=null",
+      "直近48時間を最重要、7日を補助、30日はパターン学習用とする",
+      "エギの号数・色・レンジ・アクションは本文で明示された場合だけ保存",
+      "濁り・水色・人圧・ベイトは現地報告が最優先。気象から推測する場合は別の推定指標として扱う",
+      "船の好釣果は魚影の補助材料に使うが、岸エギングの好調判定を直接押し上げすぎない"
+    ]
+  },
+  "environment_sources": [
+    {
+      "name": "気象庁",
+      "type": "official_weather_tide",
+      "priority": "A",
+      "role": "primary",
+      "url": "https://www.jma.go.jp/",
+      "signals": [
+        "風",
+        "雨",
+        "雷",
+        "天文潮位"
+      ]
+    },
+    {
+      "name": "海上保安庁 海洋状況表示システム",
+      "type": "official_ocean",
+      "priority": "B",
+      "role": "reference",
+      "url": "https://www.msil.go.jp/",
+      "signals": [
+        "海況",
+        "海面水温",
+        "海流"
+      ]
+    },
+    {
+      "name": "Open-Meteo Weather/Marine",
+      "type": "forecast_model",
+      "priority": "B",
+      "role": "model",
+      "url": "https://open-meteo.com/",
+      "signals": [
+        "風",
+        "突風",
+        "波",
+        "うねり",
+        "表面水温"
+      ]
+    }
+  ]
 }
