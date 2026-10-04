@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-10-04T17:47:29+09:00",
+  "updated_at": "2026-10-04T22:59:23+09:00",
   "reference_date": "2026-10-04",
-  "method": "直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。",
+  "method": "直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上、負情報を減点、船釣果は岸評価に不使用。",
   "areas": [
     {
       "area": "越前",
@@ -11,6 +11,11 @@
       "trend": "up",
       "last48h_sessions": {
         "shore": 4
+      },
+      "evidence": {
+        "independent_sources_30d": 3,
+        "single_source_penalty": 0,
+        "negative_penalty": 0
       },
       "last7_sessions": {
         "shore": 4,
@@ -48,16 +53,21 @@
       "pressure_recent": 0,
       "local_active": 0,
       "raw_posts_30d": 10,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
       "area": "敦賀",
       "latest_date": "2026-10-04",
-      "confidence": 68,
+      "confidence": 56,
       "grade": "B",
       "trend": "down",
       "last48h_sessions": {
         "shore": 2
+      },
+      "evidence": {
+        "independent_sources_30d": 1,
+        "single_source_penalty": 12,
+        "negative_penalty": 0
       },
       "last7_sessions": {
         "shore": 2,
@@ -95,16 +105,21 @@
       "pressure_recent": 0,
       "local_active": 1,
       "raw_posts_30d": 11,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
       "area": "若狭",
       "latest_date": "2026-10-04",
-      "confidence": 71,
+      "confidence": 59,
       "grade": "B",
       "trend": "up",
       "last48h_sessions": {
         "shore": 5
+      },
+      "evidence": {
+        "independent_sources_30d": 1,
+        "single_source_penalty": 12,
+        "negative_penalty": 0
       },
       "last7_sessions": {
         "shore": 5,
@@ -143,7 +158,7 @@
       "pressure_recent": 0,
       "local_active": 2,
       "raw_posts_30d": 11,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
       "area": "舞鶴",
@@ -153,6 +168,11 @@
       "trend": "flat",
       "last48h_sessions": {
         "shore": 2
+      },
+      "evidence": {
+        "independent_sources_30d": 3,
+        "single_source_penalty": 0,
+        "negative_penalty": 0
       },
       "last7_sessions": {
         "shore": 2,
@@ -191,16 +211,21 @@
       "pressure_recent": 0,
       "local_active": 0,
       "raw_posts_30d": 8,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
       "area": "丹後",
       "latest_date": "2026-10-03",
-      "confidence": 48,
+      "confidence": 36,
       "grade": "C",
       "trend": "flat",
       "last48h_sessions": {
         "shore": 1
+      },
+      "evidence": {
+        "independent_sources_30d": 1,
+        "single_source_penalty": 12,
+        "negative_penalty": 0
       },
       "last7_sessions": {
         "shore": 1,
@@ -235,7 +260,7 @@
       "pressure_recent": 0,
       "local_active": 0,
       "raw_posts_30d": 5,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     }
   ]
 }
