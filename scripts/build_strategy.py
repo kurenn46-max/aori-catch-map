@@ -134,12 +134,19 @@ for area in AREAS:
     local=[x for x in intel.get("items",[]) if x.get("area")==area and x.get("category")=="local" and x.get("active")]
 
     recency=30 if age==0 else 25 if age==1 else 20 if age==2 else 15 if age<=3 else 8 if age<=7 else 0
-    sample=min(30,len(catch30)*3)
+    # Evidence score: sessions matter, but one source must never create false A confidence.
+    # Negative sessions reduce confidence in a simple "good" interpretation rather than disappearing.
+    catch7=sum(x.get("status")=="catch" for x in l7)
+    negative7=sum(x.get("status")!="catch" for x in l7)
+    sample=min(26,len(catch30)*3)
     diversity=min(20,sources*7)
     quality=round(time_quality*10)
-    intel_bonus=min(10,len(bait)*3+len(pressure)*2)
-    confidence=max(0,min(100,recency+sample+diversity+quality+intel_bonus))
-    grade="A" if confidence>=75 else ("B" if confidence>=55 else "C")
+    intel_bonus=min(8,len(bait)*3+len(pressure))
+    negative_penalty=min(12,negative7*3)
+    single_source_penalty=12 if sources<=1 else 0
+    confidence=max(0,min(100,recency+sample+diversity+quality+intel_bonus-negative_penalty-single_source_penalty))
+    # A requires independent corroboration. One-source areas are capped at B.
+    grade="A" if confidence>=75 and sources>=2 else ("B" if confidence>=55 else "C")
 
     curr=len([x for x in l7 if x.get("status")=="catch"])
     prev=len([x for x in p7 if x.get("status")=="catch"])
@@ -152,6 +159,7 @@ for area in AREAS:
     areas.append({
       "area":area,"latest_date":latest,"confidence":confidence,"grade":grade,"trend":trend,
       "last48h_sessions":{"shore":len(c48)},
+      "evidence":{"independent_sources_30d":sources,"single_source_penalty":single_source_penalty,"negative_penalty":negative_penalty},
       "last7_sessions":{"shore":len(l7),"catch":sum(x.get("status")=="catch" for x in l7),"negative":sum(x.get("status")!="catch" for x in l7)},
       "prev7_sessions":{"shore":len(p7),"catch":sum(x.get("status")=="catch" for x in p7)},
       "last30_sessions":{"shore":len(l30),"catch":len(catch30)},
@@ -167,13 +175,13 @@ for area in AREAS:
       "pressure_recent":len(pressure),
       "local_active":len(local),
       "raw_posts_30d":sum(x.get("records",1) for x in l30),
-      "note":"同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+      "note":"同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     })
 
 out={
   "updated_at":datetime.now(JST).isoformat(timespec="seconds"),
   "reference_date":ref.strftime("%Y-%m-%d"),
-  "method":"直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。",
+  "method":"直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上、負情報を減点、船釣果は岸評価に不使用。",
   "areas":areas
 }
 Path("data/strategy.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
