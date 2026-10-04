@@ -69,7 +69,14 @@ jobs:
                       raise SystemExit(f"missing {key}: {x}")
               if x["date"] > future_limit:
                   raise SystemExit(f"future catch date: {x['date']} {x['id']}")
-          print(f"validated catches={len(catches)}")
+          strategy = json.loads(Path("data/strategy.json").read_text(encoding="utf-8"))
+          for area in strategy.get("areas", []):
+              sources = int(area.get("sources_30d", 0))
+              if sources < 2 and area.get("grade") == "A":
+                  raise SystemExit(f"single-source area incorrectly graded A: {area.get('area')}")
+              if "evidence" not in area:
+                  raise SystemExit(f"strategy evidence missing: {area.get('area')}")
+          print(f"validated catches={len(catches)} strategy_areas={len(strategy.get('areas', []))}")
           PY
       - name: Commit generated data
         run: |
