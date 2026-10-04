@@ -18,12 +18,13 @@ jobs:
           python-version: "3.12"
       - run: python scripts/archive_and_summary.py
       - run: python scripts/build_tide_patterns.py
+      - run: python scripts/build_strategy.py
       - name: Commit archive summary and tide patterns
         run: |
-          if [ -z "$(git status --porcelain -- data/archive data/summary.json data/tide-patterns.json)" ]; then exit 0; fi
+          if [ -z "$(git status --porcelain -- data/archive data/summary.json data/tide-patterns.json data/strategy.json)" ]; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/archive data/summary.json data/tide-patterns.json
+          git add data/archive data/summary.json data/tide-patterns.json data/strategy.json
           git commit -m "Archive catches and rebuild trends"
           git pull --rebase origin main
           git push
