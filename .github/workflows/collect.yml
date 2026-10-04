@@ -27,13 +27,15 @@ jobs:
       - name: Install collector dependencies
         run: pip install --disable-pip-version-check requests beautifulsoup4
       - name: Syntax check
-        run: python -m py_compile scripts/collect.py scripts/archive_and_summary.py scripts/build_tide_patterns.py
+        run: python -m py_compile scripts/collect.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
       - name: Collect direct catches and source health
         run: python scripts/collect.py
       - name: Rebuild permanent archive and trends
         run: python scripts/archive_and_summary.py
       - name: Rebuild tide patterns
         run: python scripts/build_tide_patterns.py
+      - name: Build eging strategy signals
+        run: python scripts/build_strategy.py
       - name: Validate generated JSON
         run: |
           python - <<'PY'
@@ -47,6 +49,7 @@ jobs:
               "data/summary.json",
               "data/archive/2026.json",
               "data/tide-patterns.json",
+              "data/strategy.json",
           ]
           for p in paths:
               json.loads(Path(p).read_text(encoding="utf-8"))
@@ -68,7 +71,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catches.json data/source-status.json data/archive data/summary.json data/tide-patterns.json
+          git add data/catches.json data/source-status.json data/archive data/summary.json data/tide-patterns.json data/strategy.json
           if git diff --cached --quiet; then
             echo "No generated changes"
             exit 0
