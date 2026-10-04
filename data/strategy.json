@@ -1,0 +1,241 @@
+{
+  "updated_at": "2026-10-04T17:44:35+09:00",
+  "reference_date": "2026-10-04",
+  "method": "直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。",
+  "areas": [
+    {
+      "area": "越前",
+      "latest_date": "2026-10-04",
+      "confidence": 82,
+      "grade": "A",
+      "trend": "up",
+      "last48h_sessions": {
+        "shore": 4
+      },
+      "last7_sessions": {
+        "shore": 4,
+        "catch": 4,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 2,
+        "catch": 2
+      },
+      "last30_sessions": {
+        "shore": 8,
+        "catch": 8
+      },
+      "sources_30d": 3,
+      "top_time": "日中",
+      "time_counts": {
+        "日中": 3,
+        "夜前半": 2,
+        "深夜": 1
+      },
+      "top_terrain": "磯",
+      "terrain_counts": {
+        "磯": 3,
+        "港・堤防": 3
+      },
+      "top_size": "100g〜300g",
+      "size_counts": {
+        "100g〜300g": 4,
+        "100g以下": 2,
+        "コロッケサイズ": 1
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 0,
+      "raw_posts_30d": 10,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+    },
+    {
+      "area": "敦賀",
+      "latest_date": "2026-10-04",
+      "confidence": 68,
+      "grade": "B",
+      "trend": "down",
+      "last48h_sessions": {
+        "shore": 2
+      },
+      "last7_sessions": {
+        "shore": 2,
+        "catch": 2,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 4,
+        "catch": 4
+      },
+      "last30_sessions": {
+        "shore": 7,
+        "catch": 7
+      },
+      "sources_30d": 1,
+      "top_time": "深夜",
+      "time_counts": {
+        "深夜": 3,
+        "朝まずめ": 3,
+        "日中": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 4,
+        "サーフ・ゴロタ": 3
+      },
+      "top_size": "100g〜300g",
+      "size_counts": {
+        "100g〜300g": 3,
+        "300g〜500g": 2,
+        "100g以下": 2
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 1,
+      "raw_posts_30d": 11,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+    },
+    {
+      "area": "若狭",
+      "latest_date": "2026-10-04",
+      "confidence": 71,
+      "grade": "B",
+      "trend": "up",
+      "last48h_sessions": {
+        "shore": 5
+      },
+      "last7_sessions": {
+        "shore": 5,
+        "catch": 5,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 3,
+        "catch": 3
+      },
+      "last30_sessions": {
+        "shore": 8,
+        "catch": 8
+      },
+      "sources_30d": 1,
+      "top_time": "朝まずめ",
+      "time_counts": {
+        "朝まずめ": 4,
+        "夜前半": 2,
+        "日中": 1,
+        "夕まずめ": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 6,
+        "磯": 1
+      },
+      "top_size": "100g〜300g",
+      "size_counts": {
+        "100g〜300g": 5,
+        "300g〜500g": 2,
+        "500g〜800g": 1
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 2,
+      "raw_posts_30d": 11,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+    },
+    {
+      "area": "舞鶴",
+      "latest_date": "2026-10-04",
+      "confidence": 80,
+      "grade": "A",
+      "trend": "flat",
+      "last48h_sessions": {
+        "shore": 2
+      },
+      "last7_sessions": {
+        "shore": 2,
+        "catch": 2,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 2,
+        "catch": 2
+      },
+      "last30_sessions": {
+        "shore": 7,
+        "catch": 7
+      },
+      "sources_30d": 3,
+      "top_time": "朝まずめ",
+      "time_counts": {
+        "朝まずめ": 3,
+        "夕まずめ": 2,
+        "深夜": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 5
+      },
+      "top_size": "100g以下",
+      "size_counts": {
+        "100g以下": 2,
+        "100g〜300g": 2,
+        "300g〜500g": 1,
+        "15cm": 1,
+        "胴長16cmまで": 1
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 0,
+      "raw_posts_30d": 8,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+    },
+    {
+      "area": "丹後",
+      "latest_date": "2026-10-03",
+      "confidence": 48,
+      "grade": "C",
+      "trend": "flat",
+      "last48h_sessions": {
+        "shore": 1
+      },
+      "last7_sessions": {
+        "shore": 1,
+        "catch": 1,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 1,
+        "catch": 1
+      },
+      "last30_sessions": {
+        "shore": 2,
+        "catch": 2
+      },
+      "sources_30d": 1,
+      "top_time": "朝まずめ",
+      "time_counts": {
+        "朝まずめ": 1,
+        "夕まずめ": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 2
+      },
+      "top_size": "100g以下",
+      "size_counts": {
+        "100g以下": 1,
+        "〜約250g": 1
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 0,
+      "raw_posts_30d": 5,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。件数より釣行単位を優先。"
+    }
+  ]
+}
