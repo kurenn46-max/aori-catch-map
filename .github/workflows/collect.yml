@@ -1,24 +1,78 @@
-name: Collect aori catches (manual fallback)
+name: Collect aori catches
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/collect.py"
+      - ".github/workflows/collect.yml"
+      - "data/source-registry.json"
+  schedule:
+    - cron: "17 */6 * * *"
 permissions:
   contents: write
+concurrency:
+  group: aori-catch-collector
+  cancel-in-progress: false
 jobs:
   collect:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests beautifulsoup4
-      - run: python scripts/collect.py
-      - name: Commit updated data
+      - name: Install collector dependencies
+        run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Syntax check
+        run: python -m py_compile scripts/collect.py scripts/archive_and_summary.py scripts/build_tide_patterns.py
+      - name: Collect direct catches and source health
+        run: python scripts/collect.py
+      - name: Rebuild permanent archive and trends
+        run: python scripts/archive_and_summary.py
+      - name: Rebuild tide patterns
+        run: python scripts/build_tide_patterns.py
+      - name: Validate generated JSON
         run: |
-          if git diff --quiet -- data/catches.json; then exit 0; fi
+          python - <<'PY'
+          import json
+          from datetime import date, timedelta
+          from pathlib import Path
+
+          paths = [
+              "data/catches.json",
+              "data/source-status.json",
+              "data/summary.json",
+              "data/archive/2026.json",
+              "data/tide-patterns.json",
+          ]
+          for p in paths:
+              json.loads(Path(p).read_text(encoding="utf-8"))
+
+          catches = json.loads(Path("data/catches.json").read_text(encoding="utf-8")).get("catches", [])
+          ids = [x.get("id") for x in catches if x.get("id")]
+          if len(ids) != len(set(ids)):
+              raise SystemExit("duplicate catch ids detected")
+          future_limit = (date.today() + timedelta(days=1)).isoformat()
+          for x in catches:
+              for key in ("id", "date", "area", "type", "source", "url"):
+                  if not x.get(key):
+                      raise SystemExit(f"missing {key}: {x}")
+              if x["date"] > future_limit:
+                  raise SystemExit(f"future catch date: {x['date']} {x['id']}")
+          print(f"validated catches={len(catches)}")
+          PY
+      - name: Commit generated data
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catches.json
-          git commit -m "Update aori catch data"
+          git add data/catches.json data/source-status.json data/archive data/summary.json data/tide-patterns.json
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "Update aori catch data and health"
           git pull --rebase origin main
           git push
