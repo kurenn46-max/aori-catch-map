@@ -79,12 +79,23 @@ def phase_at(tides,area,date,time_s):
 archive=load("data/archive/2026.json",{"catches":[]})
 tides=load("data/tides.json",{})
 by_area=defaultdict(list)
+seen_sessions=set()
+
+def session_key(row):
+    title=str(row.get("title") or "")
+    who=title.split("さん /",1)[0].strip() if "さん /" in title else (row.get("angler") or row.get("id"))
+    if row.get("source")=="エギCOM" and who:
+        return (row.get("date"),row.get("area"),row.get("type"),str(who))
+    return (row.get("id"),)
 
 for row in archive.get("catches",[]):
     if row.get("type")!="shore":continue
     if row.get("result_status","catch")!="catch":continue
     area=row.get("area")
     if area not in AREAS:continue
+    sk=session_key(row)
+    if sk in seen_sessions:continue
+    seen_sessions.add(sk)
     ph=phase_at(tides,area,row.get("date",""),row.get("time",""))
     if not ph:continue
     by_area[area].append({

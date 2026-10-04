@@ -171,7 +171,7 @@
   </div>
   <div class="coverageBox" id="coverageBox">巡回状況を確認中…</div>
   <div class="freshGrid" id="freshGrid"></div>
-  <div class="scoreNote">※鮮度は「釣れる確率」ではありません。最新釣果の新しさ、直近の情報量、独立した情報源数、ベイト・人圧・現地情報の新しさをまとめた指標です。</div>
+  <div class="scoreNote">※鮮度は「釣れる確率」ではありません。岸の最新釣果、岸の直近情報量、独立した情報源数、ベイト・人圧・現地情報の新しさをまとめた指標です。船釣果は岸の鮮度を押し上げません。</div>
 </section>
 
 <section id="newPanel">
@@ -395,8 +395,8 @@ function areaFreshness(area){
   const latest=shore.map(x=>x.date).filter(Boolean).sort().at(-1)||catches.map(x=>x.date).filter(Boolean).sort().at(-1)||null;
   const age=dayAge(latest);
   let recency=age===0?60:age===1?50:age===2?38:age===3?28:age<=7?15:age<=14?7:2;
-  const recent7=catches.filter(x=>dayAge(x.date)<=7);
-  const recent2=catches.filter(x=>dayAge(x.date)<=2);
+  const recent7=shore.filter(x=>dayAge(x.date)<=7);
+  const recent2=shore.filter(x=>dayAge(x.date)<=2);
   const sources=new Set(recent7.map(x=>x.source).filter(Boolean));
   const volume=Math.min(10,recent2.length*2);
   const diversity=Math.min(10,sources.size*2);
@@ -568,12 +568,14 @@ function scoreArea(area,sea){
   if(a.trend==='up'||a.trend==='new'){score+=8;reasons.push('報告上向き')}
   else if(a.trend==='flat'){score+=3}
   else if(a.trend==='down'){score-=5;warnings.push('報告減少')}
-  score+=Math.min(6,(a.source_count||0)*2);
+  const independentSources=strat?.sources_30d ?? a.source_count ?? 0;
+  score+=Math.min(6,independentSources*2);
+  if(independentSources<=1){score-=8;warnings.push('独立情報源が1系統のみ')}
   const shoreSessions7=strat?.last7_sessions?.catch ?? (a.last7?.shore||0);
   if(shoreSessions7>=3){score+=5;reasons.push('陸の複数実釣')}
   if(strat?.grade==='A')reasons.push('根拠A');
   else if(strat?.grade==='C')warnings.push('標本少なめ');
-  if((a.last7?.boat||0)>=1){score+=2;reasons.push('沖にも魚影材料')}
+  if((a.last7?.boat||0)>=1){reasons.push('沖の魚影は参考のみ')}
 
   const bait=recentIntel(area,'bait',14);
   let baitAdj=0;
