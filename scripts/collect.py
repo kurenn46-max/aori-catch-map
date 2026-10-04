@@ -255,6 +255,18 @@ def main():
         for row in rows:
             candidates.append((row, check["source"]))
 
+    # GitHub-hosted runners can receive a stripped Yamaria page that still
+    # returns HTTP 200 and the section heading but no catch cards. Five regions
+    # becoming empty at the same time is treated as access blocking, not
+    # evidence that there were no new catches.
+    if checks and all(
+        x.get("status") == "no_new" and int(x.get("candidate_count", 0)) == 0
+        for x in checks
+    ):
+        for x in checks:
+            x["status"] = "blocked"
+            x["note"] += " / 5地域同時0件: GitHub Runnerへの本文省略・取得制限疑い"
+
     current = load_json("data/catches.json", {"catches": []})
     existing = current.get("catches", [])
 
