@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-09-27T17:00:00+09:00",
+  "updated_at": "2026-10-04T17:05:50+09:00",
   "schema_version": 1,
-  "note": "永久保存用。直近表示から消えた釣果も保持する。2026-09-27に8月分を公開Webからバックフィル。",
+  "note": "永久保存用。直近表示から消えた釣果も保持する。",
   "catches": [
     {
       "id": "egi-tsuruga-20260927-0757",
@@ -21,7 +21,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -42,7 +42,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -63,7 +63,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -84,7 +84,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -105,7 +105,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -126,7 +126,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -147,7 +147,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -168,7 +168,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -189,7 +189,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -210,7 +210,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -231,7 +231,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -252,7 +252,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -273,7 +273,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -294,7 +294,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -315,7 +315,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -336,7 +336,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -357,7 +357,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -378,7 +378,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -399,7 +399,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -420,7 +420,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -441,7 +441,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
     },
     {
@@ -462,8 +462,28 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-09-27T15:28:26+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00",
       "result_status": "catch"
+    },
+    {
+      "id": "315360215ab273",
+      "date": "2026-09-11",
+      "area": "越前",
+      "place": "越前",
+      "lat": 35.914,
+      "lng": 135.991,
+      "type": "shore",
+      "method": "エギング",
+      "count": null,
+      "maxSize": "不明",
+      "time": "不明",
+      "source": "福井新聞社",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE83cDkybTRjOXZpRXhVTGY3bV9UWFRsMVAxWjNNNU5NLU8wWnB1cnBXOElYbGQ2RUFra1owY2FvRTN2X2ZRRFZnYms3ZUN6dk9BQ0tYT2NDT0kwWklZVHc?oc=5",
+      "title": "アオリイカ数狙える 三国新港の豆アジは不調 | 福井のニュース | 福井新聞ONLINE - 福井新聞社",
+      "demo": false,
+      "precision": "area",
+      "first_seen_at": "2026-10-04T17:05:50+09:00",
+      "last_seen_at": "2026-10-04T17:05:50+09:00"
     },
     {
       "id": "backfill-echizen-20260831-2217",

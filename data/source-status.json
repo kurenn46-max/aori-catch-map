@@ -1,5 +1,52 @@
 {
-  "updated_at": "2026-09-27T16:20:00+09:00",
-  "note": "各巡回でsource-registry.jsonの全A優先ソースを確認し、Bは横断検索で補完。未確認や取得失敗を残す。",
-  "checks": []
+  "updated_at": "2026-10-04T17:05:50+09:00",
+  "collector": "github-actions-core-v2",
+  "note": "コア自動収集の巡回結果。現在はエギCOM5地域を直接監視。その他のA/B優先情報源はChatGPT補完巡回で追加確認する。",
+  "checks": [
+    {
+      "source": "エギCOM / 越前",
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/86",
+      "checked_at": "2026-10-04T17:05:50+09:00",
+      "status": "no_new",
+      "new_count": 0,
+      "candidate_count": 0,
+      "note": "HTTP 200 / 解析 0件 / 候補リンク 0件"
+    },
+    {
+      "source": "エギCOM / 敦賀",
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/85",
+      "checked_at": "2026-10-04T17:05:50+09:00",
+      "status": "no_new",
+      "new_count": 0,
+      "candidate_count": 0,
+      "note": "HTTP 200 / 解析 0件 / 候補リンク 0件"
+    },
+    {
+      "source": "エギCOM / 小浜",
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/84",
+      "checked_at": "2026-10-04T17:05:50+09:00",
+      "status": "no_new",
+      "new_count": 0,
+      "candidate_count": 0,
+      "note": "HTTP 200 / 解析 0件 / 候補リンク 0件"
+    },
+    {
+      "source": "エギCOM / 舞鶴",
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/114",
+      "checked_at": "2026-10-04T17:05:50+09:00",
+      "status": "no_new",
+      "new_count": 0,
+      "candidate_count": 0,
+      "note": "HTTP 200 / 解析 0件 / 候補リンク 0件"
+    },
+    {
+      "source": "エギCOM / 丹後",
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/115",
+      "checked_at": "2026-10-04T17:05:50+09:00",
+      "status": "no_new",
+      "new_count": 0,
+      "candidate_count": 0,
+      "note": "HTTP 200 / 解析 0件 / 候補リンク 0件"
+    }
+  ]
 }
