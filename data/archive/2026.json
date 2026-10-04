@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T17:10:06+09:00",
+  "updated_at": "2026-10-04T17:12:53+09:00",
   "schema_version": 1,
   "note": "永久保存用。直近表示から消えた釣果も保持する。",
   "catches": [
@@ -22,7 +22,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261004-1330-hitoshi",
@@ -43,7 +43,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-1113-micchi",
@@ -64,7 +64,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261004-1059-junta",
@@ -85,7 +85,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-1043-micchi",
@@ -106,7 +106,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-1035-kana",
@@ -127,7 +127,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-1003-kana",
@@ -148,7 +148,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-0806-ktaa",
@@ -169,7 +169,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261004-0708-163",
@@ -190,7 +190,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261004-0659-mine",
@@ -211,7 +211,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261004-0644-mine",
@@ -232,7 +232,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261004-0640-mine",
@@ -253,7 +253,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-maizuru-20261004-0553-ikahito",
@@ -274,7 +274,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261004-0522-junta",
@@ -295,7 +295,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-maizuru-20261004-0407-ikahito",
@@ -316,7 +316,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261004-0351-takahiro",
@@ -337,7 +337,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261004-0243-takahiro",
@@ -358,7 +358,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261004-0215-takahiro",
@@ -379,7 +379,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-0212-shuhei",
@@ -400,7 +400,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261003-2249-futachimaru",
@@ -421,7 +421,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261003-2152-futachimaru",
@@ -442,7 +442,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-maizuru-20261003-1641-kuuchan",
@@ -463,7 +463,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tango-20261003-0836-aqua",
@@ -484,7 +484,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tango-20261003-0801-aqua",
@@ -505,7 +505,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tango-20261003-0744-aqua",
@@ -526,7 +526,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-tango-20261003-0734-aqua",
@@ -547,7 +547,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "yamaria-obama-20261003-0550-komerappi",
@@ -568,7 +568,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-04T16:58:00+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "egi-tsuruga-20260927-0757",
@@ -588,7 +588,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -609,7 +609,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -630,7 +630,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -651,7 +651,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -672,7 +672,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -693,7 +693,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -714,7 +714,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -735,7 +735,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -756,7 +756,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -777,7 +777,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -798,7 +798,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -819,7 +819,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -840,7 +840,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -861,7 +861,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -882,7 +882,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -903,7 +903,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -924,7 +924,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -945,7 +945,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -966,7 +966,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -987,7 +987,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -1008,7 +1008,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -1029,7 +1029,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-09-27T15:28:26+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00",
+      "last_seen_at": "2026-10-04T17:12:53+09:00",
       "result_status": "catch"
     },
     {
@@ -1050,7 +1050,7 @@
       "demo": false,
       "precision": "area",
       "first_seen_at": "2026-10-04T17:05:50+09:00",
-      "last_seen_at": "2026-10-04T17:10:06+09:00"
+      "last_seen_at": "2026-10-04T17:12:53+09:00"
     },
     {
       "id": "backfill-echizen-20260831-2217",
