@@ -15,6 +15,7 @@ on:
 permissions:
   contents: write
 concurrency:
+  # Shared with archive-summary so generated JSON writers never race.
   group: aori-catch-collector
   cancel-in-progress: false
 jobs:
