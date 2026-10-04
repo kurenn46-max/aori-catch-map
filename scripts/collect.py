@@ -1,173 +1,326 @@
 #!/usr/bin/env python3
-import json, re, hashlib, html
+import json
+import re
+import hashlib
+import html
 from datetime import datetime, timedelta, timezone
-from email.utils import parsedate_to_datetime
 from pathlib import Path
-from urllib.parse import quote_plus
-import xml.etree.ElementTree as ET
+from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
-JST=timezone(timedelta(hours=9))
-NOW=datetime.now(JST)
-MAX_DAYS=30
-UA={"User-Agent":"Mozilla/5.0 (compatible; AoriCatchMap/1.2; +https://github.com/kurenn46-max/aori-catch-map)"}
+JST = timezone(timedelta(hours=9))
+NOW = datetime.now(JST)
+MAX_DAYS = 30
 
-YAMARIA=[
- ("越前","越前",86,35.914,135.991),
- ("敦賀","敦賀",85,35.645,136.055),
- ("若狭","小浜",84,35.495,135.746),
- ("舞鶴","舞鶴",114,35.474,135.386),
- ("丹後","丹後",115,35.650,135.150),
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Linux; Android 16; Mobile) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36"
+    ),
+    "Accept-Language": "ja,en-US;q=0.8,en;q=0.6",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Cache-Control": "no-cache",
+}
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
+SESSION.mount(
+    "https://",
+    HTTPAdapter(
+        max_retries=Retry(
+            total=3,
+            connect=3,
+            read=3,
+            backoff_factor=0.7,
+            status_forcelist=(429, 500, 502, 503, 504),
+            allowed_methods=frozenset(["GET"]),
+        )
+    ),
+)
+
+YAMARIA = [
+    ("越前", "越前", 86, 35.914, 135.991),
+    ("敦賀", "敦賀", 85, 35.645, 136.055),
+    ("若狭", "小浜", 84, 35.495, 135.746),
+    ("舞鶴", "舞鶴", 114, 35.474, 135.386),
+    ("丹後", "丹後", 115, 35.650, 135.150),
 ]
-POINTS={
- "越前海岸":(35.914,135.991),"越前岬":(35.980,135.958),"甲楽城":(35.827,136.020),
- "敦賀湾":(35.681,136.049),"常神":(35.608,135.833),"常神半島":(35.608,135.833),
- "小浜":(35.495,135.746),"小浜湾":(35.521,135.720),"高浜":(35.489,135.551),
- "白杉":(35.500,135.337),"舞鶴":(35.474,135.386),"舞鶴湾":(35.507,135.376),
- "伊根":(35.674,135.287),"宮津":(35.535,135.196),"京丹後":(35.650,135.060)
+
+POINTS = {
+    "越前海岸": (35.914, 135.991),
+    "越前岬": (35.980, 135.958),
+    "甲楽城": (35.827, 136.020),
+    "敦賀湾": (35.681, 136.049),
+    "常神": (35.608, 135.833),
+    "常神半島": (35.608, 135.833),
+    "小浜": (35.495, 135.746),
+    "小浜湾": (35.521, 135.720),
+    "高浜": (35.489, 135.551),
+    "白杉": (35.500, 135.337),
+    "舞鶴": (35.474, 135.386),
+    "舞鶴湾": (35.507, 135.376),
+    "伊根": (35.674, 135.287),
+    "宮津": (35.535, 135.196),
+    "京丹後": (35.650, 135.060),
 }
 
-def clean(s):
-    s=html.unescape(re.sub(r"<[^>]+>"," ",s or ""))
-    return re.sub(r"\s+"," ",s).strip()
+POST_RE = re.compile(
+    r"(?P<hits>\d+)\s*HIT\s+"
+    r"(?P<user>.+?)\s+さん\s+"
+    r"(?P<date>20\d{2}-\d{2}-\d{2})\s+"
+    r"(?P<time>\d{1,2}:\d{2})\s+"
+    r"アオリイカ：\s*(?P<size>\S+)\s+"
+    r"釣果場所：\s*(?P<pref>\S+)\s+(?P<reported_place>\S+)\s+"
+    r"釣り場所：\s*(?P<fish_place>\S+)"
+)
 
-def age_ok(date):
-    try:d=datetime.strptime(date,"%Y-%m-%d").replace(tzinfo=JST)
-    except ValueError:return False
-    return 0 <= (NOW-d).days <= MAX_DAYS
 
-def yamaria_rows(area,place,city_id,lat,lng):
-    url=f"https://www.yamaria.com/community/catch/egiou/cities/{city_id}"
-    r=requests.get(url,headers=UA,timeout=25)
-    r.raise_for_status()
-    text=BeautifulSoup(r.text,"html.parser").get_text(" ",strip=True)
-    # Each latest result contains HIT, user, date/time, size class, area and fishing-place type.
-    pat=re.compile(
-      r"(\d+)\s*HIT\s+(.+?)\s+さん\s+(20\d{2}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s+"
-      r"アオリイカ：\s*([^\s]+)\s+釣果場所：\s*([^\s]+)\s+([^\s]+)\s+釣り場所：\s*([^\s]+)"
+def clean(value):
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value or ""))
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def age_ok(date_s):
+    try:
+        d = datetime.strptime(date_s, "%Y-%m-%d").replace(tzinfo=JST)
+    except ValueError:
+        return False
+    age = (NOW.date() - d.date()).days
+    return 0 <= age <= MAX_DAYS
+
+
+def fingerprint(row):
+    return (
+        row.get("date"),
+        row.get("area"),
+        row.get("place"),
+        row.get("type"),
+        row.get("time"),
+        row.get("source"),
+        row.get("maxSize"),
     )
-    rows=[]
-    for m in pat.finditer(text):
-        hits,user,date,tm,size,pref,reported_place,fish_place=m.groups()
-        if not age_ok(date):continue
-        typ="boat" if any(k in fish_place for k in ["ボート","船"]) else "shore"
-        method="ティップラン" if typ=="boat" else "エギング"
-        shown_place=reported_place if reported_place not in ["福井","京都"] else place
-        plat,plng=POINTS.get(shown_place,(lat,lng))
-        raw=m.group(0)
-        rid=hashlib.sha1((url+raw).encode()).hexdigest()[:14]
-        rows.append({
-          "id":rid,"date":date,"area":area,"place":shown_place,
-          "lat":plat,"lng":plng,"type":typ,"method":method,
-          "count":None,"maxSize":size,"time":tm,
-          "source":"エギCOM","url":url,"title":f"{user}さん / {fish_place}",
-          "demo":False,"precision":"area","reportPlace":fish_place
-        })
-    print(f"エギCOM / {place}: {len(rows)}")
-    return rows
 
-def rss_items(query):
-    q=quote_plus(query)
-    feeds=[
-      ("Google News",f"https://news.google.com/rss/search?q={q}&hl=ja&gl=JP&ceid=JP:ja"),
-      ("Bing News",f"https://www.bing.com/news/search?q={q}&format=rss&setlang=ja-jp")
-    ]
-    out=[]
-    for provider,url in feeds:
-        try:
-            r=requests.get(url,headers=UA,timeout=25); r.raise_for_status()
-            root=ET.fromstring(r.content)
-            for item in root.findall(".//item"):
-                source=item.find("source")
-                out.append({
-                  "provider":provider,"title":clean(item.findtext("title") or ""),
-                  "desc":clean(item.findtext("description") or ""),
-                  "link":clean(item.findtext("link") or ""),
-                  "published":clean(item.findtext("pubDate") or ""),
-                  "source":clean(source.text if source is not None else provider)
-                })
-        except Exception as e: print(f"WARN RSS {provider}: {e}")
-    return out
 
-def rss_rows():
-    rows=[]
-    queries=[
-      ("越前","越前",35.914,135.991,"アオリイカ 越前 エギング 釣果"),
-      ("敦賀","敦賀",35.645,136.055,"アオリイカ 敦賀 エギング 釣果"),
-      ("若狭","小浜",35.495,135.746,"アオリイカ 小浜 エギング 釣果"),
-      ("舞鶴","舞鶴",35.474,135.386,"アオリイカ 舞鶴 エギング 釣果"),
-      ("丹後","丹後",35.650,135.150,"アオリイカ 丹後 ティップラン 釣果"),
-    ]
-    for area,place,lat,lng,q in queries:
-      for it in rss_items(q):
-        # High precision rule: Aori must be explicit in the headline.
-        if "アオリ" not in it["title"]:continue
-        try:d=parsedate_to_datetime(it["published"]).astimezone(JST)
-        except Exception:continue
-        if not (0 <= (NOW-d).days <= MAX_DAYS):continue
-        title=it["title"]
-        typ="boat" if any(k in title for k in ["ティップラン","船","ボート","沖"]) else "shore"
-        method="ティップラン" if typ=="boat" else "エギング"
-        rid=hashlib.sha1((it["link"]+area).encode()).hexdigest()[:14]
-        rows.append({
-          "id":rid,"date":d.date().isoformat(),"area":area,"place":place,
-          "lat":lat,"lng":lng,"type":typ,"method":method,"count":None,
-          "maxSize":"不明","time":"不明","source":it["source"] or it["provider"],
-          "url":it["link"],"title":title[:120],"demo":False,"precision":"area"
-        })
-    return rows
+def parse_post(match, area, fallback_place, lat, lng, city_url, detail_url=None):
+    date_s = match.group("date")
+    if not age_ok(date_s):
+        return None
+
+    user = clean(match.group("user"))
+    tm = match.group("time").zfill(5)
+    size = clean(match.group("size"))
+    reported_place = clean(match.group("reported_place"))
+    fish_place = clean(match.group("fish_place"))
+
+    typ = "boat" if any(k in fish_place for k in ("ボート", "船")) else "shore"
+    method = "ティップラン" if typ == "boat" else "エギング"
+    shown_place = reported_place if reported_place not in ("福井", "京都") else fallback_place
+    plat, plng = POINTS.get(shown_place, (lat, lng))
+
+    source_url = detail_url or city_url
+    stable = f"{source_url}|{date_s}|{tm}|{user}|{size}|{fish_place}"
+    rid = "yamaria-" + hashlib.sha1(stable.encode("utf-8")).hexdigest()[:16]
+
+    return {
+        "id": rid,
+        "date": date_s,
+        "area": area,
+        "place": shown_place,
+        "lat": plat,
+        "lng": plng,
+        "type": typ,
+        "method": method,
+        "count": None,
+        "maxSize": size,
+        "time": tm,
+        "source": "エギCOM",
+        "url": source_url,
+        "title": f"{user}さん / {fish_place}",
+        "demo": False,
+        "precision": "area",
+        "result_status": "catch",
+        "reportPlace": fish_place,
+        "first_seen_at": NOW.isoformat(timespec="seconds"),
+        "last_seen_at": NOW.isoformat(timespec="seconds"),
+    }
+
+
+def yamaria_rows(area, place, city_id, lat, lng):
+    city_url = f"https://www.yamaria.com/community/catch/egiou/cities/{city_id}"
+    checked_at = NOW.isoformat(timespec="seconds")
+    label = f"エギCOM / {place}"
+
+    try:
+        response = SESSION.get(city_url, timeout=(10, 35))
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, "html.parser")
+
+        rows = []
+        seen = set()
+        anchors_examined = 0
+
+        for anchor in soup.find_all("a", href=True):
+            raw = clean(anchor.get_text(" ", strip=True))
+            if "アオリイカ：" not in raw or "釣果場所：" not in raw:
+                continue
+            anchors_examined += 1
+            match = POST_RE.search(raw)
+            if not match:
+                continue
+            detail_url = urljoin(city_url, anchor.get("href", ""))
+            row = parse_post(match, area, place, lat, lng, city_url, detail_url)
+            if not row:
+                continue
+            fp = fingerprint(row)
+            if fp not in seen:
+                seen.add(fp)
+                rows.append(row)
+
+        fallback_used = False
+        if not rows:
+            page_text = clean(soup.get_text(" ", strip=True))
+            for match in POST_RE.finditer(page_text):
+                row = parse_post(match, area, place, lat, lng, city_url)
+                if not row:
+                    continue
+                fallback_used = True
+                fp = fingerprint(row)
+                if fp not in seen:
+                    seen.add(fp)
+                    rows.append(row)
+
+        visible_text = clean(soup.get_text(" ", strip=True))
+        has_expected_page = "最新釣果投稿" in visible_text
+        status = "ok" if rows else ("no_new" if has_expected_page else "error")
+        note_parts = [
+            f"HTTP {response.status_code}",
+            f"解析 {len(rows)}件",
+            f"候補リンク {anchors_examined}件",
+        ]
+        if fallback_used:
+            note_parts.append("全文fallback使用")
+        if not has_expected_page:
+            note_parts.append("期待見出し未検出")
+
+        print(f"{label}: parsed={len(rows)} anchors={anchors_examined} fallback={fallback_used}")
+        return rows, {
+            "source": label,
+            "url": city_url,
+            "checked_at": checked_at,
+            "status": status,
+            "new_count": 0,
+            "candidate_count": len(rows),
+            "note": " / ".join(note_parts),
+        }
+    except Exception as exc:
+        print(f"WARN {label}: {exc}")
+        return [], {
+            "source": label,
+            "url": city_url,
+            "checked_at": checked_at,
+            "status": "error",
+            "new_count": 0,
+            "candidate_count": 0,
+            "note": f"{type(exc).__name__}: {exc}"[:240],
+        }
+
+
+def load_json(path, default):
+    p = Path(path)
+    if not p.exists():
+        return default
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"WARN JSON read {path}: {exc}")
+        return default
+
+
+def write_json(path, payload):
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
 
 def main():
-    rows=[]; seen=set()
+    candidates = []
+    checks = []
+
     for args in YAMARIA:
-        try: batch=yamaria_rows(*args)
-        except Exception as e:
-            print(f"WARN エギCOM {args[1]}: {e}"); batch=[]
-        for x in batch:
-            k=(x["date"],x["area"],x["place"],x["type"],x["time"],x["title"])
-            if k not in seen:seen.add(k);rows.append(x)
-    for x in rss_rows():
-        k=(x["url"],x["type"])
-        if k not in seen:seen.add(k);rows.append(x)
-    rows.sort(key=lambda x:(x["date"],x.get("time","")),reverse=True)
-    if not rows:
-        print("No fresh records found; existing data preserved.")
-        return
+        rows, check = yamaria_rows(*args)
+        checks.append(check)
+        for row in rows:
+            candidates.append((row, check["source"]))
 
-    # Never replace verified existing data with a sparse scrape.
-    # Merge only new records into the current 30-day display database.
-    p=Path("data/catches.json")
-    existing=[]
-    if p.exists():
-        try:
-            existing=json.loads(p.read_text(encoding="utf-8")).get("catches",[])
-        except Exception:
-            existing=[]
+    current = load_json("data/catches.json", {"catches": []})
+    existing = current.get("catches", [])
 
-    merged={}
-    for x in existing:
-        key=x.get("id") or (x.get("url"),x.get("date"),x.get("time"),x.get("title"))
-        merged[str(key)]=x
-    added=0
-    for x in rows:
-        key=x.get("id") or (x.get("url"),x.get("date"),x.get("time"),x.get("title"))
-        sk=str(key)
-        if sk not in merged:
-            merged[sk]=x
-            added+=1
+    by_id = {}
+    fingerprints = set()
+    for row in existing:
+        key = row.get("id") or hashlib.sha1(repr(fingerprint(row)).encode("utf-8")).hexdigest()
+        by_id[str(key)] = row
+        fingerprints.add(fingerprint(row))
 
-    cutoff=(NOW-timedelta(days=30)).date().isoformat()
-    final=[x for x in merged.values() if x.get("date","")>=cutoff]
-    final.sort(key=lambda x:(x.get("date",""),x.get("time","")),reverse=True)
+    added = 0
+    added_by_source = {}
+    for row, source_label in candidates:
+        rid = str(row["id"])
+        fp = fingerprint(row)
+        if rid in by_id or fp in fingerprints:
+            continue
+        by_id[rid] = row
+        fingerprints.add(fp)
+        added += 1
+        added_by_source[source_label] = added_by_source.get(source_label, 0) + 1
 
-    Path("data").mkdir(exist_ok=True)
-    p.write_text(json.dumps({
-      "updated_at":NOW.isoformat(timespec="seconds"),
-      "note":"手動収集の結果を既存の確認済みデータへ追記。既存データは上書き削除しない。",
-      "catches":final[:500]
-    },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(f"Found {len(rows)} candidates, added {added}, total {len(final[:500])}")
+    for check in checks:
+        check["new_count"] = added_by_source.get(check["source"], 0)
+        if check["status"] == "ok" and check["new_count"] == 0:
+            check["status"] = "no_new"
 
-if __name__=="__main__":
+    cutoff = (NOW - timedelta(days=MAX_DAYS)).date().isoformat()
+    final = [row for row in by_id.values() if row.get("date", "") >= cutoff]
+    final.sort(key=lambda x: (x.get("date", ""), x.get("time", ""), x.get("id", "")), reverse=True)
+
+    write_json(
+        "data/catches.json",
+        {
+            "updated_at": NOW.isoformat(timespec="seconds"),
+            "note": (
+                "GitHub Actions自動収集。確認済み既存データを保持し、"
+                "エギCOMの直近投稿を重複排除して追記。"
+            ),
+            "catches": final[:500],
+        },
+    )
+
+    write_json(
+        "data/source-status.json",
+        {
+            "updated_at": NOW.isoformat(timespec="seconds"),
+            "collector": "github-actions-core-v2",
+            "note": (
+                "コア自動収集の巡回結果。現在はエギCOM5地域を直接監視。"
+                "その他のA/B優先情報源はChatGPT補完巡回で追加確認する。"
+            ),
+            "checks": checks,
+        },
+    )
+
+    errors = [x for x in checks if x["status"] == "error"]
+    parsed = sum(int(x.get("candidate_count", 0)) for x in checks)
+    print(
+        f"Collector summary: candidates={parsed} added={added} "
+        f"display_total={len(final[:500])} errors={len(errors)}"
+    )
+
+    if checks and len(errors) == len(checks):
+        raise SystemExit("All direct Yamaria sources failed. Collector aborted as unhealthy.")
+
+
+if __name__ == "__main__":
     main()
