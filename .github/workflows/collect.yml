@@ -4,8 +4,12 @@ on:
   push:
     paths:
       - "scripts/collect.py"
+      - "scripts/build_strategy.py"
+      - "scripts/archive_and_summary.py"
+      - "scripts/build_tide_patterns.py"
       - ".github/workflows/collect.yml"
       - "data/source-registry.json"
+      - "data/intel.json"
   schedule:
     - cron: "17 */6 * * *"
 permissions:
