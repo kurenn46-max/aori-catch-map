@@ -33,6 +33,7 @@ jobs:
           true_case = "水深13～30mをティップランで流してアオリイカを狙った。"
           adjacent_case = "ナイトティップランで夜アオリが出ました！水深13～30m位まででやりました。"
           bottom_case = "アオリイカのDayティップラン。ボトムから5m辺りでコツコツ乗ってます。"
+          inherited_trip_case = "9/19日の釣行 サイズも数も良い感じ。ボトムから5m辺りでコツコツ乗ってます。"
           false_depths, false_bottom, false_tana, _ = extract_depths(false_case)
           true_depths, true_bottom, true_tana, true_ev = extract_depths(true_case)
           adjacent_depths, _, _, adjacent_ev = extract_depths(adjacent_case)
@@ -42,7 +43,15 @@ jobs:
           assert adjacent_depths == [13.0, 30.0], adjacent_depths
           assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
           assert bottom_depths == [] and bottom_offsets == [5.0], (bottom_depths, bottom_offsets)
-          print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths, bottom_offsets)
+          from scripts.collect_public_signals import signal_from_segment
+          inherited_sig = signal_from_segment(
+              {"name":"test","kind":"charter","url":"https://example.com","default_area":"舞鶴"},
+              "2026-09-19",
+              inherited_trip_case,
+              inherited_context="アオリイカ Dayティップラン",
+          )
+          assert inherited_sig and inherited_sig.get("bottom_offset_m") == [5.0], inherited_sig
+          print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths, bottom_offsets, inherited_sig.get("bottom_offset_m"))
           PY
       - name: Collect structured signals
         run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
