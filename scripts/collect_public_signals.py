@@ -234,6 +234,33 @@ def detect_area(text, default=None):
     return default
 
 
+def detect_evidence_role(text):
+    t = normalize(text)
+    catch_markers = (
+        "ヒット", "キャッチ", "釣れ", "釣果", "竿頭", "トップ", "船中",
+        "全員安打", "連発", "乗って", "乗り", "アタリ", "あたり", "反応",
+        "チェイス", "見えイカ", "ボウズ", "坊主", "渋い", "厳しい",
+    )
+    schedule_markers = (
+        "募集中", "募集", "予約受付", "ご予約", "空き", "残り", "満席",
+        "出船予定", "料金", "レンタル", "受付時間", "プラン",
+    )
+    catch_score = sum(1 for w in catch_markers if w in t)
+    if COUNT_RE.search(t):
+        catch_score += 2
+    if any(w in t for w in NEGATIVE_WORDS):
+        catch_score += 1
+    schedule_score = sum(1 for w in schedule_markers if w in t)
+
+    if catch_score >= 2:
+        return "catch"
+    if schedule_score >= 2 and catch_score == 0:
+        return "schedule"
+    if schedule_score >= 1 and catch_score == 0:
+        return "schedule"
+    return "info"
+
+
 def detect_time_mode(text):
     t = normalize(text)
     day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
@@ -513,6 +540,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
         time_mode = inherited_mode
     else:
         time_mode = segment_mode
+    evidence_role = detect_evidence_role(analysis_text)
     depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(analysis_text)
     negatives = [w for w in NEGATIVE_WORDS if w in analysis_text]
     bait = [w for w in BAIT_WORDS if w in analysis_text]
@@ -545,6 +573,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
 
     usable_for_decision = bool(
         confidence in ("A", "B")
+        and evidence_role == "catch"
         and area
         and typ in ("shore", "boat", "raft")
     )
@@ -556,6 +585,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
         "type": typ,
         "method": method,
         "time_mode": time_mode,
+        "evidence_role": evidence_role,
         "source": source["name"],
         "source_kind": source["kind"],
         "url": source["url"],
@@ -698,6 +728,8 @@ def main():
         "signals": len(signals),
         "trusted_signals": sum(bool(x.get("usable_for_decision")) for x in signals),
         "review_candidates": sum(not bool(x.get("usable_for_decision")) for x in signals),
+        "catch_signals": sum(x.get("evidence_role") == "catch" for x in signals),
+        "schedule_info": sum(x.get("evidence_role") == "schedule" for x in signals),
         "grade_A": sum(x.get("confidence") == "A" for x in signals),
         "with_depth": sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals),
         "boat": sum(x.get("type") == "boat" for x in signals),
