@@ -7,6 +7,8 @@ on:
     paths:
       - "scripts/source_probe.py"
       - "scripts/collect_public_signals.py"
+      - "scripts/build_strategy.py"
+      - "index.html"
       - ".github/workflows/source-probe.yml"
 permissions:
   contents: read
