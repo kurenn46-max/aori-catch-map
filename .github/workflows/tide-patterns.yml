@@ -2,6 +2,7 @@ name: Build tide patterns
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - "data/archive/2026.json"
       - "data/tides.json"
