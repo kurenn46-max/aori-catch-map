@@ -1,0 +1,53 @@
+name: Probe keyword source discovery
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feat/keyword-discovery-*"
+    paths:
+      - "scripts/search_source_probe.py"
+      - ".github/workflows/keyword-source-probe.yml"
+      - "data/source-registry.json"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Syntax check
+        run: python -m py_compile scripts/search_source_probe.py
+      - name: Run keyword source discovery probe
+        run: python scripts/search_source_probe.py
+      - name: Validate output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("test-results/keyword-source-discovery.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          assert d["candidate_count"] > 0
+          assert d["query_count"] > 0
+          for row in d.get("new_candidates",[]):
+              assert row.get("url") and row.get("domain") and row.get("score") is not None
+              assert row.get("region")
+          print("keyword discovery PASS", d["candidate_count"], d["new_candidate_count"], d["new_domain_count"])
+          PY
+      - name: Show top new candidates
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("test-results/keyword-source-discovery.json").read_text(encoding="utf-8"))
+          for x in d.get("new_candidates",[])[:30]:
+              print({
+                  "score":x["score"],"region":x["region"],"domain":x["domain"],
+                  "title":x["title"],"url":x["url"],"reasons":x["reasons"],"engine":x["engine"]
+              })
+          PY
