@@ -98,6 +98,8 @@ jobs:
                   raise SystemExit(f"depth signal lacks confidence: {x}")
               if x.get("count_mentions") and x.get("count_confidence") != "mention_only":
                   raise SystemExit(f"catch-count mention treated as authoritative: {x}")
+              if x.get("usable_for_decision") and x.get("evidence_role") != "catch":
+                  raise SystemExit(f"non-catch discovery signal marked usable: {x}")
           trusted = sum(bool(x.get("usable_for_decision")) for x in signals)
 
           strategy = json.loads(Path("data/strategy.json").read_text(encoding="utf-8"))
@@ -107,6 +109,15 @@ jobs:
                   raise SystemExit(f"single-source area incorrectly graded A: {area.get('area')}")
               if "evidence" not in area:
                   raise SystemExit(f"strategy evidence missing: {area.get('area')}")
+              boat=area.get("boat_context")
+              if not isinstance(boat,dict):
+                  raise SystemExit(f"strategy boat_context missing: {area.get('area')}")
+              for sig in boat.get("day_depth_signals",[]):
+                  if sig.get("time_mode") != "day":
+                      raise SystemExit(f"non-day signal in day boat context: {sig}")
+              for sig in boat.get("night_depth_signals",[]):
+                  if sig.get("time_mode") != "night":
+                      raise SystemExit(f"non-night signal in night boat context: {sig}")
           print(f"validated catches={len(catches)} discovery={len(signals)} trusted={trusted} strategy_areas={len(strategy.get('areas', []))}")
           PY
       - name: Commit generated data
