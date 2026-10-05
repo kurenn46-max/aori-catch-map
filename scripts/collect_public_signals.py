@@ -439,10 +439,14 @@ def fetch_detail_signals(source, detail_urls, sess):
             soup = BeautifulSoup(r.content, "html.parser")
             text = soup.get_text(" ", strip=True)
             page_date = published_date_from_soup(soup, text)
+            title = clean(soup.title.get_text(" ", strip=True) if soup.title else "")
+            # In detail articles, trip-date paragraphs often omit the species/method
+            # because the title already says "アオリイカ ティップラン".
+            inherited_context = title if any(w in title for w in AORI_WORDS) else ""
             detail_source = dict(source)
             detail_source["url"] = r.url
             for date, segment in split_detail_segments(text, page_date):
-                sig = signal_from_segment(detail_source, date, segment)
+                sig = signal_from_segment(detail_source, date, segment, inherited_context=inherited_context)
                 if sig:
                     sig["detail_url"] = r.url
                     sig["evidence_scope"] = "detail"
@@ -468,21 +472,22 @@ def split_recent_segments(text):
     return out
 
 
-def signal_from_segment(source, date, segment):
-    if not any(w in segment for w in AORI_WORDS):
+def signal_from_segment(source, date, segment, inherited_context=""):
+    analysis_text = normalize((inherited_context + " " + segment).strip())
+    if not any(w in analysis_text for w in AORI_WORDS):
         return None
 
-    area = detect_area(segment, source.get("default_area"))
-    typ, method = classify_type(segment, source["kind"])
-    depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(segment)
-    negatives = [w for w in NEGATIVE_WORDS if w in segment]
-    bait = [w for w in BAIT_WORDS if w in segment]
-    counts = sorted({int(x) for x in COUNT_RE.findall(segment) if 0 < int(x) <= 200})
+    area = detect_area(analysis_text, source.get("default_area"))
+    typ, method = classify_type(analysis_text, source["kind"])
+    depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(analysis_text)
+    negatives = [w for w in NEGATIVE_WORDS if w in analysis_text]
+    bait = [w for w in BAIT_WORDS if w in analysis_text]
+    counts = sorted({int(x) for x in COUNT_RE.findall(analysis_text) if 0 < int(x) <= 200})
 
     quality = 25
     quality += 20 if area else 0
     quality += 15 if typ != "unknown" else 0
-    quality += 15 if "アオリ" in segment else 8
+    quality += 15 if "アオリ" in analysis_text else 8
     quality += 15 if (depths or bottom_offsets or tana_depths) else 0
     quality += 5 if negatives else 0
     # Numeric "X杯" mentions can mix skipper total, top angler and separate
