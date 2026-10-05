@@ -59,6 +59,8 @@ jobs:
               inherited_context="アオリイカ Dayティップラン",
           )
           assert inherited_sig and inherited_sig.get("bottom_offset_m") == [5.0], inherited_sig
+          assert inherited_sig.get("evidence_role") == "catch", inherited_sig
+          assert inherited_sig.get("usable_for_decision") is True, inherited_sig
           print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths, bottom_offsets, inherited_sig.get("bottom_offset_m"))
           PY
       - name: Collect structured signals
