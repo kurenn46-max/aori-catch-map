@@ -26,13 +26,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Bundle Leaflet locally for shore map
+      - name: Bundle Leaflet locally for root and shore maps
         run: |
-          npm install --prefix /tmp/shore-map-deps --no-save --no-audit --no-fund leaflet@1.9.4
-          mkdir -p shore-map/assets
-          cp /tmp/shore-map-deps/node_modules/leaflet/dist/leaflet.js shore-map/assets/leaflet.js
-          cp /tmp/shore-map-deps/node_modules/leaflet/dist/leaflet.css shore-map/assets/leaflet.css
-          cp -r /tmp/shore-map-deps/node_modules/leaflet/dist/images shore-map/assets/images
+          npm install --prefix /tmp/map-deps --no-save --no-audit --no-fund leaflet@1.9.4
+          mkdir -p assets shore-map/assets
+          cp /tmp/map-deps/node_modules/leaflet/dist/leaflet.js assets/leaflet.js
+          cp /tmp/map-deps/node_modules/leaflet/dist/leaflet.css assets/leaflet.css
+          cp -r /tmp/map-deps/node_modules/leaflet/dist/images assets/images
+          cp /tmp/map-deps/node_modules/leaflet/dist/leaflet.js shore-map/assets/leaflet.js
+          cp /tmp/map-deps/node_modules/leaflet/dist/leaflet.css shore-map/assets/leaflet.css
+          cp -r /tmp/map-deps/node_modules/leaflet/dist/images shore-map/assets/images
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
