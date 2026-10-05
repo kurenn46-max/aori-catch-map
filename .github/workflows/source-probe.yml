@@ -44,3 +44,20 @@ jobs:
                   raise SystemExit(f"depth without confidence: {x}")
           print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m")) for x in signals))
           PY
+
+      - name: Show signal audit table
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("test-results/discovery-signals.json").read_text(encoding="utf-8"))
+          for x in data.get("signals",[]):
+              print({
+                  "date":x.get("date"),"area":x.get("area"),"type":x.get("type"),
+                  "method":x.get("method"),"source":x.get("source"),
+                  "grade":x.get("confidence"),"score":x.get("quality_score"),
+                  "depth":x.get("depth_m"),"depth_grade":x.get("depth_confidence"),
+                  "counts":x.get("count_mentions"),"negative":x.get("negative_signals"),
+                  "bait":x.get("bait_signals")
+              })
+          PY
