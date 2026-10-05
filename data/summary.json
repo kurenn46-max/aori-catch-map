@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-10-05T14:46:38+09:00",
-  "reference_date": "2026-10-04",
+  "updated_at": "2026-10-05T19:06:00+09:00",
+  "reference_date": "2026-10-05",
   "season_start": "2026-08-01",
-  "total_records": 72,
+  "total_records": 94,
   "source_count": 10,
   "note": "件数は公開Web上で確認できた釣果投稿/釣行記録。実際の資源量・総釣獲量そのものではない。",
   "season": {
     "total": {
-      "total": 72,
-      "shore": 65,
+      "total": 94,
+      "shore": 87,
       "boat": 7
     },
     "august": {
@@ -26,10 +26,10 @@
   "areas": [
     {
       "area": "越前",
-      "latest_date": "2026-10-04",
+      "latest_date": "2026-10-05",
       "last7": {
-        "total": 6,
-        "shore": 6,
+        "total": 11,
+        "shore": 11,
         "boat": 0
       },
       "prev7": {
@@ -38,27 +38,27 @@
         "boat": 0
       },
       "last30": {
-        "total": 10,
-        "shore": 10,
+        "total": 15,
+        "shore": 15,
         "boat": 0
       },
       "season": {
-        "total": 16,
-        "shore": 16,
+        "total": 21,
+        "shore": 21,
         "boat": 0
       },
       "season_first_date": "2026-08-08",
       "trend": "up",
-      "change_pct": 200,
+      "change_pct": 450,
       "source_count": 3,
       "size_top": "100g〜300g"
     },
     {
       "area": "敦賀",
-      "latest_date": "2026-10-04",
+      "latest_date": "2026-10-05",
       "last7": {
-        "total": 6,
-        "shore": 6,
+        "total": 14,
+        "shore": 14,
         "boat": 0
       },
       "prev7": {
@@ -67,27 +67,27 @@
         "boat": 0
       },
       "last30": {
-        "total": 11,
-        "shore": 11,
+        "total": 19,
+        "shore": 19,
         "boat": 0
       },
       "season": {
-        "total": 14,
-        "shore": 14,
+        "total": 22,
+        "shore": 22,
         "boat": 0
       },
       "season_first_date": "2026-08-21",
       "trend": "up",
-      "change_pct": 50,
+      "change_pct": 250,
       "source_count": 1,
       "size_top": "100g〜300g"
     },
     {
       "area": "若狭",
-      "latest_date": "2026-10-04",
+      "latest_date": "2026-10-05",
       "last7": {
-        "total": 8,
-        "shore": 8,
+        "total": 11,
+        "shore": 11,
         "boat": 0
       },
       "prev7": {
@@ -96,18 +96,18 @@
         "boat": 1
       },
       "last30": {
-        "total": 12,
-        "shore": 11,
+        "total": 15,
+        "shore": 14,
         "boat": 1
       },
       "season": {
-        "total": 17,
-        "shore": 14,
+        "total": 20,
+        "shore": 17,
         "boat": 3
       },
       "season_first_date": "2026-08-09",
       "trend": "up",
-      "change_pct": 100,
+      "change_pct": 175,
       "source_count": 1,
       "size_top": "100g〜300g"
     },
@@ -115,8 +115,8 @@
       "area": "舞鶴",
       "latest_date": "2026-10-04",
       "last7": {
-        "total": 3,
-        "shore": 3,
+        "total": 7,
+        "shore": 7,
         "boat": 0
       },
       "prev7": {
@@ -125,27 +125,27 @@
         "boat": 1
       },
       "last30": {
-        "total": 10,
-        "shore": 8,
+        "total": 14,
+        "shore": 12,
         "boat": 2
       },
       "season": {
-        "total": 17,
-        "shore": 15,
+        "total": 21,
+        "shore": 19,
         "boat": 2
       },
       "season_first_date": "2026-08-09",
-      "trend": "flat",
-      "change_pct": 0,
+      "trend": "up",
+      "change_pct": 133,
       "source_count": 5,
-      "size_top": "100g以下"
+      "size_top": "100g〜300g"
     },
     {
       "area": "丹後",
-      "latest_date": "2026-10-03",
+      "latest_date": "2026-10-04",
       "last7": {
-        "total": 4,
-        "shore": 4,
+        "total": 6,
+        "shore": 6,
         "boat": 0
       },
       "prev7": {
@@ -154,29 +154,23 @@
         "boat": 1
       },
       "last30": {
-        "total": 7,
-        "shore": 5,
+        "total": 9,
+        "shore": 7,
         "boat": 2
       },
       "season": {
-        "total": 8,
-        "shore": 6,
+        "total": 10,
+        "shore": 8,
         "boat": 2
       },
       "season_first_date": "2026-08-26",
       "trend": "up",
-      "change_pct": 100,
+      "change_pct": 200,
       "source_count": 3,
       "size_top": "100g以下"
     }
   ],
   "daily14": [
-    {
-      "date": "2026-09-21",
-      "total": 0,
-      "shore": 0,
-      "boat": 0
-    },
     {
       "date": "2026-09-22",
       "total": 0,
@@ -239,8 +233,8 @@
     },
     {
       "date": "2026-10-02",
-      "total": 0,
-      "shore": 0,
+      "total": 3,
+      "shore": 3,
       "boat": 0
     },
     {
@@ -251,8 +245,14 @@
     },
     {
       "date": "2026-10-04",
-      "total": 19,
-      "shore": 19,
+      "total": 31,
+      "shore": 31,
+      "boat": 0
+    },
+    {
+      "date": "2026-10-05",
+      "total": 7,
+      "shore": 7,
       "boat": 0
     }
   ]

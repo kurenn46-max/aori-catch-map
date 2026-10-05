@@ -1,16 +1,181 @@
 {
-  "updated_at": "2026-10-05T14:46:40+09:00",
-  "reference_date": "2026-10-04",
+  "updated_at": "2026-10-05T19:09:21+09:00",
+  "reference_date": "2026-10-05",
   "method": "直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上、負情報を減点、船釣果は岸評価に不使用。",
   "areas": [
     {
       "area": "越前",
-      "latest_date": "2026-10-04",
-      "confidence": 82,
+      "latest_date": "2026-10-05",
+      "confidence": 84,
       "grade": "A",
       "trend": "up",
       "last48h_sessions": {
-        "shore": 4
+        "shore": 8
+      },
+      "evidence": {
+        "independent_sources_30d": 3,
+        "single_source_penalty": 0,
+        "negative_penalty": 0
+      },
+      "last7_sessions": {
+        "shore": 8,
+        "catch": 8,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 2,
+        "catch": 2
+      },
+      "last30_sessions": {
+        "shore": 12,
+        "catch": 12
+      },
+      "sources_30d": 3,
+      "top_time": "夜前半",
+      "time_counts": {
+        "夜前半": 3,
+        "日中": 3,
+        "深夜": 2,
+        "朝まずめ": 1,
+        "夕まずめ": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 6,
+        "磯": 4
+      },
+      "top_size": "100g〜300g",
+      "size_counts": {
+        "100g〜300g": 6,
+        "100g以下": 2,
+        "500g〜800g": 1,
+        "300g〜500g": 1,
+        "コロッケサイズ": 1
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 0,
+      "raw_posts_30d": 15,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
+    },
+    {
+      "area": "敦賀",
+      "latest_date": "2026-10-05",
+      "confidence": 61,
+      "grade": "B",
+      "trend": "up",
+      "last48h_sessions": {
+        "shore": 6
+      },
+      "evidence": {
+        "independent_sources_30d": 1,
+        "single_source_penalty": 12,
+        "negative_penalty": 0
+      },
+      "last7_sessions": {
+        "shore": 6,
+        "catch": 6,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 4,
+        "catch": 4
+      },
+      "last30_sessions": {
+        "shore": 11,
+        "catch": 11
+      },
+      "sources_30d": 1,
+      "top_time": "朝まずめ",
+      "time_counts": {
+        "朝まずめ": 6,
+        "深夜": 2,
+        "夜前半": 1,
+        "夕まずめ": 1,
+        "日中": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 8,
+        "サーフ・ゴロタ": 3
+      },
+      "top_size": "100g以下",
+      "size_counts": {
+        "100g以下": 4,
+        "100g〜300g": 4,
+        "300g〜500g": 3
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 1,
+      "raw_posts_30d": 19,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
+    },
+    {
+      "area": "若狭",
+      "latest_date": "2026-10-05",
+      "confidence": 61,
+      "grade": "B",
+      "trend": "up",
+      "last48h_sessions": {
+        "shore": 5
+      },
+      "evidence": {
+        "independent_sources_30d": 1,
+        "single_source_penalty": 12,
+        "negative_penalty": 0
+      },
+      "last7_sessions": {
+        "shore": 7,
+        "catch": 7,
+        "negative": 0
+      },
+      "prev7_sessions": {
+        "shore": 3,
+        "catch": 3
+      },
+      "last30_sessions": {
+        "shore": 10,
+        "catch": 10
+      },
+      "sources_30d": 1,
+      "top_time": "朝まずめ",
+      "time_counts": {
+        "朝まずめ": 4,
+        "日中": 2,
+        "夜前半": 2,
+        "深夜": 1,
+        "夕まずめ": 1
+      },
+      "top_terrain": "港・堤防",
+      "terrain_counts": {
+        "港・堤防": 8,
+        "磯": 1
+      },
+      "top_size": "100g〜300g",
+      "size_counts": {
+        "100g〜300g": 6,
+        "300g〜500g": 2,
+        "100g以下": 1,
+        "500g〜800g": 1
+      },
+      "negative_7d": {},
+      "bait_recent": 0,
+      "pressure_recent": 0,
+      "local_active": 2,
+      "raw_posts_30d": 14,
+      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
+    },
+    {
+      "area": "舞鶴",
+      "latest_date": "2026-10-04",
+      "confidence": 80,
+      "grade": "A",
+      "trend": "up",
+      "last48h_sessions": {
+        "shore": 2
       },
       "evidence": {
         "independent_sources_30d": 3,
@@ -27,182 +192,25 @@
         "catch": 2
       },
       "last30_sessions": {
-        "shore": 8,
-        "catch": 8
+        "shore": 9,
+        "catch": 9
       },
       "sources_30d": 3,
-      "top_time": "日中",
+      "top_time": "朝まずめ",
       "time_counts": {
-        "日中": 3,
-        "夜前半": 2,
+        "朝まずめ": 4,
+        "夕まずめ": 3,
         "深夜": 1
-      },
-      "top_terrain": "磯",
-      "terrain_counts": {
-        "磯": 3,
-        "港・堤防": 3
-      },
-      "top_size": "100g〜300g",
-      "size_counts": {
-        "100g〜300g": 4,
-        "100g以下": 2,
-        "コロッケサイズ": 1
-      },
-      "negative_7d": {},
-      "bait_recent": 0,
-      "pressure_recent": 0,
-      "local_active": 0,
-      "raw_posts_30d": 10,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
-    },
-    {
-      "area": "敦賀",
-      "latest_date": "2026-10-04",
-      "confidence": 56,
-      "grade": "B",
-      "trend": "down",
-      "last48h_sessions": {
-        "shore": 2
-      },
-      "evidence": {
-        "independent_sources_30d": 1,
-        "single_source_penalty": 12,
-        "negative_penalty": 0
-      },
-      "last7_sessions": {
-        "shore": 2,
-        "catch": 2,
-        "negative": 0
-      },
-      "prev7_sessions": {
-        "shore": 4,
-        "catch": 4
-      },
-      "last30_sessions": {
-        "shore": 7,
-        "catch": 7
-      },
-      "sources_30d": 1,
-      "top_time": "深夜",
-      "time_counts": {
-        "深夜": 3,
-        "朝まずめ": 3,
-        "日中": 1
       },
       "top_terrain": "港・堤防",
       "terrain_counts": {
-        "港・堤防": 4,
-        "サーフ・ゴロタ": 3
+        "港・堤防": 7
       },
       "top_size": "100g〜300g",
       "size_counts": {
         "100g〜300g": 3,
-        "300g〜500g": 2,
-        "100g以下": 2
-      },
-      "negative_7d": {},
-      "bait_recent": 0,
-      "pressure_recent": 0,
-      "local_active": 1,
-      "raw_posts_30d": 11,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
-    },
-    {
-      "area": "若狭",
-      "latest_date": "2026-10-04",
-      "confidence": 59,
-      "grade": "B",
-      "trend": "up",
-      "last48h_sessions": {
-        "shore": 5
-      },
-      "evidence": {
-        "independent_sources_30d": 1,
-        "single_source_penalty": 12,
-        "negative_penalty": 0
-      },
-      "last7_sessions": {
-        "shore": 5,
-        "catch": 5,
-        "negative": 0
-      },
-      "prev7_sessions": {
-        "shore": 3,
-        "catch": 3
-      },
-      "last30_sessions": {
-        "shore": 8,
-        "catch": 8
-      },
-      "sources_30d": 1,
-      "top_time": "朝まずめ",
-      "time_counts": {
-        "朝まずめ": 4,
-        "夜前半": 2,
-        "日中": 1,
-        "夕まずめ": 1
-      },
-      "top_terrain": "港・堤防",
-      "terrain_counts": {
-        "港・堤防": 6,
-        "磯": 1
-      },
-      "top_size": "100g〜300g",
-      "size_counts": {
-        "100g〜300g": 5,
-        "300g〜500g": 2,
-        "500g〜800g": 1
-      },
-      "negative_7d": {},
-      "bait_recent": 0,
-      "pressure_recent": 0,
-      "local_active": 2,
-      "raw_posts_30d": 11,
-      "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
-    },
-    {
-      "area": "舞鶴",
-      "latest_date": "2026-10-04",
-      "confidence": 80,
-      "grade": "A",
-      "trend": "flat",
-      "last48h_sessions": {
-        "shore": 2
-      },
-      "evidence": {
-        "independent_sources_30d": 3,
-        "single_source_penalty": 0,
-        "negative_penalty": 0
-      },
-      "last7_sessions": {
-        "shore": 2,
-        "catch": 2,
-        "negative": 0
-      },
-      "prev7_sessions": {
-        "shore": 2,
-        "catch": 2
-      },
-      "last30_sessions": {
-        "shore": 7,
-        "catch": 7
-      },
-      "sources_30d": 3,
-      "top_time": "朝まずめ",
-      "time_counts": {
-        "朝まずめ": 3,
-        "夕まずめ": 2,
-        "深夜": 1
-      },
-      "top_terrain": "港・堤防",
-      "terrain_counts": {
-        "港・堤防": 5
-      },
-      "top_size": "100g以下",
-      "size_counts": {
         "100g以下": 2,
-        "100g〜300g": 2,
-        "300g〜500g": 1,
+        "300g〜500g": 2,
         "15cm": 1,
         "胴長16cmまで": 1
       },
@@ -210,15 +218,15 @@
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 0,
-      "raw_posts_30d": 8,
+      "raw_posts_30d": 12,
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
       "area": "丹後",
-      "latest_date": "2026-10-03",
-      "confidence": 36,
+      "latest_date": "2026-10-04",
+      "confidence": 39,
       "grade": "C",
-      "trend": "flat",
+      "trend": "up",
       "last48h_sessions": {
         "shore": 1
       },
@@ -228,8 +236,8 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 1,
-        "catch": 1,
+        "shore": 2,
+        "catch": 2,
         "negative": 0
       },
       "prev7_sessions": {
@@ -237,21 +245,22 @@
         "catch": 1
       },
       "last30_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 3,
+        "catch": 3
       },
       "sources_30d": 1,
       "top_time": "朝まずめ",
       "time_counts": {
-        "朝まずめ": 1,
+        "朝まずめ": 2,
         "夕まずめ": 1
       },
       "top_terrain": "港・堤防",
       "terrain_counts": {
-        "港・堤防": 2
+        "港・堤防": 3
       },
-      "top_size": "100g以下",
+      "top_size": "100g〜300g",
       "size_counts": {
+        "100g〜300g": 1,
         "100g以下": 1,
         "〜約250g": 1
       },
@@ -259,7 +268,7 @@
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 0,
-      "raw_posts_30d": 5,
+      "raw_posts_30d": 7,
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     }
   ]
