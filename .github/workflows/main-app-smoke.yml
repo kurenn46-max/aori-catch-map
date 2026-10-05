@@ -2,6 +2,7 @@ name: Main app Android smoke test
 on:
   push:
     branches:
+      - main
       - 'test/aori-main-audit-20261005'
     paths:
       - 'index.html'
@@ -24,6 +25,13 @@ jobs:
         run: |
           npm install --no-save playwright@1.56.0
           npx playwright install chromium --with-deps
+      - name: Bundle Leaflet locally for root app
+        run: |
+          npm install --prefix /tmp/main-map-deps --no-save --no-audit --no-fund leaflet@1.9.4
+          mkdir -p assets
+          cp /tmp/main-map-deps/node_modules/leaflet/dist/leaflet.js assets/leaflet.js
+          cp /tmp/main-map-deps/node_modules/leaflet/dist/leaflet.css assets/leaflet.css
+          cp -r /tmp/main-map-deps/node_modules/leaflet/dist/images assets/images
       - name: Start local site
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/aori-http.log 2>&1 &
