@@ -31,11 +31,15 @@ jobs:
           from scripts.collect_public_signals import extract_depths
           false_case = "早朝はティップランでアオリイカ釣り遊び！その後は、水深10～20mラインの根回りを探ってキジハタ連発！"
           true_case = "水深13～30mをティップランで流してアオリイカを狙った。"
+          adjacent_case = "ナイトティップランで夜アオリが出ました！水深13～30m位まででやりました。"
           false_depths, _ = extract_depths(false_case)
-          true_depths, _ = extract_depths(true_case)
+          true_depths, true_ev = extract_depths(true_case)
+          adjacent_depths, adjacent_ev = extract_depths(adjacent_case)
           assert false_depths == [], false_depths
           assert true_depths == [13.0, 30.0], true_depths
-          print("depth attribution regression PASS", false_depths, true_depths)
+          assert adjacent_depths == [13.0, 30.0], adjacent_depths
+          assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
+          print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths)
           PY
       - name: Collect structured signals
         run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
