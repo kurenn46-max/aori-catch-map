@@ -197,8 +197,6 @@ const DATA_FILES=[
   ['summary','./data/summary.json'],
   ['intel','./data/intel.json'],
   ['archive','./data/archive/2026.json'],
-  ['tides','./data/tides.json'],
-  ['tidePatterns','./data/tide-patterns.json'],
   ['windShelters','./data/wind-shelters.json'],
   ['sourceStatus','./data/source-status.json'],
   ['strategy','./data/strategy.json']
@@ -239,8 +237,6 @@ async function loadAppData(){
   if(values.summary)summary=values.summary;
   if(values.intel)intelData=values.intel.items||[];
   if(values.archive)archiveData=values.archive.catches||[];
-  if(values.tides)tideData=values.tides||{};
-  if(values.tidePatterns)tidePatterns=values.tidePatterns||{};
   if(values.windShelters)windShelters=values.windShelters.spots||[];
   if(values.sourceStatus)sourceStatus=values.sourceStatus||{checks:[]};
   if(values.strategy)strategyData=values.strategy||{areas:[]};
@@ -248,6 +244,25 @@ async function loadAppData(){
   const optionalFailed=failed.filter(x=>x!=='catches');
   if(optionalFailed.length)document.getElementById('status').textContent+=' / 補助データ'+optionalFailed.length+'件未取得';
   return {failed};
+}
+let targetTidePromise=null;
+async function ensureTargetTideData({force=false}={}){
+  const haveTides=Object.keys(tideData||{}).length>0;
+  const havePatterns=Object.keys(tidePatterns||{}).length>0;
+  if(!force&&haveTides&&havePatterns)return {tides:true,patterns:true};
+  if(targetTidePromise&&!force)return targetTidePromise;
+  const stamp=Date.now();
+  targetTidePromise=Promise.allSettled([
+    fetchJson('./data/tides.json?'+stamp,{timeout:15000}),
+    fetchJson('./data/tide-patterns.json?'+stamp,{timeout:10000})
+  ]).then(([tides,patterns])=>{
+    if(tides.status==='fulfilled')tideData=tides.value||{};
+    else console.warn('lazy tide data load failed',tides.reason);
+    if(patterns.status==='fulfilled')tidePatterns=patterns.value||{};
+    else console.warn('lazy tide pattern load failed',patterns.reason);
+    return {tides:tides.status==='fulfilled',patterns:patterns.status==='fulfilled'};
+  }).finally(()=>{targetTidePromise=null});
+  return targetTidePromise;
 }
 const SEA_AREAS=[
   {area:'越前',lat:35.914,lng:135.991},
@@ -828,7 +843,10 @@ async function openTargetPanel(){
   const dayLabel=targetDayOffset===0?'今日':'明日';
   document.getElementById('targetMeta').textContent=dayLabel+'の越前〜丹後を1時間ごとに比較中';
   const dayForecasts={};
-  await Promise.all(SEA_AREAS.map(async p=>{try{dayForecasts[p.area]=await fetchDayForecast(p,targetDayOffset)}catch(e){console.error(e);dayForecasts[p.area]=null}}));
+  await Promise.all([
+    ensureTargetTideData(),
+    Promise.all(SEA_AREAS.map(async p=>{try{dayForecasts[p.area]=await fetchDayForecast(p,targetDayOffset)}catch(e){console.error(e);dayForecasts[p.area]=null}}))
+  ]);
   if(requestId!==targetRequestSeq)return;
   const ranked=[];
   for(const p of SEA_AREAS){
@@ -940,6 +958,7 @@ document.getElementById('collectNow').addEventListener('click',()=>{
 document.getElementById('reloadData').addEventListener('click',async()=>{
   const b=document.getElementById('reloadData');
   b.textContent='…';
+  tideData={};tidePatterns={};targetTidePromise=null;
   try{
     await loadAppData();
     b.textContent='✓';
