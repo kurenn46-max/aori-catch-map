@@ -32,14 +32,17 @@ jobs:
           false_case = "早朝はティップランでアオリイカ釣り遊び！その後は、水深10～20mラインの根回りを探ってキジハタ連発！"
           true_case = "水深13～30mをティップランで流してアオリイカを狙った。"
           adjacent_case = "ナイトティップランで夜アオリが出ました！水深13～30m位まででやりました。"
-          false_depths, _ = extract_depths(false_case)
-          true_depths, true_ev = extract_depths(true_case)
-          adjacent_depths, adjacent_ev = extract_depths(adjacent_case)
-          assert false_depths == [], false_depths
-          assert true_depths == [13.0, 30.0], true_depths
+          bottom_case = "アオリイカのDayティップラン。ボトムから5m辺りでコツコツ乗ってます。"
+          false_depths, false_bottom, false_tana, _ = extract_depths(false_case)
+          true_depths, true_bottom, true_tana, true_ev = extract_depths(true_case)
+          adjacent_depths, _, _, adjacent_ev = extract_depths(adjacent_case)
+          bottom_depths, bottom_offsets, _, _ = extract_depths(bottom_case)
+          assert false_depths == [] and false_bottom == [] and false_tana == [], (false_depths, false_bottom, false_tana)
+          assert true_depths == [13.0, 30.0] and true_bottom == [] and true_tana == [], (true_depths, true_bottom, true_tana)
           assert adjacent_depths == [13.0, 30.0], adjacent_depths
           assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
-          print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths)
+          assert bottom_depths == [] and bottom_offsets == [5.0], (bottom_depths, bottom_offsets)
+          print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths, bottom_offsets)
           PY
       - name: Collect structured signals
         run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
@@ -57,9 +60,10 @@ jobs:
               for k in ("id","date","source","url","confidence","quality_score"):
                   if x.get(k) in (None,""):
                       raise SystemExit(f"missing {k}: {x}")
-              if x.get("depth_m") and x.get("depth_confidence") not in ("A","B"):
+              has_depth = bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
+              if has_depth and x.get("depth_confidence") not in ("A","B"):
                   raise SystemExit(f"depth without confidence: {x}")
-          print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m")) for x in signals))
+          print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals))
           PY
 
       - name: Show signal audit table
@@ -73,7 +77,7 @@ jobs:
                   "date":x.get("date"),"area":x.get("area"),"type":x.get("type"),
                   "method":x.get("method"),"source":x.get("source"),
                   "grade":x.get("confidence"),"score":x.get("quality_score"),
-                  "depth":x.get("depth_m"),"depth_grade":x.get("depth_confidence"),
+                  "water_depth":x.get("depth_m"),"bottom_offset":x.get("bottom_offset_m"),"tana":x.get("tana_m"),"depth_grade":x.get("depth_confidence"),
                   "counts":x.get("count_mentions"),"negative":x.get("negative_signals"),
                   "bait":x.get("bait_signals")
               })
