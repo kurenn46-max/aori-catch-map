@@ -236,16 +236,23 @@ def detect_area(text, default=None):
 
 def detect_evidence_role(text):
     t = normalize(text)
-    catch_markers = (
-        "ヒット", "キャッチ", "釣れ", "釣果", "竿頭", "トップ", "船中",
-        "全員安打", "連発", "乗って", "乗り", "アタリ", "あたり", "反応",
-        "チェイス", "見えイカ", "ボウズ", "坊主", "渋い", "厳しい",
+    strong_catch_markers = (
+        "ヒット", "キャッチ", "釣れた", "釣れました", "釣れて", "釣れ", "竿頭",
+        "トップ", "船中", "全員安打", "連発", "乗って", "乗りました", "抱いた",
+    )
+    weak_catch_markers = (
+        "釣果", "乗り", "アタリ", "あたり", "反応", "チェイス", "見えイカ",
+        "ボウズ", "坊主", "渋い", "厳しい",
     )
     schedule_markers = (
         "募集中", "募集", "予約受付", "ご予約", "空き", "残り", "満席",
         "出船予定", "料金", "レンタル", "受付時間", "プラン",
     )
-    catch_score = sum(1 for w in catch_markers if w in t)
+
+    if any(w in t for w in strong_catch_markers):
+        return "catch"
+
+    catch_score = sum(1 for w in weak_catch_markers if w in t)
     if COUNT_RE.search(t):
         catch_score += 2
     if any(w in t for w in NEGATIVE_WORDS):
@@ -254,8 +261,6 @@ def detect_evidence_role(text):
 
     if catch_score >= 2:
         return "catch"
-    if schedule_score >= 2 and catch_score == 0:
-        return "schedule"
     if schedule_score >= 1 and catch_score == 0:
         return "schedule"
     return "info"
