@@ -59,15 +59,15 @@ const marineBody={
     });
 
     await check('Filters work without page reload',async()=>{
-      await page.getByRole('button',{name:'今日'}).click();
+      await page.locator('#dateRow button[data-range="today"]').click();
       const today=await page.locator('#status').innerText();
       assert.match(today,/今日/);
       await page.locator('#area').selectOption({label:'敦賀'});
       assert.match(await page.locator('#status').innerText(),/実釣果データ/);
-      await page.getByRole('button',{name:/陸っぱり/}).click();
+      await page.locator('#modeRow button[data-mode="shore"]').click();
       assert.match(await page.locator('#status').innerText(),/実釣果データ/);
       await page.locator('#area').selectOption('all');
-      await page.getByRole('button',{name:'7日'}).click();
+      await page.locator('#dateRow button[data-range="7"]').click();
     });
 
     await check('Panels open and close',async()=>{
@@ -76,12 +76,12 @@ const marineBody={
     });
 
     await check('Sea and shelter modes render with API data',async()=>{
-      await page.getByRole('button',{name:/海況/}).click();
+      await page.locator('button[data-view="sea"]').click();
       await page.waitForFunction(()=>document.querySelector('#status')?.textContent.includes('最新海況'),{timeout:10000});
       assert.match(await page.locator('#status').innerText(),/5エリア取得/);
-      await page.getByRole('button',{name:/風裏/}).click();
+      await page.locator('button[data-view="shelter"]').click();
       await page.waitForFunction(()=>document.querySelector('#status')?.textContent.includes('風裏候補'),{timeout:10000});
-      await page.getByRole('button',{name:/釣果/}).click();
+      await page.locator('button[data-view="catch"]').click();
     });
 
     await check('Target ranking renders',async()=>{
