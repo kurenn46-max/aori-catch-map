@@ -63,6 +63,8 @@ jobs:
               has_depth = bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
               if has_depth and x.get("depth_confidence") not in ("A","B"):
                   raise SystemExit(f"depth without confidence: {x}")
+              if x.get("count_mentions") and x.get("count_confidence") != "mention_only":
+                  raise SystemExit(f"catch-count mention treated as authoritative: {x}")
           print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals))
           PY
 
