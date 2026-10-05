@@ -249,7 +249,10 @@ def verify_page(candidate):
         direct_in_intro = any(w in intro for w in identity_words)
         ops_hits = sum(1 for w in ops_words if w in intro)
         out["page_title"] = page_title[:220]
-        out["page_direct_identity"] = bool(direct_in_title or (direct_in_intro and ops_hits >= 2))
+        # Primary-source status must be visible in the page title itself.
+        # Article bodies often mention a skipper/charter they visited, which
+        # must not turn a personal/media article into a primary source.
+        out["page_direct_identity"] = bool(direct_in_title)
         out["page_target_hits"] = {w: text.count(w) for w in TARGET_WORDS if w in text}
         out["page_region_hit"] = candidate["region"] in text
         pd = published_date_from_page(soup)
@@ -379,7 +382,28 @@ def main():
         row["auto_promote"] = False
         candidates.append(row)
 
-    candidates.sort(key=lambda x: ({"A":0,"B":1,"C":2}.get(x["tier"],9), -x["score"], x["domain"]))
+    # One source candidate per site/account. Keep the strongest page and
+    # preserve other discovered URLs for later adapter building.
+    tier_rank = {"A": 0, "B": 1, "C": 2}
+    by_site = {}
+    for row in candidates:
+        key = row["site_key"]
+        old = by_site.get(key)
+        if old is None:
+            row["regions"] = [row["region"]]
+            row["alternate_urls"] = []
+            by_site[key] = row
+            continue
+        old["regions"] = sorted(set(old.get("regions", [old["region"]]) + [row["region"]]))
+        if row["url"] != old["url"] and row["url"] not in old["alternate_urls"]:
+            old["alternate_urls"].append(row["url"])
+        better = (tier_rank.get(row["tier"], 9), -row["score"]) < (tier_rank.get(old["tier"], 9), -old["score"])
+        if better:
+            row["regions"] = old["regions"]
+            row["alternate_urls"] = sorted(set(old["alternate_urls"] + [old["url"]]))
+            by_site[key] = row
+    candidates = list(by_site.values())
+    candidates.sort(key=lambda x: (tier_rank.get(x["tier"],9), -x["score"], x["site_key"]))
     payload = {
         "updated_at": NOW.isoformat(timespec="seconds"),
         "engine": "Yahoo Japan HTML",
