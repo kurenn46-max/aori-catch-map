@@ -40,6 +40,24 @@ SESSION.mount(
 
 SOURCES = [
     {
+        "name": "HOZANⅡ 越前",
+        "kind": "charter",
+        "url": "https://hozan130.jp/",
+        "detail_patterns": [r"ameblo\.jp/.+/entry-\d+\.html"],
+    },
+    {
+        "name": "海生丸 若狭大島",
+        "kind": "charter",
+        "url": "https://ameblo.jp/kaisei2266/",
+        "detail_patterns": [r"/kaisei2266/entry-\d+\.html"],
+    },
+    {
+        "name": "かどや丸 小浜",
+        "kind": "charter_aggregator",
+        "url": "https://reserve.castingnet.jp/ship00105c.html",
+        "detail_patterns": [r"ship\d+[a-z]?\.html"],
+    },
+    {
         "name": "まるまる丸 敦賀",
         "kind": "charter",
         "url": "https://marumarumaru.co.jp/report/",
