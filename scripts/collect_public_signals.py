@@ -161,30 +161,59 @@ def extract_depths(segment):
     text = normalize(segment)
     found = []
     contexts = []
+    target_words = ("アオリ", "アオリイカ", "ティップラン")
+    sentence_breaks = "。！？!?"
 
-    def add_depth(value, start, end):
-        if not (2 <= value <= 80):
-            return
-        left = max(0, start - 70)
-        right = min(len(text), end + 70)
-        ctx = text[left:right]
-        nearby = [w for w in DEPTH_CONTEXT_WORDS if w in ctx]
+    def sentence_around(start, end):
+        left = start
+        while left > 0 and text[left - 1] not in sentence_breaks:
+            left -= 1
+        right = end
+        while right < len(text) and text[right] not in sentence_breaks:
+            right += 1
+        return text[left:right]
+
+    def valid_context(start, end):
+        sentence = sentence_around(start, end)
+        # A depth is only attributed to aori/tip-run when the target fish/method
+        # is explicit in the same sentence. This rejects cases such as
+        # "tip-run earlier ... then 10m kiji-hata".
+        if not any(w in sentence for w in target_words):
+            return None
+        nearby = [w for w in DEPTH_CONTEXT_WORDS if w in sentence]
         if not nearby:
-            return
-        found.append(round(value, 1))
-        contexts.append({"depth_m": round(value, 1), "keywords": nearby[:5]})
+            return None
+        return sentence, nearby
 
     for m in DEPTH_RANGE_RE.finditer(text):
         lo, hi = float(m.group(1)), float(m.group(2))
-        if 2 <= lo <= 80 and 2 <= hi <= 80:
-            ctx = text[max(0, m.start() - 70):min(len(text), m.end() + 70)]
-            nearby = [w for w in DEPTH_CONTEXT_WORDS if w in ctx]
-            if nearby:
-                found.extend([round(lo, 1), round(hi, 1)])
-                contexts.append({"range_m": [round(min(lo, hi), 1), round(max(lo, hi), 1)], "keywords": nearby[:5]})
+        if not (2 <= lo <= 80 and 2 <= hi <= 80):
+            continue
+        valid = valid_context(m.start(), m.end())
+        if not valid:
+            continue
+        sentence, nearby = valid
+        found.extend([round(lo, 1), round(hi, 1)])
+        contexts.append({
+            "range_m": [round(min(lo, hi), 1), round(max(lo, hi), 1)],
+            "keywords": nearby[:5],
+            "evidence": sentence[:240],
+        })
 
     for m in DEPTH_RE.finditer(text):
-        add_depth(float(m.group(1)), m.start(), m.end())
+        value = float(m.group(1))
+        if not (2 <= value <= 80):
+            continue
+        valid = valid_context(m.start(), m.end())
+        if not valid:
+            continue
+        sentence, nearby = valid
+        found.append(round(value, 1))
+        contexts.append({
+            "depth_m": round(value, 1),
+            "keywords": nearby[:5],
+            "evidence": sentence[:240],
+        })
 
     unique = sorted(set(found))
     return unique, contexts[:8]
