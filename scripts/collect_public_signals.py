@@ -29,6 +29,13 @@ HEADERS = {
 
 SOURCES = [
     {
+        "name": "HOZANⅡ",
+        "kind": "charter",
+        "url": "https://hozan130.jp/",
+        "default_area": "越前",
+        "default_aori_method": "ティップラン",
+    },
+    {
         "name": "春定丸",
         "kind": "charter",
         "url": "https://ameblo.jp/synteimaru/",
