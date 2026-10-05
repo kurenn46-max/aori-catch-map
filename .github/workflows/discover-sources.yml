@@ -38,14 +38,19 @@ jobs:
           assert d["query_ok"] >= 12
           rows=d.get("candidates",[])
           assert rows
+          site_keys=[x.get("site_key") for x in rows]
+          assert len(site_keys) == len(set(site_keys)), "duplicate source candidates by site_key"
           for x in rows:
-              for k in ("id","region","url","domain","score","tier","status"):
+              for k in ("id","region","url","domain","score","tier","status","site_key"):
                   assert x.get(k) not in (None,""), (k,x)
               assert x["tier"] in ("A","B","C")
               assert x.get("auto_promote") is False
               if x["tier"] in ("A","B"):
                   assert x.get("verified") is True, x
                   assert x.get("region_explicit") is True, x
+              if x["tier"] == "A":
+                  assert x.get("page_direct_identity") is True, x
+                  assert x.get("source_type") != "aggregator", x
           print("candidate queue PASS",len(rows),d.get("tier_counts"))
           PY
       - name: Commit candidate queue
