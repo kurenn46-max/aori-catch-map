@@ -1,7 +1,8 @@
 {
-  "updated_at": "2026-10-05T23:46:56+09:00",
+  "updated_at": "2026-10-06T07:04:04+09:00",
   "reference_date": "2026-10-05",
-  "method": "直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上、負情報を減点、船釣果は岸評価に不使用。",
+  "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
+  "boat_context_reference_date": "2026-10-05",
   "areas": [
     {
       "area": "越前",
@@ -57,6 +58,18 @@
       "pressure_recent": 0,
       "local_active": 0,
       "raw_posts_30d": 15,
+      "boat_context": {
+        "latest_date": "2026-09-12",
+        "last7_sessions": 0,
+        "sources_14d": 0,
+        "depth_window_days": 30,
+        "day_sessions_7d": 0,
+        "night_sessions_7d": 0,
+        "negative_sessions_7d": 0,
+        "day_depth_signals": [],
+        "night_depth_signals": [],
+        "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
+      },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
@@ -111,6 +124,18 @@
       "pressure_recent": 0,
       "local_active": 1,
       "raw_posts_30d": 19,
+      "boat_context": {
+        "latest_date": "2026-10-05",
+        "last7_sessions": 6,
+        "sources_14d": 2,
+        "depth_window_days": 30,
+        "day_sessions_7d": 4,
+        "night_sessions_7d": 2,
+        "negative_sessions_7d": 2,
+        "day_depth_signals": [],
+        "night_depth_signals": [],
+        "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
+      },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
@@ -166,6 +191,18 @@
       "pressure_recent": 0,
       "local_active": 2,
       "raw_posts_30d": 14,
+      "boat_context": {
+        "latest_date": "2026-09-30",
+        "last7_sessions": 1,
+        "sources_14d": 1,
+        "depth_window_days": 30,
+        "day_sessions_7d": 0,
+        "night_sessions_7d": 0,
+        "negative_sessions_7d": 1,
+        "day_depth_signals": [],
+        "night_depth_signals": [],
+        "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
+      },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
@@ -219,6 +256,31 @@
       "pressure_recent": 0,
       "local_active": 0,
       "raw_posts_30d": 12,
+      "boat_context": {
+        "latest_date": "2026-09-28",
+        "last7_sessions": 0,
+        "sources_14d": 1,
+        "depth_window_days": 30,
+        "day_sessions_7d": 0,
+        "night_sessions_7d": 0,
+        "negative_sessions_7d": 0,
+        "day_depth_signals": [
+          {
+            "date": "2026-09-19",
+            "source": "MIYAMOTOMARU2",
+            "time_mode": "day",
+            "depth_m": [],
+            "bottom_offset_m": [
+              5.0
+            ],
+            "tana_m": [],
+            "depth_confidence": "A",
+            "url": "https://ameblo.jp/miyamotomar/entry-12979592987.html"
+          }
+        ],
+        "night_depth_signals": [],
+        "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
+      },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     },
     {
@@ -269,6 +331,32 @@
       "pressure_recent": 0,
       "local_active": 0,
       "raw_posts_30d": 7,
+      "boat_context": {
+        "latest_date": "2026-10-05",
+        "last7_sessions": 4,
+        "sources_14d": 4,
+        "depth_window_days": 30,
+        "day_sessions_7d": 0,
+        "night_sessions_7d": 3,
+        "negative_sessions_7d": 1,
+        "day_depth_signals": [],
+        "night_depth_signals": [
+          {
+            "date": "2026-09-28",
+            "source": "OCEANS",
+            "time_mode": "night",
+            "depth_m": [
+              13.0,
+              30.0
+            ],
+            "bottom_offset_m": [],
+            "tana_m": [],
+            "depth_confidence": "B",
+            "url": "https://oceans2009.com/tyoka"
+          }
+        ],
+        "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
+      },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     }
   ]
