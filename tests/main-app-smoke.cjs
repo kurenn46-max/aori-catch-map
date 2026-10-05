@@ -30,17 +30,19 @@ const marineBody={
     const context=await browser.newContext({...devices['Pixel 7'],locale:'ja-JP',timezoneId:'Asia/Tokyo'});
     const page=await context.newPage();
     const errors=[];
+    const requests=[];
+    page.on('request',r=>requests.push(r.url()));
     page.on('pageerror',e=>errors.push(String(e)));
     page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text());});
     await page.route('https://api.open-meteo.com/**',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(weatherBody)}));
     await page.route('https://marine-api.open-meteo.com/**',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(marineBody)}));
-    if(optionalFailure) await page.route('**/data/tide-patterns.json*',r=>r.abort());
-    return {context,page,errors};
+    if(optionalFailure) await page.route('**/data/strategy.json*',r=>r.abort());
+    return {context,page,errors,requests};
   }
   async function check(name,fn){try{const d=await fn();report.checks.push({name,result:'PASS',details:d||''});}catch(e){report.checks.push({name,result:'FAIL',details:e.message});}}
 
   const base=process.env.TEST_URL||'http://127.0.0.1:8765/';
-  const {context,page,errors}=await withPage(false);
+  const {context,page,errors,requests}=await withPage(false);
   try{
     await page.goto(base,{waitUntil:'domcontentloaded',timeout:30000});
     await page.waitForFunction(()=>document.querySelector('#spotCount')?.textContent!=='0',{timeout:20000});
@@ -96,10 +98,16 @@ const marineBody={
       await page.locator('button[data-view="catch"]').click();
     });
 
+    await check('Heavy tide DB is lazy-loaded',async()=>{
+      assert(!requests.some(u=>u.includes('/data/tides.json')),'tides.json loaded before target view');
+      return 'initial view skipped heavy tide DB';
+    });
+
     await check('Target ranking renders',async()=>{
       await page.locator('#targetToggle').click();
       await page.waitForFunction(()=>document.querySelectorAll('#rankList .rankCard').length>=3,{timeout:15000});
       assert.match(await page.locator('#targetMeta').innerText(),/時間別期待指数/);
+      assert(requests.some(u=>u.includes('/data/tides.json')),'tides.json was not loaded on target view');
       await page.locator('#targetClose').click();
     });
 
