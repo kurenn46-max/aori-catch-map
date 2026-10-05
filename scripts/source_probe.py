@@ -40,6 +40,30 @@ SESSION.mount(
 
 SOURCES = [
     {
+        "name": "春定丸 敦賀",
+        "kind": "charter",
+        "url": "https://ameblo.jp/synteimaru/",
+        "detail_patterns": [r"/synteimaru/entry-\d+\.html"],
+    },
+    {
+        "name": "天徳丸 越前",
+        "kind": "charter",
+        "url": "https://tentokumaru.com/fishing_blog/",
+        "detail_patterns": [r"/fishing_blog/"],
+    },
+    {
+        "name": "瑞祥丸 敦賀",
+        "kind": "charter",
+        "url": "https://zuishomaru.com/category/fishing/",
+        "detail_patterns": [r"/category/fishing/", r"2026"],
+    },
+    {
+        "name": "若狭マリンプラザ",
+        "kind": "marina",
+        "url": "https://www.marineplaza-marina.com/?cat=11",
+        "detail_patterns": [r"[?&]p=\d+"],
+    },
+    {
         "name": "まるまる丸 敦賀",
         "kind": "charter",
         "url": "https://marumarumaru.co.jp/report/",
