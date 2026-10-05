@@ -39,13 +39,14 @@ jobs:
               assert row.get("region")
           print("keyword discovery PASS", d["candidate_count"], d["new_candidate_count"], d["new_domain_count"])
           PY
-      - name: Show top new candidates
+      - name: Show top discovery candidates
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           d=json.loads(Path("test-results/keyword-source-discovery.json").read_text(encoding="utf-8"))
-          for x in d.get("new_candidates",[])[:30]:
+          rows=d.get("new_candidates",[]) or d.get("top_unknown_candidates",[])
+          for x in rows[:40]:
               print({
                   "score":x["score"],"region":x["region"],"domain":x["domain"],
                   "title":x["title"],"url":x["url"],"reasons":x["reasons"],"engine":x["engine"]
