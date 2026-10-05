@@ -47,6 +47,8 @@ const marineBody={
 
     await check('Main catch map loads on Pixel 7',async()=>{
       assert(await page.locator('.leaflet-container').count(), 'Leaflet map missing');
+      const leafletSrc=await page.locator('script[src*="leaflet"]').getAttribute('src');
+      assert(leafletSrc && leafletSrc.startsWith('./assets/'),'Leaflet is not local: '+leafletSrc);
       const n=Number(await page.locator('#spotCount').innerText());
       assert(n>0,'catch rows did not render');
       return n+' rows visible';
@@ -70,6 +72,16 @@ const marineBody={
       await page.locator('#dateRow button[data-range="7"]').click();
     });
 
+    await check('Freshness uses session-compressed counts',async()=>{
+      const values=await page.evaluate(()=>{
+        const a=areaFreshness('敦賀'), s=strategyArea('敦賀');
+        return {fresh48:a.recent2,fresh7:a.recent7,strategy48:s?.last48h_sessions?.shore,strategy7:s?.last7_sessions?.shore};
+      });
+      assert.equal(values.fresh48,values.strategy48);
+      assert.equal(values.fresh7,values.strategy7);
+      return JSON.stringify(values);
+    });
+
     await check('Panels open and close',async()=>{
       const pairs=[['#trendToggle','#trendPanel','#trendClose'],['#freshToggle','#freshPanel','#freshClose'],['#strategyToggle','#strategyPanel','#strategyClose'],['#newToggle','#newPanel','#newClose']];
       for(const [open,panel,close] of pairs){await page.locator(open).click();assert(await page.locator(panel).evaluate(e=>e.classList.contains('open')));await page.locator(close).click();}
@@ -88,6 +100,15 @@ const marineBody={
       await page.locator('#targetToggle').click();
       await page.waitForFunction(()=>document.querySelectorAll('#rankList .rankCard').length>=3,{timeout:15000});
       assert.match(await page.locator('#targetMeta').innerText(),/時間別期待指数/);
+      await page.locator('#targetClose').click();
+    });
+
+    await check('Rapid Today/Tomorrow switch keeps latest selection',async()=>{
+      await page.locator('#targetToggle').click();
+      await page.locator('#targetPanel button[data-target-day="0"]').click();
+      await page.locator('#targetPanel button[data-target-day="1"]').click();
+      await page.waitForFunction(()=>document.querySelector('#targetMeta')?.textContent.startsWith('明日'),{timeout:15000});
+      assert.match(await page.locator('#targetMeta').innerText(),/^明日/);
       await page.locator('#targetClose').click();
     });
 
