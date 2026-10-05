@@ -165,17 +165,18 @@ for area in AREAS:
     boat_all=[x for x in discovery_signals if x.get("area")==area]
     boat7=[x for x in boat_all if discovery_in_days(x,7)]
     boat14=[x for x in boat_all if discovery_in_days(x,14)]
+    boat30=[x for x in boat_all if discovery_in_days(x,30)]
     boat_latest=max([x.get("date") for x in boat_all if x.get("date")],default=None)
     day7=[x for x in boat7 if x.get("time_mode")=="day"]
     night7=[x for x in boat7 if x.get("time_mode")=="night"]
     day_depth=[
-        depth_signal_view(x) for x in boat14
+        depth_signal_view(x) for x in boat30
         if x.get("time_mode")=="day"
         and (x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
         and x.get("depth_confidence") in ("A","B")
     ]
     night_depth=[
-        depth_signal_view(x) for x in boat14
+        depth_signal_view(x) for x in boat30
         if x.get("time_mode")=="night"
         and (x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
         and x.get("depth_confidence") in ("A","B")
@@ -186,12 +187,13 @@ for area in AREAS:
       "latest_date":boat_latest,
       "last7_sessions":len(boat7),
       "sources_14d":len({x.get("source") for x in boat14 if x.get("source")}),
+      "depth_window_days":30,
       "day_sessions_7d":len(day7),
       "night_sessions_7d":len(night7),
       "negative_sessions_7d":sum(bool(x.get("negative_signals")) for x in boat7),
       "day_depth_signals":day_depth,
       "night_depth_signals":night_depth,
-      "note":"船情報は沖の魚影・レンジ確認用。岸のconfidence/gradeには直接加点しない。"
+      "note":"船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
     }
 
     recency=30 if age==0 else 25 if age==1 else 20 if age==2 else 15 if age<=3 else 8 if age<=7 else 0
