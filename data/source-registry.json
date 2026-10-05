@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "version": 3,
   "updated_at": "2026-10-04T17:30:00+09:00",
-  "policy": "釣果件数ではなく『次の釣行判断に使える根拠』を集める。固定巡回＋横断検索の二重取り。投稿単位と釣行セッションを分離し、同一釣行の連投で好調度を水増ししない。一次情報を優先し、推測値は事実と分離する。",
+  "policy": "釣果件数ではなく『次の釣行判断に使える根拠』を集める。固定巡回＋キーワード横断探索＋個別記事深掘りの三段構成。投稿単位と釣行セッションを分離し、同一釣行の連投・一覧と詳細の重複で好調度を水増ししない。一次情報を優先し、事実・推測・告知を分離する。",
   "regions": [
     "越前",
     "敦賀",
@@ -292,6 +292,106 @@
       ],
       "url": "https://www.youtube.com/",
       "role": "discovery"
+    },
+    {
+      "name": "泰丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "敦賀"
+      ],
+      "url": "https://www.taimaru.jp/fishingpost/",
+      "role": "primary"
+    },
+    {
+      "name": "心友丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "越前"
+      ],
+      "url": "https://www.shinyuumaru.com/contents/information.php",
+      "role": "primary"
+    },
+    {
+      "name": "MIYAMOTOMARU2",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "舞鶴"
+      ],
+      "url": "https://ameblo.jp/miyamotomar/",
+      "role": "primary"
+    },
+    {
+      "name": "小浜マリーナ",
+      "type": "marina",
+      "priority": "A",
+      "regions": [
+        "若狭"
+      ],
+      "url": "https://www.obama-marina.com/catch/",
+      "role": "primary"
+    },
+    {
+      "name": "福丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "若狭"
+      ],
+      "url": "https://www.e-fukumaru.com/",
+      "role": "primary"
+    },
+    {
+      "name": "あみや渡船",
+      "type": "raft",
+      "priority": "A",
+      "regions": [
+        "若狭"
+      ],
+      "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=582",
+      "role": "primary"
+    },
+    {
+      "name": "ヴィーナス",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "丹後"
+      ],
+      "url": "https://www.fisher-venus.com/chouka/",
+      "role": "primary"
+    },
+    {
+      "name": "OCEANS",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "丹後"
+      ],
+      "url": "https://oceans2009.com/tyoka",
+      "role": "primary"
+    },
+    {
+      "name": "シーマン",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "丹後"
+      ],
+      "url": "https://seaman-tango.com/blog_articles/",
+      "role": "primary"
+    },
+    {
+      "name": "ちどり丸",
+      "type": "charter_aggregator",
+      "priority": "B",
+      "regions": [
+        "丹後"
+      ],
+      "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
+      "role": "primary"
     }
   ],
   "required_fields": [
@@ -439,5 +539,43 @@
         "表面水温"
       ]
     }
-  ]
+  ],
+  "discovery_pipeline": {
+    "stages": [
+      "固定情報源を巡回して新着を取得",
+      "地域名×アオリイカ×ティップラン×釣果×水深等のキーワードで新しい公開情報源候補を発見",
+      "一覧ページから個別釣果記事へ辿り、実釣日・岸/船・昼/夜・負情報・レンジを精査",
+      "A/Bだけを判断材料へ。C・告知・募集はレビュー/参考情報として保持",
+      "同一情報源・同日・同海域・同釣法はセッション圧縮し、一覧と詳細の二重計上を防ぐ"
+    ],
+    "blocked_policy": "取得制限・403・本文省略は『釣果0』にしない。blocked/unavailableとして別管理する。"
+  },
+  "boat_depth_collection": {
+    "purpose": "昼の船実釣を沖の魚影・レンジ実測として保持し、将来の夕まずめ岸ポイント絞り込みの補助材料にする。船釣果は岸評価へ直接加点しない。",
+    "fields": [
+      "date",
+      "area",
+      "source",
+      "url",
+      "time_mode",
+      "depth_m",
+      "bottom_offset_m",
+      "tana_m",
+      "depth_confidence",
+      "negative_signals"
+    ],
+    "definitions": {
+      "depth_m": "記事が『水深』として明示した海底/ポイント水深",
+      "bottom_offset_m": "『ボトムから5m』等、海底から上のヒットレンジ。水深として扱わない",
+      "tana_m": "棚/タナとして明示された水面基準のレンジ",
+      "time_mode": "day/night/mixed/unknown。夕まずめ岸予測へ使う際はdayを優先"
+    },
+    "rules": [
+      "別魚種の水深をアオリ水深へ転用しない",
+      "記事タイトルがアオリ/ティップランを明示する場合のみ、同記事内の実釣日段落へ魚種/釣法文脈を継承できる",
+      "水深実測は希少なため30日保持するが、日付と確度を必ず表示する",
+      "昼/夜の船情報は別セッションとして保持する",
+      "告知・募集・予約情報だけの記事は実釣判断へ使わない"
+    ]
+  }
 }
