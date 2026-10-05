@@ -105,6 +105,7 @@ SOURCES = [
         "kind": "charter",
         "url": "https://www.taimaru.jp/fishingpost/",
         "default_area": "敦賀",
+        "default_aori_method": "ティップラン",
         "detail_patterns": [r"/fishingpost/\d+/"],
         "detail_limit": 12,
     },
@@ -502,6 +503,8 @@ def signal_from_segment(source, date, segment, inherited_context=""):
 
     area = detect_area(analysis_text, source.get("default_area"))
     typ, method = classify_type(analysis_text, source["kind"])
+    if typ == "boat" and method == "船" and source.get("default_aori_method") and "アオリ" in analysis_text:
+        method = source["default_aori_method"]
     segment_mode = detect_time_mode(segment)
     inherited_mode = detect_time_mode(inherited_context)
     if segment_mode == "unknown":
