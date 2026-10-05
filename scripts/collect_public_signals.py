@@ -224,28 +224,52 @@ def extract_depths(segment):
     found = []
     contexts = []
     target_words = ("アオリ", "アオリイカ", "ティップラン")
+    competing_words = (
+        "キジハタ", "アコウ", "カサゴ", "キス", "マイカ", "シロイカ",
+        "ケンサキ", "コウイカ", "サゴシ", "サワラ", "マダイ", "アジ",
+        "サバ", "カマス", "青物",
+    )
     sentence_breaks = "。！？!?"
 
-    def sentence_around(start, end):
+    def sentence_bounds(start, end):
         left = start
         while left > 0 and text[left - 1] not in sentence_breaks:
             left -= 1
         right = end
         while right < len(text) and text[right] not in sentence_breaks:
             right += 1
-        return text[left:right]
+        return left, right
+
+    def previous_sentence(left):
+        p_end = max(0, left - 1)
+        p_left = p_end
+        while p_left > 0 and text[p_left - 1] not in sentence_breaks:
+            p_left -= 1
+        return text[p_left:p_end]
 
     def valid_context(start, end):
-        sentence = sentence_around(start, end)
-        # A depth is only attributed to aori/tip-run when the target fish/method
-        # is explicit in the same sentence. This rejects cases such as
-        # "tip-run earlier ... then 10m kiji-hata".
-        if not any(w in sentence for w in target_words):
-            return None
+        left, right = sentence_bounds(start, end)
+        sentence = text[left:right]
         nearby = [w for w in DEPTH_CONTEXT_WORDS if w in sentence]
         if not nearby:
             return None
-        return sentence, nearby
+
+        # If the depth sentence explicitly describes another species, do not
+        # borrow aori/tip-run context from a nearby sentence.
+        competing = [w for w in competing_words if w in sentence]
+        same_target = [w for w in target_words if w in sentence]
+        if same_target:
+            # "tip-run ... kouika at 10m" is not safe aori depth evidence.
+            if competing and "アオリ" not in sentence:
+                return None
+            return sentence, nearby, "A"
+
+        prev = previous_sentence(left)
+        prev_target = [w for w in target_words if w in prev]
+        if prev_target and not competing:
+            evidence = (prev + "。 " + sentence).strip()
+            return evidence, nearby + prev_target, "B"
+        return None
 
     for m in DEPTH_RANGE_RE.finditer(text):
         lo, hi = float(m.group(1)), float(m.group(2))
@@ -254,12 +278,13 @@ def extract_depths(segment):
         valid = valid_context(m.start(), m.end())
         if not valid:
             continue
-        sentence, nearby = valid
+        evidence, nearby, grade = valid
         found.extend([round(lo, 1), round(hi, 1)])
         contexts.append({
             "range_m": [round(min(lo, hi), 1), round(max(lo, hi), 1)],
-            "keywords": nearby[:5],
-            "evidence": sentence[:240],
+            "keywords": nearby[:6],
+            "confidence": grade,
+            "evidence": evidence[:300],
         })
 
     for m in DEPTH_RE.finditer(text):
@@ -269,17 +294,17 @@ def extract_depths(segment):
         valid = valid_context(m.start(), m.end())
         if not valid:
             continue
-        sentence, nearby = valid
+        evidence, nearby, grade = valid
         found.append(round(value, 1))
         contexts.append({
             "depth_m": round(value, 1),
-            "keywords": nearby[:5],
-            "evidence": sentence[:240],
+            "keywords": nearby[:6],
+            "confidence": grade,
+            "evidence": evidence[:300],
         })
 
     unique = sorted(set(found))
     return unique, contexts[:8]
-
 
 def split_recent_segments(text):
     normalized = normalize(text)
@@ -320,8 +345,7 @@ def signal_from_segment(source, date, segment):
 
     depth_confidence = "none"
     if depths:
-        strong = any("水深" in x.get("keywords", []) or "ティップラン" in x.get("keywords", []) for x in depth_contexts)
-        depth_confidence = "A" if strong else "B"
+        depth_confidence = "A" if any(x.get("confidence") == "A" for x in depth_contexts) else "B"
 
     stable = "|".join([
         source["name"], date, area or "unknown", typ, method,
