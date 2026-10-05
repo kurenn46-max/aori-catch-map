@@ -184,17 +184,22 @@ def main():
                     candidates[key] = record
 
     rows = sorted(candidates.values(), key=lambda x: (x["known_domain"], -x["score"], x["domain"], x["url"]))
-    new_rows = [x for x in rows if not x["known_domain"] and x["score"] >= 40]
+    unknown_rows = [x for x in rows if not x["known_domain"]]
+    new_rows = [x for x in unknown_rows if x["score"] >= 40]
     domain_counts = Counter(x["domain"] for x in new_rows)
+    unknown_domain_counts = Counter(x["domain"] for x in unknown_rows)
 
     payload = {
         "checked_at": NOW.isoformat(timespec="seconds"),
         "query_count": len(queries),
         "diagnostics": diagnostics,
         "candidate_count": len(rows),
+        "unknown_candidate_count": len(unknown_rows),
+        "unknown_domain_count": len(unknown_domain_counts),
         "new_candidate_count": len(new_rows),
         "new_domain_count": len(domain_counts),
         "new_domain_counts": dict(domain_counts.most_common()),
+        "top_unknown_candidates": unknown_rows[:40],
         "new_candidates": new_rows[:120],
     }
 
@@ -203,6 +208,8 @@ def main():
         "engine_ok": sum(x["status"] == "ok" for x in diagnostics),
         "engine_error": sum(x["status"] == "error" for x in diagnostics),
         "candidate_count": payload["candidate_count"],
+        "unknown_candidate_count": payload["unknown_candidate_count"],
+        "unknown_domain_count": payload["unknown_domain_count"],
         "new_candidate_count": payload["new_candidate_count"],
         "new_domain_count": payload["new_domain_count"],
         "top_new_domains": domain_counts.most_common(15),
