@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-10-05T22:39:02+09:00",
+  "updated_at": "2026-10-05T22:41:27+09:00",
   "window_days": 30,
   "note": "GitHub Runnerから直接取得できる複数公開情報源を横断。日付・海域・岸/船・ティップラン・水深文脈・杯数・負情報・ベイト語を抽出し、水深は周辺文脈が確認できたものだけ採用する。これは発見/補助信号であり、岸釣果DBへは自動で杯数換算しない。",
   "source_health": [
     {
       "source": "まるまる丸",
       "url": "https://marumarumaru.co.jp/report/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 28372,
       "status": "ok",
@@ -16,7 +16,7 @@
     {
       "source": "心友丸",
       "url": "https://www.shinyuumaru.com/contents/information.php",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 26039,
       "status": "ok",
@@ -26,7 +26,7 @@
     {
       "source": "MIYAMOTOMARU2",
       "url": "https://ameblo.jp/miyamotomar/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 184947,
       "status": "ok",
@@ -36,7 +36,7 @@
     {
       "source": "小浜マリーナ",
       "url": "https://www.obama-marina.com/catch/index.php",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 29406,
       "status": "ok",
@@ -46,7 +46,7 @@
     {
       "source": "福丸",
       "url": "https://www.e-fukumaru.com/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 29885,
       "status": "ok",
@@ -56,7 +56,7 @@
     {
       "source": "SUPER VIKING",
       "url": "https://reserve.castingnet.jp/ship00107c.html",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 31108,
       "status": "ok",
@@ -66,7 +66,7 @@
     {
       "source": "あみや渡船",
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=582",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 189282,
       "status": "ok",
@@ -76,7 +76,7 @@
     {
       "source": "ヴィーナス",
       "url": "https://www.fisher-venus.com/chouka/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 140905,
       "status": "ok",
@@ -86,7 +86,7 @@
     {
       "source": "オールブルー",
       "url": "https://www.allbluemarine.com/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 199216,
       "status": "ok",
@@ -96,7 +96,7 @@
     {
       "source": "ちどり丸",
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 187115,
       "status": "ok",
@@ -106,7 +106,7 @@
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 51103,
       "status": "ok",
@@ -116,7 +116,7 @@
     {
       "source": "FISHERS",
       "url": "https://www.fishers.co.jp/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 27286,
       "status": "ok",
@@ -126,7 +126,7 @@
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 139338,
       "status": "ok",
@@ -136,7 +136,7 @@
     {
       "source": "TRITON",
       "url": "https://triton-maizuru.com/topics.html",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 21308,
       "status": "ok",
@@ -146,7 +146,7 @@
     {
       "source": "すばる",
       "url": "https://subarutango.jimdofree.com/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 75468,
       "status": "ok",
@@ -156,7 +156,7 @@
     {
       "source": "OCEANS",
       "url": "https://oceans2009.com/tyoka",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 53564,
       "status": "ok",
@@ -166,7 +166,7 @@
     {
       "source": "シーマン",
       "url": "https://seaman-tango.com/blog_articles/",
-      "checked_at": "2026-10-05T22:39:02+09:00",
+      "checked_at": "2026-10-05T22:41:27+09:00",
       "http_status": 200,
       "bytes": 28508,
       "status": "ok",
@@ -175,27 +175,6 @@
     }
   ],
   "signals": [
-    {
-      "id": "signal-1923ae2508e3defb",
-      "date": "2026-10-05",
-      "area": "若狭",
-      "type": "boat",
-      "method": "船",
-      "source": "福丸",
-      "source_kind": "charter",
-      "url": "https://www.e-fukumaru.com/",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "negative_signals": [],
-      "bait_signals": []
-    },
     {
       "id": "signal-679f868036e263af",
       "date": "2026-10-05",
@@ -214,31 +193,31 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
         "アジ"
       ]
     },
     {
-      "id": "signal-fb7509415c874ce5",
+      "id": "signal-1923ae2508e3defb",
       "date": "2026-10-05",
-      "area": "丹後",
+      "area": "若狭",
       "type": "boat",
-      "method": "ティップラン",
-      "source": "シーマン",
+      "method": "船",
+      "source": "福丸",
       "source_kind": "charter",
-      "url": "https://seaman-tango.com/blog_articles/",
-      "confidence": "B",
-      "quality_score": 73,
+      "url": "https://www.e-fukumaru.com/",
+      "confidence": "A",
+      "quality_score": 75,
       "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
       "tana_m": [],
       "depth_confidence": "none",
       "depth_evidence": [],
-      "count_mentions": [
-        8
-      ],
+      "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -260,6 +239,31 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-fb7509415c874ce5",
+      "date": "2026-10-05",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "シーマン",
+      "source_kind": "charter",
+      "url": "https://seaman-tango.com/blog_articles/",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        8
+      ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -281,6 +285,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -302,6 +307,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -323,6 +329,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -344,6 +351,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -365,6 +373,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -386,6 +395,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
         "小アジ",
@@ -412,6 +422,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -433,8 +444,33 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [
         "厳しい"
+      ],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-2dffff06a9b72d40",
+      "date": "2026-09-30",
+      "area": "若狭",
+      "type": "boat",
+      "method": "マイボート",
+      "source": "小浜マリーナ",
+      "source_kind": "marina",
+      "url": "https://www.obama-marina.com/catch/index.php",
+      "confidence": "A",
+      "quality_score": 80,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [
+        "渋い"
       ],
       "bait_signals": []
     },
@@ -456,30 +492,8 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-a61cc6e3fe5285ea",
-      "date": "2026-09-30",
-      "area": "若狭",
-      "type": "unknown",
-      "method": "unknown",
-      "source": "小浜マリーナ",
-      "source_kind": "marina",
-      "url": "https://www.obama-marina.com/catch/index.php",
-      "confidence": "B",
-      "quality_score": 65,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "negative_signals": [
-        "渋い"
-      ],
       "bait_signals": []
     },
     {
@@ -500,6 +514,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -513,7 +528,7 @@
       "source_kind": "charter",
       "url": "https://oceans2009.com/tyoka",
       "confidence": "A",
-      "quality_score": 95,
+      "quality_score": 90,
       "usable_for_decision": true,
       "depth_m": [
         13.0,
@@ -541,6 +556,7 @@
         8,
         10
       ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -562,6 +578,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -583,6 +600,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -604,51 +622,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
-      "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-4c2a5ddc4492e6e0",
-      "date": "2026-09-27",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "source": "OCEANS",
-      "source_kind": "charter",
-      "url": "https://oceans2009.com/tyoka",
-      "confidence": "A",
-      "quality_score": 80,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        2,
-        9
-      ],
-      "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-6e30156c2e0541d8",
-      "date": "2026-09-27",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "source": "ヴィーナス",
-      "source_kind": "charter",
-      "url": "https://www.fisher-venus.com/chouka/",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -670,6 +644,29 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-6e30156c2e0541d8",
+      "date": "2026-09-27",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "ヴィーナス",
+      "source_kind": "charter",
+      "url": "https://www.fisher-venus.com/chouka/",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -691,6 +688,32 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-4c2a5ddc4492e6e0",
+      "date": "2026-09-27",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "OCEANS",
+      "source_kind": "charter",
+      "url": "https://oceans2009.com/tyoka",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        2,
+        9
+      ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -712,6 +735,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -733,6 +757,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -754,74 +779,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
-      "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-617a70f18e29272c",
-      "date": "2026-09-26",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "source": "OCEANS",
-      "source_kind": "charter",
-      "url": "https://oceans2009.com/tyoka",
-      "confidence": "B",
-      "quality_score": 73,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        19
-      ],
-      "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-90e6bc77bd3d2e55",
-      "date": "2026-09-26",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "source": "OCEANS",
-      "source_kind": "charter",
-      "url": "https://oceans2009.com/tyoka",
-      "confidence": "B",
-      "quality_score": 73,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        15,
-        19
-      ],
-      "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-82addd7acb325829",
-      "date": "2026-09-26",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "source": "ヴィーナス",
-      "source_kind": "charter",
-      "url": "https://www.fisher-venus.com/chouka/",
-      "confidence": "B",
-      "quality_score": 68,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -843,6 +801,53 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-82addd7acb325829",
+      "date": "2026-09-26",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "ヴィーナス",
+      "source_kind": "charter",
+      "url": "https://www.fisher-venus.com/chouka/",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-617a70f18e29272c",
+      "date": "2026-09-26",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "OCEANS",
+      "source_kind": "charter",
+      "url": "https://oceans2009.com/tyoka",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        19
+      ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -864,6 +869,32 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-90e6bc77bd3d2e55",
+      "date": "2026-09-26",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "OCEANS",
+      "source_kind": "charter",
+      "url": "https://oceans2009.com/tyoka",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        15,
+        19
+      ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -885,6 +916,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -906,6 +938,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -927,6 +960,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
         "アジ"
@@ -950,6 +984,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -963,7 +998,7 @@
       "source_kind": "charter",
       "url": "https://seaman-tango.com/blog_articles/",
       "confidence": "B",
-      "quality_score": 73,
+      "quality_score": 68,
       "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -976,6 +1011,7 @@
         12,
         15
       ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -989,7 +1025,7 @@
       "source_kind": "charter",
       "url": "https://seaman-tango.com/blog_articles/",
       "confidence": "B",
-      "quality_score": 73,
+      "quality_score": 68,
       "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -999,6 +1035,7 @@
       "count_mentions": [
         13
       ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1020,30 +1057,10 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [
         "チェイス"
       ],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-3e39fb7b81c42f2f",
-      "date": "2026-09-19",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "source": "ヴィーナス",
-      "source_kind": "charter",
-      "url": "https://www.fisher-venus.com/chouka/",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "negative_signals": [],
       "bait_signals": []
     },
     {
@@ -1064,11 +1081,34 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
         "小アジ",
         "アジ"
       ]
+    },
+    {
+      "id": "signal-3e39fb7b81c42f2f",
+      "date": "2026-09-19",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "source": "ヴィーナス",
+      "source_kind": "charter",
+      "url": "https://www.fisher-venus.com/chouka/",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
     },
     {
       "id": "signal-d4f179e04ca7df8d",
@@ -1088,6 +1128,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1109,6 +1150,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1130,6 +1172,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1151,30 +1194,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
-      "negative_signals": [],
-      "bait_signals": []
-    },
-    {
-      "id": "signal-90980fbd283991a0",
-      "date": "2026-09-12",
-      "area": "越前",
-      "type": "boat",
-      "method": "船",
-      "source": "心友丸",
-      "source_kind": "charter",
-      "url": "https://www.shinyuumaru.com/contents/information.php",
-      "confidence": "A",
-      "quality_score": 80,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        20,
-        40
-      ],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1196,6 +1216,32 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": []
+    },
+    {
+      "id": "signal-90980fbd283991a0",
+      "date": "2026-09-12",
+      "area": "越前",
+      "type": "boat",
+      "method": "船",
+      "source": "心友丸",
+      "source_kind": "charter",
+      "url": "https://www.shinyuumaru.com/contents/information.php",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        20,
+        40
+      ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1209,7 +1255,7 @@
       "source_kind": "charter",
       "url": "https://seaman-tango.com/blog_articles/",
       "confidence": "B",
-      "quality_score": 73,
+      "quality_score": 68,
       "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -1220,6 +1266,7 @@
         10,
         33
       ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1241,6 +1288,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1254,7 +1302,7 @@
       "source_kind": "charter",
       "url": "https://www.shinyuumaru.com/contents/information.php",
       "confidence": "A",
-      "quality_score": 80,
+      "quality_score": 75,
       "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -1264,6 +1312,7 @@
       "count_mentions": [
         17
       ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": []
     },
@@ -1285,6 +1334,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": []
     }
