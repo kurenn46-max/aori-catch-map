@@ -321,9 +321,10 @@ def main():
             ),
             "fallback": {
                 "enabled": True,
+                "automated": False,
                 "mode": "chatgpt-public-web",
-                "schedule": "6時間ごと",
-                "reason": "GitHub Runnerで本文が省略される場合に公開Web経路で補完",
+                "schedule": "必要時",
+                "reason": "GitHub Runnerで本文が省略される場合に公開Web経路で補完できるが、アプリ/Runnerとは自動連携していない",
             },
             "checks": checks,
         },
