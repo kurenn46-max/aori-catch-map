@@ -45,7 +45,7 @@ SOURCES = [
         "kind": "charter",
         "url": "https://ameblo.jp/miyamotomar/",
         "default_area": "舞鶴",
-        "detail_patterns": [r"/miyamotomar/entry-\\d+\\.html"],
+        "detail_patterns": [r"/miyamotomar/entry-\d+\.html"],
         "detail_limit": 12,
     },
     {
@@ -59,7 +59,7 @@ SOURCES = [
         "kind": "charter",
         "url": "https://www.e-fukumaru.com/",
         "default_area": "若狭",
-        "detail_patterns": [r"/news/\\d+"],
+        "detail_patterns": [r"/news/\d+"],
         "detail_limit": 10,
     },
     {
@@ -111,7 +111,7 @@ SOURCES = [
         "kind": "tackle_shop_media",
         "url": "https://bunbun-fishing.com/fishing/",
         "default_area": None,
-        "detail_patterns": [r"/fishing/\\d+"],
+        "detail_patterns": [r"/fishing/\d+"],
         "detail_limit": 10,
     },
     {
@@ -137,7 +137,7 @@ SOURCES = [
         "kind": "charter",
         "url": "https://seaman-tango.com/blog_articles/",
         "default_area": "丹後",
-        "detail_patterns": [r"/blog_articles/\\d+\\.html"],
+        "detail_patterns": [r"/blog_articles/\d+\.html"],
         "detail_limit": 12,
     },
 ]
@@ -156,8 +156,8 @@ BOAT_WORDS = ("ティップラン", "遊漁船", "船中", "出船", "ボート"
 SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "磯", "エギング")
 
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
-DATE_RE = re.compile(r"20\\d{2}(?:年\\s*\\d{1,2}月\\s*\\d{1,2}日|[./-]\\d{1,2}[./-]\\d{1,2})")
-TRIP_MD_RE = re.compile(r"(?<!\\d)(\\d{1,2})/(\\d{1,2})日?(?:の)?釣行")
+DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})")
+TRIP_MD_RE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})日?(?:の)?釣行")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
 DEPTH_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
 DEPTH_RANGE_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
@@ -387,7 +387,7 @@ def published_date_from_soup(soup, text):
         if time_tag.get("datetime"):
             candidates.append(time_tag.get("datetime"))
     for raw in candidates:
-        nums = [int(x) for x in re.findall(r"\\d+", raw or "")]
+        nums = [int(x) for x in re.findall(r"\d+", raw or "")]
         if len(nums) >= 3:
             try:
                 d = datetime(nums[0], nums[1], nums[2], tzinfo=JST)
