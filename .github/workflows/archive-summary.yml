@@ -1,6 +1,7 @@
 name: Archive and summarize catches
 on:
   push:
+    branches: [main]
     paths:
       - "data/catches.json"
 permissions:
