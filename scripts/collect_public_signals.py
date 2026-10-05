@@ -45,12 +45,6 @@ SOURCES = [
         "detail_limit": 10,
     },
     {
-        "name": "かどや丸",
-        "kind": "charter_aggregator",
-        "url": "https://reserve.castingnet.jp/ship00105c.html",
-        "default_area": "若狭",
-    },
-    {
         "name": "まるまる丸",
         "kind": "charter",
         "url": "https://marumarumaru.co.jp/report/",
@@ -260,7 +254,7 @@ def detect_evidence_role(text):
     t = normalize(text)
     strong_catch_markers = (
         "ヒット", "キャッチ", "釣れた", "釣れました", "釣れて", "釣れ", "竿頭",
-        "トップ", "船中", "全員安打", "連発", "乗って", "乗りました", "抱いた",
+        "トップ", "船中", "全員安打", "連発", "乗って", "乗りました", "抱いた", "拾う", "拾え", "拾い釣り",
     )
     weak_catch_markers = (
         "釣果", "乗り", "アタリ", "あたり", "反応", "チェイス", "見えイカ",
@@ -290,7 +284,7 @@ def detect_evidence_role(text):
 
 def detect_time_mode(text):
     t = normalize(text)
-    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
+    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便", "朝便", "朝ティップラン"))
     night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便", "夜アオリ", "夜のアオリ", "昨夜", "中夜便"))
     if day_hits and night_hits:
         return "mixed"
