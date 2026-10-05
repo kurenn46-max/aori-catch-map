@@ -223,6 +223,19 @@ def detect_area(text, default=None):
     return default
 
 
+def detect_time_mode(text):
+    t = normalize(text)
+    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
+    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便"))
+    if day_hits and night_hits:
+        return "mixed"
+    if day_hits:
+        return "day"
+    if night_hits:
+        return "night"
+    return "unknown"
+
+
 def classify_type(text, kind):
     if kind == "marina":
         return "boat", "マイボート"
@@ -479,6 +492,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
 
     area = detect_area(analysis_text, source.get("default_area"))
     typ, method = classify_type(analysis_text, source["kind"])
+    time_mode = detect_time_mode(analysis_text)
     depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(analysis_text)
     negatives = [w for w in NEGATIVE_WORDS if w in analysis_text]
     bait = [w for w in BAIT_WORDS if w in analysis_text]
@@ -501,7 +515,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
         depth_confidence = "A" if any(x.get("confidence") == "A" for x in depth_contexts) else "B"
 
     stable = "|".join([
-        source["name"], date, area or "unknown", typ, method,
+        source["name"], date, area or "unknown", typ, method, time_mode,
         ",".join(str(x) for x in depths),
         ",".join(str(x) for x in bottom_offsets),
         ",".join(str(x) for x in tana_depths),
@@ -521,6 +535,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
         "area": area,
         "type": typ,
         "method": method,
+        "time_mode": time_mode,
         "source": source["name"],
         "source_kind": source["kind"],
         "url": source["url"],
@@ -609,7 +624,7 @@ def main():
     for sig in all_signals:
         key = "|".join([
             sig.get("source") or "", sig.get("date") or "", sig.get("area") or "",
-            sig.get("type") or "", sig.get("method") or "",
+            sig.get("type") or "", sig.get("method") or "", sig.get("time_mode") or "",
         ])
         old = by_session.get(key)
         richness = (
