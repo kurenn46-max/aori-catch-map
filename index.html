@@ -487,6 +487,21 @@ function areaFreshness(area){
 function strategyArea(area){
   return (strategyData?.areas||[]).find(x=>x.area===area)||null;
 }
+function boatDepthLabel(s){
+  if(!s)return '実測なし';
+  const bits=[];
+  const depth=Array.isArray(s.depth_m)?s.depth_m:[];
+  const bottom=Array.isArray(s.bottom_offset_m)?s.bottom_offset_m:[];
+  const tana=Array.isArray(s.tana_m)?s.tana_m:[];
+  if(depth.length===1)bits.push('水深 '+depth[0]+'m');
+  else if(depth.length>=2)bits.push('水深 '+depth[0]+'〜'+depth[depth.length-1]+'m');
+  if(bottom.length===1)bits.push('ボトム上 '+bottom[0]+'m');
+  else if(bottom.length>=2)bits.push('ボトム上 '+bottom[0]+'〜'+bottom[bottom.length-1]+'m');
+  if(tana.length===1)bits.push('棚 '+tana[0]+'m');
+  else if(tana.length>=2)bits.push('棚 '+tana[0]+'〜'+tana[tana.length-1]+'m');
+  const core=bits.length?bits.join(' / '):'レンジ記載なし';
+  return esc(s.date||'日付不明')+' '+esc(core)+'（'+esc(s.source||'情報源不明')+'・確度'+esc(s.depth_confidence||'—')+'）';
+}
 function renderStrategy(){
   const grid=document.getElementById('strategyGrid');grid.innerHTML='';
   const rows=[...(strategyData?.areas||[])].sort((a,b)=>{
@@ -502,6 +517,9 @@ function renderStrategy(){
     const trend=r.trend==='up'?'↗ 上向き':r.trend==='down'?'↘ 減少':r.trend==='new'?'● 新規':'→ 横ばい';
     const neg=r.negative_7d||{};
     const negatives=(neg.blank||0)+(neg.chase_only||0)+(neg.sighting_only||0);
+    const boat=r.boat_context||{};
+    const dayDepth=(boat.day_depth_signals||[])[0]||null;
+    const nightDepth=(boat.night_depth_signals||[])[0]||null;
     const c=document.createElement('div');c.className='freshCard';
     c.innerHTML=`<div class="freshTop"><div><div class="rankName">${i+1}. ${esc(r.area)}</div><div class="small">最新 ${esc(r.latest_date||'なし')} / ${esc(trend)}</div></div><div class="freshScore ${gradeClass}">${esc(r.grade||'C')}<small> 根拠${r.confidence||0}</small></div></div>
       <div class="reasonTags">
@@ -516,10 +534,17 @@ function renderStrategy(){
         <b>主力サイズ：</b>${esc(r.top_size||'標本不足')}<br>
         30日：実釣${r.last30_sessions?.shore||0}セッション / 元投稿${r.raw_posts_30d||0}件<br>
         ベイト材料 ${r.bait_recent||0}件　人圧材料 ${r.pressure_recent||0}件　現地ルール ${r.local_active||0}件
+      </div>
+      <div class="rankDetails" style="margin-top:9px;border-top:1px solid #24445e;padding-top:8px">
+        <b>🚤 沖の実測（岸評価とは別枠）</b><br>
+        最新：${esc(boat.latest_date||'なし')}　7日実釣 ${boat.last7_sessions||0}　昼 ${boat.day_sessions_7d||0} / 夜 ${boat.night_sessions_7d||0}　14日情報源 ${boat.sources_14d||0}<br>
+        <b>昼レンジ：</b>${dayDepth?boatDepthLabel(dayDepth):'実測なし'}<br>
+        <b>夜レンジ：</b>${nightDepth?boatDepthLabel(nightDepth):'実測なし'}<br>
+        <span class="warnText">※船情報は魚影・レンジ確認用。岸のA/B/Cや根拠点には直接加点しません。</span>
       </div>`;
     grid.appendChild(c);
   });
-  document.getElementById('strategyMeta').textContent='48h現況＋7日短期＋30日パターン / 同一釣行の連投を圧縮';
+  document.getElementById('strategyMeta').textContent='岸：48h＋7日＋30日 / 沖：昼夜・水深を別枠表示（岸点数へ非加点）';
 }
 
 function renderFreshness(){
