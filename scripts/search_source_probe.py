@@ -20,11 +20,14 @@ HEADERS = {
 
 REGIONS = ["越前", "敦賀", "若狭", "小浜", "舞鶴", "丹後"]
 QUERY_TEMPLATES = [
-    "{region} アオリイカ 釣果 ティップラン 水深",
-    "{region} アオリイカ ティップラン 船 釣果",
-    "{region} アオリイカ エギング 釣果 2026",
-    "{region} アオリイカ 渋い チェイス 釣果",
+    "{region} アオリイカ ティップラン 遊漁船 船長ブログ",
+    "{region} アオリイカ ティップラン 水深 ボトム 釣果",
+    "{region} アオリイカ 釣果 船 マリーナ ブログ",
 ]
+SEARCH_EXCLUSIONS = (
+    "-site:anglers.jp -site:fishing.ne.jp -site:johshuya.co.jp "
+    "-site:bunbun-fishing.com -site:yamaria.com -site:fishing-v.jp"
+)
 TARGET_WORDS = ("アオリ", "ティップラン", "エギング")
 NOISE_DOMAINS = {
     "www.google.com","google.com","www.bing.com","bing.com","duckduckgo.com",
@@ -80,7 +83,9 @@ def score_item(title, snippet, url, region):
     if "釣果" in text:
         score += 10; reasons.append("catch")
     if any(w in text for w in ("遊漁船","釣り船","船長","マリーナ","渡船")):
-        score += 10; reasons.append("boat_source")
+        score += 15; reasons.append("boat_source")
+    if any(w in text for w in ("ブログ","釣行記","釣果情報")):
+        score += 8; reasons.append("report_source")
     if any(w in text for w in ("予約","料金","募集")) and "釣果" not in text:
         score -= 10; reasons.append("promo_penalty")
     return max(0, min(100, score)), reasons
@@ -135,12 +140,12 @@ def main():
     candidates = {}
 
     queries = []
-    for region in REGIONS:
-        for tmpl in QUERY_TEMPLATES:
-            queries.append((region, tmpl.format(region=region)))
-
-    # Keep this diagnostic intentionally small/slow enough to be polite.
-    queries = queries[:18]
+    # Balanced: 3 long-tail queries for every region, instead of exhausting
+    # early regions first. Exclude large known platforms to surface small
+    # charter/marina/blog domains that fixed-source crawling would miss.
+    for tmpl in QUERY_TEMPLATES:
+        for region in REGIONS:
+            queries.append((region, f"{tmpl.format(region=region)} {SEARCH_EXCLUSIONS}"))
 
     for region, query in queries:
         for engine in engines:
