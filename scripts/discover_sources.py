@@ -207,6 +207,29 @@ def yahoo_search(region, query):
     return rows
 
 
+def published_date_from_page(soup):
+    raw_values = []
+    for meta in soup.find_all("meta"):
+        key = (meta.get("property") or meta.get("name") or "").lower()
+        if key in ("article:published_time", "datepublished", "date", "pubdate") and meta.get("content"):
+            raw_values.append(meta.get("content"))
+    for tag in soup.find_all("time"):
+        if tag.get("datetime"):
+            raw_values.append(tag.get("datetime"))
+    dates = []
+    for raw in raw_values:
+        nums = [int(x) for x in re.findall(r"\d+", raw or "")]
+        if len(nums) < 3:
+            continue
+        try:
+            d = datetime(nums[0], nums[1], nums[2], tzinfo=JST).date()
+        except ValueError:
+            continue
+        if d <= NOW.date() + timedelta(days=1):
+            dates.append(d)
+    return max(dates) if dates else None
+
+
 def verify_page(candidate):
     s = make_session()
     out = dict(candidate)
@@ -220,7 +243,20 @@ def verify_page(candidate):
         text = " ".join(soup.stripped_strings)
         out["page_target_hits"] = {w: text.count(w) for w in TARGET_WORDS if w in text}
         out["page_region_hit"] = candidate["region"] in text
-        f, observed, age = freshness_from_text(text[:30000])
+        pd = published_date_from_page(soup)
+        if pd:
+            age = (NOW.date() - pd).days
+            if age <= 30:
+                f = "current_30d"
+            elif age <= 90:
+                f = "current_90d"
+            elif age <= 365:
+                f = "recent_year"
+            else:
+                f = "historical"
+            observed = pd.isoformat()
+        else:
+            f, observed, age = "unknown", None, None
         out["page_freshness"] = f
         out["page_observed_date"] = observed
         out["page_date_age_days"] = age
@@ -304,9 +340,26 @@ def main():
         row = verified_by_id.get(x["id"], x)
         verified = bool(row.get("verified"))
         page_recent = row.get("page_freshness") in ("current_30d", "current_90d")
-        if verified and row["score"] >= 65 and row.get("region_explicit") and (row.get("direct_source") or page_recent):
+        search_recent = row.get("search_freshness") in ("current_30d", "current_90d")
+        stype = row.get("source_type")
+        # Tier A is intentionally reserved for direct/local primary sources.
+        # Aggregators can discover a source but can never become evidence.
+        if (
+            stype != "aggregator"
+            and row.get("direct_source")
+            and verified
+            and row["score"] >= 60
+            and row.get("region_explicit")
+        ):
             tier = "A"
-        elif verified and row["score"] >= 50 and row.get("region_explicit"):
+        elif (
+            stype != "aggregator"
+            and not row.get("direct_source")
+            and verified
+            and row["score"] >= 55
+            and row.get("region_explicit")
+            and (search_recent or page_recent)
+        ):
             tier = "B"
         else:
             tier = "C"
