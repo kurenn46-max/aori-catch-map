@@ -2,8 +2,10 @@ name: Collect aori catches
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - "scripts/collect.py"
+      - "scripts/collect_public_signals.py"
       - "scripts/build_strategy.py"
       - "scripts/archive_and_summary.py"
       - "scripts/build_tide_patterns.py"
@@ -26,15 +28,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Sync latest branch before generating data
+        run: |
+          git fetch origin "$GITHUB_REF_NAME"
+          git merge --ff-only "origin/$GITHUB_REF_NAME"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Install collector dependencies
         run: pip install --disable-pip-version-check requests beautifulsoup4
       - name: Syntax check
-        run: python -m py_compile scripts/collect.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
+        run: python -m py_compile scripts/collect.py scripts/collect_public_signals.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
       - name: Collect direct catches and source health
         run: python scripts/collect.py
+      - name: Collect multi-source public signals
+        run: python scripts/collect_public_signals.py --output data/discovery-signals.json
       - name: Rebuild permanent archive and trends
         run: python scripts/archive_and_summary.py
       - name: Rebuild tide patterns
@@ -51,6 +59,7 @@ jobs:
           paths = [
               "data/catches.json",
               "data/source-status.json",
+              "data/discovery-signals.json",
               "data/summary.json",
               "data/archive/2026.json",
               "data/tide-patterns.json",
@@ -70,6 +79,29 @@ jobs:
                       raise SystemExit(f"missing {key}: {x}")
               if x["date"] > future_limit:
                   raise SystemExit(f"future catch date: {x['date']} {x['id']}")
+          discovery = json.loads(Path("data/discovery-signals.json").read_text(encoding="utf-8"))
+          signals = discovery.get("signals", [])
+          signal_ids = [x.get("id") for x in signals if x.get("id")]
+          if len(signal_ids) != len(set(signal_ids)):
+              raise SystemExit("duplicate discovery signal ids detected")
+          for x in signals:
+              for key in ("id", "date", "source", "url", "confidence", "quality_score"):
+                  if x.get(key) in (None, ""):
+                      raise SystemExit(f"missing discovery {key}: {x}")
+              if x.get("usable_for_decision"):
+                  if x.get("confidence") not in ("A", "B"):
+                      raise SystemExit(f"untrusted grade marked usable: {x}")
+                  if not x.get("area") or x.get("type") not in ("shore", "boat", "raft"):
+                      raise SystemExit(f"incomplete signal marked usable: {x}")
+              has_depth = bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
+              if has_depth and x.get("depth_confidence") not in ("A", "B"):
+                  raise SystemExit(f"depth signal lacks confidence: {x}")
+              if x.get("count_mentions") and x.get("count_confidence") != "mention_only":
+                  raise SystemExit(f"catch-count mention treated as authoritative: {x}")
+              if x.get("usable_for_decision") and x.get("evidence_role") != "catch":
+                  raise SystemExit(f"non-catch discovery signal marked usable: {x}")
+          trusted = sum(bool(x.get("usable_for_decision")) for x in signals)
+
           strategy = json.loads(Path("data/strategy.json").read_text(encoding="utf-8"))
           for area in strategy.get("areas", []):
               sources = int(area.get("sources_30d", 0))
@@ -77,17 +109,25 @@ jobs:
                   raise SystemExit(f"single-source area incorrectly graded A: {area.get('area')}")
               if "evidence" not in area:
                   raise SystemExit(f"strategy evidence missing: {area.get('area')}")
-          print(f"validated catches={len(catches)} strategy_areas={len(strategy.get('areas', []))}")
+              boat=area.get("boat_context")
+              if not isinstance(boat,dict):
+                  raise SystemExit(f"strategy boat_context missing: {area.get('area')}")
+              for sig in boat.get("day_depth_signals",[]):
+                  if sig.get("time_mode") != "day":
+                      raise SystemExit(f"non-day signal in day boat context: {sig}")
+              for sig in boat.get("night_depth_signals",[]):
+                  if sig.get("time_mode") != "night":
+                      raise SystemExit(f"non-night signal in night boat context: {sig}")
+          print(f"validated catches={len(catches)} discovery={len(signals)} trusted={trusted} strategy_areas={len(strategy.get('areas', []))}")
           PY
       - name: Commit generated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catches.json data/source-status.json data/archive data/summary.json data/tide-patterns.json data/strategy.json
+          git add data/catches.json data/source-status.json data/discovery-signals.json data/archive data/summary.json data/tide-patterns.json data/strategy.json
           if git diff --cached --quiet; then
             echo "No generated changes"
             exit 0
           fi
           git commit -m "Update aori catch data and health"
-          git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin HEAD:"$GITHUB_REF_NAME"

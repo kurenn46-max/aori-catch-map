@@ -89,6 +89,38 @@ const marineBody={
       for(const [open,panel,close] of pairs){await page.locator(open).click();assert(await page.locator(panel).evaluate(e=>e.classList.contains('open')));await page.locator(close).click();}
     });
 
+    await check('Strategy shows boat depth as separate context',async()=>{
+      await page.evaluate(()=>{
+        const s=strategyArea('舞鶴');
+        if(!s)throw new Error('Maizuru strategy missing');
+        s.boat_context={
+          latest_date:'2026-09-19',
+          last7_sessions:2,
+          sources_14d:2,
+          day_sessions_7d:1,
+          night_sessions_7d:1,
+          negative_sessions_7d:0,
+          day_depth_signals:[{
+            date:'2026-09-19',source:'MIYAMOTOMARU2',time_mode:'day',
+            depth_m:[],bottom_offset_m:[5],tana_m:[],depth_confidence:'A'
+          }],
+          night_depth_signals:[{
+            date:'2026-09-28',source:'OCEANS',time_mode:'night',
+            depth_m:[13,30],bottom_offset_m:[],tana_m:[],depth_confidence:'B'
+          }]
+        };
+        renderStrategy();
+      });
+      await page.locator('#strategyToggle').click();
+      const txt=await page.locator('#strategyGrid').innerText();
+      assert.match(txt,/沖の実測/);
+      assert.match(txt,/ボトム上 5m/);
+      assert.match(txt,/水深 13〜30m/);
+      assert.match(txt,/岸評価とは別枠/);
+      await page.locator('#strategyClose').click();
+      return 'day/night boat depth rendered without shore-score wording';
+    });
+
     await check('Sea and shelter modes render with API data',async()=>{
       await page.locator('button[data-view="sea"]').click();
       await page.waitForFunction(()=>document.querySelector('#status')?.textContent.includes('最新海況'),{timeout:10000});

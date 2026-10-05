@@ -88,11 +88,40 @@ def sessionize(rows):
 
 archive=load("data/archive/2026.json",{"catches":[]})
 intel=load("data/intel.json",{"items":[]})
+discovery=load("data/discovery-signals.json",{"signals":[]})
 records=archive.get("catches",[])
 sessions=sessionize(records)
 valid_dates=[parse_day(x.get("date","")) for x in records]
 valid_dates=[x for x in valid_dates if x]
 ref=max(valid_dates) if valid_dates else datetime.now(JST)
+
+discovery_signals=[
+    x for x in discovery.get("signals",[])
+    if x.get("usable_for_decision")
+    and x.get("evidence_role")=="catch"
+    and x.get("type")=="boat"
+    and x.get("area") in AREAS
+    and parse_day(x.get("date",""))
+]
+context_dates=[parse_day(x.get("date","")) for x in discovery_signals]
+context_dates=[x for x in context_dates if x]
+context_ref=max([ref,*context_dates]) if context_dates else ref
+
+def discovery_in_days(s,days):
+    d=parse_day(s.get("date",""))
+    return bool(d and 0 <= (context_ref-d).days < days)
+
+def depth_signal_view(x):
+    return {
+      "date":x.get("date"),
+      "source":x.get("source"),
+      "time_mode":x.get("time_mode","unknown"),
+      "depth_m":x.get("depth_m") or [],
+      "bottom_offset_m":x.get("bottom_offset_m") or [],
+      "tana_m":x.get("tana_m") or [],
+      "depth_confidence":x.get("depth_confidence","none"),
+      "url":x.get("detail_url") or x.get("url"),
+    }
 
 def in_days(s,days):
     d=parse_day(s.get("date",""))
@@ -132,6 +161,40 @@ for area in AREAS:
     bait=[x for x in recent_intel if x.get("category")=="bait" and x.get("shore_relevance") in ("high","medium")]
     pressure=[x for x in recent_intel if x.get("category")=="pressure"]
     local=[x for x in intel.get("items",[]) if x.get("area")==area and x.get("category")=="local" and x.get("active")]
+
+    boat_all=[x for x in discovery_signals if x.get("area")==area]
+    boat7=[x for x in boat_all if discovery_in_days(x,7)]
+    boat14=[x for x in boat_all if discovery_in_days(x,14)]
+    boat30=[x for x in boat_all if discovery_in_days(x,30)]
+    boat_latest=max([x.get("date") for x in boat_all if x.get("date")],default=None)
+    day7=[x for x in boat7 if x.get("time_mode")=="day"]
+    night7=[x for x in boat7 if x.get("time_mode")=="night"]
+    day_depth=[
+        depth_signal_view(x) for x in boat30
+        if x.get("time_mode")=="day"
+        and (x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
+        and x.get("depth_confidence") in ("A","B")
+    ]
+    night_depth=[
+        depth_signal_view(x) for x in boat30
+        if x.get("time_mode")=="night"
+        and (x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
+        and x.get("depth_confidence") in ("A","B")
+    ]
+    day_depth=sorted(day_depth,key=lambda x:(x.get("date") or "",x.get("depth_confidence")=="A"),reverse=True)[:5]
+    night_depth=sorted(night_depth,key=lambda x:(x.get("date") or "",x.get("depth_confidence")=="A"),reverse=True)[:5]
+    boat_context={
+      "latest_date":boat_latest,
+      "last7_sessions":len(boat7),
+      "sources_14d":len({x.get("source") for x in boat14 if x.get("source")}),
+      "depth_window_days":30,
+      "day_sessions_7d":len(day7),
+      "night_sessions_7d":len(night7),
+      "negative_sessions_7d":sum(bool(x.get("negative_signals")) for x in boat7),
+      "day_depth_signals":day_depth,
+      "night_depth_signals":night_depth,
+      "note":"船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
+    }
 
     recency=30 if age==0 else 25 if age==1 else 20 if age==2 else 15 if age<=3 else 8 if age<=7 else 0
     # Evidence score: sessions matter, but one source must never create false A confidence.
@@ -175,13 +238,15 @@ for area in AREAS:
       "pressure_recent":len(pressure),
       "local_active":len(local),
       "raw_posts_30d":sum(x.get("records",1) for x in l30),
+      "boat_context":boat_context,
       "note":"同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
     })
 
 out={
   "updated_at":datetime.now(JST).isoformat(timespec="seconds"),
   "reference_date":ref.strftime("%Y-%m-%d"),
-  "method":"直近48h=現況、7日=短期傾向、30日=時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上、負情報を減点、船釣果は岸評価に不使用。",
+  "method":"直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
+  "boat_context_reference_date":context_ref.strftime("%Y-%m-%d"),
   "areas":areas
 }
 Path("data/strategy.json").write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")

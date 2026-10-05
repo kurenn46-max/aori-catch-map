@@ -1,0 +1,142 @@
+name: Probe aori information sources
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feat/source-discovery-v2-*"
+    paths:
+      - "scripts/source_probe.py"
+      - "scripts/collect_public_signals.py"
+      - "scripts/build_strategy.py"
+      - "index.html"
+      - ".github/workflows/source-probe.yml"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install probe dependencies
+        run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Syntax check
+        run: python -m py_compile scripts/source_probe.py scripts/collect_public_signals.py
+      - name: Probe candidate sources
+        run: python scripts/source_probe.py
+      - name: Regression test depth attribution
+        run: |
+          python - <<'PY'
+          from scripts.collect_public_signals import extract_depths
+          false_case = "早朝はティップランでアオリイカ釣り遊び！その後は、水深10～20mラインの根回りを探ってキジハタ連発！"
+          true_case = "水深13～30mをティップランで流してアオリイカを狙った。"
+          adjacent_case = "ナイトティップランで夜アオリが出ました！水深13～30m位まででやりました。"
+          bottom_case = "アオリイカのDayティップラン。ボトムから5m辺りでコツコツ乗ってます。"
+          inherited_trip_case = "9/19日の釣行 サイズも数も良い感じ。ボトムから5m辺りでコツコツ乗ってます。"
+          false_depths, false_bottom, false_tana, _ = extract_depths(false_case)
+          true_depths, true_bottom, true_tana, true_ev = extract_depths(true_case)
+          adjacent_depths, _, _, adjacent_ev = extract_depths(adjacent_case)
+          bottom_depths, bottom_offsets, _, _ = extract_depths(bottom_case)
+          assert false_depths == [] and false_bottom == [] and false_tana == [], (false_depths, false_bottom, false_tana)
+          assert true_depths == [13.0, 30.0] and true_bottom == [] and true_tana == [], (true_depths, true_bottom, true_tana)
+          assert adjacent_depths == [13.0, 30.0], adjacent_depths
+          assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
+          assert bottom_depths == [] and bottom_offsets == [5.0], (bottom_depths, bottom_offsets)
+          from scripts.collect_public_signals import signal_from_segment, detect_time_mode, detect_evidence_role
+          assert detect_time_mode("アオリイカ Dayティップラン") == "day"
+          assert detect_time_mode("ナイトティップラン出船") == "night"
+          assert detect_time_mode("昼便とナイト便") == "mixed"
+          assert detect_evidence_role("アオリイカ ティップラン募集中 ご予約受付中 残り3名") == "schedule"
+          assert detect_evidence_role("アオリイカ トップ9杯 船中30杯 ヒット連発") == "catch"
+          assert detect_evidence_role("アオリイカは渋い。チェイスはあるが抱かない") == "catch"
+          inherited_sig = signal_from_segment(
+              {"name":"test","kind":"charter","url":"https://example.com","default_area":"舞鶴"},
+              "2026-09-19",
+              inherited_trip_case,
+              inherited_context="アオリイカ Dayティップラン",
+          )
+          assert inherited_sig and inherited_sig.get("bottom_offset_m") == [5.0], inherited_sig
+          assert inherited_sig.get("evidence_role") == "catch", inherited_sig
+          assert inherited_sig.get("usable_for_decision") is True, inherited_sig
+          print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths, bottom_offsets, inherited_sig.get("bottom_offset_m"))
+          PY
+      - name: Collect structured signals
+        run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
+      - name: Validate structured signals
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("test-results/discovery-signals.json")
+          data=json.loads(p.read_text(encoding="utf-8"))
+          signals=data.get("signals",[])
+          if not signals:
+              raise SystemExit("no structured signals collected")
+          for x in signals:
+              for k in ("id","date","source","url","confidence","quality_score"):
+                  if x.get(k) in (None,""):
+                      raise SystemExit(f"missing {k}: {x}")
+              has_depth = bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m"))
+              if has_depth and x.get("depth_confidence") not in ("A","B"):
+                  raise SystemExit(f"depth without confidence: {x}")
+              if x.get("count_mentions") and x.get("count_confidence") != "mention_only":
+                  raise SystemExit(f"catch-count mention treated as authoritative: {x}")
+              if x.get("usable_for_decision") and x.get("evidence_role") != "catch":
+                  raise SystemExit(f"non-catch signal marked usable: {x}")
+          print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals))
+          PY
+
+      - name: Build strategy with collected boat context
+        run: |
+          cp test-results/discovery-signals.json data/discovery-signals.json
+          python scripts/build_strategy.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("data/strategy.json").read_text(encoding="utf-8"))
+          areas=data.get("areas",[])
+          if len(areas) != 5:
+              raise SystemExit(f"expected 5 strategy areas, got {len(areas)}")
+          for area in areas:
+              boat=area.get("boat_context")
+              if not isinstance(boat,dict):
+                  raise SystemExit(f"boat_context missing: {area.get('area')}")
+              for sig in boat.get("day_depth_signals",[]):
+                  if sig.get("time_mode") != "day":
+                      raise SystemExit(f"non-day signal in day depth context: {sig}")
+                  if not (sig.get("depth_m") or sig.get("bottom_offset_m") or sig.get("tana_m")):
+                      raise SystemExit(f"empty day depth signal: {sig}")
+              for sig in boat.get("night_depth_signals",[]):
+                  if sig.get("time_mode") != "night":
+                      raise SystemExit(f"non-night signal in night depth context: {sig}")
+          maizuru=next((x for x in areas if x.get("area")=="舞鶴"),{})
+          md=maizuru.get("boat_context",{}).get("day_depth_signals",[])
+          if not any(5.0 in (x.get("bottom_offset_m") or []) for x in md):
+              raise SystemExit(f"expected Maizuru day bottom-offset evidence missing: {md}")
+          print("strategy boat_context PASS", {
+              x.get("area"): {
+                  "boat7":x.get("boat_context",{}).get("last7_sessions",0),
+                  "dayDepth":len(x.get("boat_context",{}).get("day_depth_signals",[])),
+                  "nightDepth":len(x.get("boat_context",{}).get("night_depth_signals",[])),
+              } for x in areas
+          })
+          PY
+      - name: Show signal audit table
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("test-results/discovery-signals.json").read_text(encoding="utf-8"))
+          for x in data.get("signals",[]):
+              print({
+                  "date":x.get("date"),"area":x.get("area"),"type":x.get("type"),
+                  "method":x.get("method"),"time_mode":x.get("time_mode"),"role":x.get("evidence_role"),"source":x.get("source"),
+                  "grade":x.get("confidence"),"score":x.get("quality_score"),
+                  "water_depth":x.get("depth_m"),"bottom_offset":x.get("bottom_offset_m"),"tana":x.get("tana_m"),"depth_grade":x.get("depth_confidence"),
+                  "counts":x.get("count_mentions"),"negative":x.get("negative_signals"),
+                  "bait":x.get("bait_signals")
+              })
+          PY

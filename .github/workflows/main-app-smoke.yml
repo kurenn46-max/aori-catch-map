@@ -6,6 +6,7 @@ on:
       - 'test/**'
       - 'fix/**'
       - 'perf/**'
+      - 'feat/source-discovery-v2-*'
     paths:
       - 'index.html'
       - 'data/**'
