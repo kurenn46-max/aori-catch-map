@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse
 
@@ -131,7 +132,7 @@ def probe(source):
         "checked_at": NOW.isoformat(timespec="seconds"),
     }
     try:
-        r = SESSION.get(source["url"], timeout=(10, 35), allow_redirects=True)
+        r = SESSION.get(source["url"], timeout=(6, 16), allow_redirects=True)
         item["http_status"] = r.status_code
         item["final_url"] = r.url
         item["bytes"] = len(r.content)
@@ -186,7 +187,13 @@ def probe(source):
 
 
 def main():
-    results = [probe(x) for x in SOURCES]
+    results = []
+    with ThreadPoolExecutor(max_workers=min(10, len(SOURCES))) as pool:
+        futures = {pool.submit(probe, src): src["name"] for src in SOURCES}
+        for future in as_completed(futures):
+            results.append(future.result())
+    order = {src["name"]: i for i, src in enumerate(SOURCES)}
+    results.sort(key=lambda x: order.get(x.get("name"), 999))
     summary = {
         "checked_at": NOW.isoformat(timespec="seconds"),
         "source_count": len(results),
