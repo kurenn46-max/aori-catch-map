@@ -42,6 +42,16 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published root app assets
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -e
+          curl -fsSL --max-time 20 "${PAGE_URL%/}/?smoke=$(date +%s)" -o /tmp/index.html
+          grep -q './assets/leaflet.js' /tmp/index.html
+          grep -q './assets/leaflet.css' /tmp/index.html
+          curl -fsSL --max-time 20 "${PAGE_URL%/}/assets/leaflet.js" -o /tmp/leaflet.js
+          test -s /tmp/leaflet.js
       - name: Verify published catch database
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
