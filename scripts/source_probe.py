@@ -40,6 +40,66 @@ SESSION.mount(
 
 SOURCES = [
     {
+        "name": "まるまる丸 敦賀",
+        "kind": "charter",
+        "url": "https://marumarumaru.co.jp/report/",
+        "detail_patterns": [r"/report/", r"instagram"],
+    },
+    {
+        "name": "心友丸 越前",
+        "kind": "charter",
+        "url": "https://www.shinyuumaru.com/contents/information.php",
+        "detail_patterns": [r"information", r"contents"],
+    },
+    {
+        "name": "MIYAMOTOMARU2 舞鶴",
+        "kind": "charter",
+        "url": "https://ameblo.jp/miyamotomar/",
+        "detail_patterns": [r"/entry-\d+\.html"],
+    },
+    {
+        "name": "小浜マリーナ",
+        "kind": "marina",
+        "url": "https://www.obama-marina.com/catch/index.php",
+        "detail_patterns": [r"/catch/", r"index\.php"],
+    },
+    {
+        "name": "福丸 小浜",
+        "kind": "charter",
+        "url": "https://www.e-fukumaru.com/",
+        "detail_patterns": [r"/choka", r"/catch", r"/blog", r"/news"],
+    },
+    {
+        "name": "SUPER VIKING 小浜",
+        "kind": "charter_aggregator",
+        "url": "https://reserve.castingnet.jp/ship00107c.html",
+        "detail_patterns": [r"ship00107", r"choka"],
+    },
+    {
+        "name": "あみや渡船 若狭大島",
+        "kind": "raft",
+        "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=582",
+        "detail_patterns": [r"choka_detail\.php"],
+    },
+    {
+        "name": "ヴィーナス 丹後",
+        "kind": "charter",
+        "url": "https://www.fisher-venus.com/chouka/",
+        "detail_patterns": [r"/chouka/"],
+    },
+    {
+        "name": "オールブルー 丹後",
+        "kind": "charter",
+        "url": "https://www.allbluemarine.com/",
+        "detail_patterns": [r"chouka", r"blog", r"2026"],
+    },
+    {
+        "name": "ちどり丸 久美浜",
+        "kind": "charter_aggregator",
+        "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
+        "detail_patterns": [r"choka_detail\.php"],
+    },
+    {
         "name": "ANGLERS 若狭湾",
         "kind": "catch_platform",
         "url": "https://anglers.jp/areas/460/fishes/103",
