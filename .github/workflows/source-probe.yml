@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "feat/source-discovery-v2-*"
+      - "feat/keyword-discovery-*"
     paths:
       - "scripts/source_probe.py"
       - "scripts/collect_public_signals.py"
