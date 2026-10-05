@@ -43,7 +43,10 @@ jobs:
           assert adjacent_depths == [13.0, 30.0], adjacent_depths
           assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
           assert bottom_depths == [] and bottom_offsets == [5.0], (bottom_depths, bottom_offsets)
-          from scripts.collect_public_signals import signal_from_segment
+          from scripts.collect_public_signals import signal_from_segment, detect_time_mode
+          assert detect_time_mode("アオリイカ Dayティップラン") == "day"
+          assert detect_time_mode("ナイトティップラン出船") == "night"
+          assert detect_time_mode("昼便とナイト便") == "mixed"
           inherited_sig = signal_from_segment(
               {"name":"test","kind":"charter","url":"https://example.com","default_area":"舞鶴"},
               "2026-09-19",
@@ -86,7 +89,7 @@ jobs:
           for x in data.get("signals",[]):
               print({
                   "date":x.get("date"),"area":x.get("area"),"type":x.get("type"),
-                  "method":x.get("method"),"source":x.get("source"),
+                  "method":x.get("method"),"time_mode":x.get("time_mode"),"source":x.get("source"),
                   "grade":x.get("confidence"),"score":x.get("quality_score"),
                   "water_depth":x.get("depth_m"),"bottom_offset":x.get("bottom_offset_m"),"tana":x.get("tana_m"),"depth_grade":x.get("depth_confidence"),
                   "counts":x.get("count_mentions"),"negative":x.get("negative_signals"),
