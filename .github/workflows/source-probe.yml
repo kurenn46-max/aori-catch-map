@@ -21,6 +21,26 @@ jobs:
       - name: Install probe dependencies
         run: pip install --disable-pip-version-check requests beautifulsoup4
       - name: Syntax check
-        run: python -m py_compile scripts/source_probe.py
+        run: python -m py_compile scripts/source_probe.py scripts/collect_public_signals.py
       - name: Probe candidate sources
         run: python scripts/source_probe.py
+      - name: Collect structured signals
+        run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
+      - name: Validate structured signals
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("test-results/discovery-signals.json")
+          data=json.loads(p.read_text(encoding="utf-8"))
+          signals=data.get("signals",[])
+          if not signals:
+              raise SystemExit("no structured signals collected")
+          for x in signals:
+              for k in ("id","date","source","url","confidence","quality_score"):
+                  if x.get(k) in (None,""):
+                      raise SystemExit(f"missing {k}: {x}")
+              if x.get("depth_m") and x.get("depth_confidence") not in ("A","B"):
+                  raise SystemExit(f"depth without confidence: {x}")
+          print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m")) for x in signals))
+          PY
