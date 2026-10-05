@@ -393,6 +393,12 @@ def signal_from_segment(source, date, segment):
     ])
     sid = "signal-" + hashlib.sha1(stable.encode("utf-8")).hexdigest()[:16]
 
+    usable_for_decision = bool(
+        confidence in ("A", "B")
+        and area
+        and typ in ("shore", "boat", "raft")
+    )
+
     return {
         "id": sid,
         "date": date,
@@ -404,6 +410,7 @@ def signal_from_segment(source, date, segment):
         "url": source["url"],
         "confidence": confidence,
         "quality_score": quality,
+        "usable_for_decision": usable_for_decision,
         "depth_m": depths,
         "bottom_offset_m": bottom_offsets,
         "tana_m": tana_depths,
@@ -494,6 +501,8 @@ def main():
         "sources_ok": sum(x.get("status") == "ok" for x in health),
         "sources_total": len(health),
         "signals": len(signals),
+        "trusted_signals": sum(bool(x.get("usable_for_decision")) for x in signals),
+        "review_candidates": sum(not bool(x.get("usable_for_decision")) for x in signals),
         "grade_A": sum(x.get("confidence") == "A" for x in signals),
         "with_depth": sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals),
         "boat": sum(x.get("type") == "boat" for x in signals),
