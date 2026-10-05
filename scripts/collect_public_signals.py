@@ -29,6 +29,28 @@ HEADERS = {
 
 SOURCES = [
     {
+        "name": "HOZANⅡ",
+        "kind": "charter",
+        "url": "https://hozan130.jp/",
+        "default_area": "越前",
+        "detail_patterns": [r"ameblo\.jp/.+/entry-\d+\.html"],
+        "detail_limit": 8,
+    },
+    {
+        "name": "海生丸",
+        "kind": "charter",
+        "url": "https://ameblo.jp/kaisei2266/",
+        "default_area": "若狭",
+        "detail_patterns": [r"/kaisei2266/entry-\d+\.html"],
+        "detail_limit": 10,
+    },
+    {
+        "name": "かどや丸",
+        "kind": "charter_aggregator",
+        "url": "https://reserve.castingnet.jp/ship00105c.html",
+        "default_area": "若狭",
+    },
+    {
         "name": "まるまる丸",
         "kind": "charter",
         "url": "https://marumarumaru.co.jp/report/",
@@ -269,7 +291,7 @@ def detect_evidence_role(text):
 def detect_time_mode(text):
     t = normalize(text)
     day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
-    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便"))
+    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便", "夜アオリ", "夜のアオリ", "昨夜", "中夜便"))
     if day_hits and night_hits:
         return "mixed"
     if day_hits:
