@@ -85,6 +85,41 @@ jobs:
           print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals))
           PY
 
+      - name: Build strategy with collected boat context
+        run: |
+          cp test-results/discovery-signals.json data/discovery-signals.json
+          python scripts/build_strategy.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("data/strategy.json").read_text(encoding="utf-8"))
+          areas=data.get("areas",[])
+          if len(areas) != 5:
+              raise SystemExit(f"expected 5 strategy areas, got {len(areas)}")
+          for area in areas:
+              boat=area.get("boat_context")
+              if not isinstance(boat,dict):
+                  raise SystemExit(f"boat_context missing: {area.get('area')}")
+              for sig in boat.get("day_depth_signals",[]):
+                  if sig.get("time_mode") != "day":
+                      raise SystemExit(f"non-day signal in day depth context: {sig}")
+                  if not (sig.get("depth_m") or sig.get("bottom_offset_m") or sig.get("tana_m")):
+                      raise SystemExit(f"empty day depth signal: {sig}")
+              for sig in boat.get("night_depth_signals",[]):
+                  if sig.get("time_mode") != "night":
+                      raise SystemExit(f"non-night signal in night depth context: {sig}")
+          maizuru=next((x for x in areas if x.get("area")=="舞鶴"),{})
+          md=maizuru.get("boat_context",{}).get("day_depth_signals",[])
+          if not any(5.0 in (x.get("bottom_offset_m") or []) for x in md):
+              raise SystemExit(f"expected Maizuru day bottom-offset evidence missing: {md}")
+          print("strategy boat_context PASS", {
+              x.get("area"): {
+                  "boat7":x.get("boat_context",{}).get("last7_sessions",0),
+                  "dayDepth":len(x.get("boat_context",{}).get("day_depth_signals",[])),
+                  "nightDepth":len(x.get("boat_context",{}).get("night_depth_signals",[])),
+              } for x in areas
+          })
+          PY
       - name: Show signal audit table
         run: |
           python - <<'PY'
