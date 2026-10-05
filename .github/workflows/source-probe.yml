@@ -6,6 +6,7 @@ on:
       - "feat/source-discovery-v2-*"
     paths:
       - "scripts/source_probe.py"
+      - "scripts/collect_public_signals.py"
       - ".github/workflows/source-probe.yml"
 permissions:
   contents: read
@@ -24,6 +25,18 @@ jobs:
         run: python -m py_compile scripts/source_probe.py scripts/collect_public_signals.py
       - name: Probe candidate sources
         run: python scripts/source_probe.py
+      - name: Regression test depth attribution
+        run: |
+          python - <<'PY'
+          from scripts.collect_public_signals import extract_depths
+          false_case = "早朝はティップランでアオリイカ釣り遊び！その後は、水深10～20mラインの根回りを探ってキジハタ連発！"
+          true_case = "水深13～30mをティップランで流してアオリイカを狙った。"
+          false_depths, _ = extract_depths(false_case)
+          true_depths, _ = extract_depths(true_case)
+          assert false_depths == [], false_depths
+          assert true_depths == [13.0, 30.0], true_depths
+          print("depth attribution regression PASS", false_depths, true_depths)
+          PY
       - name: Collect structured signals
         run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
       - name: Validate structured signals
