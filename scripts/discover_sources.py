@@ -241,6 +241,15 @@ def verify_page(candidate):
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
         text = " ".join(soup.stripped_strings)
+        page_title = soup.title.get_text(" ", strip=True) if soup.title else ""
+        intro = text[:1800]
+        identity_words = DIRECT_WORDS + MARINA_WORDS
+        ops_words = ("予約", "乗船", "出船", "料金", "お問い合わせ", "電話", "アクセス")
+        direct_in_title = any(w in page_title for w in identity_words)
+        direct_in_intro = any(w in intro for w in identity_words)
+        ops_hits = sum(1 for w in ops_words if w in intro)
+        out["page_title"] = page_title[:220]
+        out["page_direct_identity"] = bool(direct_in_title or (direct_in_intro and ops_hits >= 2))
         out["page_target_hits"] = {w: text.count(w) for w in TARGET_WORDS if w in text}
         out["page_region_hit"] = candidate["region"] in text
         pd = published_date_from_page(soup)
@@ -342,19 +351,21 @@ def main():
         page_recent = row.get("page_freshness") in ("current_30d", "current_90d")
         search_recent = row.get("search_freshness") in ("current_30d", "current_90d")
         stype = row.get("source_type")
-        # Tier A is intentionally reserved for direct/local primary sources.
-        # Aggregators can discover a source but can never become evidence.
+        page_direct = bool(row.get("page_direct_identity"))
+        # Tier A = verified primary source identity on the page itself.
+        # Mentions of a skipper/charter inside somebody else's article are not
+        # enough. Aggregators remain discovery-only.
         if (
             stype != "aggregator"
-            and row.get("direct_source")
+            and page_direct
             and verified
-            and row["score"] >= 60
+            and row["score"] >= 55
             and row.get("region_explicit")
         ):
             tier = "A"
         elif (
             stype != "aggregator"
-            and not row.get("direct_source")
+            and not page_direct
             and verified
             and row["score"] >= 55
             and row.get("region_explicit")
