@@ -1,0 +1,61 @@
+name: Discover aori source candidates
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 21 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/discover_sources.py"
+      - ".github/workflows/discover-sources.yml"
+      - "data/source-registry.json"
+permissions:
+  contents: write
+concurrency:
+  group: aori-source-discovery
+  cancel-in-progress: false
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Syntax check
+        run: python -m py_compile scripts/discover_sources.py
+      - name: Discover and verify candidate sources
+        run: python scripts/discover_sources.py
+      - name: Validate candidate queue
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("data/source-candidates.json").read_text(encoding="utf-8"))
+          assert d["query_count"] == 18
+          assert d["query_ok"] >= 12
+          rows=d.get("candidates",[])
+          assert rows
+          for x in rows:
+              for k in ("id","region","url","domain","score","tier","status"):
+                  assert x.get(k) not in (None,""), (k,x)
+              assert x["tier"] in ("A","B","C")
+              assert x.get("auto_promote") is False
+              if x["tier"] in ("A","B"):
+                  assert x.get("verified") is True, x
+                  assert x.get("region_explicit") is True, x
+          print("candidate queue PASS",len(rows),d.get("tier_counts"))
+          PY
+      - name: Commit candidate queue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/source-candidates.json
+          if git diff --cached --quiet; then
+            echo "No candidate changes"
+            exit 0
+          fi
+          git commit -m "Update aori source candidates"
+          git push origin HEAD:"$GITHUB_REF_NAME"
