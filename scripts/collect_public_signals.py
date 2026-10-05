@@ -150,6 +150,11 @@ DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
 DEPTH_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
 DEPTH_RANGE_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
+WATER_RANGE_RE = re.compile(r"水深\s*(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
+WATER_SINGLE_RE = re.compile(r"水深\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
+BOTTOM_OFFSET_RE = re.compile(r"(?:ボトム|底)(?:から|より)?\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
+TANA_RANGE_RE = re.compile(r"(?:棚|タナ)\s*(?:は|が|:|：)?\s*(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
+TANA_SINGLE_RE = re.compile(r"(?:棚|タナ)\s*(?:は|が|:|：)?\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
 DEPTH_CONTEXT_WORDS = ("水深", "ティップラン", "ボトム", "中層", "表層", "レンジ", "タナ", "浅場", "深場", "流し", "ポイント")
 
 
@@ -376,7 +381,7 @@ def signal_from_segment(source, date, segment):
     confidence = "A" if quality >= 75 else ("B" if quality >= 55 else "C")
 
     depth_confidence = "none"
-    if depths:
+    if depths or bottom_offsets or tana_depths:
         depth_confidence = "A" if any(x.get("confidence") == "A" for x in depth_contexts) else "B"
 
     stable = "|".join([
