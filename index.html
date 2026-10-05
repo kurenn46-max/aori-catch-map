@@ -346,7 +346,7 @@ async function renderSea(area){
     try{
       const weatherUrl=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
       const marineUrl=`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&current=wave_height,swell_wave_height,sea_surface_temperature,sea_level_height_msl,ocean_current_velocity&timezone=Asia%2FTokyo`;
-      const [w,m]=await Promise.all([fetch(weatherUrl).then(r=>r.json()),fetch(marineUrl).then(r=>r.json())]);
+      const [w,m]=await Promise.all([fetchJson(weatherUrl,{cacheMs:600000}),fetchJson(marineUrl,{cacheMs:600000})]);
       const wc=w.current||{},mc=m.current||{};
       const popup=`<div class="pop"><h3>${p.area} 海況</h3><div class="meta">
         風：<b>${wc.wind_speed_10m??'—'} m/s</b>　最大瞬間風速 ${wc.wind_gusts_10m??'—'} m/s<br>
@@ -396,7 +396,7 @@ async function renderShelter(area){
   await Promise.all(rows.map(async spot=>{
     try{
       const url=`https://api.open-meteo.com/v1/forecast?latitude=${spot.lat}&longitude=${spot.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
-      const w=await fetch(url).then(r=>r.json()),c=w.current||{};
+      const w=await fetchJson(url,{cacheMs:600000}),c=w.current||{};
       const wind=Number(c.wind_speed_10m),dir=Number(c.wind_direction_10m),gust=Number(c.wind_gusts_10m);
       const est=shelterEstimate(spot,dir,wind);
       if(est.score>=2)good++;
@@ -456,15 +456,18 @@ function areaFreshness(area){
   let recency=age===0?60:age===1?50:age===2?38:age===3?28:age<=7?15:age<=14?7:2;
   const recent7=shore.filter(x=>dayAge(x.date)<=7);
   const recent2=shore.filter(x=>dayAge(x.date)<=2);
-  const sources=new Set(recent7.map(x=>x.source).filter(Boolean));
-  const volume=Math.min(10,recent2.length*2);
-  const diversity=Math.min(10,sources.size*2);
+  const strat=strategyArea(area);
+  const recent2Sessions=strat?Number(strat.last48h_sessions?.shore||0):recent2.length;
+  const recent7Sessions=strat?Number(strat.last7_sessions?.shore||0):recent7.length;
+  const sourceCount=strat?Number(strat.sources_30d||0):new Set(recent7.map(x=>x.source).filter(Boolean)).size;
+  const volume=Math.min(10,recent2Sessions*2);
+  const diversity=Math.min(10,sourceCount*2);
   const intel=intelData.filter(x=>x.area===area);
   const latestIntel=intel.map(x=>x.date).filter(Boolean).sort().at(-1)||null;
   const ia=dayAge(latestIntel);
   const intelFresh=ia===0?20:ia===1?15:ia<=3?10:ia<=7?5:0;
   const score=Math.max(0,Math.min(100,Math.round(recency+volume+diversity+intelFresh)));
-  return {area,score,latest,age,recent2:recent2.length,recent7:recent7.length,sources:sources.size,latestIntel,ia};
+  return {area,score,latest,age,recent2:recent2Sessions,recent7:recent7Sessions,sources:sourceCount,latestIntel,ia};
 }
 function strategyArea(area){
   return (strategyData?.areas||[]).find(x=>x.area===area)||null;
@@ -512,7 +515,7 @@ function renderFreshness(){
     const c=document.createElement('div');c.className='freshCard';
     c.innerHTML=`<div class="freshTop"><div><div class="rankName">${esc(r.area)}</div><div class="small">最新釣果 ${esc(r.latest||'なし')}・${esc(freshnessLabel(r.latest))}</div></div><div class="freshScore ${cls}">${r.score}<small>/100</small></div></div>
       <div class="freshBar"><div class="freshFill" style="width:${r.score}%"></div></div>
-      <div class="freshMeta">直近48h相当：${r.recent2}件　7日：${r.recent7}件　情報源：${r.sources}系統<br>ベイト/人圧/現地の最新：${r.latestIntel?esc(r.latestIntel)+'・'+esc(freshnessLabel(r.latestIntel)):'なし'}</div>`;
+      <div class="freshMeta">直近48h実釣：${r.recent2}セッション　7日：${r.recent7}セッション　情報源：${r.sources}系統<br>ベイト/人圧/現地の最新：${r.latestIntel?esc(r.latestIntel)+'・'+esc(freshnessLabel(r.latestIntel)):'なし'}</div>`;
     grid.appendChild(c);
   });
   const checks=sourceStatus?.checks||[];
@@ -523,8 +526,8 @@ function renderFreshness(){
     const ok=checks.filter(x=>['ok','no_new'].includes(x.status)).length;
     const bad=checks.filter(x=>['blocked','error'].includes(x.status)).length;
     const fb=sourceStatus?.fallback;
-    const badLabel=fb?.enabled&&bad?'GitHub直取得制限 '+bad:'取得不能/エラー '+bad;
-    const fbLine=fb?.enabled?'<br>公開Web補完：<b>稼働</b>（'+esc(fb.schedule||'定期')+'）':'';
+    const badLabel=bad?'GitHub直取得制限/エラー '+bad:'直接取得は正常';
+    const fbLine=fb?.enabled?'<br>公開Web補完：<b>'+(fb.automated?'自動連携':'利用可・アプリ自動連携なし')+'</b>（'+esc(fb.schedule||'必要時')+'）':'';
     document.getElementById('coverageBox').innerHTML='最終巡回：<b>'+esc(updated||'不明')+'</b><br>確認 '+ok+'/'+checks.length+'　'+badLabel+fbLine;
   }
   document.getElementById('freshMeta').textContent='新しい順に強く評価・古い情報は自動減衰';
@@ -591,7 +594,7 @@ function recentIntel(area,category,maxDays=14){
 async function fetchSeaSnapshot(p){
   const weatherUrl=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
   const marineUrl=`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&current=wave_height,swell_wave_height,sea_surface_temperature&hourly=sea_surface_temperature&past_days=3&forecast_days=1&timezone=Asia%2FTokyo`;
-  const [w,m]=await Promise.all([fetch(weatherUrl).then(r=>r.json()),fetch(marineUrl).then(r=>r.json())]);
+  const [w,m]=await Promise.all([fetchJson(weatherUrl,{cacheMs:600000}),fetchJson(marineUrl,{cacheMs:600000})]);
   const wc=w.current||{},mc=m.current||{},h=m.hourly||{};
   let d24=null,d72=null;
   if(Array.isArray(h.time)&&Array.isArray(h.sea_surface_temperature)&&mc.sea_surface_temperature!=null){
@@ -617,16 +620,17 @@ function scoreArea(area,sea){
   const strat=strategyArea(area);
   let score=35;const reasons=[];const warnings=[];
   const age=daysAgo(a.latest_date);
-  const freshSignal=recentFreshCatchSignal(area);
+  const freshSignal=strat?Number(strat.last48h_sessions?.shore||0):recentFreshCatchSignal(area);
   score+=Math.min(18,Math.round(freshSignal*4));
   if(age===0){score+=6;reasons.push('今日の釣果')}
   else if(age===1){score+=4;reasons.push('昨日の釣果')}
   else if(age<=3){score+=1;reasons.push('3日以内の釣果')}
   else if(age>7){score-=6;warnings.push('直近釣果が古い')}
-  if(freshSignal>=2)reasons.push('新鮮な複数実績')
-  if(a.trend==='up'||a.trend==='new'){score+=8;reasons.push('報告上向き')}
-  else if(a.trend==='flat'){score+=3}
-  else if(a.trend==='down'){score-=5;warnings.push('報告減少')}
+  if(freshSignal>=2)reasons.push('新鮮な複数実釣')
+  const sessionTrend=strat?.trend||a.trend;
+  if(sessionTrend==='up'||sessionTrend==='new'){score+=8;reasons.push('実釣セッション上向き')}
+  else if(sessionTrend==='flat'){score+=3}
+  else if(sessionTrend==='down'){score-=5;warnings.push('実釣セッション減少')}
   const independentSources=strat?.sources_30d ?? a.source_count ?? 0;
   score+=Math.min(6,independentSources*2);
   if(independentSources<=1){score-=8;warnings.push('独立情報源が1系統のみ')}
@@ -724,7 +728,7 @@ async function fetchDayForecast(p,offset){
   const date=jstDay(offset);
   const weatherUrl=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&daily=sunrise,sunset&wind_speed_unit=ms&forecast_days=3&timezone=Asia%2FTokyo`;
   const marineUrl=`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&hourly=wave_height,swell_wave_height,sea_surface_temperature&forecast_days=3&timezone=Asia%2FTokyo`;
-  const [w,m]=await Promise.all([fetch(weatherUrl).then(r=>r.json()),fetch(marineUrl).then(r=>r.json())]);
+  const [w,m]=await Promise.all([fetchJson(weatherUrl,{cacheMs:600000}),fetchJson(marineUrl,{cacheMs:600000})]);
   const wh=w.hourly||{},mh=m.hourly||{};
   const sunrise=(w.daily?.time||[]).map((x,i)=>[x,w.daily.sunrise?.[i]]).find(x=>x[0]===date)?.[1]||null;
   const sunset=(w.daily?.time||[]).map((x,i)=>[x,w.daily.sunset?.[i]]).find(x=>x[0]===date)?.[1]||null;
@@ -765,7 +769,7 @@ function topTidePattern(area){
 }
 function hourlyExpectation(area,day){
   const base=scoreArea(area,null);
-  const nowHour=new Date().getHours();
+  const nowHour=jstHour();
   const hours=day.rows.filter(x=>targetDayOffset===1||x.hour>=nowHour);
   const scored=hours.map(x=>{
     let env=48;const tags=[];const tide=tideInfoFor(area,day.date,x.hour);
@@ -817,6 +821,7 @@ function selectBestHours(scored){
   return picked;
 }
 async function openTargetPanel(){
+  const requestId=++targetRequestSeq;
   const panel=document.getElementById('targetPanel'),list=document.getElementById('rankList');
   panel.classList.add('open');
   list.innerHTML='<div class="rankCard">天候・波・潮・釣果DBを時間別に計算中…</div>';
@@ -824,6 +829,7 @@ async function openTargetPanel(){
   document.getElementById('targetMeta').textContent=dayLabel+'の越前〜丹後を1時間ごとに比較中';
   const dayForecasts={};
   await Promise.all(SEA_AREAS.map(async p=>{try{dayForecasts[p.area]=await fetchDayForecast(p,targetDayOffset)}catch(e){console.error(e);dayForecasts[p.area]=null}}));
+  if(requestId!==targetRequestSeq)return;
   const ranked=[];
   for(const p of SEA_AREAS){
     const day=dayForecasts[p.area];
@@ -833,7 +839,13 @@ async function openTargetPanel(){
     ranked.push({area:p.area,day,hourly,best:hourly[0],best3:selectBestHours(hourly)});
   }
   ranked.sort((a,b)=>b.best.score-a.best.score);
+  if(requestId!==targetRequestSeq)return;
   list.innerHTML='';
+  if(!ranked.length){
+    list.innerHTML='<div class="rankCard">天候・波データを取得できませんでした。少し後で再読込してください。</div>';
+    document.getElementById('targetMeta').textContent=dayLabel+'・海況データ取得失敗';
+    return;
+  }
   ranked.forEach((r,i)=>{
     const best=r.best,cls=best.score>=75?'scoreHigh':best.score>=55?'scoreMid':'scoreLow';
     const tide=tideInfoFor(r.area,r.day.date,best.hour);
