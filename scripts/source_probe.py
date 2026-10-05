@@ -211,3 +211,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# v2 structured-signal probe trigger
