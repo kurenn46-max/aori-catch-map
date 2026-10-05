@@ -29,6 +29,66 @@ HEADERS = {
 
 SOURCES = [
     {
+        "name": "まるまる丸",
+        "kind": "charter",
+        "url": "https://marumarumaru.co.jp/report/",
+        "default_area": "敦賀",
+    },
+    {
+        "name": "心友丸",
+        "kind": "charter",
+        "url": "https://www.shinyuumaru.com/contents/information.php",
+        "default_area": "越前",
+    },
+    {
+        "name": "MIYAMOTOMARU2",
+        "kind": "charter",
+        "url": "https://ameblo.jp/miyamotomar/",
+        "default_area": "舞鶴",
+    },
+    {
+        "name": "小浜マリーナ",
+        "kind": "marina",
+        "url": "https://www.obama-marina.com/catch/index.php",
+        "default_area": "若狭",
+    },
+    {
+        "name": "福丸",
+        "kind": "charter",
+        "url": "https://www.e-fukumaru.com/",
+        "default_area": "若狭",
+    },
+    {
+        "name": "SUPER VIKING",
+        "kind": "charter_aggregator",
+        "url": "https://reserve.castingnet.jp/ship00107c.html",
+        "default_area": "若狭",
+    },
+    {
+        "name": "あみや渡船",
+        "kind": "raft",
+        "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=582",
+        "default_area": "若狭",
+    },
+    {
+        "name": "ヴィーナス",
+        "kind": "charter",
+        "url": "https://www.fisher-venus.com/chouka/",
+        "default_area": "丹後",
+    },
+    {
+        "name": "オールブルー",
+        "kind": "charter",
+        "url": "https://www.allbluemarine.com/",
+        "default_area": "丹後",
+    },
+    {
+        "name": "ちどり丸",
+        "kind": "charter_aggregator",
+        "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
+        "default_area": "丹後",
+    },
+    {
         "name": "上州屋 新敦賀店",
         "kind": "tackle_shop",
         "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
@@ -148,9 +208,11 @@ def detect_area(text, default=None):
 
 
 def classify_type(text, kind):
+    if kind == "raft" or "筏" in text:
+        return "raft", "筏エギング" if ("エギ" in text or "アオリ" in text) else "筏"
     if "ティップラン" in text:
         return "boat", "ティップラン"
-    if kind == "charter" or any(w in text for w in BOAT_WORDS):
+    if kind in ("charter", "charter_aggregator") or any(w in text for w in BOAT_WORDS):
         return "boat", "船"
     if any(w in text for w in SHORE_WORDS):
         return "shore", "エギング" if "エギング" in text else "ショア"
