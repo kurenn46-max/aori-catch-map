@@ -221,7 +221,9 @@ def classify_type(text, kind):
 
 def extract_depths(segment):
     text = normalize(segment)
-    found = []
+    water = []
+    bottom_offsets = []
+    tana = []
     contexts = []
     target_words = ("アオリ", "アオリイカ", "ティップラン")
     competing_words = (
@@ -240,71 +242,101 @@ def extract_depths(segment):
             right += 1
         return left, right
 
-    def previous_sentence(left):
-        p_end = max(0, left - 1)
-        p_left = p_end
-        while p_left > 0 and text[p_left - 1] not in sentence_breaks:
-            p_left -= 1
-        return text[p_left:p_end]
-
-    def valid_context(start, end):
+    def relation_context(start, end):
         left, right = sentence_bounds(start, end)
         sentence = text[left:right]
-        nearby = [w for w in DEPTH_CONTEXT_WORDS if w in sentence]
-        if not nearby:
+        same_target = [w for w in target_words if w in sentence]
+        same_competing = [w for w in competing_words if w in sentence]
+        if same_target and not (same_competing and "アオリ" not in sentence):
+            return sentence, same_target, "A"
+        if same_competing:
             return None
 
-        # If the depth sentence explicitly describes another species, do not
-        # borrow aori/tip-run context from a nearby sentence.
-        competing = [w for w in competing_words if w in sentence]
-        same_target = [w for w in target_words if w in sentence]
-        if same_target:
-            # "tip-run ... kouika at 10m" is not safe aori depth evidence.
-            if competing and "アオリ" not in sentence:
-                return None
-            return sentence, nearby, "A"
-
-        prev = previous_sentence(left)
-        prev_target = [w for w in target_words if w in prev]
-        if prev_target and not competing:
-            evidence = (prev + "。 " + sentence).strip()
-            return evidence, nearby + prev_target, "B"
+        # Some boat reports put "night tip-run" and the water depth in
+        # consecutive short clauses without punctuation. Use proximity as B,
+        # but reject when another species is closer to the number.
+        win_left = max(0, start - 180)
+        win_right = min(len(text), end + 120)
+        window = text[win_left:win_right]
+        near_left = max(0, start - 80)
+        near_right = min(len(text), end + 80)
+        near = text[near_left:near_right]
+        if any(w in near for w in competing_words) and "アオリ" not in near:
+            return None
+        targets = [w for w in target_words if w in window]
+        if targets:
+            return window, targets, "B"
         return None
 
-    for m in DEPTH_RANGE_RE.finditer(text):
+    def append_context(kind, value, match, relation):
+        evidence, keywords, grade = relation
+        contexts.append({
+            "kind": kind,
+            "value_m": value,
+            "keywords": keywords[:6],
+            "confidence": grade,
+            "evidence": evidence[:320],
+        })
+
+    # Explicit seabed/water depth: only phrases that actually say 水深.
+    for m in WATER_RANGE_RE.finditer(text):
         lo, hi = float(m.group(1)), float(m.group(2))
         if not (2 <= lo <= 80 and 2 <= hi <= 80):
             continue
-        valid = valid_context(m.start(), m.end())
-        if not valid:
+        relation = relation_context(m.start(), m.end())
+        if not relation:
             continue
-        evidence, nearby, grade = valid
-        found.extend([round(lo, 1), round(hi, 1)])
-        contexts.append({
-            "range_m": [round(min(lo, hi), 1), round(max(lo, hi), 1)],
-            "keywords": nearby[:6],
-            "confidence": grade,
-            "evidence": evidence[:300],
-        })
+        vals = [round(min(lo, hi), 1), round(max(lo, hi), 1)]
+        water.extend(vals)
+        append_context("water_depth_range", vals, m, relation)
 
-    for m in DEPTH_RE.finditer(text):
+    for m in WATER_SINGLE_RE.finditer(text):
         value = float(m.group(1))
         if not (2 <= value <= 80):
             continue
-        valid = valid_context(m.start(), m.end())
-        if not valid:
+        relation = relation_context(m.start(), m.end())
+        if not relation:
             continue
-        evidence, nearby, grade = valid
-        found.append(round(value, 1))
-        contexts.append({
-            "depth_m": round(value, 1),
-            "keywords": nearby[:6],
-            "confidence": grade,
-            "evidence": evidence[:300],
-        })
+        value = round(value, 1)
+        water.append(value)
+        append_context("water_depth", value, m, relation)
 
-    unique = sorted(set(found))
-    return unique, contexts[:8]
+    # "bottom +5m" means strike layer above the seabed, not 5m water depth.
+    for m in BOTTOM_OFFSET_RE.finditer(text):
+        value = float(m.group(1))
+        if not (0 < value <= 30):
+            continue
+        relation = relation_context(m.start(), m.end())
+        if not relation:
+            continue
+        value = round(value, 1)
+        bottom_offsets.append(value)
+        append_context("bottom_offset", value, m, relation)
+
+    # 棚/タナ is kept separately because it can be a layer measured from surface.
+    for m in TANA_RANGE_RE.finditer(text):
+        lo, hi = float(m.group(1)), float(m.group(2))
+        if not (0 < lo <= 80 and 0 < hi <= 80):
+            continue
+        relation = relation_context(m.start(), m.end())
+        if not relation:
+            continue
+        vals = [round(min(lo, hi), 1), round(max(lo, hi), 1)]
+        tana.extend(vals)
+        append_context("tana_range", vals, m, relation)
+
+    for m in TANA_SINGLE_RE.finditer(text):
+        value = float(m.group(1))
+        if not (0 < value <= 80):
+            continue
+        relation = relation_context(m.start(), m.end())
+        if not relation:
+            continue
+        value = round(value, 1)
+        tana.append(value)
+        append_context("tana", value, m, relation)
+
+    return sorted(set(water)), sorted(set(bottom_offsets)), sorted(set(tana)), contexts[:10]
 
 def split_recent_segments(text):
     normalized = normalize(text)
@@ -328,7 +360,7 @@ def signal_from_segment(source, date, segment):
 
     area = detect_area(segment, source.get("default_area"))
     typ, method = classify_type(segment, source["kind"])
-    depths, depth_contexts = extract_depths(segment)
+    depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(segment)
     negatives = [w for w in NEGATIVE_WORDS if w in segment]
     bait = [w for w in BAIT_WORDS if w in segment]
     counts = sorted({int(x) for x in COUNT_RE.findall(segment) if 0 < int(x) <= 200})
@@ -337,7 +369,7 @@ def signal_from_segment(source, date, segment):
     quality += 20 if area else 0
     quality += 15 if typ != "unknown" else 0
     quality += 15 if "アオリ" in segment else 8
-    quality += 15 if depths else 0
+    quality += 15 if (depths or bottom_offsets or tana_depths) else 0
     quality += 5 if negatives else 0
     quality += 5 if counts else 0
     quality = min(100, quality)
@@ -350,6 +382,8 @@ def signal_from_segment(source, date, segment):
     stable = "|".join([
         source["name"], date, area or "unknown", typ, method,
         ",".join(str(x) for x in depths),
+        ",".join(str(x) for x in bottom_offsets),
+        ",".join(str(x) for x in tana_depths),
         ",".join(str(x) for x in counts),
     ])
     sid = "signal-" + hashlib.sha1(stable.encode("utf-8")).hexdigest()[:16]
@@ -366,6 +400,8 @@ def signal_from_segment(source, date, segment):
         "confidence": confidence,
         "quality_score": quality,
         "depth_m": depths,
+        "bottom_offset_m": bottom_offsets,
+        "tana_m": tana_depths,
         "depth_confidence": depth_confidence,
         "depth_evidence": depth_contexts,
         "count_mentions": counts,
@@ -454,7 +490,7 @@ def main():
         "sources_total": len(health),
         "signals": len(signals),
         "grade_A": sum(x.get("confidence") == "A" for x in signals),
-        "with_depth": sum(bool(x.get("depth_m")) for x in signals),
+        "with_depth": sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals),
         "boat": sum(x.get("type") == "boat" for x in signals),
         "shore": sum(x.get("type") == "shore" for x in signals),
         "by_source": {h["source"]: h.get("accepted_signals", 0) for h in health},
