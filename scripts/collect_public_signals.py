@@ -213,6 +213,8 @@ def detect_area(text, default=None):
 
 
 def classify_type(text, kind):
+    if kind == "marina":
+        return "boat", "マイボート"
     if kind == "raft" or "筏" in text:
         return "raft", "筏エギング" if ("エギ" in text or "アオリ" in text) else "筏"
     if "ティップラン" in text:
@@ -376,7 +378,9 @@ def signal_from_segment(source, date, segment):
     quality += 15 if "アオリ" in segment else 8
     quality += 15 if (depths or bottom_offsets or tana_depths) else 0
     quality += 5 if negatives else 0
-    quality += 5 if counts else 0
+    # Numeric "X杯" mentions can mix skipper total, top angler and separate
+    # time blocks. Keep them as evidence, but do not boost confidence until a
+    # source-specific parser confirms their semantic role.
     quality = min(100, quality)
     confidence = "A" if quality >= 75 else ("B" if quality >= 55 else "C")
 
@@ -417,6 +421,7 @@ def signal_from_segment(source, date, segment):
         "depth_confidence": depth_confidence,
         "depth_evidence": depth_contexts,
         "count_mentions": counts,
+        "count_confidence": "mention_only" if counts else "none",
         "negative_signals": negatives,
         "bait_signals": bait,
     }
