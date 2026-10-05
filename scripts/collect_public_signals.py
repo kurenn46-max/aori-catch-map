@@ -29,6 +29,35 @@ HEADERS = {
 
 SOURCES = [
     {
+        "name": "春定丸",
+        "kind": "charter",
+        "url": "https://ameblo.jp/synteimaru/",
+        "default_area": "敦賀",
+        "detail_patterns": [r"/synteimaru/entry-\d+\.html"],
+        "detail_limit": 12,
+    },
+    {
+        "name": "天徳丸",
+        "kind": "charter",
+        "url": "https://tentokumaru.com/fishing_blog/",
+        "default_area": "越前",
+    },
+    {
+        "name": "瑞祥丸",
+        "kind": "charter",
+        "url": "https://zuishomaru.com/category/fishing/",
+        "default_area": "敦賀",
+        "default_aori_method": "ティップラン",
+    },
+    {
+        "name": "若狭マリンプラザ",
+        "kind": "marina",
+        "url": "https://www.marineplaza-marina.com/?cat=11",
+        "default_area": "若狭",
+        "detail_patterns": [r"[?&]p=\d+"],
+        "detail_limit": 12,
+    },
+    {
         "name": "まるまる丸",
         "kind": "charter",
         "url": "https://marumarumaru.co.jp/report/",
