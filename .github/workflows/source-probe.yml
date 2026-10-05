@@ -1,0 +1,26 @@
+name: Probe aori information sources
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "feat/source-discovery-v2-*"
+    paths:
+      - "scripts/source_probe.py"
+      - ".github/workflows/source-probe.yml"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install probe dependencies
+        run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Syntax check
+        run: python -m py_compile scripts/source_probe.py
+      - name: Probe candidate sources
+        run: python scripts/source_probe.py
