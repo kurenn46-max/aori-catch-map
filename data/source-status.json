@@ -1,12 +1,13 @@
 {
   "updated_at": "2026-10-05T14:46:38+09:00",
   "collector": "github-actions-core-v2",
-  "note": "コア自動収集の巡回結果。現在はエギCOM5地域を直接監視。その他のA/B優先情報源はChatGPT補完巡回で追加確認する。",
+  "note": "コア自動収集の巡回結果。現在はエギCOM5地域を直接監視。その他のA/B優先情報源は公開Web補完で確認できるが、アプリ/Runnerから自動実行はしていない。",
   "fallback": {
     "enabled": true,
+    "automated": false,
     "mode": "chatgpt-public-web",
-    "schedule": "6時間ごと",
-    "reason": "GitHub Runnerで本文が省略される場合に公開Web経路で補完"
+    "schedule": "必要時",
+    "reason": "GitHub Runnerで本文が省略される場合に公開Web経路で補完できるが、アプリ/Runnerとは自動連携していない"
   },
   "checks": [
     {
