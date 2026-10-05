@@ -124,6 +124,12 @@ SOURCES = [
         "detail_patterns": [r"choka\.php\?s=\d+.*", r"/shop/choka/"],
     },
     {
+        "name": "泰丸 敦賀",
+        "kind": "charter",
+        "url": "https://www.taimaru.jp/fishingpost/",
+        "detail_patterns": [r"/fishingpost/\d+/"],
+    },
+    {
         "name": "FISHERS",
         "kind": "tackle_shop",
         "url": "https://www.fishers.co.jp/",
@@ -139,7 +145,7 @@ SOURCES = [
         "name": "TRITON 舞鶴",
         "kind": "charter",
         "url": "https://triton-maizuru.com/topics.html",
-        "detail_patterns": [r"topics", r"blog", r"\d{4}"],
+        "detail_patterns": [r"/blog/\d+\.html"],
     },
     {
         "name": "すばる 丹後",
