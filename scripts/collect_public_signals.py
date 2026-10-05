@@ -45,6 +45,8 @@ SOURCES = [
         "kind": "charter",
         "url": "https://ameblo.jp/miyamotomar/",
         "default_area": "舞鶴",
+        "detail_patterns": [r"/miyamotomar/entry-\\d+\\.html"],
+        "detail_limit": 12,
     },
     {
         "name": "小浜マリーナ",
@@ -57,6 +59,8 @@ SOURCES = [
         "kind": "charter",
         "url": "https://www.e-fukumaru.com/",
         "default_area": "若狭",
+        "detail_patterns": [r"/news/\\d+"],
+        "detail_limit": 10,
     },
     {
         "name": "SUPER VIKING",
@@ -75,6 +79,8 @@ SOURCES = [
         "kind": "charter",
         "url": "https://www.fisher-venus.com/chouka/",
         "default_area": "丹後",
+        "detail_patterns": [r"/chouka/.+"],
+        "detail_limit": 12,
     },
     {
         "name": "オールブルー",
@@ -105,6 +111,8 @@ SOURCES = [
         "kind": "tackle_shop_media",
         "url": "https://bunbun-fishing.com/fishing/",
         "default_area": None,
+        "detail_patterns": [r"/fishing/\\d+"],
+        "detail_limit": 10,
     },
     {
         "name": "TRITON",
@@ -129,6 +137,8 @@ SOURCES = [
         "kind": "charter",
         "url": "https://seaman-tango.com/blog_articles/",
         "default_area": "丹後",
+        "detail_patterns": [r"/blog_articles/\\d+\\.html"],
+        "detail_limit": 12,
     },
 ]
 
@@ -146,7 +156,8 @@ BOAT_WORDS = ("ティップラン", "遊漁船", "船中", "出船", "ボート"
 SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "磯", "エギング")
 
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
-DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})")
+DATE_RE = re.compile(r"20\\d{2}(?:年\\s*\\d{1,2}月\\s*\\d{1,2}日|[./-]\\d{1,2}[./-]\\d{1,2})")
+TRIP_MD_RE = re.compile(r"(?<!\\d)(\\d{1,2})/(\\d{1,2})日?(?:の)?釣行")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
 DEPTH_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
 DEPTH_RANGE_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
@@ -345,6 +356,102 @@ def extract_depths(segment):
 
     return sorted(set(water)), sorted(set(bottom_offsets)), sorted(set(tana)), contexts[:10]
 
+def discover_detail_links(source, soup):
+    patterns = source.get("detail_patterns") or []
+    if not patterns:
+        return []
+    base = source["url"]
+    seen = set()
+    out = []
+    for a in soup.find_all("a", href=True):
+        href = a.get("href", "")
+        if not any(re.search(p, href) for p in patterns):
+            continue
+        url = urljoin(base, href)
+        if url.rstrip("/") == base.rstrip("/") or url in seen:
+            continue
+        seen.add(url)
+        out.append(url)
+        if len(out) >= int(source.get("detail_limit", 10)):
+            break
+    return out
+
+
+def published_date_from_soup(soup, text):
+    candidates = []
+    for meta in soup.find_all("meta"):
+        key = (meta.get("property") or meta.get("name") or "").lower()
+        if key in ("article:published_time", "datepublished", "date") and meta.get("content"):
+            candidates.append(meta.get("content"))
+    for time_tag in soup.find_all("time"):
+        if time_tag.get("datetime"):
+            candidates.append(time_tag.get("datetime"))
+    for raw in candidates:
+        nums = [int(x) for x in re.findall(r"\\d+", raw or "")]
+        if len(nums) >= 3:
+            try:
+                d = datetime(nums[0], nums[1], nums[2], tzinfo=JST)
+            except ValueError:
+                continue
+            age = (NOW.date() - d.date()).days
+            if 0 <= age <= WINDOW_DAYS:
+                return d.date().isoformat()
+    for m in DATE_RE.finditer(normalize(text)):
+        d = parse_date(m.group(0))
+        if d:
+            return d
+    return None
+
+
+def split_detail_segments(text, page_date):
+    normalized = normalize(text)
+    matches = list(TRIP_MD_RE.finditer(normalized))
+    if matches and page_date:
+        year = int(page_date[:4])
+        out = []
+        for i, m in enumerate(matches):
+            month, day = int(m.group(1)), int(m.group(2))
+            try:
+                d = datetime(year, month, day, tzinfo=JST)
+            except ValueError:
+                continue
+            age = (NOW.date() - d.date()).days
+            if not (0 <= age <= WINDOW_DAYS):
+                continue
+            end = matches[i + 1].start() if i + 1 < len(matches) else min(len(normalized), m.start() + 2600)
+            out.append((d.date().isoformat(), normalized[m.start():end]))
+        if out:
+            return out
+    if page_date:
+        return [(page_date, normalized[:5000])]
+    return split_recent_segments(normalized)
+
+
+def fetch_detail_signals(source, detail_urls, sess):
+    signals = []
+    errors = 0
+    fetched = 0
+    for url in detail_urls:
+        try:
+            r = sess.get(url, timeout=(6, 18), allow_redirects=True)
+            r.raise_for_status()
+            fetched += 1
+            soup = BeautifulSoup(r.content, "html.parser")
+            text = soup.get_text(" ", strip=True)
+            page_date = published_date_from_soup(soup, text)
+            detail_source = dict(source)
+            detail_source["url"] = r.url
+            for date, segment in split_detail_segments(text, page_date):
+                sig = signal_from_segment(detail_source, date, segment)
+                if sig:
+                    sig["detail_url"] = r.url
+                    sig["evidence_scope"] = "detail"
+                    signals.append(sig)
+        except Exception:
+            errors += 1
+    return signals, fetched, errors
+
+
 def split_recent_segments(text):
     normalized = normalize(text)
     matches = list(DATE_RE.finditer(normalized))
@@ -447,10 +554,19 @@ def collect_one(source):
         for date, segment in segments:
             sig = signal_from_segment(source, date, segment)
             if sig:
+                sig["evidence_scope"] = "listing"
                 signals.append(sig)
+
+        detail_urls = discover_detail_links(source, soup)
+        detail_signals, detail_fetched, detail_errors = fetch_detail_signals(source, detail_urls, s)
+        signals.extend(detail_signals)
         health.update({
             "status": "ok",
             "recent_segments": len(segments),
+            "detail_discovered": len(detail_urls),
+            "detail_fetched": detail_fetched,
+            "detail_errors": detail_errors,
+            "detail_signals": len(detail_signals),
             "accepted_signals": len(signals),
         })
         return signals, health
@@ -482,12 +598,30 @@ def main():
     order = {src["name"]: i for i, src in enumerate(SOURCES)}
     health.sort(key=lambda x: order.get(x.get("source"), 999))
 
-    by_id = {}
+    # Compress same source/day/method into one evidence session so a listing and
+    # its detail article never count as independent reports. Prefer richer detail.
+    by_session = {}
     for sig in all_signals:
-        old = by_id.get(sig["id"])
-        if old is None or sig["quality_score"] > old["quality_score"]:
-            by_id[sig["id"]] = sig
-    signals = sorted(by_id.values(), key=lambda x: (x["date"], x.get("quality_score", 0)), reverse=True)
+        key = "|".join([
+            sig.get("source") or "", sig.get("date") or "", sig.get("area") or "",
+            sig.get("type") or "", sig.get("method") or "",
+        ])
+        old = by_session.get(key)
+        richness = (
+            int(bool(sig.get("depth_m") or sig.get("bottom_offset_m") or sig.get("tana_m"))) * 100
+            + int(sig.get("quality_score", 0))
+            + int(sig.get("evidence_scope") == "detail") * 10
+        )
+        old_richness = -1
+        if old:
+            old_richness = (
+                int(bool(old.get("depth_m") or old.get("bottom_offset_m") or old.get("tana_m"))) * 100
+                + int(old.get("quality_score", 0))
+                + int(old.get("evidence_scope") == "detail") * 10
+            )
+        if old is None or richness > old_richness:
+            by_session[key] = sig
+    signals = sorted(by_session.values(), key=lambda x: (x["date"], x.get("quality_score", 0)), reverse=True)
 
     payload = {
         "updated_at": NOW.isoformat(timespec="seconds"),
