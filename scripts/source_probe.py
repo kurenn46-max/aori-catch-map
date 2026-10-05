@@ -40,6 +40,12 @@ SESSION.mount(
 
 SOURCES = [
     {
+        "name": "HOZANⅡ 越前",
+        "kind": "charter",
+        "url": "https://hozan130.jp/",
+        "detail_patterns": [r"/fishing-ifo/", r"/blog/", r"tip"],
+    },
+    {
         "name": "春定丸 敦賀",
         "kind": "charter",
         "url": "https://ameblo.jp/synteimaru/",
