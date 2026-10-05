@@ -135,7 +135,7 @@ def ddg_html(query):
 
 def main():
     known = known_domains()
-    engines = [bing_rss, ddg_html]
+    engines = [ddg_html]
     diagnostics = []
     candidates = {}
 
@@ -145,7 +145,7 @@ def main():
     # charter/marina/blog domains that fixed-source crawling would miss.
     for tmpl in QUERY_TEMPLATES:
         for region in REGIONS:
-            queries.append((region, f"{tmpl.format(region=region)} {SEARCH_EXCLUSIONS}"))
+            queries.append((region, tmpl.format(region=region)))
 
     for region, query in queries:
         for engine in engines:
@@ -201,6 +201,7 @@ def main():
         "new_domain_counts": dict(domain_counts.most_common()),
         "top_unknown_candidates": unknown_rows[:40],
         "new_candidates": new_rows[:120],
+        "engine_note": "Bing RSS disabled: returned unrelated Bing/product pages for Japanese long-tail queries.",
     }
 
     print(json.dumps({
