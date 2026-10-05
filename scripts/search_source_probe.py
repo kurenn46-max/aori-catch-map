@@ -133,9 +133,47 @@ def ddg_html(query):
     return rows
 
 
+def yahoo_jp(query):
+    url = "https://search.yahoo.co.jp/search?p=" + quote_plus(query)
+    r = requests.get(url, headers=HEADERS, timeout=(7, 20))
+    r.raise_for_status()
+    soup = BeautifulSoup(r.text, "html.parser")
+    rows = []
+    seen = set()
+    for a in soup.find_all("a", href=True):
+        href = a.get("href") or ""
+        if href.startswith("//"):
+            href = "https:" + href
+        if not href.startswith("http"):
+            continue
+        host = norm_host(href)
+        if not host or host.endswith("yahoo.co.jp") or host.endswith("yahoo-net.jp"):
+            continue
+        text = " ".join(a.stripped_strings)
+        if len(text) < 18:
+            continue
+        if not any(w in text for w in TARGET_WORDS):
+            continue
+        key = href.split("#", 1)[0]
+        if key in seen:
+            continue
+        seen.add(key)
+        # Yahoo result anchors often contain title + display URL + snippet in
+        # one text block; keeping that context materially improves scoring.
+        rows.append({
+            "title": text[:220],
+            "url": key,
+            "snippet": text[:500],
+            "engine": "yahoo_jp",
+        })
+        if len(rows) >= 15:
+            break
+    return rows
+
+
 def main():
     known = known_domains()
-    engines = [ddg_html]
+    engines = [yahoo_jp]
     diagnostics = []
     candidates = {}
 
@@ -201,7 +239,7 @@ def main():
         "new_domain_counts": dict(domain_counts.most_common()),
         "top_unknown_candidates": unknown_rows[:40],
         "new_candidates": new_rows[:120],
-        "engine_note": "Bing RSS disabled: returned unrelated Bing/product pages for Japanese long-tail queries.",
+        "engine_note": "Yahoo Japan HTML selected after Runner compatibility test. Bing RSS/HTML returned unrelated results; Brave returned 429; Mojeek 403; DuckDuckGo HTML returned no result rows.",
     }
 
     print(json.dumps({
