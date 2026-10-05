@@ -502,7 +502,14 @@ def signal_from_segment(source, date, segment, inherited_context=""):
 
     area = detect_area(analysis_text, source.get("default_area"))
     typ, method = classify_type(analysis_text, source["kind"])
-    time_mode = detect_time_mode(analysis_text)
+    segment_mode = detect_time_mode(segment)
+    inherited_mode = detect_time_mode(inherited_context)
+    if segment_mode == "unknown":
+        time_mode = inherited_mode
+    elif segment_mode == "mixed" and inherited_mode in ("day", "night"):
+        time_mode = inherited_mode
+    else:
+        time_mode = segment_mode
     depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(analysis_text)
     negatives = [w for w in NEGATIVE_WORDS if w in analysis_text]
     bait = [w for w in BAIT_WORDS if w in analysis_text]
@@ -628,10 +635,26 @@ def main():
     order = {src["name"]: i for i, src in enumerate(SOURCES)}
     health.sort(key=lambda x: order.get(x.get("source"), 999))
 
-    # Compress same source/day/method into one evidence session so a listing and
-    # its detail article never count as independent reports. Prefer richer detail.
-    by_session = {}
+    # Compress listing/detail duplicates from the same source-day. If explicit
+    # day/night evidence exists, discard unknown/mixed variants from that same
+    # source-day-method while preserving separate day and night sessions.
+    base_groups = {}
     for sig in all_signals:
+        base = "|".join([
+            sig.get("source") or "", sig.get("date") or "", sig.get("area") or "",
+            sig.get("type") or "", sig.get("method") or "",
+        ])
+        base_groups.setdefault(base, []).append(sig)
+
+    normalized_signals = []
+    for group in base_groups.values():
+        explicit_modes = {x.get("time_mode") for x in group if x.get("time_mode") in ("day", "night")}
+        if explicit_modes:
+            group = [x for x in group if x.get("time_mode") in explicit_modes]
+        normalized_signals.extend(group)
+
+    by_session = {}
+    for sig in normalized_signals:
         key = "|".join([
             sig.get("source") or "", sig.get("date") or "", sig.get("area") or "",
             sig.get("type") or "", sig.get("method") or "", sig.get("time_mode") or "",
