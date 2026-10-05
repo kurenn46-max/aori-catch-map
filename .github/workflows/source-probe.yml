@@ -43,10 +43,13 @@ jobs:
           assert adjacent_depths == [13.0, 30.0], adjacent_depths
           assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
           assert bottom_depths == [] and bottom_offsets == [5.0], (bottom_depths, bottom_offsets)
-          from scripts.collect_public_signals import signal_from_segment, detect_time_mode
+          from scripts.collect_public_signals import signal_from_segment, detect_time_mode, detect_evidence_role
           assert detect_time_mode("アオリイカ Dayティップラン") == "day"
           assert detect_time_mode("ナイトティップラン出船") == "night"
           assert detect_time_mode("昼便とナイト便") == "mixed"
+          assert detect_evidence_role("アオリイカ ティップラン募集中 ご予約受付中 残り3名") == "schedule"
+          assert detect_evidence_role("アオリイカ トップ9杯 船中30杯 ヒット連発") == "catch"
+          assert detect_evidence_role("アオリイカは渋い。チェイスはあるが抱かない") == "catch"
           inherited_sig = signal_from_segment(
               {"name":"test","kind":"charter","url":"https://example.com","default_area":"舞鶴"},
               "2026-09-19",
@@ -77,6 +80,8 @@ jobs:
                   raise SystemExit(f"depth without confidence: {x}")
               if x.get("count_mentions") and x.get("count_confidence") != "mention_only":
                   raise SystemExit(f"catch-count mention treated as authoritative: {x}")
+              if x.get("usable_for_decision") and x.get("evidence_role") != "catch":
+                  raise SystemExit(f"non-catch signal marked usable: {x}")
           print("validated signals",len(signals),"depth",sum(bool(x.get("depth_m") or x.get("bottom_offset_m") or x.get("tana_m")) for x in signals))
           PY
 
@@ -89,7 +94,7 @@ jobs:
           for x in data.get("signals",[]):
               print({
                   "date":x.get("date"),"area":x.get("area"),"type":x.get("type"),
-                  "method":x.get("method"),"time_mode":x.get("time_mode"),"source":x.get("source"),
+                  "method":x.get("method"),"time_mode":x.get("time_mode"),"role":x.get("evidence_role"),"source":x.get("source"),
                   "grade":x.get("confidence"),"score":x.get("quality_score"),
                   "water_depth":x.get("depth_m"),"bottom_offset":x.get("bottom_offset_m"),"tana":x.get("tana_m"),"depth_grade":x.get("depth_confidence"),
                   "counts":x.get("count_mentions"),"negative":x.get("negative_signals"),
