@@ -101,6 +101,14 @@ SOURCES = [
         "default_area": "敦賀",
     },
     {
+        "name": "泰丸",
+        "kind": "charter",
+        "url": "https://www.taimaru.jp/fishingpost/",
+        "default_area": "敦賀",
+        "detail_patterns": [r"/fishingpost/\d+/"],
+        "detail_limit": 12,
+    },
+    {
         "name": "FISHERS",
         "kind": "tackle_shop",
         "url": "https://www.fishers.co.jp/",
@@ -119,6 +127,8 @@ SOURCES = [
         "kind": "charter",
         "url": "https://triton-maizuru.com/topics.html",
         "default_area": "舞鶴",
+        "detail_patterns": [r"/blog/\d+\.html"],
+        "detail_limit": 12,
     },
     {
         "name": "すばる",
@@ -226,7 +236,7 @@ def detect_area(text, default=None):
 def detect_time_mode(text):
     t = normalize(text)
     day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
-    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便"))
+    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便"))
     if day_hits and night_hits:
         return "mixed"
     if day_hits:
