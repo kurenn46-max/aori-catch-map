@@ -147,10 +147,25 @@ SOURCES = [
         "detail_limit": 12,
     },
     {
-        "name": "FISHERS",
-        "kind": "tackle_shop",
-        "url": "https://www.fishers.co.jp/",
+        "name": "FISHERS アオリイカ",
+        "kind": "tackle_shop_media",
+        "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
         "default_area": None,
+        "detail_patterns": [r"/fishinginfo/finfo_page\.html\?choka_idx=\d+"],
+        "detail_limit": 40,
+        "detail_only": True,
+    },
+    {
+        "name": "FISHERS 福井店",
+        "kind": "tackle_shop_media",
+        "url": "https://www.fishers.co.jp/allpages/?staff_code=16",
+        "default_area": None,
+        "detail_patterns": [
+            r"/fishinginfo/finfo_page\.html\?choka_idx=\d+",
+            r"/shopinfo/page\.html\?topic_code=\d+",
+        ],
+        "detail_limit": 30,
+        "detail_only": True,
     },
     {
         "name": "釣具のイシグロ",
@@ -258,6 +273,7 @@ SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "�
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
 DATE_RE = re.compile(r"(?:20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})|令和\s*\d{1,2}年\s*\d{1,2}月\s*\d{1,2}日)")
 TRIP_FULL_DATE_RE = re.compile(r"(?:釣行日|実釣日)\s*[:：]?\s*((?:20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})|令和\s*\d{1,2}年\s*\d{1,2}月\s*\d{1,2}日))")
+TRIP_SHORT_DATE_RE = re.compile(r"(?:釣行日|実釣日)\s*[:：]?\s*(\d{2})/(\d{1,2})/(\d{1,2})")
 TRIP_MD_RE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})日?(?:の)?釣行")
 DAY_HEADING_RE = re.compile(r"(?<!\d)(\d{1,2})日(?=(?:ナイト|ティップ|朝便|昼便|夜便|半夜便|深夜便|たて釣り|イカ|アオリ|釣り))")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
@@ -593,6 +609,22 @@ def split_detail_segments(text, page_date):
                 continue
             end = full_matches[i + 1].start() if i + 1 < len(full_matches) else min(len(normalized), m.start() + 3200)
             out.append((date, normalized[m.start():end]))
+        if out:
+            return out
+    short_matches = list(TRIP_SHORT_DATE_RE.finditer(normalized))
+    if short_matches:
+        out = []
+        for i, m in enumerate(short_matches):
+            year, month, day = 2000 + int(m.group(1)), int(m.group(2)), int(m.group(3))
+            try:
+                d = datetime(year, month, day, tzinfo=JST)
+            except ValueError:
+                continue
+            age = (NOW.date() - d.date()).days
+            if not (0 <= age <= WINDOW_DAYS):
+                continue
+            end = short_matches[i + 1].start() if i + 1 < len(short_matches) else min(len(normalized), m.start() + 3200)
+            out.append((d.date().isoformat(), normalized[m.start():end]))
         if out:
             return out
     matches = list(TRIP_MD_RE.finditer(normalized))
