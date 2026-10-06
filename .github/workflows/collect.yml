@@ -19,7 +19,8 @@ on:
 permissions:
   contents: write
 concurrency:
-  # Shared with archive-summary so generated JSON writers never race.
+  # Main/deep writer. Fast scheduled refresh shares this lane so generated
+  # catch files are serialized without release-time helper workflows competing.
   group: aori-catch-collector
   cancel-in-progress: false
 jobs:
@@ -153,4 +154,5 @@ jobs:
             exit 0
           fi
           git commit -m "Update aori catch data and health"
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin HEAD:"$GITHUB_REF_NAME"
