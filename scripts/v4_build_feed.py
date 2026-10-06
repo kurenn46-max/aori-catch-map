@@ -84,14 +84,14 @@ def signal_row(sig, origin):
     rid = "v4-" + hashlib.sha1(key.encode("utf-8")).hexdigest()[:18]
     mode = "shore" if stype == "shore" else "boat"
     mentions = [int(x) for x in (sig.get("count_mentions") or []) if isinstance(x, (int, float)) and 0 < int(x) < 500]
-    title = f"{sig['source']} / {'岸' if mode == 'shore' else '船'}・信頼度{sig.get('confidence')}"
-    if sig.get("bait_signals"):
+    title = sig.get("title") or f"{sig['source']} / {'岸' if mode == 'shore' else '船'}・信頼度{sig.get('confidence')}"
+    if sig.get("bait_signals") and not sig.get("title"):
         title += " / ベイト:" + "・".join(str(x) for x in sig.get("bait_signals")[:3])
     return {
         "id": rid,
         "date": sig["date"],
         "area": area,
-        "place": area,
+        "place": sig.get("place") or area,
         "lat": lat,
         "lng": lng,
         "type": mode,
@@ -101,7 +101,7 @@ def signal_row(sig, origin):
         "count_mentions": mentions,
         "count_confidence": sig.get("count_confidence") or "none",
         "maxSize": "不明",
-        "time": sig.get("time_mode") or "不明",
+        "time": sig.get("time") or sig.get("time_mode") or "不明",
         "source": sig["source"],
         "url": url,
         "title": title,
