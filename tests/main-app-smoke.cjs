@@ -73,11 +73,24 @@ const marineBody={
       const today=await page.locator('#status').innerText();
       assert.match(today,/今日/);
       await page.locator('#area').selectOption({label:'敦賀'});
-      assert.match(await page.locator('#status').innerText(),/実釣果データ/);
+      assert.match(await page.locator('#status').innerText(),/件（直接/);
       await page.locator('#modeRow button[data-mode="shore"]').click();
-      assert.match(await page.locator('#status').innerText(),/実釣果データ/);
+      assert.match(await page.locator('#status').innerText(),/件（直接/);
       await page.locator('#area').selectOption('all');
       await page.locator('#dateRow button[data-range="7"]').click();
+    });
+
+    await check('V4 live feed fixes yesterday zero-data regression',async()=>{
+      await page.locator('#dateRow button[data-range="yesterday"]').click();
+      await page.locator('#modeRow button[data-mode="shore"]').click();
+      const n=Number(await page.locator('#shoreCount').innerText());
+      const status=await page.locator('#status').innerText();
+      assert(n>=1,'yesterday shore feed unexpectedly empty');
+      assert.match(status,/昨日/);
+      assert.match(status,/補助/);
+      await page.locator('#modeRow button[data-mode="all"]').click();
+      await page.locator('#dateRow button[data-range="7"]').click();
+      return status;
     });
 
     await check('Freshness uses session-compressed counts',async()=>{
@@ -195,7 +208,7 @@ const marineBody={
         intelLayers:groups.intel.getLayers().length
       }));
       assert.equal(state.viewMode,'catch');
-      assert.match(state.status,/実釣果データ/);
+      assert.match(state.status,/件（直接/);
       assert.equal(state.intelLayers,0,'stale sea markers were added after leaving sea view');
       return JSON.stringify(state);
     });
