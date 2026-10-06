@@ -2,7 +2,9 @@ name: Collect aori catches
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+      - "v4.1/**"
     paths:
       - "scripts/collect.py"
       - "scripts/collect_public_signals.py"
