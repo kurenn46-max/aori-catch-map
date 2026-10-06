@@ -5,6 +5,7 @@ Inputs are deliberately independent:
 - catches.json: strict/direct collector
 - v4-hot-signals.json: 30-minute shore-first lane
 - discovery-signals.json: slower broad/deep lane
+- search-signals.json: verified dynamic report-discovery lane
 
 The UI reads one canonical file. Evidence origin/confidence stays attached to
 every row so more coverage never means invented precision.
@@ -128,11 +129,13 @@ def identity(row):
     # share an area URL, so their own stable id remains part of the key.
     if row.get("feed_origin") == "direct" and not row.get("supplementary"):
         return "direct|" + str(row.get("id"))
+    # Supplementary evidence is article/session based. Do not duplicate the
+    # same article merely because hot/broad/search lanes gave it different
+    # source labels.
     return "|".join([
         str(row.get("date") or ""),
         str(row.get("area") or ""),
         str(row.get("type") or ""),
-        str(row.get("source") or ""),
         str(row.get("url") or ""),
     ])
 
@@ -154,6 +157,7 @@ def main():
     direct = load("data/catches.json", {"catches": []})
     hot = load("data/v4-hot-signals.json", {"signals": [], "source_health": []})
     broad = load("data/discovery-signals.json", {"signals": [], "source_health": []})
+    search = load("data/search-signals.json", {"signals": [], "checks": []})
     direct_health = load("data/source-status.json", {"checks": []})
 
     candidates = []
@@ -161,7 +165,7 @@ def main():
         if 0 <= age_days(x.get("date")) <= MAX_DAYS and not x.get("demo"):
             candidates.append(direct_row(x))
 
-    for origin, doc in (("hot", hot), ("broad", broad)):
+    for origin, doc in (("hot", hot), ("broad", broad), ("search", search)):
         for sig in doc.get("signals", []):
             if not (0 <= age_days(sig.get("date")) <= MAX_DAYS):
                 continue
@@ -197,6 +201,7 @@ def main():
         "supplementary": sum(bool(x.get("supplementary")) for x in rows),
         "hot": sum(x.get("feed_origin") == "hot" for x in rows),
         "broad": sum(x.get("feed_origin") == "broad" for x in rows),
+        "search": sum(x.get("feed_origin") == "search" for x in rows),
     }
     latest_shore = max((x.get("date") for x in rows if x.get("type") == "shore"), default=None)
 
@@ -210,11 +215,21 @@ def main():
                                        checked_at=x.get("checked_at"), accepted_signals=x.get("accepted_signals"),
                                        detail_signals=x.get("detail_signals"), error=x.get("error")))
 
+    if search.get("updated_at"):
+        search_ok = int(search.get("query_ok") or 0) >= 10
+        checks.append(health_check(
+            "Verified web report discovery",
+            "ok" if search_ok else "error",
+            "search",
+            checked_at=search.get("updated_at"),
+            accepted_signals=len(search.get("signals", [])),
+        ))
+
     ok_status = {"ok", "no_new"}
     health = {
         "version": 4,
         "updated_at": NOW.isoformat(timespec="seconds"),
-        "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
+        "architecture": "direct + 30min hot shore + broad deep + verified 2h web discovery -> canonical live-feed",
         "target_hot_refresh_minutes": 30,
         "feed_counts": counts,
         "latest_shore_date": latest_shore,
@@ -224,6 +239,12 @@ def main():
             "direct": {"updated_at": direct.get("updated_at")},
             "hot": {"updated_at": hot.get("updated_at"), "sources": len(hot.get("source_health", []))},
             "broad": {"updated_at": broad.get("updated_at"), "sources": len(broad.get("source_health", []))},
+            "search": {
+                "updated_at": search.get("updated_at"),
+                "queries": search.get("query_count", 0),
+                "verified_pages": search.get("verified_pages", 0),
+                "signals": len(search.get("signals", [])),
+            },
         },
         "coverage": {
             "checks_total": len(checks),
@@ -238,8 +259,9 @@ def main():
             "direct": direct.get("updated_at"),
             "hot": hot.get("updated_at"),
             "broad": broad.get("updated_at"),
+            "search": search.get("updated_at"),
         },
-        "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
+        "note": "V4.1 canonical live feed. Direct reports, fixed-source A/B evidence, and verified dynamic web reports are merged without inventing exact counts or exact spots.",
         "counts": counts,
         "catches": rows[:700],
     }
