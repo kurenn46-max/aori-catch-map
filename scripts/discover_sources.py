@@ -17,11 +17,11 @@ NOW = datetime.now(JST)
 REGIONS = ["越前", "敦賀", "若狭", "小浜", "舞鶴", "丹後"]
 DISCOVERY_QUERIES = [
     ("boat_source", "{region} アオリイカ ティップラン 遊漁船 船長ブログ"),
-    ("boat_depth", "{region} アオリイカ ティップラン 水深 ボトム 釣果"),
+    ("boat_depth", "{region} アオリイカ ティップラン 水深 ボトム {year}年{month}月 釣果"),
     ("boat_marina", "{region} アオリイカ 釣果 船 マリーナ ブログ"),
-    ("shore_catch", "{region} アオリイカ エギング 釣果 漁港 堤防"),
-    ("shore_negative", "{region} アオリイカ エギング 渋い 釣れない 釣果"),
-    ("bait_presence", "{region} アオリイカ ベイト アジ 釣果"),
+    ("shore_catch", "{region} アオリイカ エギング {year}年{month}月 釣果 漁港 堤防"),
+    ("shore_negative", "{region} アオリイカ エギング 渋い 釣れない {year}年{month}月 釣果"),
+    ("bait_presence", "{region} アオリイカ ベイト アジ {year}年{month}月 釣果"),
 ]
 TARGET_WORDS = ("アオリ", "アオリイカ", "ティップラン", "エギング")
 NEGATIVE_WORDS = ("渋い", "厳しい", "釣れない", "釣れず", "反応なし", "ボウズ", "坊主", "チェイス")
@@ -300,7 +300,7 @@ def main():
     tasks = []
     for focus, tmpl in DISCOVERY_QUERIES:
         for region in REGIONS:
-            q = tmpl.format(region=region)
+            q = tmpl.format(region=region, year=NOW.year, month=NOW.month)
             tasks.append((region, q, focus))
 
     with ThreadPoolExecutor(max_workers=4) as pool:
@@ -386,7 +386,7 @@ def main():
             and verified
             and row["score"] >= 55
             and row.get("region_explicit")
-            and (search_recent or page_recent)
+            and page_recent
         ):
             tier = "B"
         else:
