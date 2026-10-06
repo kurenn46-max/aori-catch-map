@@ -91,21 +91,21 @@ intel=load("data/intel.json",{"items":[]})
 discovery=load("data/discovery-signals.json",{"signals":[]})
 records=archive.get("catches",[])
 sessions=sessionize(records)
-valid_dates=[parse_day(x.get("date","")) for x in records]
-valid_dates=[x for x in valid_dates if x]
-ref=max(valid_dates) if valid_dates else datetime.now(JST)
+# All recency windows must age against "today", not the newest catch date.
+# Otherwise a quiet period freezes old catches inside the 48h/7d buckets.
+ref=datetime.now(JST).replace(hour=0,minute=0,second=0,microsecond=0)
 
-discovery_signals=[
+trusted_discovery_signals=[
     x for x in discovery.get("signals",[])
     if x.get("usable_for_decision")
     and x.get("evidence_role")=="catch"
-    and x.get("type")=="boat"
+    and x.get("type") in ("shore","boat")
     and x.get("area") in AREAS
     and parse_day(x.get("date",""))
 ]
-context_dates=[parse_day(x.get("date","")) for x in discovery_signals]
-context_dates=[x for x in context_dates if x]
-context_ref=max([ref,*context_dates]) if context_dates else ref
+boat_discovery_signals=[x for x in trusted_discovery_signals if x.get("type")=="boat"]
+shore_discovery_signals=[x for x in trusted_discovery_signals if x.get("type")=="shore"]
+context_ref=ref
 
 def discovery_in_days(s,days):
     d=parse_day(s.get("date",""))
@@ -162,7 +162,29 @@ for area in AREAS:
     pressure=[x for x in recent_intel if x.get("category")=="pressure"]
     local=[x for x in intel.get("items",[]) if x.get("area")==area and x.get("category")=="local" and x.get("active")]
 
-    boat_all=[x for x in discovery_signals if x.get("area")==area]
+    shore_external_all=[x for x in shore_discovery_signals if x.get("area")==area]
+    shore_external_48=[x for x in shore_external_all if discovery_in_days(x,2)]
+    shore_external_7=[x for x in shore_external_all if discovery_in_days(x,7)]
+    shore_external_latest=max([x.get("date") for x in shore_external_all if x.get("date")],default=None)
+    shore_context={
+      "latest_date":shore_external_latest,
+      "last48_signals":len(shore_external_48),
+      "last7_signals":len(shore_external_7),
+      "sources_7d":len({x.get("source") for x in shore_external_7 if x.get("source")}),
+      "items":[
+        {
+          "date":x.get("date"),
+          "source":x.get("source"),
+          "confidence":x.get("confidence"),
+          "url":x.get("detail_url") or x.get("url"),
+          "bait_signals":x.get("bait_signals") or [],
+        }
+        for x in sorted(shore_external_7,key=lambda x:(x.get("date") or "",x.get("quality_score",0)),reverse=True)[:5]
+      ],
+      "note":"公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
+    }
+
+    boat_all=[x for x in boat_discovery_signals if x.get("area")==area]
     boat7=[x for x in boat_all if discovery_in_days(x,7)]
     boat14=[x for x in boat_all if discovery_in_days(x,14)]
     boat30=[x for x in boat_all if discovery_in_days(x,30)]
@@ -238,14 +260,15 @@ for area in AREAS:
       "pressure_recent":len(pressure),
       "local_active":len(local),
       "raw_posts_30d":sum(x.get("records",1) for x in l30),
+      "shore_context":shore_context,
       "boat_context":boat_context,
-      "note":"同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。船釣果は岸評価に加点しない。"
+      "note":"同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。公開Web横断の岸補助釣果と船釣果は別枠表示し、岸評価へ直接加点しない。"
     })
 
 out={
   "updated_at":datetime.now(JST).isoformat(timespec="seconds"),
   "reference_date":ref.strftime("%Y-%m-%d"),
-  "method":"直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
+  "method":"直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date":context_ref.strftime("%Y-%m-%d"),
   "areas":areas
 }
