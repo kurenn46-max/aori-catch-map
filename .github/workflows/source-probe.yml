@@ -71,6 +71,7 @@ jobs:
           assert detect_evidence_role("アオリイカ ティップラン募集中 ご予約受付中 残り3名") == "schedule"
           assert detect_evidence_role("アオリイカ トップ9杯 船中30杯 ヒット連発") == "catch"
           assert detect_evidence_role("アオリイカは渋い。チェイスはあるが抱かない") == "catch"
+          assert detect_evidence_role("ティップランで大変少ないイカパンチ。サイズダウンで良い所無し") == "catch"
           inherited_sig = signal_from_segment(
               {"name":"test","kind":"charter","url":"https://example.com","default_area":"舞鶴"},
               "2026-09-19",
