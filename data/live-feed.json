@@ -1,19 +1,19 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T08:42:37+09:00",
+  "updated_at": "2026-10-07T08:43:32+09:00",
   "source_updated_at": {
-    "direct": "2026-10-07T08:42:00+09:00",
-    "hot": "2026-10-07T08:42:04+09:00",
+    "direct": "2026-10-07T08:42:54+09:00",
+    "hot": "2026-10-07T08:42:55+09:00",
     "broad": "2026-10-07T08:17:55+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 126,
-    "shore": 73,
+    "total": 127,
+    "shore": 74,
     "boat": 53,
     "direct": 72,
-    "supplementary": 54,
-    "hot": 9,
+    "supplementary": 55,
+    "hot": 10,
     "broad": 45
   },
   "catches": [
@@ -2749,6 +2749,45 @@
       "supplementary": false,
       "source_mode": "shore",
       "feed_seen_at": null
+    },
+    {
+      "id": "v4-7c99935004db770c12",
+      "date": "2026-09-25",
+      "area": "越前",
+      "place": "越前",
+      "lat": 35.914,
+      "lng": 135.991,
+      "type": "shore",
+      "source_mode": "shore",
+      "method": "ショア",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "FISHERS アオリイカ",
+      "url": "https://www.fishers.co.jp/fishinginfo/finfo_page.html?choka_idx=23223",
+      "title": "FISHERS アオリイカ / 岸・信頼度A / ベイト:アジ・サヨリ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "hot",
+      "origin_signal_id": "signal-1ccca426ed1957b0",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ",
+        "サヨリ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-7c7c47ea13bd572acc",
