@@ -89,7 +89,7 @@ def sessionize(rows):
 archive=load("data/archive/2026.json",{"catches":[]})
 intel=load("data/intel.json",{"items":[]})
 discovery=load("data/discovery-signals.json",{"signals":[]})
-records=archive.get("catches",[])
+records=[x for x in archive.get("catches",[]) if not x.get("supplementary")]
 sessions=sessionize(records)
 # All recency windows must age against "today", not the newest catch date.
 # Otherwise a quiet period freezes old catches inside the 48h/7d buckets.
