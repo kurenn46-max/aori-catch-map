@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T08:28:30+09:00",
+  "updated_at": "2026-10-07T08:32:12+09:00",
   "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
@@ -9,8 +9,8 @@
     "boat": 55,
     "direct": 72,
     "supplementary": 61,
-    "hot": 17,
-    "broad": 44
+    "hot": 16,
+    "broad": 45
   },
   "latest_shore_date": "2026-10-06",
   "latest_shore_age_days": 1,
@@ -19,42 +19,42 @@
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T08:27:57+09:00",
+      "checked_at": "2026-10-07T08:31:37+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T08:27:57+09:00",
+      "checked_at": "2026-10-07T08:31:37+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T08:27:57+09:00",
+      "checked_at": "2026-10-07T08:31:37+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T08:27:57+09:00",
+      "checked_at": "2026-10-07T08:31:37+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T08:27:57+09:00",
+      "checked_at": "2026-10-07T08:31:37+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
+      "checked_at": "2026-10-07T08:31:39+09:00",
       "accepted_signals": 7,
       "detail_signals": 0
     },
@@ -62,63 +62,39 @@
       "source": "釣具のイシグロ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 171,
-      "detail_signals": 139
+      "checked_at": "2026-10-07T08:31:39+09:00",
+      "accepted_signals": 43,
+      "detail_signals": 43
     },
     {
       "source": "ブンブン釣行記",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 5,
+      "checked_at": "2026-10-07T08:31:39+09:00",
+      "accepted_signals": 2,
       "detail_signals": 2
-    },
-    {
-      "source": "カンパリ福井",
-      "status": "error",
-      "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 0,
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/area/fukui?fish=fish-aoriika"
-    },
-    {
-      "source": "カンパリ若狭",
-      "status": "error",
-      "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 0,
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/fishingpost/area/wakasa?fish=fish-aoriika"
-    },
-    {
-      "source": "カンパリ京都",
-      "status": "error",
-      "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 0,
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/fishingpost/area/kyoto?fish=fish-aoriika"
     },
     {
       "source": "墨族",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 10,
+      "checked_at": "2026-10-07T08:31:39+09:00",
+      "accepted_signals": 5,
       "detail_signals": 5
     },
     {
       "source": "フィッシングマックス",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
-      "accepted_signals": 28,
+      "checked_at": "2026-10-07T08:31:39+09:00",
+      "accepted_signals": 15,
       "detail_signals": 15
     },
     {
       "source": "FISHERS アオリイカ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
+      "checked_at": "2026-10-07T08:31:39+09:00",
       "accepted_signals": 19,
       "detail_signals": 0
     },
@@ -126,7 +102,7 @@
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T08:27:58+09:00",
+      "checked_at": "2026-10-07T08:31:39+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -325,11 +301,11 @@
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-10-07T08:27:57+09:00"
+      "updated_at": "2026-10-07T08:31:37+09:00"
     },
     "hot": {
-      "updated_at": "2026-10-07T08:27:58+09:00",
-      "sources": 10
+      "updated_at": "2026-10-07T08:31:39+09:00",
+      "sources": 7
     },
     "broad": {
       "updated_at": "2026-10-07T08:17:55+09:00",
@@ -337,8 +313,8 @@
     }
   },
   "coverage": {
-    "checks_total": 39,
+    "checks_total": 36,
     "checks_ok": 29,
-    "checks_bad": 10
+    "checks_bad": 7
   }
 }
