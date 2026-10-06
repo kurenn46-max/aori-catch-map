@@ -74,6 +74,14 @@ jobs:
           assert detect_evidence_role("アオリイカ ティップラン募集中 ご予約受付中 残り3名") == "schedule"
           assert detect_evidence_role("アオリイカ トップ9杯 船中30杯 ヒット連発") == "catch"
           assert detect_evidence_role("アオリイカは渋い。チェイスはあるが抱かない") == "catch"
+          presence_sig = signal_from_segment(
+              {"name":"presence-test","kind":"charter","url":"https://example.com","default_area":"若狭","default_aori_method":"ティップラン"},
+              "2026-10-05",
+              "アオリイカはチェイスして見えイカもいるが抱かない。",
+          )
+          assert presence_sig and "チェイス" in presence_sig.get("presence_signals", []), presence_sig
+          assert "抱かない" in presence_sig.get("negative_signals", []), presence_sig
+          assert "チェイス" not in presence_sig.get("negative_signals", []), presence_sig
           assert detect_evidence_role("ティップランで大変少ないイカパンチ。サイズダウンで良い所無し") == "catch"
           zuisho = signal_from_segment(
               {"name":"瑞祥丸","kind":"charter","url":"https://zuishomaru.com/category/fishing/","default_area":"敦賀","default_aori_method":"ティップラン","catch_phrases":["コンスタントにあたり","姿を見せ","ポツポツあた","ポツポツ釣れ","ツ抜けならず","ツヌケ","釣果に差"]},
@@ -178,6 +186,6 @@ jobs:
                   "grade":x.get("confidence"),"score":x.get("quality_score"),
                   "water_depth":x.get("depth_m"),"bottom_offset":x.get("bottom_offset_m"),"tana":x.get("tana_m"),"depth_grade":x.get("depth_confidence"),
                   "counts":x.get("count_mentions"),"negative":x.get("negative_signals"),
-                  "bait":x.get("bait_signals")
+                  "presence":x.get("presence_signals"),"bait":x.get("bait_signals")
               })
           PY
