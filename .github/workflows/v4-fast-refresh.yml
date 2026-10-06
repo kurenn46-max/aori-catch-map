@@ -82,4 +82,5 @@ jobs:
             exit 0
           fi
           git commit -m "Refresh V4 live aori feed"
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin HEAD:"$GITHUB_REF_NAME"
