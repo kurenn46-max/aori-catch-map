@@ -3,14 +3,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "23 21 * * *"
-  push:
-    branches:
-      - main
-      - "v4/**"
-    paths:
-      - "scripts/discover_sources.py"
-      - ".github/workflows/discover-sources.yml"
-      - "data/source-registry.json"
 permissions:
   contents: write
 concurrency:
