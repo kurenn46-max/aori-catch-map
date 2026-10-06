@@ -6,6 +6,7 @@ on:
     paths:
       - "scripts/collect.py"
       - "scripts/collect_public_signals.py"
+      - "scripts/promote_shore_signals.py"
       - "scripts/build_strategy.py"
       - "scripts/archive_and_summary.py"
       - "scripts/build_tide_patterns.py"
@@ -38,11 +39,13 @@ jobs:
       - name: Install collector dependencies
         run: pip install --disable-pip-version-check requests beautifulsoup4
       - name: Syntax check
-        run: python -m py_compile scripts/collect.py scripts/collect_public_signals.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
+        run: python -m py_compile scripts/collect.py scripts/collect_public_signals.py scripts/promote_shore_signals.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
       - name: Collect direct catches and source health
         run: python scripts/collect.py
       - name: Collect multi-source public signals
         run: python scripts/collect_public_signals.py --output data/discovery-signals.json
+      - name: Promote trusted shore signals into supplementary map rows
+        run: python scripts/promote_shore_signals.py
       - name: Rebuild permanent archive and trends
         run: python scripts/archive_and_summary.py
       - name: Rebuild tide patterns
@@ -79,6 +82,13 @@ jobs:
                       raise SystemExit(f"missing {key}: {x}")
               if x["date"] > future_limit:
                   raise SystemExit(f"future catch date: {x['date']} {x['id']}")
+              if x.get("supplementary"):
+                  if x.get("origin") != "discovery-signal":
+                      raise SystemExit(f"supplementary catch missing discovery origin: {x}")
+                  if x.get("count") is not None:
+                      raise SystemExit(f"supplementary discovery catch must not invent count: {x}")
+                  if x.get("evidence_confidence") not in ("A", "B"):
+                      raise SystemExit(f"untrusted supplementary catch: {x}")
           discovery = json.loads(Path("data/discovery-signals.json").read_text(encoding="utf-8"))
           signals = discovery.get("signals", [])
           signal_ids = [x.get("id") for x in signals if x.get("id")]
