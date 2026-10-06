@@ -1,30 +1,18 @@
 {
   "version": 1,
-  "updated_at": "2026-10-07T08:56:06+09:00",
+  "updated_at": "2026-10-07T08:57:07+09:00",
   "profile": "verified-search-reports",
   "query_count": 15,
   "query_ok": 15,
   "candidate_urls": 61,
-  "verified_pages": 7,
+  "verified_pages": 8,
   "note": "検索結果は発見専用。元ページ本文を再取得し、対象海域・アオリイカ・日付・実釣文脈を確認したB信号だけを補助情報として使用。",
   "diagnostics": [
-    {
-      "region": "越前",
-      "query": "越前 アオリイカ エギング 釣果 2026",
-      "status": "ok",
-      "results": 14
-    },
     {
       "region": "敦賀",
       "query": "敦賀 アオリイカ 釣行 釣果 2026",
       "status": "ok",
       "results": 11
-    },
-    {
-      "region": "敦賀",
-      "query": "敦賀 アオリイカ エギング 釣果 2026",
-      "status": "ok",
-      "results": 12
     },
     {
       "region": "越前",
@@ -33,22 +21,22 @@
       "results": 15
     },
     {
+      "region": "敦賀",
+      "query": "敦賀 アオリイカ エギング 釣果 2026",
+      "status": "ok",
+      "results": 13
+    },
+    {
       "region": "越前",
       "query": "越前 アオリイカ 釣行 釣果 2026",
       "status": "ok",
       "results": 10
     },
     {
-      "region": "若狭",
-      "query": "若狭 アオリイカ 釣行 釣果 2026",
+      "region": "越前",
+      "query": "越前 アオリイカ エギング 釣果 2026",
       "status": "ok",
       "results": 13
-    },
-    {
-      "region": "若狭",
-      "query": "若狭 アオリイカ ティップラン 釣果 水深 2026",
-      "status": "ok",
-      "results": 14
     },
     {
       "region": "若狭",
@@ -57,10 +45,22 @@
       "results": 13
     },
     {
+      "region": "若狭",
+      "query": "若狭 アオリイカ ティップラン 釣果 水深 2026",
+      "status": "ok",
+      "results": 15
+    },
+    {
       "region": "敦賀",
       "query": "敦賀 アオリイカ ティップラン 釣果 水深 2026",
       "status": "ok",
       "results": 14
+    },
+    {
+      "region": "若狭",
+      "query": "若狭 アオリイカ 釣行 釣果 2026",
+      "status": "ok",
+      "results": 13
     },
     {
       "region": "舞鶴",
@@ -69,8 +69,20 @@
       "results": 12
     },
     {
+      "region": "丹後",
+      "query": "丹後 アオリイカ エギング 釣果 2026",
+      "status": "ok",
+      "results": 11
+    },
+    {
       "region": "舞鶴",
       "query": "舞鶴 アオリイカ ティップラン 釣果 水深 2026",
+      "status": "ok",
+      "results": 12
+    },
+    {
+      "region": "丹後",
+      "query": "丹後 アオリイカ ティップラン 釣果 水深 2026",
       "status": "ok",
       "results": 12
     },
@@ -85,18 +97,6 @@
       "query": "舞鶴 アオリイカ 釣行 釣果 2026",
       "status": "ok",
       "results": 13
-    },
-    {
-      "region": "丹後",
-      "query": "丹後 アオリイカ エギング 釣果 2026",
-      "status": "ok",
-      "results": 11
-    },
-    {
-      "region": "丹後",
-      "query": "丹後 アオリイカ ティップラン 釣果 水深 2026",
-      "status": "ok",
-      "results": 12
     }
   ],
   "checks": [
@@ -106,29 +106,9 @@
       "domain": "instagram.com"
     },
     {
-      "url": "https://www.youtube.com/watch?v=06DMWgKWsYI",
-      "status": "skipped_domain",
-      "domain": "youtube.com"
-    },
-    {
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/86",
-      "status": "no_usable_signal",
-      "domain": "yamaria.com",
-      "area": "越前",
-      "signals": 0,
-      "adapter": "yamaria_city_cards"
-    },
-    {
       "url": "https://www.youtube.com/watch?v=-epG2AVxjMQ&vl=ja",
       "status": "skipped_domain",
       "domain": "youtube.com"
-    },
-    {
-      "url": "https://www.fishing-v.jp/premium/1577.html",
-      "status": "accepted",
-      "domain": "fishing-v.jp",
-      "area": "若狭",
-      "signals": 1
     },
     {
       "url": "https://www.instagram.com/p/DTKUtRTkmdq/",
@@ -141,15 +121,33 @@
       "domain": "youtube.com"
     },
     {
-      "url": "https://mobila-carlife.jp/fishing/503759/",
-      "status": "no_aori",
-      "domain": "mobila-carlife.jp"
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/86",
+      "status": "no_usable_signal",
+      "domain": "yamaria.com",
+      "area": "越前",
+      "signals": 0,
+      "adapter": "yamaria_city_cards"
     },
     {
-      "url": "https://fishing.ne.jp/area/maiduru-tobu?fish=fish-aoriika",
-      "status": "error",
-      "domain": "fishing.ne.jp",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/area/maiduru-tobu?fish=fish-aoriika"
+      "url": "https://www.fishing-v.jp/premium/1577.html",
+      "status": "accepted",
+      "domain": "fishing-v.jp",
+      "area": "若狭",
+      "signals": 1
+    },
+    {
+      "url": "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/20180825hukuieging/",
+      "status": "no_usable_signal",
+      "domain": "raitorua.com",
+      "area": "敦賀",
+      "signals": 0
+    },
+    {
+      "url": "https://tsurinews.jp/399665/",
+      "status": "no_usable_signal",
+      "domain": "tsurinews.jp",
+      "area": "若狭",
+      "signals": 0
     },
     {
       "url": "https://www.instagram.com/reel/DOxY1euE_gj/",
@@ -167,11 +165,15 @@
       "domain": "youtube.com"
     },
     {
-      "url": "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/20180825hukuieging/",
-      "status": "no_usable_signal",
-      "domain": "raitorua.com",
-      "area": "敦賀",
-      "signals": 0
+      "url": "https://fishing.ne.jp/area/maiduru-tobu?fish=fish-aoriika",
+      "status": "error",
+      "domain": "fishing.ne.jp",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/area/maiduru-tobu?fish=fish-aoriika"
+    },
+    {
+      "url": "https://sumizoku.com/date/2026?post_type=fishingreport",
+      "status": "skipped_listing",
+      "domain": "sumizoku.com"
     },
     {
       "url": "https://fishing.ne.jp/fishingpost/area/turuga-tobu?fish=fish-aoriika",
@@ -186,16 +188,12 @@
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/fishingpost/area/wakasa?fish=fish-aoriika"
     },
     {
-      "url": "https://tsurinews.jp/399665/",
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/114",
       "status": "no_usable_signal",
-      "domain": "tsurinews.jp",
-      "area": "若狭",
-      "signals": 0
-    },
-    {
-      "url": "https://www.youtube.com/shorts/bZNbDLEP8OU",
-      "status": "skipped_domain",
-      "domain": "youtube.com"
+      "domain": "yamaria.com",
+      "area": "舞鶴",
+      "signals": 0,
+      "adapter": "yamaria_city_cards"
     },
     {
       "url": "https://fishing.ne.jp/fishingpost/186839",
@@ -204,36 +202,7 @@
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/fishingpost/186839"
     },
     {
-      "url": "https://sumizoku.com/date/2026?post_type=fishingreport",
-      "status": "skipped_listing",
-      "domain": "sumizoku.com"
-    },
-    {
       "url": "https://m.youtube.com/watch?v=AmBH3-D0BOw",
-      "status": "skipped_domain",
-      "domain": "youtube.com"
-    },
-    {
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49732",
-      "status": "no_usable_signal",
-      "domain": "ishiguro-gr.com",
-      "area": "越前",
-      "signals": 0
-    },
-    {
-      "url": "https://www.instagram.com/p/DZba38FD9LM/",
-      "status": "skipped_domain",
-      "domain": "instagram.com"
-    },
-    {
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49461",
-      "status": "accepted",
-      "domain": "ishiguro-gr.com",
-      "area": "敦賀",
-      "signals": 1
-    },
-    {
-      "url": "https://www.youtube.com/watch?v=oiddNmYTxBM",
       "status": "skipped_domain",
       "domain": "youtube.com"
     },
@@ -245,6 +214,36 @@
       "signals": 0
     },
     {
+      "url": "https://www.instagram.com/p/DZba38FD9LM/",
+      "status": "skipped_domain",
+      "domain": "instagram.com"
+    },
+    {
+      "url": "https://mobila-carlife.jp/fishing/503759/",
+      "status": "no_aori",
+      "domain": "mobila-carlife.jp"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=oiddNmYTxBM",
+      "status": "skipped_domain",
+      "domain": "youtube.com"
+    },
+    {
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/115",
+      "status": "no_usable_signal",
+      "domain": "yamaria.com",
+      "area": "丹後",
+      "signals": 0,
+      "adapter": "yamaria_city_cards"
+    },
+    {
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49732",
+      "status": "no_usable_signal",
+      "domain": "ishiguro-gr.com",
+      "area": "越前",
+      "signals": 0
+    },
+    {
       "url": "https://familyfishing.hatenablog.com/entry/2026/08/27/161320",
       "status": "no_usable_signal",
       "domain": "hatenablog.com",
@@ -252,10 +251,10 @@
       "signals": 0
     },
     {
-      "url": "https://www.taikobo.net/detail.php?id=7356",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49461",
       "status": "accepted",
-      "domain": "taikobo.net",
-      "area": "舞鶴",
+      "domain": "ishiguro-gr.com",
+      "area": "敦賀",
       "signals": 1
     },
     {
@@ -267,20 +266,6 @@
       "adapter": "yamaria_city_cards"
     },
     {
-      "url": "https://asobi-o-fukabori.com/2026-fihing-results/8624/",
-      "status": "accepted",
-      "domain": "asobi-o-fukabori.com",
-      "area": "越前",
-      "signals": 1
-    },
-    {
-      "url": "https://www.minamiechizen.com/event/90905/",
-      "status": "no_usable_signal",
-      "domain": "minamiechizen.com",
-      "area": "越前",
-      "signals": 0
-    },
-    {
       "url": "https://shishimarufishing.blog.jp/archives/41879145.html",
       "status": "no_usable_signal",
       "domain": "blog.jp",
@@ -288,16 +273,11 @@
       "signals": 0
     },
     {
-      "url": "https://fishing-point.jp/fishing/",
-      "status": "no_usable_signal",
-      "domain": "fishing-point.jp",
-      "area": "越前",
-      "signals": 0
-    },
-    {
-      "url": "https://anglers.jp/areas/460/fishes/103/catches",
-      "status": "no_aori",
-      "domain": "anglers.jp"
+      "url": "https://www.taikobo.net/detail.php?id=7356",
+      "status": "accepted",
+      "domain": "taikobo.net",
+      "area": "舞鶴",
+      "signals": 1
     },
     {
       "url": "https://anglers.jp/fishes/103",
@@ -312,15 +292,36 @@
       "signals": 0
     },
     {
+      "url": "https://www.taikobo.net/detail.php?id=6703",
+      "status": "no_usable_signal",
+      "domain": "taikobo.net",
+      "area": "若狭",
+      "signals": 0
+    },
+    {
+      "url": "https://www.minamiechizen.com/event/90905/",
+      "status": "no_usable_signal",
+      "domain": "minamiechizen.com",
+      "area": "越前",
+      "signals": 0
+    },
+    {
+      "url": "https://asobi-o-fukabori.com/2026-fihing-results/8624/",
+      "status": "accepted",
+      "domain": "asobi-o-fukabori.com",
+      "area": "越前",
+      "signals": 1
+    },
+    {
       "url": "https://www.johshuya.co.jp/sp/shop/choka.php?s=151",
       "status": "skipped_listing",
       "domain": "johshuya.co.jp"
     },
     {
-      "url": "https://www.taikobo.net/detail.php?id=6703",
+      "url": "https://fishing-point.jp/fishing/",
       "status": "no_usable_signal",
-      "domain": "taikobo.net",
-      "area": "若狭",
+      "domain": "fishing-point.jp",
+      "area": "越前",
       "signals": 0
     },
     {
@@ -341,41 +342,29 @@
       "signals": 1
     },
     {
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=41433",
-      "status": "accepted",
-      "domain": "ishiguro-gr.com",
-      "area": "若狭",
-      "signals": 1
-    },
-    {
-      "url": "https://wakasa-nakamura.com/post-16709/",
+      "url": "https://www.tsurisoku.com/news/125575/",
       "status": "no_usable_signal",
-      "domain": "wakasa-nakamura.com",
-      "area": "若狭",
+      "domain": "tsurisoku.com",
+      "area": "舞鶴",
       "signals": 0
     },
     {
-      "url": "https://ameblo.jp/jfikobe/entry-12979182504.html",
+      "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=598&pageID=32",
       "status": "accepted",
-      "domain": "ameblo.jp",
-      "area": "丹後",
+      "domain": "fishing-v.jp",
+      "area": "若狭",
       "signals": 1
+    },
+    {
+      "url": "https://anglers.jp/areas/914/fishes/3",
+      "status": "no_aori",
+      "domain": "anglers.jp"
     },
     {
       "url": "https://fishing.ne.jp/fishingpost/area/fukui?fish=fish-aoriika",
       "status": "error",
       "domain": "fishing.ne.jp",
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://fishing.ne.jp/fishingpost/area/fukui?fish=fish-aoriika"
-    },
-    {
-      "url": "https://anglers.jp/areas/2473/fishes/3",
-      "status": "no_aori",
-      "domain": "anglers.jp"
-    },
-    {
-      "url": "https://anglers.jp/areas/914/fishes/3",
-      "status": "no_aori",
-      "domain": "anglers.jp"
     },
     {
       "url": "https://www.instagram.com/reel/DRlNm9iknwz/",
@@ -388,17 +377,34 @@
       "domain": "anglers.jp"
     },
     {
-      "url": "https://www.tsurisoku.com/news/125575/",
+      "url": "https://anglers.jp/areas/2473/fishes/3",
+      "status": "no_aori",
+      "domain": "anglers.jp"
+    },
+    {
+      "url": "https://ameblo.jp/jfikobe/entry-12979182504.html",
+      "status": "accepted",
+      "domain": "ameblo.jp",
+      "area": "丹後",
+      "signals": 1
+    },
+    {
+      "url": "https://tsurineta.69moons.com/fishing-shirasugi-20201101/",
       "status": "no_usable_signal",
-      "domain": "tsurisoku.com",
+      "domain": "69moons.com",
       "area": "舞鶴",
       "signals": 0
     },
     {
-      "url": "https://daiwachannel.gallery.video/detail/video/6385894687112",
+      "url": "https://fishcast.jp/spots/maejima-wharf/aoriika",
+      "status": "skipped_domain",
+      "domain": "fishcast.jp"
+    },
+    {
+      "url": "https://wakasa-nakamura.com/post-16709/",
       "status": "no_usable_signal",
-      "domain": "gallery.video",
-      "area": "敦賀",
+      "domain": "wakasa-nakamura.com",
+      "area": "若狭",
       "signals": 0
     },
     {
@@ -409,9 +415,38 @@
       "signals": 0
     },
     {
-      "url": "https://fishcast.jp/spots/maejima-wharf/aoriika",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=41433",
+      "status": "accepted",
+      "domain": "ishiguro-gr.com",
+      "area": "若狭",
+      "signals": 1
+    },
+    {
+      "url": "https://fishcast.jp/spots/maizuru-shinkai-park/aoriika",
       "status": "skipped_domain",
       "domain": "fishcast.jp"
+    },
+    {
+      "url": "https://daiwachannel.gallery.video/detail/video/6385894687112",
+      "status": "no_usable_signal",
+      "domain": "gallery.video",
+      "area": "敦賀",
+      "signals": 0
+    },
+    {
+      "url": "https://www.yamaria.com/community/catch/egiou/cities/84",
+      "status": "no_usable_signal",
+      "domain": "yamaria.com",
+      "area": "若狭",
+      "signals": 0,
+      "adapter": "yamaria_city_cards"
+    },
+    {
+      "url": "https://weekendfield.com/autumn-squid-fishing-maizuru-miyazu/",
+      "status": "no_usable_signal",
+      "domain": "weekendfield.com",
+      "area": "舞鶴",
+      "signals": 0
     },
     {
       "url": "https://ameblo.jp/todegennki/entry-12409553083.html",
@@ -421,10 +456,10 @@
       "signals": 0
     },
     {
-      "url": "https://blog.tenryu-magna.com/%E4%B8%B9%E5%BE%8C%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3%E9%87%A3%E8%A1%8C/",
+      "url": "https://bunbun-fishing.com/fishing/187848/",
       "status": "no_usable_signal",
-      "domain": "tenryu-magna.com",
-      "area": "丹後",
+      "domain": "bunbun-fishing.com",
+      "area": "舞鶴",
       "signals": 0
     },
     {
@@ -435,50 +470,49 @@
       "signals": 0
     },
     {
-      "url": "https://tsurineta.69moons.com/fishing-shirasugi-20201101/",
-      "status": "no_usable_signal",
-      "domain": "69moons.com",
-      "area": "舞鶴",
-      "signals": 0
-    },
-    {
       "url": "https://zuishomaru.com/",
       "status": "error",
       "domain": "zuishomaru.com",
       "error": "RetryError: HTTPSConnectionPool(host='zuishomaru.com', port=443): Max retries exceeded with url: / (Caused by ResponseError('too many 503 error responses'))"
     },
     {
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/114",
-      "status": "no_usable_signal",
-      "domain": "yamaria.com",
-      "area": "舞鶴",
-      "signals": 0,
-      "adapter": "yamaria_city_cards"
-    },
-    {
       "url": "https://www.marineplaza-marina.com/?p=56688",
       "status": "error",
       "domain": "marineplaza-marina.com",
       "error": "ConnectionError: HTTPSConnectionPool(host='www.marineplaza-marina.com', port=443): Max retries exceeded with url: /?p=56688 (Caused by NameResolutionError(\"HTTPSConnection(host='www.marineplaza-marina.com', port=443): Fa"
-    },
-    {
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/115",
-      "status": "no_usable_signal",
-      "domain": "yamaria.com",
-      "area": "丹後",
-      "signals": 0,
-      "adapter": "yamaria_city_cards"
-    },
-    {
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/84",
-      "status": "no_usable_signal",
-      "domain": "yamaria.com",
-      "area": "若狭",
-      "signals": 0,
-      "adapter": "yamaria_city_cards"
     }
   ],
   "signals": [
+    {
+      "id": "search-signal-70be40215483ab04",
+      "date": "2026-10-07",
+      "area": "若狭",
+      "type": "boat",
+      "method": "船",
+      "time_mode": "unknown",
+      "evidence_role": "catch",
+      "source": "fishing-v.jp",
+      "source_kind": "web_report",
+      "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=598&pageID=32",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
+      "detail_url": "https://www.fishing-v.jp/choka/choka_detail.php?s=598&pageID=32",
+      "evidence_scope": "search_verified_detail",
+      "search_query_region": "若狭",
+      "search_discovery": true
+    },
     {
       "id": "search-signal-b5342e5f79d1d6d5",
       "date": "2026-10-05",

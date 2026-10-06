@@ -1,22 +1,22 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T08:56:55+09:00",
+  "updated_at": "2026-10-07T08:57:45+09:00",
   "source_updated_at": {
     "direct": "2026-10-07T08:51:49+09:00",
     "hot": "2026-10-07T08:51:50+09:00",
     "broad": "2026-10-07T08:17:55+09:00",
-    "search": "2026-10-07T08:56:06+09:00"
+    "search": "2026-10-07T08:57:07+09:00"
   },
   "note": "V4.1 canonical live feed. Direct reports, fixed-source A/B evidence, and verified dynamic web reports are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 133,
+    "total": 134,
     "shore": 75,
-    "boat": 58,
+    "boat": 59,
     "direct": 72,
-    "supplementary": 61,
+    "supplementary": 62,
     "hot": 9,
     "broad": 45,
-    "search": 7
+    "search": 8
   },
   "catches": [
     {
@@ -58,6 +58,44 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-a0dea6b258a2511288",
+      "date": "2026-10-07",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "船",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "fishing-v.jp",
+      "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=598&pageID=32",
+      "title": "fishing-v.jp / 船・信頼度B / ベイト:アジ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "search",
+      "origin_signal_id": "search-signal-70be40215483ab04",
+      "evidence_confidence": "B",
+      "quality_score": 68,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-bb04da7331abb9698e",
