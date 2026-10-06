@@ -645,8 +645,46 @@ def split_detail_segments(text, page_date):
         if out:
             return out
     if page_date:
+        # Many tackle-shop pages print publication date first and the actual
+        # trip date immediately below it. Prefer a distinct recent date in the
+        # first part of the article, but only when it is not newer than publish.
+        try:
+            pub = datetime.strptime(page_date, "%Y-%m-%d").date()
+        except Exception:
+            pub = None
+        if pub:
+            for m in DATE_RE.finditer(normalized[:1600]):
+                d = parse_date(m.group(0))
+                if not d or d == page_date:
+                    continue
+                try:
+                    dd = datetime.strptime(d, "%Y-%m-%d").date()
+                except Exception:
+                    continue
+                if timedelta(0) <= (pub - dd) <= timedelta(days=14):
+                    return [(d, normalized[:5000])]
         return [(page_date, normalized[:5000])]
     return split_recent_segments(normalized)
+
+
+ARTICLE_STOP_MARKERS = (
+    "釣り情報一覧へ戻る",
+    "同じ釣魚の記事",
+    "関連記事",
+    "釣果アクセスランキング",
+    "この記事を印刷する",
+    "釣りたすぎて、我慢できませんでした。",
+    "公式SNSもチェック！",
+)
+
+def trim_article_tail(text):
+    text = normalize(text)
+    cut = len(text)
+    for marker in ARTICLE_STOP_MARKERS:
+        pos = text.find(marker)
+        if 120 <= pos < cut:
+            cut = pos
+    return text[:cut].strip()
 
 
 def extract_primary_detail_text(soup, source):
@@ -664,7 +702,7 @@ def extract_primary_detail_text(soup, source):
         if node:
             txt = normalize(node.get_text(" ", strip=True))
             if len(txt) >= 80:
-                return txt[: int(source.get("detail_text_limit", 7000))]
+                return trim_article_tail(txt)[: int(source.get("detail_text_limit", 7000))]
 
     page_title = normalize(work.title.get_text(" ", strip=True) if work.title else "")
     headings = []
@@ -687,16 +725,16 @@ def extract_primary_detail_text(soup, source):
                 best = txt
                 break
         if best:
-            return best[: int(source.get("detail_text_limit", 7000))]
+            return trim_article_tail(best)[: int(source.get("detail_text_limit", 7000))]
 
     for sel in ("article", "main", "[role=main]"):
         node = work.select_one(sel)
         if node:
             txt = normalize(node.get_text(" ", strip=True))
             if len(txt) >= 120:
-                return txt[: int(source.get("detail_text_limit", 7000))]
+                return trim_article_tail(txt)[: int(source.get("detail_text_limit", 7000))]
 
-    return normalize(work.get_text(" ", strip=True))[: int(source.get("detail_text_limit", 7000))]
+    return trim_article_tail(work.get_text(" ", strip=True))[: int(source.get("detail_text_limit", 7000))]
 
 
 def fetch_detail_signals(source, detail_urls, sess):
