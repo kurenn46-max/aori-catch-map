@@ -62,6 +62,7 @@ jobs:
                   assert x.get("region_explicit") is True, x
               if x["tier"] == "B":
                   assert x.get("page_freshness") in ("current_30d","current_90d"), x
+                  assert x.get("page_title_target_hits"), x
               if x["tier"] == "A":
                   assert x.get("page_direct_identity") is True, x
                   assert x.get("source_type") != "aggregator", x
