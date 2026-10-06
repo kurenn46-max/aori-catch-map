@@ -88,6 +88,12 @@ SOURCES = [
         "detail_patterns": [r"/entry-\d+\.html"],
     },
     {
+        "name": "雲丸 若狭",
+        "kind": "charter",
+        "url": "https://kumomaru.net/result/",
+        "detail_patterns": [r"/result/detail/\\?id=\\d+"],
+    },
+    {
         "name": "小浜マリーナ",
         "kind": "marina",
         "url": "https://www.obama-marina.com/catch/index.php",
