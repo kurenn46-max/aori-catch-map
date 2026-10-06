@@ -245,6 +245,7 @@ def probe(source):
         title = clean(soup.title.get_text(" ", strip=True) if soup.title else "")
         text = clean(soup.get_text(" ", strip=True))
         links = [a.get("href", "") for a in soup.find_all("a", href=True)]
+        detailish_links = [href for href in links if ("detail" in href.lower() or "id=" in href.lower())]
 
         details = set()
         for href in links:
@@ -268,6 +269,7 @@ def probe(source):
             "title": title[:180],
             "text_chars": len(text),
             "anchor_count": len(links),
+            "detailish_link_samples": detailish_links[:12],
             "detail_link_count": len(details),
             "detail_link_samples": sorted(details)[:8],
             "date_mentions": len(dates),
