@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T08:32:58+09:00",
+  "updated_at": "2026-10-07T08:34:15+09:00",
   "source_updated_at": {
-    "direct": "2026-10-07T08:32:23+09:00",
-    "hot": "2026-10-07T08:32:25+09:00",
+    "direct": "2026-10-07T08:33:36+09:00",
+    "hot": "2026-10-07T08:33:38+09:00",
     "broad": "2026-10-07T08:17:55+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 133,
-    "shore": 78,
+    "total": 131,
+    "shore": 76,
     "boat": 55,
     "direct": 72,
-    "supplementary": 61,
-    "hot": 16,
-    "broad": 45
+    "supplementary": 59,
+    "hot": 13,
+    "broad": 46
   },
   "catches": [
     {
@@ -438,50 +438,6 @@
       "supplementary": false,
       "source_mode": "shore",
       "feed_seen_at": "2026-10-05T19:06:00+09:00"
-    },
-    {
-      "id": "v4-6a95cd6ca2658a6619",
-      "date": "2026-10-05",
-      "area": "越前",
-      "place": "越前",
-      "lat": 35.914,
-      "lng": 135.991,
-      "type": "shore",
-      "source_mode": "shore",
-      "method": "エギング",
-      "count": null,
-      "count_mentions": [
-        1,
-        2,
-        5
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "墨族",
-      "url": "https://sumizoku.com/fishingreport/19734",
-      "title": "墨族 / 岸・信頼度A / ベイト:キビナゴ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-06c7d738ec0ea13a",
-      "evidence_confidence": "A",
-      "quality_score": 80,
-      "supplementary": true,
-      "bait_signals": [
-        "キビナゴ"
-      ],
-      "negative_signals": [
-        "渋い"
-      ],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
     },
     {
       "id": "v4-ca9ea611bc5ce0e015",
@@ -2260,7 +2216,7 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-3d2aca890552a06807",
+      "id": "v4-46bed613d959305a54",
       "date": "2026-09-30",
       "area": "舞鶴",
       "place": "舞鶴",
@@ -2283,7 +2239,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-32cb2e01b01e7927",
       "evidence_confidence": "A",
       "quality_score": 75,
@@ -2836,45 +2792,6 @@
       "supplementary": false,
       "source_mode": "shore",
       "feed_seen_at": null
-    },
-    {
-      "id": "v4-0dcb9d630f1c9101ff",
-      "date": "2026-09-26",
-      "area": "越前",
-      "place": "越前",
-      "lat": 35.914,
-      "lng": 135.991,
-      "type": "shore",
-      "source_mode": "shore",
-      "method": "エギング",
-      "count": null,
-      "count_mentions": [
-        1,
-        7
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "墨族",
-      "url": "https://sumizoku.com/fishingreport/19718",
-      "title": "墨族 / 岸・信頼度A",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-e0d4c3ea6e14ce83",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
     },
     {
       "id": "v4-6da6bd8934f20fd770",
