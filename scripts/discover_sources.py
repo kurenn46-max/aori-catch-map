@@ -255,6 +255,7 @@ def verify_page(candidate):
         direct_in_intro = any(w in intro for w in identity_words)
         ops_hits = sum(1 for w in ops_words if w in intro)
         out["page_title"] = page_title[:220]
+        out["page_title_target_hits"] = [w for w in TARGET_WORDS + ("秋イカ",) if w in page_title]
         # Primary-source status must be visible in the page title itself.
         # Article bodies often mention a skipper/charter they visited, which
         # must not turn a personal/media article into a primary source.
@@ -387,6 +388,7 @@ def main():
             and row["score"] >= 55
             and row.get("region_explicit")
             and page_recent
+            and row.get("page_title_target_hits")
         ):
             tier = "B"
         else:
