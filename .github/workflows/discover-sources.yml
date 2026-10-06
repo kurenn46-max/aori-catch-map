@@ -71,4 +71,5 @@ jobs:
             exit 0
           fi
           git commit -m "Update aori source candidates"
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin HEAD:"$GITHUB_REF_NAME"
