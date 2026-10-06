@@ -1,11 +1,11 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T08:53:15+09:00",
+  "updated_at": "2026-10-07T08:56:55+09:00",
   "source_updated_at": {
     "direct": "2026-10-07T08:51:49+09:00",
     "hot": "2026-10-07T08:51:50+09:00",
     "broad": "2026-10-07T08:17:55+09:00",
-    "search": "2026-10-07T08:52:40+09:00"
+    "search": "2026-10-07T08:56:06+09:00"
   },
   "note": "V4.1 canonical live feed. Direct reports, fixed-source A/B evidence, and verified dynamic web reports are merged without inventing exact counts or exact spots.",
   "counts": {

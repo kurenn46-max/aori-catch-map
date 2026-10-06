@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T08:53:15+09:00",
+  "updated_at": "2026-10-07T08:56:55+09:00",
   "architecture": "direct + 30min hot shore + broad deep + verified 2h web discovery -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
@@ -311,7 +311,7 @@
       "source": "Verified web report discovery",
       "status": "ok",
       "lane": "search",
-      "checked_at": "2026-10-07T08:52:40+09:00",
+      "checked_at": "2026-10-07T08:56:06+09:00",
       "accepted_signals": 7
     }
   ],
@@ -328,7 +328,7 @@
       "sources": 24
     },
     "search": {
-      "updated_at": "2026-10-07T08:52:40+09:00",
+      "updated_at": "2026-10-07T08:56:06+09:00",
       "queries": 15,
       "verified_pages": 7,
       "signals": 7
