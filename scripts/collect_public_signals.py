@@ -306,7 +306,7 @@ def detect_evidence_role(text):
 
 def detect_time_mode(text):
     t = normalize(text)
-    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
+    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "朝便", "午前便", "午後便"))
     night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便"))
     if day_hits and night_hits:
         return "mixed"
@@ -576,7 +576,7 @@ def split_day_heading_segments(text, anchor_date=None):
                 continue
         age = (anchor - candidate).days
         if 0 <= age <= WINDOW_DAYS:
-            end = matches[i + 1].start() if i + 1 < len(matches) else min(len(normalized), m.start() + 2200)
+            end = matches[i + 1].start() if i + 1 < len(matches) else min(len(normalized), m.start() + 800)
             out.append((candidate.isoformat(), normalized[m.start():end]))
         cursor = candidate
     return out
