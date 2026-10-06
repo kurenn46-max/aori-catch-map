@@ -103,7 +103,7 @@ SOURCES = [
         "name": "福丸 小浜",
         "kind": "charter",
         "url": "https://www.e-fukumaru.com/",
-        "detail_patterns": [r"/choka", r"/catch", r"/blog", r"/news"],
+        "detail_patterns": [r"/tyoka/\d+"],
     },
     {
         "name": "SUPER VIKING 小浜",
