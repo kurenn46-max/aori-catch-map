@@ -26,8 +26,21 @@ EXTRA_SOURCES = [
         "kind": "tackle_shop_media",
         "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
         "default_area": None,
-        "detail_patterns": [r"/fishinginfo/page\.html\?info_code=\d+", r"/fishinginfo/.*\d+"],
-        "detail_limit": 18,
+        "detail_patterns": [r"/fishinginfo/finfo_page\.html\?choka_idx=\d+"],
+        "detail_limit": 40,
+        "detail_only": True,
+    },
+    {
+        "name": "FISHERS 福井店",
+        "kind": "tackle_shop_media",
+        "url": "https://www.fishers.co.jp/allpages/?staff_code=16",
+        "default_area": None,
+        "detail_patterns": [
+            r"/fishinginfo/finfo_page\.html\?choka_idx=\d+",
+            r"/shopinfo/page\.html\?topic_code=\d+",
+        ],
+        "detail_limit": 30,
+        "detail_only": True,
     },
     {
         "name": "アングラーズ日本海",
