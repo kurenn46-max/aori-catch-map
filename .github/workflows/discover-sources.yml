@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "23 21 * * *"
   push:
-    branches: [main, "feat/keyword-discovery-*"]
+    branches: [main]
     paths:
       - "scripts/discover_sources.py"
       - ".github/workflows/discover-sources.yml"
@@ -54,7 +54,6 @@ jobs:
           print("candidate queue PASS",len(rows),d.get("tier_counts"))
           PY
       - name: Commit candidate queue
-        if: github.ref_name == 'main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
