@@ -192,6 +192,7 @@ const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),int
 let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},strategyData={areas:[]},targetDayOffset=0;
 const API_CACHE=new Map();
 let targetRequestSeq=0;
+let viewRequestSeq=0;
 const DATA_FILES=[
   ['catches','./data/catches.json'],
   ['summary','./data/summary.json'],
@@ -296,13 +297,14 @@ function dateMatch(s){
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function render(){
+  const requestSeq=++viewRequestSeq;
   groups.shore.clearLayers();groups.boat.clearLayers();groups.intel.clearLayers();
   const area=document.getElementById('area').value;
   if(viewMode!=='catch'){
     map.removeLayer(groups.shore);map.removeLayer(groups.boat);
     if(!map.hasLayer(groups.intel))groups.intel.addTo(map);
-    if(viewMode==='sea'){renderSea(area);return}
-    if(viewMode==='shelter'){renderShelter(area);return}
+    if(viewMode==='sea'){renderSea(area,requestSeq);return}
+    if(viewMode==='shelter'){renderShelter(area,requestSeq);return}
     renderIntel(area);return;
   }
   map.removeLayer(groups.intel);
@@ -353,7 +355,7 @@ function renderIntel(area){
   const labels={pressure:'人圧・スレ',bait:'ベイト',local:'現地状況',shelter:'風裏候補'};
   document.getElementById('status').textContent=(labels[viewMode]||'情報')+'：'+rows.length+'件';
 }
-async function renderSea(area){
+async function renderSea(area,requestSeq){
   document.getElementById('status').textContent='海況を取得中…';
   const targets=SEA_AREAS.filter(x=>area==='all'||x.area===area);
   let ok=0;
@@ -362,6 +364,7 @@ async function renderSea(area){
       const weatherUrl=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
       const marineUrl=`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&current=wave_height,swell_wave_height,sea_surface_temperature,sea_level_height_msl,ocean_current_velocity&timezone=Asia%2FTokyo`;
       const [w,m]=await Promise.all([fetchJson(weatherUrl,{cacheMs:600000}),fetchJson(marineUrl,{cacheMs:600000})]);
+      if(requestSeq!==viewRequestSeq || viewMode!=='sea')return;
       const wc=w.current||{},mc=m.current||{};
       const popup=`<div class="pop"><h3>${p.area} 海況</h3><div class="meta">
         風：<b>${wc.wind_speed_10m??'—'} m/s</b>　最大瞬間風速 ${wc.wind_gusts_10m??'—'} m/s<br>
@@ -374,6 +377,7 @@ async function renderSea(area){
       L.marker([p.lat,p.lng],{icon:seaIcon()}).bindPopup(popup).addTo(groups.intel);ok++;
     }catch(e){console.error(e)}
   }));
+  if(requestSeq!==viewRequestSeq || viewMode!=='sea')return;
   document.getElementById('spotCount').textContent=ok;
   document.getElementById('shoreCount').textContent='—';
   document.getElementById('boatCount').textContent='—';
@@ -404,14 +408,16 @@ function shelterIcon(level){
   const cls=level.includes('◎')?'shelterGood':level.includes('○')||level.includes('やや')?'shelterMid':'shelterBad';
   return L.divIcon({className:'',html:`<div class="intelMarker ${cls}">🛡</div>`,iconSize:[30,30],iconAnchor:[15,15]});
 }
-async function renderShelter(area){
+async function renderShelter(area,requestSeq){
   document.getElementById('status').textContent='風裏候補を計算中…';
   const rows=windShelters.filter(x=>area==='all'||x.area===area);
   let ok=0,good=0;
   await Promise.all(rows.map(async spot=>{
     try{
       const url=`https://api.open-meteo.com/v1/forecast?latitude=${spot.lat}&longitude=${spot.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
-      const w=await fetchJson(url,{cacheMs:600000}),c=w.current||{};
+      const w=await fetchJson(url,{cacheMs:600000});
+      if(requestSeq!==viewRequestSeq || viewMode!=='shelter')return;
+      const c=w.current||{};
       const wind=Number(c.wind_speed_10m),dir=Number(c.wind_direction_10m),gust=Number(c.wind_gusts_10m);
       const est=shelterEstimate(spot,dir,wind);
       if(est.score>=2)good++;
@@ -426,6 +432,7 @@ async function renderShelter(area){
       L.marker([spot.lat,spot.lng],{icon:shelterIcon(est.level)}).bindPopup(popup).addTo(groups.intel);ok++;
     }catch(e){console.error(e)}
   }));
+  if(requestSeq!==viewRequestSeq || viewMode!=='shelter')return;
   document.getElementById('spotCount').textContent=ok;
   document.getElementById('shoreCount').textContent='🛡'+good;
   document.getElementById('boatCount').textContent='—';
@@ -517,6 +524,7 @@ function renderStrategy(){
     const trend=r.trend==='up'?'↗ 上向き':r.trend==='down'?'↘ 減少':r.trend==='new'?'● 新規':'→ 横ばい';
     const neg=r.negative_7d||{};
     const negatives=(neg.blank||0)+(neg.chase_only||0)+(neg.sighting_only||0);
+    const shoreContext=r.shore_context||{};
     const boat=r.boat_context||{};
     const dayDepth=(boat.day_depth_signals||[])[0]||null;
     const nightDepth=(boat.night_depth_signals||[])[0]||null;
@@ -536,6 +544,11 @@ function renderStrategy(){
         ベイト材料 ${r.bait_recent||0}件　人圧材料 ${r.pressure_recent||0}件　現地ルール ${r.local_active||0}件
       </div>
       <div class="rankDetails" style="margin-top:9px;border-top:1px solid #24445e;padding-top:8px">
+        <b>🔎 外部補助釣果（岸・別枠）</b><br>
+        最新：${esc(shoreContext.latest_date||'なし')}　48h ${shoreContext.last48_signals||0}件　7日 ${shoreContext.last7_signals||0}件　情報源 ${shoreContext.sources_7d||0}<br>
+        <span class="warnText">※上州屋・釣具店記事などの横断探索。地点/杯数が不十分な場合があるため、岸の実釣セッション数やA/B/Cへ直接加点しません。</span>
+      </div>
+      <div class="rankDetails" style="margin-top:9px;border-top:1px solid #24445e;padding-top:8px">
         <b>🚤 沖の実測（岸評価とは別枠）</b><br>
         最新：${esc(boat.latest_date||'なし')}　7日実釣 ${boat.last7_sessions||0}　昼 ${boat.day_sessions_7d||0} / 夜 ${boat.night_sessions_7d||0}　14日情報源 ${boat.sources_14d||0}<br>
         <b>昼レンジ：</b>${dayDepth?boatDepthLabel(dayDepth):'実測なし'}<br>
@@ -544,7 +557,7 @@ function renderStrategy(){
       </div>`;
     grid.appendChild(c);
   });
-  document.getElementById('strategyMeta').textContent='岸：48h＋7日＋30日 / 沖：昼夜・水深を別枠表示（岸点数へ非加点）';
+  document.getElementById('strategyMeta').textContent='岸：48h＋7日＋30日 / 外部岸補助＋沖情報は別枠表示（岸点数へ非加点）';
 }
 
 function renderFreshness(){
