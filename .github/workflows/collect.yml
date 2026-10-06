@@ -6,7 +6,8 @@ on:
     paths:
       - "scripts/collect.py"
       - "scripts/collect_public_signals.py"
-      - "scripts/promote_shore_signals.py"
+      - "scripts/v4_collect_hot.py"
+      - "scripts/v4_build_feed.py"
       - "scripts/build_strategy.py"
       - "scripts/archive_and_summary.py"
       - "scripts/build_tide_patterns.py"
@@ -14,7 +15,7 @@ on:
       - "data/source-registry.json"
       - "data/intel.json"
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "17 */4 * * *"
 permissions:
   contents: write
 concurrency:
@@ -39,19 +40,21 @@ jobs:
       - name: Install collector dependencies
         run: pip install --disable-pip-version-check requests beautifulsoup4
       - name: Syntax check
-        run: python -m py_compile scripts/collect.py scripts/collect_public_signals.py scripts/promote_shore_signals.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
+        run: python -m py_compile scripts/collect.py scripts/collect_public_signals.py scripts/v4_collect_hot.py scripts/v4_build_feed.py scripts/archive_and_summary.py scripts/build_tide_patterns.py scripts/build_strategy.py
       - name: Collect direct catches and source health
         run: python scripts/collect.py
       - name: Collect multi-source public signals
         run: python scripts/collect_public_signals.py --output data/discovery-signals.json
-      - name: Promote trusted shore signals into supplementary map rows
-        run: python scripts/promote_shore_signals.py
+      - name: Refresh V4 shore-first hot lane
+        run: python scripts/v4_collect_hot.py
       - name: Rebuild permanent archive and trends
         run: python scripts/archive_and_summary.py
       - name: Rebuild tide patterns
         run: python scripts/build_tide_patterns.py
       - name: Build eging strategy signals
         run: python scripts/build_strategy.py
+      - name: Build V4 canonical live feed
+        run: python scripts/v4_build_feed.py
       - name: Validate generated JSON
         run: |
           python - <<'PY'
@@ -67,6 +70,9 @@ jobs:
               "data/archive/2026.json",
               "data/tide-patterns.json",
               "data/strategy.json",
+              "data/v4-hot-signals.json",
+              "data/live-feed.json",
+              "data/v4-health.json",
           ]
           for p in paths:
               json.loads(Path(p).read_text(encoding="utf-8"))
@@ -128,13 +134,20 @@ jobs:
               for sig in boat.get("night_depth_signals",[]):
                   if sig.get("time_mode") != "night":
                       raise SystemExit(f"non-night signal in night boat context: {sig}")
-          print(f"validated catches={len(catches)} discovery={len(signals)} trusted={trusted} strategy_areas={len(strategy.get('areas', []))}")
+          live=json.loads(Path("data/live-feed.json").read_text(encoding="utf-8"))
+          health=json.loads(Path("data/v4-health.json").read_text(encoding="utf-8"))
+          live_rows=live.get("catches",[])
+          if not live_rows or not any(x.get("type")=="shore" for x in live_rows):
+              raise SystemExit("V4 live feed missing shore evidence")
+          if live.get("version") != 4 or health.get("version") != 4:
+              raise SystemExit("V4 feed/health version mismatch")
+          print(f"validated catches={len(catches)} discovery={len(signals)} trusted={trusted} live={len(live_rows)} strategy_areas={len(strategy.get('areas', []))}")
           PY
       - name: Commit generated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/catches.json data/source-status.json data/discovery-signals.json data/archive data/summary.json data/tide-patterns.json data/strategy.json
+          git add data/catches.json data/source-status.json data/discovery-signals.json data/v4-hot-signals.json data/live-feed.json data/v4-health.json data/archive data/summary.json data/tide-patterns.json data/strategy.json
           if git diff --cached --quiet; then
             echo "No generated changes"
             exit 0
