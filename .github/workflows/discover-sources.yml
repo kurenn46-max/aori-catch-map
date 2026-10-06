@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: "23 21 * * *"
   push:
-    branches: [main]
+    branches:
+      - main
+      - "feat/source-discovery-v3-*"
     paths:
       - "scripts/discover_sources.py"
       - ".github/workflows/discover-sources.yml"
@@ -40,8 +42,10 @@ jobs:
           import json
           from pathlib import Path
           d=json.loads(Path("data/source-candidates.json").read_text(encoding="utf-8"))
-          assert d["query_count"] == 18
+          assert d["query_count"] == 36
           assert d["query_ok"] >= 12
+          expected_focuses={"boat_source","boat_depth","boat_marina","shore_catch","shore_negative","bait_presence"}
+          assert set(d.get("focus_counts",{})) == expected_focuses, d.get("focus_counts")
           rows=d.get("candidates",[])
           assert rows
           site_keys=[x.get("site_key") for x in rows]
@@ -51,6 +55,8 @@ jobs:
                   assert x.get(k) not in (None,""), (k,x)
               assert x["tier"] in ("A","B","C")
               assert x.get("auto_promote") is False
+              assert x.get("focuses"), x
+              assert set(x.get("focuses",[])).issubset(expected_focuses), x
               if x["tier"] in ("A","B"):
                   assert x.get("verified") is True, x
                   assert x.get("region_explicit") is True, x
@@ -60,6 +66,7 @@ jobs:
           print("candidate queue PASS",len(rows),d.get("tier_counts"))
           PY
       - name: Commit candidate queue
+        if: github.ref_name == 'main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
