@@ -159,6 +159,7 @@ SOURCES = [
         "default_area": None,
         "detail_patterns": [r"/enjoy/fishing/detail\.php\?id=\d+"],
         "detail_limit": 20,
+        "detail_only": True,
     },
     {
         "name": "ブンブン釣行記",
@@ -167,30 +168,7 @@ SOURCES = [
         "default_area": None,
         "detail_patterns": [r"/fishing/\d+"],
         "detail_limit": 10,
-    },
-    {
-        "name": "カンパリ福井",
-        "kind": "community_media",
-        "url": "https://fishing.ne.jp/area/fukui?fish=fish-aoriika",
-        "default_area": None,
-        "detail_patterns": [r"/fishingpost/\d+"],
-        "detail_limit": 16,
-    },
-    {
-        "name": "カンパリ若狭",
-        "kind": "community_media",
-        "url": "https://fishing.ne.jp/fishingpost/area/wakasa?fish=fish-aoriika",
-        "default_area": "若狭",
-        "detail_patterns": [r"/fishingpost/\d+"],
-        "detail_limit": 14,
-    },
-    {
-        "name": "カンパリ京都",
-        "kind": "community_media",
-        "url": "https://fishing.ne.jp/fishingpost/area/kyoto?fish=fish-aoriika",
-        "default_area": None,
-        "detail_patterns": [r"/fishingpost/\d+"],
-        "detail_limit": 16,
+        "detail_only": True,
     },
     {
         "name": "墨族",
@@ -199,6 +177,7 @@ SOURCES = [
         "default_area": None,
         "detail_patterns": [r"/fishingreport/\d+"],
         "detail_limit": 16,
+        "detail_only": True,
     },
     {
         "name": "フィッシングマックス",
@@ -207,6 +186,7 @@ SOURCES = [
         "default_area": None,
         "detail_patterns": [r"/fishingpost/\d+"],
         "detail_limit": 16,
+        "detail_only": True,
     },
     {
         "name": "小浜 宙丸",
@@ -621,6 +601,53 @@ def split_detail_segments(text, page_date):
     return split_recent_segments(normalized)
 
 
+def extract_primary_detail_text(soup, source):
+    """Strip navigation/related-site chrome and keep the smallest useful article container."""
+    work = BeautifulSoup(str(soup), "html.parser")
+    for tag in work.find_all(["script", "style", "noscript", "nav", "header", "footer", "aside", "form"]):
+        tag.decompose()
+
+    selector = source.get("detail_selector")
+    if selector:
+        node = work.select_one(selector)
+        if node:
+            txt = normalize(node.get_text(" ", strip=True))
+            if len(txt) >= 80:
+                return txt[: int(source.get("detail_text_limit", 7000))]
+
+    page_title = normalize(work.title.get_text(" ", strip=True) if work.title else "")
+    headings = []
+    for tag in work.find_all(["h1", "h2", "h3"]):
+        ht = normalize(tag.get_text(" ", strip=True))
+        if len(ht) < 4:
+            continue
+        if page_title and (ht in page_title or page_title.startswith(ht)):
+            headings.append((len(ht), tag))
+    if headings:
+        _, heading = sorted(headings, key=lambda x: x[0], reverse=True)[0]
+        node = heading
+        best = None
+        for _ in range(6):
+            node = node.parent
+            if node is None:
+                break
+            txt = normalize(node.get_text(" ", strip=True))
+            if 250 <= len(txt) <= 9000:
+                best = txt
+                break
+        if best:
+            return best[: int(source.get("detail_text_limit", 7000))]
+
+    for sel in ("article", "main", "[role=main]"):
+        node = work.select_one(sel)
+        if node:
+            txt = normalize(node.get_text(" ", strip=True))
+            if len(txt) >= 120:
+                return txt[: int(source.get("detail_text_limit", 7000))]
+
+    return normalize(work.get_text(" ", strip=True))[: int(source.get("detail_text_limit", 7000))]
+
+
 def fetch_detail_signals(source, detail_urls, sess):
     signals = []
     errors = 0
@@ -631,7 +658,7 @@ def fetch_detail_signals(source, detail_urls, sess):
             r.raise_for_status()
             fetched += 1
             soup = BeautifulSoup(r.content, "html.parser")
-            text = soup.get_text(" ", strip=True)
+            text = extract_primary_detail_text(soup, source)
             page_date = published_date_from_soup(soup, text)
             title = clean(soup.title.get_text(" ", strip=True) if soup.title else "")
             # In detail articles, trip-date paragraphs often omit the species/method
@@ -794,8 +821,8 @@ def collect_one(source):
         r.raise_for_status()
         soup = BeautifulSoup(r.content, "html.parser")
         text = soup.get_text(" ", strip=True)
-        segments = split_recent_segments(text)
-        if not segments and source.get("date_style") == "day_heading_desc":
+        segments = [] if source.get("detail_only") else split_recent_segments(text)
+        if not segments and not source.get("detail_only") and source.get("date_style") == "day_heading_desc":
             segments = split_day_heading_segments(text)
         signals = []
         for date, segment in segments:
