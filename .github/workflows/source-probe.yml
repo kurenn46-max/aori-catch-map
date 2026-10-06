@@ -73,6 +73,26 @@ jobs:
           assert inherited_sig.get("usable_for_decision") is True, inherited_sig
           print("depth attribution regression PASS", false_depths, true_depths, adjacent_depths, bottom_offsets, inherited_sig.get("bottom_offset_m"))
           PY
+      - name: Debug FishingMax article scope
+        run: |
+          python - <<'PY'
+          from bs4 import BeautifulSoup
+          from scripts.collect_public_signals import session, extract_primary_detail_text, detect_area
+          src={"name":"debug","kind":"tackle_shop_media","detail_text_limit":7000}
+          urls=[
+              "https://fishingmax.co.jp/fishingpost/1696878",
+              "https://fishingmax.co.jp/fishingpost/1696859",
+              "https://fishingmax.co.jp/fishingpost/1697061",
+          ]
+          sess=session()
+          for url in urls:
+              r=sess.get(url,timeout=(6,18)); r.raise_for_status()
+              soup=BeautifulSoup(r.content,"html.parser")
+              txt=extract_primary_detail_text(soup,src)
+              print("FMAX_DEBUG",url,"len",len(txt),"area",detect_area(txt))
+              print(txt[:1800])
+              print("----")
+          PY
       - name: Collect structured signals
         run: python scripts/collect_public_signals.py --output test-results/discovery-signals.json
       - name: Validate structured signals
