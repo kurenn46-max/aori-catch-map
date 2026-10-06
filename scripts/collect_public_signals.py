@@ -550,13 +550,14 @@ def fetch_detail_signals(source, detail_urls, sess):
     return signals, fetched, errors
 
 
-def split_day_heading_segments(text):
+def split_day_heading_segments(text, anchor_date=None):
     normalized = normalize(text)
     matches = list(DAY_HEADING_RE.finditer(normalized))
     if not matches:
         return []
     out = []
-    cursor = NOW.date()
+    anchor = anchor_date or NOW.date()
+    cursor = anchor
     for i, m in enumerate(matches):
         day = int(m.group(1))
         year, month = cursor.year, cursor.month
@@ -573,7 +574,7 @@ def split_day_heading_segments(text):
                 candidate = datetime(year, month, day, tzinfo=JST).date()
             except ValueError:
                 continue
-        age = (NOW.date() - candidate).days
+        age = (anchor - candidate).days
         if 0 <= age <= WINDOW_DAYS:
             end = matches[i + 1].start() if i + 1 < len(matches) else min(len(normalized), m.start() + 2200)
             out.append((candidate.isoformat(), normalized[m.start():end]))
