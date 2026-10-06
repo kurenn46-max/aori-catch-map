@@ -169,6 +169,53 @@ SOURCES = [
         "detail_limit": 10,
     },
     {
+        "name": "カンパリ福井",
+        "kind": "community_media",
+        "url": "https://fishing.ne.jp/area/fukui?fish=fish-aoriika",
+        "default_area": None,
+        "detail_patterns": [r"/fishingpost/\d+"],
+        "detail_limit": 16,
+    },
+    {
+        "name": "カンパリ若狭",
+        "kind": "community_media",
+        "url": "https://fishing.ne.jp/fishingpost/area/wakasa?fish=fish-aoriika",
+        "default_area": "若狭",
+        "detail_patterns": [r"/fishingpost/\d+"],
+        "detail_limit": 14,
+    },
+    {
+        "name": "カンパリ京都",
+        "kind": "community_media",
+        "url": "https://fishing.ne.jp/fishingpost/area/kyoto?fish=fish-aoriika",
+        "default_area": None,
+        "detail_patterns": [r"/fishingpost/\d+"],
+        "detail_limit": 16,
+    },
+    {
+        "name": "墨族",
+        "kind": "community_media",
+        "url": "https://sumizoku.com/fishingreport/",
+        "default_area": None,
+        "detail_patterns": [r"/fishingreport/\d+"],
+        "detail_limit": 16,
+    },
+    {
+        "name": "フィッシングマックス",
+        "kind": "tackle_shop_media",
+        "url": "https://fishingmax.co.jp/fish/aoriika",
+        "default_area": None,
+        "detail_patterns": [r"/fishingpost/\d+"],
+        "detail_limit": 16,
+    },
+    {
+        "name": "小浜 宙丸",
+        "kind": "charter",
+        "url": "https://www.obama-soramaru.com/report.html",
+        "default_area": "若狭",
+        "default_aori_method": "ナイトエギング",
+    },
+    {
         "name": "TRITON",
         "kind": "charter",
         "url": "https://triton-maizuru.com/topics.html",
@@ -199,11 +246,26 @@ SOURCES = [
 ]
 
 AREA_WORDS = {
-    "越前": ("越前", "越前海岸", "越前岬", "甲楽城"),
-    "敦賀": ("敦賀", "敦賀湾", "敦賀半島", "新敦賀"),
-    "若狭": ("若狭", "小浜", "常神", "神子", "犬熊", "田烏", "世久見", "高浜", "音海", "日引"),
-    "舞鶴": ("舞鶴", "白杉", "野原", "小橋", "舞鶴湾"),
-    "丹後": ("丹後", "京丹後", "網野", "間人", "宮津", "伊根"),
+    "越前": (
+        "越前", "越前海岸", "越前町", "越前岬", "甲楽城", "茱崎", "鷹巣",
+        "三里浜", "波松", "米ノ", "厨", "梅浦", "河野", "糠",
+    ),
+    "敦賀": (
+        "敦賀", "敦賀湾", "敦賀半島", "新敦賀", "敦賀新港", "色浜", "立石",
+        "白木", "沓", "手の浦", "常宮", "名子",
+    ),
+    "若狭": (
+        "若狭", "小浜", "小浜湾", "常神", "常神半島", "神子", "小川", "犬熊",
+        "田烏", "世久見", "高浜", "音海", "日引", "美浜", "三方", "日向", "早瀬",
+        "和田", "大飯", "おおい", "大島", "泊", "堅海", "宇久", "阿納",
+    ),
+    "舞鶴": (
+        "舞鶴", "舞鶴湾", "白杉", "野原", "小橋", "田井", "成生", "三浜",
+    ),
+    "丹後": (
+        "丹後", "京丹後", "網野", "間人", "宮津", "伊根", "経ヶ岬", "久美浜",
+        "栗田", "由良", "蒲入", "本庄浜", "袖志", "竹野", "浅茂川", "浜詰",
+    ),
 }
 AORI_WORDS = ("アオリイカ", "アオリ", "ティップラン", "エギング")
 NEGATIVE_WORDS = ("ボウズ", "坊主", "釣れない", "釣れず", "反応なし", "渋い", "厳しい", "チェイス", "見えイカ")
@@ -212,8 +274,8 @@ BOAT_WORDS = ("ティップラン", "遊漁船", "船中", "出船", "ボート"
 SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "磯", "エギング")
 
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
-DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})")
-TRIP_FULL_DATE_RE = re.compile(r"(?:釣行日|実釣日)\s*[:：]?\s*(20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2}))")
+DATE_RE = re.compile(r"(?:20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})|令和\s*\d{1,2}年\s*\d{1,2}月\s*\d{1,2}日)")
+TRIP_FULL_DATE_RE = re.compile(r"(?:釣行日|実釣日)\s*[:：]?\s*((?:20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})|令和\s*\d{1,2}年\s*\d{1,2}月\s*\d{1,2}日))")
 TRIP_MD_RE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})日?(?:の)?釣行")
 DAY_HEADING_RE = re.compile(r"(?<!\d)(\d{1,2})日(?=(?:ナイト|ティップ|朝便|昼便|夜便|半夜便|深夜便|たて釣り|イカ|アオリ|釣り))")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
@@ -259,8 +321,9 @@ def parse_date(raw):
     nums = [int(x) for x in re.findall(r"\d+", s)]
     if len(nums) < 3:
         return None
+    year = nums[0] + 2018 if "令和" in s else nums[0]
     try:
-        d = datetime(nums[0], nums[1], nums[2], tzinfo=JST)
+        d = datetime(year, nums[1], nums[2], tzinfo=JST)
     except ValueError:
         return None
     age = (NOW.date() - d.date()).days
