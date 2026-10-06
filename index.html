@@ -80,8 +80,8 @@
 </head>
 <body>
 <header>
-  <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">越前〜丹後</span></div>
-  <div class="sub">公開釣果を蓄積・陸っぱり/ボート分離・傾向を自動集計</div>
+  <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">V4 LIVE・越前〜丹後</span></div>
+  <div class="sub">岸優先30分更新・直接釣果＋信頼度A/B公開情報を統合</div>
 
   <div class="controlRow intelRow">
     <button data-view="catch" class="active">🦑釣果</button>
@@ -112,7 +112,7 @@
   <div class="controlRow actionRow">
     <select id="area"><option value="all">全エリア</option><option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option></select>
     <button id="trendToggle">📊 傾向</button>
-    <button id="collectNow">🔄 釣果収集</button>
+    <button id="collectNow">⚡ 最新同期</button>
     <button id="reloadData" aria-label="最新データを再読込">↻</button>
   </div>
 </header>
@@ -189,11 +189,13 @@ const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},strategyData={areas:[]},targetDayOffset=0;
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},v4Health=null,strategyData={areas:[]},targetDayOffset=0;
 const API_CACHE=new Map();
 let targetRequestSeq=0;
 let viewRequestSeq=0;
 const DATA_FILES=[
+  ['liveFeed','./data/live-feed.json'],
+  ['v4Health','./data/v4-health.json'],
   ['catches','./data/catches.json'],
   ['summary','./data/summary.json'],
   ['intel','./data/intel.json'],
@@ -233,16 +235,18 @@ async function loadAppData(){
   }));
   const values={},failed=[];
   results.forEach(x=>{if(x.error)failed.push(x.key);else values[x.key]=x.value});
-  if(!values.catches && !allData.length)throw new Error('釣果データを取得できません');
-  if(values.catches)allData=values.catches.catches||[];
+  if(!values.liveFeed && !values.catches && !allData.length)throw new Error('釣果データを取得できません');
+  if(values.liveFeed)allData=values.liveFeed.catches||[];
+  else if(values.catches)allData=values.catches.catches||[];
   if(values.summary)summary=values.summary;
   if(values.intel)intelData=values.intel.items||[];
   if(values.archive)archiveData=values.archive.catches||[];
   if(values.windShelters)windShelters=values.windShelters.spots||[];
   if(values.sourceStatus)sourceStatus=values.sourceStatus||{checks:[]};
+  if(values.v4Health){v4Health=values.v4Health;sourceStatus=values.v4Health||sourceStatus;}
   if(values.strategy)strategyData=values.strategy||{areas:[]};
   render();renderSummary();
-  const optionalFailed=failed.filter(x=>x!=='catches');
+  const optionalFailed=failed.filter(x=>!['catches','liveFeed','v4Health'].includes(x));
   if(optionalFailed.length)document.getElementById('status').textContent+=' / 補助データ'+optionalFailed.length+'件未取得';
   return {failed};
 }
@@ -327,7 +331,10 @@ function render(){
   document.getElementById('shoreCount').textContent=rows.filter(x=>x.type==='shore').length;
   document.getElementById('boatCount').textContent=rows.filter(x=>x.type==='boat').length;
   const label=rangeFilter==='today'?'今日':rangeFilter==='yesterday'?'昨日':rangeFilter+'日';
-  document.getElementById('status').textContent=label+'：実釣果データ '+rows.length+'件';
+  const supplemental=rows.filter(x=>x.supplementary).length;
+  const direct=rows.length-supplemental;
+  const healthStamp=v4Health?.updated_at?(' / 更新 '+String(v4Health.updated_at).slice(5,16).replace('T',' ')):'';
+  document.getElementById('status').textContent=label+'：'+rows.length+'件（直接'+direct+' / 補助'+supplemental+'）'+healthStamp;
 }
 
 function intelIcon(category){
@@ -988,10 +995,17 @@ document.querySelectorAll('button[data-target-day]').forEach(b=>b.addEventListen
 }));
 document.getElementById('targetClose').addEventListener('click',()=>document.getElementById('targetPanel').classList.remove('open'));
 
-document.getElementById('collectNow').addEventListener('click',()=>{
-  const ok=confirm('最新の釣果収集を開始します。GitHubの画面が開くので「Run workflow」を押してください。');
-  if(!ok)return;
-  window.open('https://github.com/kurenn46-max/aori-catch-map/actions/workflows/collect.yml','_blank','noopener');
+document.getElementById('collectNow').addEventListener('click',async()=>{
+  const b=document.getElementById('collectNow');
+  const old=b.textContent;b.textContent='同期中…';b.disabled=true;
+  try{
+    await loadAppData();
+    b.textContent='✓ 最新';
+  }catch(e){
+    console.error(e);b.textContent='! 失敗';
+  }finally{
+    setTimeout(()=>{b.textContent=old;b.disabled=false},1400);
+  }
 });
 
 document.getElementById('reloadData').addEventListener('click',async()=>{
