@@ -91,7 +91,7 @@ SOURCES = [
         "name": "雲丸 若狭",
         "kind": "charter",
         "url": "https://kumomaru.net/result/",
-        "detail_patterns": [r"detail/\\?id=\\d+"],
+        "detail_patterns": [r"detail/\?id=\d+"],
     },
     {
         "name": "小浜マリーナ",
