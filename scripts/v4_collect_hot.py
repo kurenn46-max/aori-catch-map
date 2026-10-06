@@ -16,6 +16,11 @@ HOT_NAMES = {
     "上州屋 新敦賀店",
     "ブンブン釣行記",
     "釣具のイシグロ",
+    "カンパリ福井",
+    "カンパリ若狭",
+    "カンパリ京都",
+    "墨族",
+    "フィッシングマックス",
 }
 
 EXTRA_SOURCES = [
@@ -93,7 +98,7 @@ def main():
         "profile": "shore-fast",
         "updated_at": NOW.isoformat(timespec="seconds"),
         "poll_target_minutes": 30,
-        "note": "V4高速レーン。岸釣果を優先する少数の公開情報源だけを高頻度巡回し、A/B判定のみlive-feed候補にする。",
+        "note": "V4.1高速レーン。岸釣果を優先し、カンパリ・墨族・釣具店系を含む公開情報源を高頻度巡回。A/B判定のみlive-feed候補にする。",
         "source_health": health,
         "signals": signals,
     }
