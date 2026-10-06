@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-10-06T07:03:09+09:00",
+  "updated_at": "2026-10-06T09:05:53+09:00",
   "window_days": 30,
   "note": "GitHub Runnerから直接取得できる複数公開情報源を横断。日付・海域・岸/船・ティップラン・水深文脈・杯数・負情報・ベイト語を抽出し、水深は周辺文脈が確認できたものだけ採用する。これは発見/補助信号であり、岸釣果DBへは自動で杯数換算しない。",
   "source_health": [
     {
       "source": "まるまる丸",
       "url": "https://marumarumaru.co.jp/report/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 28372,
       "status": "ok",
@@ -20,7 +20,7 @@
     {
       "source": "心友丸",
       "url": "https://www.shinyuumaru.com/contents/information.php",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 26039,
       "status": "ok",
@@ -34,9 +34,9 @@
     {
       "source": "MIYAMOTOMARU2",
       "url": "https://ameblo.jp/miyamotomar/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
-      "bytes": 184947,
+      "bytes": 184955,
       "status": "ok",
       "recent_segments": 0,
       "detail_discovered": 10,
@@ -48,7 +48,7 @@
     {
       "source": "小浜マリーナ",
       "url": "https://www.obama-marina.com/catch/index.php",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 29406,
       "status": "ok",
@@ -62,7 +62,7 @@
     {
       "source": "福丸",
       "url": "https://www.e-fukumaru.com/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 29885,
       "status": "ok",
@@ -76,7 +76,7 @@
     {
       "source": "SUPER VIKING",
       "url": "https://reserve.castingnet.jp/ship00107c.html",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 31108,
       "status": "ok",
@@ -90,7 +90,7 @@
     {
       "source": "あみや渡船",
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=582",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 189872,
       "status": "ok",
@@ -104,7 +104,7 @@
     {
       "source": "ヴィーナス",
       "url": "https://www.fisher-venus.com/chouka/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 140905,
       "status": "ok",
@@ -118,7 +118,7 @@
     {
       "source": "オールブルー",
       "url": "https://www.allbluemarine.com/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 199216,
       "status": "ok",
@@ -132,7 +132,7 @@
     {
       "source": "ちどり丸",
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 186773,
       "status": "ok",
@@ -146,7 +146,7 @@
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 51103,
       "status": "ok",
@@ -160,7 +160,7 @@
     {
       "source": "泰丸",
       "url": "https://www.taimaru.jp/fishingpost/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 57809,
       "status": "ok",
@@ -174,9 +174,9 @@
     {
       "source": "FISHERS",
       "url": "https://www.fishers.co.jp/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
-      "bytes": 27286,
+      "bytes": 27008,
       "status": "ok",
       "recent_segments": 6,
       "detail_discovered": 0,
@@ -188,7 +188,7 @@
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 139338,
       "status": "ok",
@@ -202,7 +202,7 @@
     {
       "source": "TRITON",
       "url": "https://triton-maizuru.com/topics.html",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 21308,
       "status": "ok",
@@ -216,7 +216,7 @@
     {
       "source": "すばる",
       "url": "https://subarutango.jimdofree.com/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 75468,
       "status": "ok",
@@ -230,7 +230,7 @@
     {
       "source": "OCEANS",
       "url": "https://oceans2009.com/tyoka",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 53602,
       "status": "ok",
@@ -244,7 +244,7 @@
     {
       "source": "シーマン",
       "url": "https://seaman-tango.com/blog_articles/",
-      "checked_at": "2026-10-06T07:03:09+09:00",
+      "checked_at": "2026-10-06T09:05:53+09:00",
       "http_status": 200,
       "bytes": 28508,
       "status": "ok",
@@ -257,6 +257,35 @@
     }
   ],
   "signals": [
+    {
+      "id": "signal-b65249e5a60c2a91",
+      "date": "2026-10-05",
+      "area": "敦賀",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "day",
+      "evidence_role": "catch",
+      "source": "泰丸",
+      "source_kind": "charter",
+      "url": "https://www.taimaru.jp/fishingpost/108125/",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        9,
+        30
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://www.taimaru.jp/fishingpost/108125/",
+      "evidence_scope": "detail"
+    },
     {
       "id": "signal-cf442d29bf3a5ca4",
       "date": "2026-10-05",
@@ -311,35 +340,6 @@
       "negative_signals": [],
       "bait_signals": [],
       "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-b65249e5a60c2a91",
-      "date": "2026-10-05",
-      "area": "敦賀",
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "day",
-      "evidence_role": "catch",
-      "source": "泰丸",
-      "source_kind": "charter",
-      "url": "https://www.taimaru.jp/fishingpost/108125/",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        9,
-        30
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [],
-      "detail_url": "https://www.taimaru.jp/fishingpost/108125/",
-      "evidence_scope": "detail"
     },
     {
       "id": "signal-4837a1e509d46822",
