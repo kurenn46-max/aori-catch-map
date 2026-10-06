@@ -1,9 +1,6 @@
 name: Archive and summarize catches
 on:
-  push:
-    branches: [main]
-    paths:
-      - "data/catches.json"
+  workflow_dispatch:
 permissions:
   contents: write
 concurrency:
@@ -34,4 +31,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/archive data/summary.json data/tide-patterns.json data/strategy.json
           git commit -m "Archive catches and rebuild trends"
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin HEAD:"$GITHUB_REF_NAME"
