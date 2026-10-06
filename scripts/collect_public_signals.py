@@ -91,7 +91,7 @@ SOURCES = [
         "url": "https://kumomaru.net/result/",
         "default_area": "若狭",
         "default_aori_method": "ティップラン",
-        "detail_patterns": [r"detail/\\?id=\\d+"],
+        "detail_patterns": [r"detail/\?id=\d+"],
         "detail_limit": 16,
     },
     {
