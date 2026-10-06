@@ -12,7 +12,9 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: aori-source-discovery
+  # Serialize with all generated-data writers so source-candidate commits
+  # cannot race catches/archive/tide/strategy commits on main.
+  group: aori-catch-collector
   cancel-in-progress: false
 jobs:
   discover:
@@ -21,6 +23,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: {fetch-depth: 0}
+      - name: Sync latest branch before generating data
+        run: |
+          git fetch origin "$GITHUB_REF_NAME"
+          git merge --ff-only "origin/$GITHUB_REF_NAME"
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: pip install --disable-pip-version-check requests beautifulsoup4
