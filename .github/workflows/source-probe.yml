@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - "feat/source-discovery-v2-*"
+      - "feat/source-discovery-v3-*"
       - "feat/keyword-discovery-*"
     paths:
       - "scripts/source_probe.py"
       - "scripts/collect_public_signals.py"
       - "scripts/build_strategy.py"
+      - "scripts/discover_sources.py"
       - "index.html"
       - ".github/workflows/source-probe.yml"
 permissions:
@@ -25,7 +27,15 @@ jobs:
       - name: Install probe dependencies
         run: pip install --disable-pip-version-check requests beautifulsoup4
       - name: Syntax check
-        run: python -m py_compile scripts/source_probe.py scripts/collect_public_signals.py
+        run: python -m py_compile scripts/source_probe.py scripts/collect_public_signals.py scripts/discover_sources.py
+      - name: Regression test discovery source classification
+        run: |
+          python - <<'PY'
+          from scripts.discover_sources import classify_source
+          assert classify_source("丹後の遊漁船に乗ってアオリイカを狙った釣行記", "https://ameblo.jp/example/entry-123.html")[0] == "blog"
+          assert classify_source("福井県の遊漁船 雲丸 ティップラン釣果", "https://kumomaru.net/result/")[0] == "charter"
+          print("source classification regression PASS")
+          PY
       - name: Probe candidate sources
         run: python scripts/source_probe.py
       - name: Regression test depth attribution
