@@ -28,6 +28,7 @@ NEGATIVE_WORDS = ("渋い", "厳しい", "釣れない", "釣れず", "反応な
 DIRECT_WORDS = ("遊漁船", "釣り船", "釣船", "船長", "船宿")
 MARINA_WORDS = ("マリーナ", "レンタルボート")
 REPORT_WORDS = ("釣果", "釣行", "実釣", "ブログ", "釣果情報")
+REPORT_EVIDENCE_WORDS = ("釣果", "釣れた", "釣れました", "釣れて", "釣れず", "ヒット", "キャッチ", "船中", "トップ", "竿頭", "ボウズ", "坊主", "渋い", "厳しい", "チェイス", "見えイカ", "イカパンチ", "抱かない", "乗らない")
 GENERIC_WORDS = ("初心者", "とは", "仕掛け", "入門", "おすすめタックル")
 AGGREGATOR_DOMAINS = {"blogmura.com", "chowari.jp", "egifun.net"}
 MULTITENANT_HOSTS = {"ameblo.jp", "plaza.rakuten.co.jp"}
@@ -256,6 +257,7 @@ def verify_page(candidate):
         ops_hits = sum(1 for w in ops_words if w in intro)
         out["page_title"] = page_title[:220]
         out["page_title_target_hits"] = [w for w in TARGET_WORDS + ("秋イカ",) if w in page_title]
+        out["page_evidence_hits"] = [w for w in REPORT_EVIDENCE_WORDS if w in text[:30000]]
         # Primary-source status must be visible in the page title itself.
         # Article bodies often mention a skipper/charter they visited, which
         # must not turn a personal/media article into a primary source.
@@ -389,6 +391,7 @@ def main():
             and row.get("region_explicit")
             and page_recent
             and row.get("page_title_target_hits")
+            and row.get("page_evidence_hits")
         ):
             tier = "B"
         else:
