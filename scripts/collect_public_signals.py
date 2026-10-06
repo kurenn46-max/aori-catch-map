@@ -604,7 +604,10 @@ def split_detail_segments(text, page_date):
 def extract_primary_detail_text(soup, source):
     """Strip navigation/related-site chrome and keep the smallest useful article container."""
     work = BeautifulSoup(str(soup), "html.parser")
-    for tag in work.find_all(["script", "style", "noscript", "nav", "header", "footer", "aside", "form"]):
+    for tag in work.find_all([
+        "script", "style", "noscript", "nav", "header", "footer", "aside", "form",
+        "select", "option", "datalist", "template",
+    ]):
         tag.decompose()
 
     selector = source.get("detail_selector")
