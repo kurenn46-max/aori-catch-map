@@ -84,6 +84,12 @@ jobs:
               "10/4(日)アオリイカ便釣果 アオリイカトップ11ハイでした",
           )
           assert fuk and fuk.get("evidence_role") == "catch" and 11 in fuk.get("count_mentions", []), fuk
+          hozan = signal_from_segment(
+              {"name":"HOZANⅡ","kind":"charter","url":"https://hozan130.jp/","default_area":"越前","default_aori_method":"ティップラン","catch_phrases":["1投目からポツポツ","ポツポツスタート","ポツポツ拾","拾うことでき","ゲキチン","撃沈"]},
+              "2026-09-26",
+              "26日ティップラン朝便 昨日のティップラン朝便釣果 おとといがゲキチンしたので半分諦めてましたが1投目からポツポツスタート",
+          )
+          assert hozan and hozan.get("evidence_role") == "catch" and hozan.get("usable_for_decision") is True, hozan
           inherited_sig = signal_from_segment(
               {"name":"test","kind":"charter","url":"https://example.com","default_area":"舞鶴"},
               "2026-09-19",
