@@ -1,0 +1,78 @@
+name: V4.1 discover verified catch reports
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "47 */2 * * *"
+  push:
+    branches:
+      - "v4.1/**"
+    paths:
+      - "scripts/v4_search_reports.py"
+      - "scripts/v4_build_feed.py"
+      - ".github/workflows/v4-search-reports.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aori-catch-collector
+  cancel-in-progress: false
+
+jobs:
+  discover-reports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - name: Sync branch
+        run: |
+          git fetch origin "$GITHUB_REF_NAME"
+          git merge --ff-only "origin/$GITHUB_REF_NAME"
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Install dependencies
+        run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Syntax check
+        run: python -m py_compile scripts/v4_search_reports.py scripts/v4_build_feed.py scripts/collect_public_signals.py scripts/discover_sources.py
+      - name: Discover and verify recent Aori reports
+        run: python scripts/v4_search_reports.py
+      - name: Rebuild canonical feed
+        run: python scripts/v4_build_feed.py
+      - name: Validate search evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          s=json.loads(Path("data/search-signals.json").read_text(encoding="utf-8"))
+          f=json.loads(Path("data/live-feed.json").read_text(encoding="utf-8"))
+          assert s.get("query_count")==15, s.get("query_count")
+          assert s.get("query_ok",0)>=10, s.get("query_ok")
+          target={"越前","敦賀","若狭","舞鶴","丹後"}
+          for x in s.get("signals",[]):
+              assert x.get("search_discovery") is True, x
+              assert x.get("confidence")=="B", x
+              assert x.get("usable_for_decision") is True, x
+              assert x.get("area") in target, x
+              assert x.get("type") in ("shore","boat","raft"), x
+              assert x.get("url"), x
+          assert f.get("version")==4
+          print("verified search PASS", {
+              "candidates":s.get("candidate_urls"),
+              "pages":s.get("verified_pages"),
+              "signals":len(s.get("signals",[])),
+              "live":f.get("counts"),
+          })
+          PY
+      - name: Commit verified report feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "4189824+github-actions[bot]@users.noreply.github.com"
+          git add data/search-signals.json data/live-feed.json data/v4-health.json
+          if git diff --cached --quiet; then
+            echo "No report-discovery changes"
+            exit 0
+          fi
+          git commit -m "Refresh verified Aori report discovery"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin HEAD:"$GITHUB_REF_NAME"
