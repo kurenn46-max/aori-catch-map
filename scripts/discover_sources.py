@@ -130,13 +130,16 @@ def classify_source(text, url):
     t = text or ""
     if d in AGGREGATOR_DOMAINS:
         return "aggregator", False
+    h = host(url)
+    # Multi-tenant blog hosts are not primary charter sources merely because
+    # an article mentions a skipper/boat. Account identity must be verified
+    # separately before promotion.
+    if h == "ameblo.jp" or h.endswith(".seesaa.net") or h.endswith(".hatenablog.com") or h.endswith(".blog.fc2.com") or h == "plaza.rakuten.co.jp":
+        return "blog", False
     if any(w in t for w in DIRECT_WORDS):
         return "charter", True
     if any(w in t for w in MARINA_WORDS):
         return "marina", True
-    h = host(url)
-    if h == "ameblo.jp" or h.endswith(".seesaa.net") or h.endswith(".hatenablog.com") or h.endswith(".blog.fc2.com") or h == "plaza.rakuten.co.jp":
-        return "blog", False
     if any(w in t for w in ("釣具", "フィッシングエイト", "上州屋", "FISHERS")):
         return "tackle_media", False
     return "web_report", False
