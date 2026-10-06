@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "feat/source-discovery-v2-*"
+      - "feat/keyword-discovery-*"
     paths:
       - "scripts/source_probe.py"
       - "scripts/collect_public_signals.py"
@@ -45,8 +46,16 @@ jobs:
           assert adjacent_depths == [13.0, 30.0], adjacent_depths
           assert any(x.get("confidence") == "B" for x in adjacent_ev), adjacent_ev
           assert bottom_depths == [] and bottom_offsets == [5.0], (bottom_depths, bottom_offsets)
-          from scripts.collect_public_signals import signal_from_segment, detect_time_mode, detect_evidence_role
+          from datetime import date
+          from scripts.collect_public_signals import signal_from_segment, detect_time_mode, detect_evidence_role, split_day_heading_segments
+          day_rows = split_day_heading_segments(
+              "4日たて釣り便 青物。27日ナイトティップラン アオリ好調。26日ティップラン朝便 アオリ。",
+              anchor_date=date(2026,10,6),
+          )
+          assert [x[0] for x in day_rows] == ["2026-10-04","2026-09-27","2026-09-26"], day_rows
           assert detect_time_mode("アオリイカ Dayティップラン") == "day"
+          assert detect_time_mode("24日ティップラン朝便") == "day"
+          assert detect_time_mode("24日ティップラン朝便 アオリを狙う。" + ("情報" * 80) + " ナイトティップランも募集中") == "day"
           assert detect_time_mode("ナイトティップラン出船") == "night"
           assert detect_time_mode("昼便とナイト便") == "mixed"
           assert detect_evidence_role("アオリイカ ティップラン募集中 ご予約受付中 残り3名") == "schedule"

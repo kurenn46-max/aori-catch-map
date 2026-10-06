@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "updated_at": "2026-10-04T17:30:00+09:00",
+  "version": 4,
+  "updated_at": "2026-10-06T08:58:00+09:00",
   "policy": "釣果件数ではなく『次の釣行判断に使える根拠』を集める。固定巡回＋キーワード横断探索＋個別記事深掘りの三段構成。投稿単位と釣行セッションを分離し、同一釣行の連投・一覧と詳細の重複で好調度を水増ししない。一次情報を優先し、事実・推測・告知を分離する。",
   "regions": [
     "越前",
@@ -392,6 +392,66 @@
       ],
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
       "role": "primary"
+    },
+    {
+      "name": "春定丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "敦賀"
+      ],
+      "url": "https://ameblo.jp/synteimaru/",
+      "role": "primary"
+    },
+    {
+      "name": "天徳丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "越前"
+      ],
+      "url": "https://tentokumaru.com/fishing_blog/",
+      "role": "primary"
+    },
+    {
+      "name": "瑞祥丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "敦賀"
+      ],
+      "url": "https://zuishomaru.com/category/fishing/",
+      "role": "primary"
+    },
+    {
+      "name": "若狭マリンプラザ",
+      "type": "marina",
+      "priority": "A",
+      "regions": [
+        "若狭"
+      ],
+      "url": "https://www.marineplaza-marina.com/?cat=11",
+      "role": "primary"
+    },
+    {
+      "name": "まるまる丸",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "敦賀"
+      ],
+      "url": "https://marumarumaru.co.jp/report/",
+      "role": "primary"
+    },
+    {
+      "name": "HOZANⅡ",
+      "type": "charter",
+      "priority": "A",
+      "regions": [
+        "越前"
+      ],
+      "url": "https://hozan130.jp/",
+      "role": "primary"
     }
   ],
   "required_fields": [
@@ -548,7 +608,8 @@
       "A/Bだけを判断材料へ。C・告知・募集はレビュー/参考情報として保持",
       "同一情報源・同日・同海域・同釣法はセッション圧縮し、一覧と詳細の二重計上を防ぐ"
     ],
-    "blocked_policy": "取得制限・403・本文省略は『釣果0』にしない。blocked/unavailableとして別管理する。"
+    "blocked_policy": "取得制限・403・本文省略は『釣果0』にしない。blocked/unavailableとして別管理する。",
+    "candidate_policy": "Yahoo Japanの公開検索結果で新規候補を発見し、実ページ再取得後にA/B/Cへ精査。検索スニペットは釣果判定へ入れず、候補はauto_promote=falseで保持し、一次情報源確認後のみ固定巡回へ昇格する。"
   },
   "boat_depth_collection": {
     "purpose": "昼の船実釣を沖の魚影・レンジ実測として保持し、将来の夕まずめ岸ポイント絞り込みの補助材料にする。船釣果は岸評価へ直接加点しない。",

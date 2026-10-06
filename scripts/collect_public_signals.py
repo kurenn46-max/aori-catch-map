@@ -29,6 +29,43 @@ HEADERS = {
 
 SOURCES = [
     {
+        "name": "HOZANⅡ",
+        "kind": "charter",
+        "url": "https://hozan130.jp/",
+        "default_area": "越前",
+        "default_aori_method": "ティップラン",
+        "date_style": "day_heading_desc",
+    },
+    {
+        "name": "春定丸",
+        "kind": "charter",
+        "url": "https://ameblo.jp/synteimaru/",
+        "default_area": "敦賀",
+        "detail_patterns": [r"/synteimaru/entry-\d+\.html"],
+        "detail_limit": 12,
+    },
+    {
+        "name": "天徳丸",
+        "kind": "charter",
+        "url": "https://tentokumaru.com/fishing_blog/",
+        "default_area": "越前",
+    },
+    {
+        "name": "瑞祥丸",
+        "kind": "charter",
+        "url": "https://zuishomaru.com/category/fishing/",
+        "default_area": "敦賀",
+        "default_aori_method": "ティップラン",
+    },
+    {
+        "name": "若狭マリンプラザ",
+        "kind": "marina",
+        "url": "https://www.marineplaza-marina.com/?cat=11",
+        "default_area": "若狭",
+        "detail_patterns": [r"[?&]p=\d+"],
+        "detail_limit": 12,
+    },
+    {
         "name": "まるまる丸",
         "kind": "charter",
         "url": "https://marumarumaru.co.jp/report/",
@@ -169,6 +206,7 @@ SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "�
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
 DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})")
 TRIP_MD_RE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})日?(?:の)?釣行")
+DAY_HEADING_RE = re.compile(r"(?<!\d)(\d{1,2})日(?=(?:ナイト|ティップ|朝便|昼便|夜便|半夜便|深夜便|たて釣り|イカ|アオリ|釣り))")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
 DEPTH_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
 DEPTH_RANGE_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
@@ -268,15 +306,32 @@ def detect_evidence_role(text):
 
 def detect_time_mode(text):
     t = normalize(text)
-    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "午前便", "午後便"))
-    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便"))
-    if day_hits and night_hits:
-        return "mixed"
-    if day_hits:
+    day_words = (
+        "Dayティップラン", "DAYティップラン", "デイティップラン",
+        "昼ティップラン", "昼便", "朝便", "午前便", "午後便",
+    )
+    night_words = (
+        "ナイトティップラン", "Nightティップラン", "NIGHTティップラン",
+        "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便",
+    )
+
+    day_positions = [t.find(w) for w in day_words if t.find(w) >= 0]
+    night_positions = [t.find(w) for w in night_words if t.find(w) >= 0]
+    if not day_positions and not night_positions:
+        return "unknown"
+    if day_positions and not night_positions:
         return "day"
-    if night_hits:
+    if night_positions and not day_positions:
         return "night"
-    return "unknown"
+
+    first_day = min(day_positions)
+    first_night = min(night_positions)
+    # True mixed-mode copy normally names both modes close together.
+    if abs(first_day - first_night) <= 120:
+        return "mixed"
+    # Listing cards often contain a clear mode in the heading and an unrelated
+    # site-wide/footer mode later. Prefer the first explicit mode.
+    return "day" if first_day < first_night else "night"
 
 
 def classify_type(text, kind):
@@ -512,6 +567,38 @@ def fetch_detail_signals(source, detail_urls, sess):
     return signals, fetched, errors
 
 
+def split_day_heading_segments(text, anchor_date=None):
+    normalized = normalize(text)
+    matches = list(DAY_HEADING_RE.finditer(normalized))
+    if not matches:
+        return []
+    out = []
+    anchor = anchor_date or NOW.date()
+    cursor = anchor
+    for i, m in enumerate(matches):
+        day = int(m.group(1))
+        year, month = cursor.year, cursor.month
+        try:
+            candidate = datetime(year, month, day, tzinfo=JST).date()
+        except ValueError:
+            continue
+        if candidate > cursor:
+            month -= 1
+            if month == 0:
+                month = 12
+                year -= 1
+            try:
+                candidate = datetime(year, month, day, tzinfo=JST).date()
+            except ValueError:
+                continue
+        age = (anchor - candidate).days
+        if 0 <= age <= WINDOW_DAYS:
+            end = matches[i + 1].start() if i + 1 < len(matches) else min(len(normalized), m.start() + 800)
+            out.append((candidate.isoformat(), normalized[m.start():end]))
+        cursor = candidate
+    return out
+
+
 def split_recent_segments(text):
     normalized = normalize(text)
     matches = list(DATE_RE.finditer(normalized))
@@ -625,6 +712,8 @@ def collect_one(source):
         soup = BeautifulSoup(r.content, "html.parser")
         text = soup.get_text(" ", strip=True)
         segments = split_recent_segments(text)
+        if not segments and source.get("date_style") == "day_heading_desc":
+            segments = split_day_heading_segments(text)
         signals = []
         for date, segment in segments:
             sig = signal_from_segment(source, date, segment)
