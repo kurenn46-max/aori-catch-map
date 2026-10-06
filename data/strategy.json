@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T15:26:28+09:00",
+  "updated_at": "2026-10-07T03:27:03+09:00",
   "reference_date": "2026-10-05",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date": "2026-10-06",
@@ -333,11 +333,11 @@
       "raw_posts_30d": 7,
       "boat_context": {
         "latest_date": "2026-10-06",
-        "last7_sessions": 5,
+        "last7_sessions": 6,
         "sources_14d": 4,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 4,
+        "night_sessions_7d": 5,
         "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [
