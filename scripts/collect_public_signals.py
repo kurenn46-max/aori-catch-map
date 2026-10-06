@@ -34,6 +34,7 @@ SOURCES = [
         "url": "https://hozan130.jp/",
         "default_area": "越前",
         "default_aori_method": "ティップラン",
+        "date_style": "day_heading_desc",
     },
     {
         "name": "春定丸",
@@ -205,6 +206,7 @@ SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "�
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
 DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})")
 TRIP_MD_RE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})日?(?:の)?釣行")
+DAY_HEADING_RE = re.compile(r"(?<!\d)(\d{1,2})日(?=(?:ナイト|ティップ|朝便|昼便|夜便|半夜便|深夜便|たて釣り|イカ|アオリ|釣り))")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
 DEPTH_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
 DEPTH_RANGE_RE = re.compile(r"(?<!\d)(\d{1,2}(?:\.\d+)?)\s*(?:m)?\s*[~\-]\s*(\d{1,2}(?:\.\d+)?)\s*(?:m|メートル)", re.I)
@@ -548,6 +550,37 @@ def fetch_detail_signals(source, detail_urls, sess):
     return signals, fetched, errors
 
 
+def split_day_heading_segments(text):
+    normalized = normalize(text)
+    matches = list(DAY_HEADING_RE.finditer(normalized))
+    if not matches:
+        return []
+    out = []
+    cursor = NOW.date()
+    for i, m in enumerate(matches):
+        day = int(m.group(1))
+        year, month = cursor.year, cursor.month
+        try:
+            candidate = datetime(year, month, day, tzinfo=JST).date()
+        except ValueError:
+            continue
+        if candidate > cursor:
+            month -= 1
+            if month == 0:
+                month = 12
+                year -= 1
+            try:
+                candidate = datetime(year, month, day, tzinfo=JST).date()
+            except ValueError:
+                continue
+        age = (NOW.date() - candidate).days
+        if 0 <= age <= WINDOW_DAYS:
+            end = matches[i + 1].start() if i + 1 < len(matches) else min(len(normalized), m.start() + 2200)
+            out.append((candidate.isoformat(), normalized[m.start():end]))
+        cursor = candidate
+    return out
+
+
 def split_recent_segments(text):
     normalized = normalize(text)
     matches = list(DATE_RE.finditer(normalized))
@@ -661,6 +694,8 @@ def collect_one(source):
         soup = BeautifulSoup(r.content, "html.parser")
         text = soup.get_text(" ", strip=True)
         segments = split_recent_segments(text)
+        if not segments and source.get("date_style") == "day_heading_desc":
+            segments = split_day_heading_segments(text)
         signals = []
         for date, segment in segments:
             sig = signal_from_segment(source, date, segment)
