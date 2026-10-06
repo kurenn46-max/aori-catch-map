@@ -1,4 +1,5 @@
 name: Main app Android smoke test
+# V4 final release gate
 on:
   push:
     branches:
