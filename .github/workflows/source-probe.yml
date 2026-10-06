@@ -5,6 +5,7 @@ on:
     branches:
       - "feat/source-discovery-v2-*"
       - "feat/keyword-discovery-*"
+      - "v4.1/**"
     paths:
       - "scripts/source_probe.py"
       - "scripts/collect_public_signals.py"
