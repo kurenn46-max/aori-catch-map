@@ -216,7 +216,8 @@ AREA_WORDS = {
     "丹後": ("丹後", "京丹後", "網野", "間人", "宮津", "伊根"),
 }
 AORI_WORDS = ("アオリイカ", "アオリ", "ティップラン", "エギング")
-NEGATIVE_WORDS = ("ボウズ", "坊主", "釣れない", "釣れず", "反応なし", "渋い", "厳しい", "チェイス", "見えイカ", "ダメダメ", "良い所無し", "サイズダウン", "ゲキチン", "撃沈")
+NEGATIVE_WORDS = ("ボウズ", "坊主", "釣れない", "釣れず", "反応なし", "アタリなし", "当たりなし", "渋い", "厳しい", "抱かない", "乗らない", "ダメダメ", "良い所無し", "サイズダウン", "ゲキチン", "撃沈")
+PRESENCE_WORDS = ("チェイス", "見えイカ", "姿を見せ", "イカパンチ")
 BAIT_WORDS = ("豆アジ", "小アジ", "アジ", "カタクチイワシ", "マイワシ", "ウルメイワシ", "サヨリ", "キビナゴ", "小サバ", "ベイト")
 BOAT_WORDS = ("ティップラン", "遊漁船", "船中", "出船", "ボート")
 SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "磯", "エギング")
@@ -655,6 +656,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
         evidence_role = "catch"
     depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(analysis_text)
     negatives = [w for w in NEGATIVE_WORDS if w in analysis_text]
+    presence = [w for w in PRESENCE_WORDS if w in analysis_text]
     bait = [w for w in BAIT_WORDS if w in analysis_text]
     counts = sorted({int(x) for x in COUNT_RE.findall(analysis_text) if 0 < int(x) <= 200})
 
@@ -663,7 +665,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
     quality += 15 if typ != "unknown" else 0
     quality += 15 if "アオリ" in analysis_text else 8
     quality += 15 if (depths or bottom_offsets or tana_depths) else 0
-    quality += 5 if negatives else 0
+    quality += 5 if (negatives or presence) else 0
     # Numeric "X杯" mentions can mix skipper total, top angler and separate
     # time blocks. Keep them as evidence, but do not boost confidence until a
     # source-specific parser confirms their semantic role.
@@ -712,6 +714,7 @@ def signal_from_segment(source, date, segment, inherited_context=""):
         "count_mentions": counts,
         "count_confidence": "mention_only" if counts else "none",
         "negative_signals": negatives,
+        "presence_signals": presence,
         "bait_signals": bait,
     }
 
