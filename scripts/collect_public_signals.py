@@ -86,6 +86,15 @@ SOURCES = [
         "detail_limit": 12,
     },
     {
+        "name": "雲丸",
+        "kind": "charter",
+        "url": "https://kumomaru.net/result/",
+        "default_area": "若狭",
+        "default_aori_method": "ティップラン",
+        "detail_patterns": [r"/result/detail/\\?id=\\d+"],
+        "detail_limit": 16,
+    },
+    {
         "name": "小浜マリーナ",
         "kind": "marina",
         "url": "https://www.obama-marina.com/catch/index.php",
