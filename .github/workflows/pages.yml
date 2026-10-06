@@ -52,6 +52,27 @@ jobs:
           grep -q './assets/leaflet.css' /tmp/index.html
           curl -fsSL --max-time 20 "${PAGE_URL%/}/assets/leaflet.js" -o /tmp/leaflet.js
           test -s /tmp/leaflet.js
+      - name: Verify published V4 live feed
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -e
+          curl -fsSL --max-time 20 "${PAGE_URL%/}/?v4-smoke=$(date +%s)" -o /tmp/v4-index.html
+          grep -q 'V4 LIVE' /tmp/v4-index.html
+          curl -fsSL --max-time 20 "${PAGE_URL%/}/data/live-feed.json?v4-smoke=$(date +%s)" -o /tmp/live-feed.json
+          curl -fsSL --max-time 20 "${PAGE_URL%/}/data/v4-health.json?v4-smoke=$(date +%s)" -o /tmp/v4-health.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          feed=json.loads(Path("/tmp/live-feed.json").read_text(encoding="utf-8"))
+          health=json.loads(Path("/tmp/v4-health.json").read_text(encoding="utf-8"))
+          rows=feed.get("catches",[])
+          assert feed.get("version")==4, feed.get("version")
+          assert rows and any(x.get("type")=="shore" for x in rows), "published V4 feed has no shore data"
+          assert health.get("version")==4, health.get("version")
+          assert health.get("target_hot_refresh_minutes")==30, health.get("target_hot_refresh_minutes")
+          print("published V4 live feed", feed.get("counts"), "updated", feed.get("updated_at"), "coverage", health.get("coverage"))
+          PY
       - name: Verify published catch database
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
