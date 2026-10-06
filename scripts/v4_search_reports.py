@@ -19,7 +19,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import timedelta
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 
 from bs4 import BeautifulSoup
 
@@ -29,6 +29,7 @@ from collect_public_signals import (
     split_detail_segments,
 )
 from discover_sources import yahoo_search
+from collect import POST_RE
 
 REGIONS = ["越前", "敦賀", "若狭", "舞鶴", "丹後"]
 QUERY_TEMPLATES = [
@@ -42,7 +43,14 @@ BLOCKED_DOMAINS = {
     "search.yahoo.co.jp", "google.com", "bing.com",
 }
 AGGREGATOR_DOMAINS = {
-    "blogmura.com", "chowari.jp",
+    "blogmura.com", "chowari.jp", "fishcast.jp",
+}
+YAMARIA_CITIES = {
+    "84": ("若狭", "小浜"),
+    "85": ("敦賀", "敦賀"),
+    "86": ("越前", "越前"),
+    "114": ("舞鶴", "舞鶴"),
+    "115": ("丹後", "丹後"),
 }
 SOURCE_NAMES = {
     "yamaria.com": "エギCOM",
@@ -90,6 +98,80 @@ def candidate_score(row):
     return score
 
 
+def verify_yamaria_city(row, soup, final_url):
+    mcity = re.search(r"/cities/(\d+)", final_url)
+    if not mcity or mcity.group(1) not in YAMARIA_CITIES:
+        return [], {"url": final_url, "status": "yamaria_unknown_city", "domain": "yamaria.com"}
+    area, place = YAMARIA_CITIES[mcity.group(1)]
+    signals = []
+    seen = set()
+    anchors = []
+    for a in soup.find_all("a", href=True):
+        raw = " ".join(a.stripped_strings)
+        if "アオリイカ：" in raw and "釣果場所：" in raw:
+            anchors.append((raw, urljoin(final_url, a.get("href", ""))))
+    if not anchors:
+        text = " ".join(soup.stripped_strings)
+        anchors = [(m.group(0), final_url) for m in POST_RE.finditer(text)]
+    for raw, detail_url in anchors:
+        m = POST_RE.search(raw)
+        if not m:
+            continue
+        date_s = m.group("date")
+        try:
+            d = __import__("datetime").datetime.strptime(date_s, "%Y-%m-%d").date()
+        except Exception:
+            continue
+        if not (0 <= (NOW.date() - d).days <= 30):
+            continue
+        fish_place = m.group("fish_place")
+        stype = "boat" if any(k in fish_place for k in ("ボート", "船")) else "shore"
+        method = "ティップラン" if stype == "boat" else "エギング"
+        stable = "|".join([detail_url, date_s, m.group("time"), m.group("user"), stype])
+        if stable in seen:
+            continue
+        seen.add(stable)
+        signals.append({
+            "id": "search-yamaria-" + hashlib.sha1(stable.encode("utf-8")).hexdigest()[:16],
+            "date": date_s,
+            "area": area,
+            "type": stype,
+            "method": method,
+            "time": m.group("time"),
+            "time_mode": "unknown",
+            "evidence_role": "catch",
+            "source": "エギCOM",
+            "source_kind": "community",
+            "url": detail_url,
+            "detail_url": detail_url,
+            "confidence": "B",
+            "quality_score": 70,
+            "usable_for_decision": True,
+            "depth_m": [],
+            "bottom_offset_m": [],
+            "tana_m": [],
+            "depth_confidence": "none",
+            "depth_evidence": [],
+            "count_mentions": [],
+            "count_confidence": "none",
+            "negative_signals": [],
+            "bait_signals": ["アジ"] if "アジ" in raw else [],
+            "evidence_scope": "search_verified_yamaria_card",
+            "search_query_region": row.get("region"),
+            "search_discovery": True,
+            "title": f"{m.group('user')}さん / {fish_place}",
+            "place": place,
+        })
+    return signals, {
+        "url": final_url,
+        "status": "accepted" if signals else "no_usable_signal",
+        "domain": "yamaria.com",
+        "area": area,
+        "signals": len(signals),
+        "adapter": "yamaria_city_cards",
+    }
+
+
 def verify(row):
     url = row["url"]
     domain = base_domain(url)
@@ -102,6 +184,21 @@ def verify(row):
         r.raise_for_status()
         final_url = r.url
         soup = BeautifulSoup(r.content, "html.parser")
+
+        # Structured EgiCOM city lists are valuable despite the old direct
+        # collector intermittently receiving stripped HTML. Parse each card,
+        # never the whole listing as one generic article.
+        if domain == "yamaria.com" and "/community/catch/egiou/cities/" in final_url:
+            return verify_yamaria_city(row, soup, final_url)
+
+        path = urlparse(final_url).path.lower()
+        if (
+            "/date/" in path or "/category/" in path or "/tag/" in path
+            or "post_type=fishingreport" in final_url
+            or (domain == "johshuya.co.jp" and "choka.php" in final_url)
+        ):
+            return [], {"url": final_url, "status": "skipped_listing", "domain": domain}
+
         src = {
             "name": source_name(final_url),
             "kind": "web_report",
