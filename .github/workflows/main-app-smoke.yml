@@ -35,9 +35,11 @@ jobs:
           cp /tmp/main-map-deps/node_modules/leaflet/dist/leaflet.js assets/leaflet.js
           cp /tmp/main-map-deps/node_modules/leaflet/dist/leaflet.css assets/leaflet.css
           cp -r /tmp/main-map-deps/node_modules/leaflet/dist/images assets/images
-      - name: Rebuild and validate strategy for current JST day
+      - name: Rebuild supplementary shore rows and validate strategy for current JST day
         run: |
-          python3 -m py_compile scripts/build_strategy.py
+          python3 -m py_compile scripts/promote_shore_signals.py scripts/build_strategy.py
+          python3 scripts/promote_shore_signals.py
+          python3 scripts/archive_and_summary.py
           python3 scripts/build_strategy.py
           python3 - <<'PY'
           import json
@@ -47,7 +49,11 @@ jobs:
           today=datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d")
           assert j.get("reference_date")==today, (j.get("reference_date"), today)
           assert any((x.get("shore_context") or {}).get("last7_signals",0) for x in j.get("areas",[])), "shore_context missing trusted shore signals"
-          print("strategy reference", j.get("reference_date"), "shore context ok")
+          catches=json.loads(Path("data/catches.json").read_text(encoding="utf-8")).get("catches",[])
+          supp=[x for x in catches if x.get("supplementary")]
+          assert supp, "trusted shore discovery signals were not promoted to map rows"
+          assert all(x.get("count") is None for x in supp), "supplementary rows invented catch counts"
+          print("strategy reference", j.get("reference_date"), "shore context ok", "supplementary", len(supp))
           PY
       - name: Start local site
         run: |
