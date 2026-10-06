@@ -55,6 +55,7 @@ jobs:
           assert [x[0] for x in day_rows] == ["2026-10-04","2026-09-27","2026-09-26"], day_rows
           assert detect_time_mode("アオリイカ Dayティップラン") == "day"
           assert detect_time_mode("24日ティップラン朝便") == "day"
+          assert detect_time_mode("24日ティップラン朝便 アオリを狙う。" + ("情報" * 80) + " ナイトティップランも募集中") == "day"
           assert detect_time_mode("ナイトティップラン出船") == "night"
           assert detect_time_mode("昼便とナイト便") == "mixed"
           assert detect_evidence_role("アオリイカ ティップラン募集中 ご予約受付中 残り3名") == "schedule"
