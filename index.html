@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ja">
 <head>
+  <!-- V4 release candidate: shore-first canonical live feed -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#08111f" />
@@ -80,8 +81,8 @@
 </head>
 <body>
 <header>
-  <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">越前〜丹後</span></div>
-  <div class="sub">公開釣果を蓄積・陸っぱり/ボート分離・傾向を自動集計</div>
+  <div class="title">🦑 アオリイカ釣果DB <span style="font-size:12px;color:#7fcfff">V4 LIVE・越前〜丹後</span></div>
+  <div class="sub">岸優先30分更新・直接釣果＋信頼度A/B公開情報を統合</div>
 
   <div class="controlRow intelRow">
     <button data-view="catch" class="active">🦑釣果</button>
@@ -112,7 +113,7 @@
   <div class="controlRow actionRow">
     <select id="area"><option value="all">全エリア</option><option>越前</option><option>敦賀</option><option>若狭</option><option>舞鶴</option><option>丹後</option></select>
     <button id="trendToggle">📊 傾向</button>
-    <button id="collectNow">🔄 釣果収集</button>
+    <button id="collectNow">⚡ 最新同期</button>
     <button id="reloadData" aria-label="最新データを再読込">↻</button>
   </div>
 </header>
@@ -189,10 +190,13 @@ const map=L.map('map',{zoomControl:false}).setView([35.55,135.72],8);
 L.control.zoom({position:'bottomright'}).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
 const groups={shore:L.layerGroup().addTo(map),boat:L.layerGroup().addTo(map),intel:L.layerGroup().addTo(map)};
-let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},strategyData={areas:[]},targetDayOffset=0;
+let allData=[],mode='all',summary=null,rangeFilter='7',viewMode='catch',intelData=[],archiveData=[],tideData={},tidePatterns={},windShelters=[],sourceStatus={checks:[]},v4Health=null,strategyData={areas:[]},targetDayOffset=0;
 const API_CACHE=new Map();
 let targetRequestSeq=0;
+let viewRequestSeq=0;
 const DATA_FILES=[
+  ['liveFeed','./data/live-feed.json'],
+  ['v4Health','./data/v4-health.json'],
   ['catches','./data/catches.json'],
   ['summary','./data/summary.json'],
   ['intel','./data/intel.json'],
@@ -232,16 +236,18 @@ async function loadAppData(){
   }));
   const values={},failed=[];
   results.forEach(x=>{if(x.error)failed.push(x.key);else values[x.key]=x.value});
-  if(!values.catches && !allData.length)throw new Error('釣果データを取得できません');
-  if(values.catches)allData=values.catches.catches||[];
+  if(!values.liveFeed && !values.catches && !allData.length)throw new Error('釣果データを取得できません');
+  if(values.liveFeed)allData=values.liveFeed.catches||[];
+  else if(values.catches)allData=values.catches.catches||[];
   if(values.summary)summary=values.summary;
   if(values.intel)intelData=values.intel.items||[];
   if(values.archive)archiveData=values.archive.catches||[];
   if(values.windShelters)windShelters=values.windShelters.spots||[];
   if(values.sourceStatus)sourceStatus=values.sourceStatus||{checks:[]};
+  if(values.v4Health){v4Health=values.v4Health;sourceStatus=values.v4Health||sourceStatus;}
   if(values.strategy)strategyData=values.strategy||{areas:[]};
   render();renderSummary();
-  const optionalFailed=failed.filter(x=>x!=='catches');
+  const optionalFailed=failed.filter(x=>!['catches','liveFeed','v4Health'].includes(x));
   if(optionalFailed.length)document.getElementById('status').textContent+=' / 補助データ'+optionalFailed.length+'件未取得';
   return {failed};
 }
@@ -296,13 +302,14 @@ function dateMatch(s){
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function render(){
+  const requestSeq=++viewRequestSeq;
   groups.shore.clearLayers();groups.boat.clearLayers();groups.intel.clearLayers();
   const area=document.getElementById('area').value;
   if(viewMode!=='catch'){
     map.removeLayer(groups.shore);map.removeLayer(groups.boat);
     if(!map.hasLayer(groups.intel))groups.intel.addTo(map);
-    if(viewMode==='sea'){renderSea(area);return}
-    if(viewMode==='shelter'){renderShelter(area);return}
+    if(viewMode==='sea'){renderSea(area,requestSeq);return}
+    if(viewMode==='shelter'){renderShelter(area,requestSeq);return}
     renderIntel(area);return;
   }
   map.removeLayer(groups.intel);
@@ -310,9 +317,10 @@ function render(){
   for(const x of rows){
     if(!groups[x.type] || !Number.isFinite(Number(x.lat)) || !Number.isFinite(Number(x.lng))) continue;
     const badge=x.type==='shore'?'陸っぱり':'ボート';
+    const supportBadge=x.supplementary?'<span class="badge" style="background:#5b4a19;color:#ffe79b">補助情報</span>':'';
     const countText=(x.count===null||x.count===undefined)?'不明':esc(x.count)+'杯';
     const html=`<div class="pop"><h3>${esc(x.place)}</h3>
-      <div><span class="badge ${x.type}">${badge}</span></div>
+      <div><span class="badge ${x.type}">${badge}</span>${supportBadge}</div>
       <div class="meta">日付：${esc(x.date)}　鮮度：${esc(freshnessLabel(x.date))}<br>杯数：<b>${countText}</b><br>サイズ：<b>${esc(x.maxSize||'不明')}</b><br>釣法：${esc(x.method||'不明')}<br>時間：${esc(x.time||'不明')}<br>情報元：${esc(x.source||'不明')}</div>
       ${x.url?'<div style="margin-top:6px"><a target="_blank" rel="noopener" href="'+esc(x.url)+'">元情報を開く</a></div>':''}</div>`;
     L.marker([Number(x.lat),Number(x.lng)],{icon:markerIcon(x.type)}).bindPopup(html).addTo(groups[x.type]);
@@ -324,7 +332,10 @@ function render(){
   document.getElementById('shoreCount').textContent=rows.filter(x=>x.type==='shore').length;
   document.getElementById('boatCount').textContent=rows.filter(x=>x.type==='boat').length;
   const label=rangeFilter==='today'?'今日':rangeFilter==='yesterday'?'昨日':rangeFilter+'日';
-  document.getElementById('status').textContent=label+'：実釣果データ '+rows.length+'件';
+  const supplemental=rows.filter(x=>x.supplementary).length;
+  const direct=rows.length-supplemental;
+  const healthStamp=v4Health?.updated_at?(' / 更新 '+String(v4Health.updated_at).slice(5,16).replace('T',' ')):'';
+  document.getElementById('status').textContent=label+'：'+rows.length+'件（直接'+direct+' / 補助'+supplemental+'）'+healthStamp;
 }
 
 function intelIcon(category){
@@ -353,7 +364,7 @@ function renderIntel(area){
   const labels={pressure:'人圧・スレ',bait:'ベイト',local:'現地状況',shelter:'風裏候補'};
   document.getElementById('status').textContent=(labels[viewMode]||'情報')+'：'+rows.length+'件';
 }
-async function renderSea(area){
+async function renderSea(area,requestSeq){
   document.getElementById('status').textContent='海況を取得中…';
   const targets=SEA_AREAS.filter(x=>area==='all'||x.area===area);
   let ok=0;
@@ -362,6 +373,7 @@ async function renderSea(area){
       const weatherUrl=`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
       const marineUrl=`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&current=wave_height,swell_wave_height,sea_surface_temperature,sea_level_height_msl,ocean_current_velocity&timezone=Asia%2FTokyo`;
       const [w,m]=await Promise.all([fetchJson(weatherUrl,{cacheMs:600000}),fetchJson(marineUrl,{cacheMs:600000})]);
+      if(requestSeq!==viewRequestSeq || viewMode!=='sea')return;
       const wc=w.current||{},mc=m.current||{};
       const popup=`<div class="pop"><h3>${p.area} 海況</h3><div class="meta">
         風：<b>${wc.wind_speed_10m??'—'} m/s</b>　最大瞬間風速 ${wc.wind_gusts_10m??'—'} m/s<br>
@@ -374,6 +386,7 @@ async function renderSea(area){
       L.marker([p.lat,p.lng],{icon:seaIcon()}).bindPopup(popup).addTo(groups.intel);ok++;
     }catch(e){console.error(e)}
   }));
+  if(requestSeq!==viewRequestSeq || viewMode!=='sea')return;
   document.getElementById('spotCount').textContent=ok;
   document.getElementById('shoreCount').textContent='—';
   document.getElementById('boatCount').textContent='—';
@@ -404,14 +417,16 @@ function shelterIcon(level){
   const cls=level.includes('◎')?'shelterGood':level.includes('○')||level.includes('やや')?'shelterMid':'shelterBad';
   return L.divIcon({className:'',html:`<div class="intelMarker ${cls}">🛡</div>`,iconSize:[30,30],iconAnchor:[15,15]});
 }
-async function renderShelter(area){
+async function renderShelter(area,requestSeq){
   document.getElementById('status').textContent='風裏候補を計算中…';
   const rows=windShelters.filter(x=>area==='all'||x.area===area);
   let ok=0,good=0;
   await Promise.all(rows.map(async spot=>{
     try{
       const url=`https://api.open-meteo.com/v1/forecast?latitude=${spot.lat}&longitude=${spot.lng}&current=wind_speed_10m,wind_direction_10m,wind_gusts_10m&wind_speed_unit=ms&timezone=Asia%2FTokyo`;
-      const w=await fetchJson(url,{cacheMs:600000}),c=w.current||{};
+      const w=await fetchJson(url,{cacheMs:600000});
+      if(requestSeq!==viewRequestSeq || viewMode!=='shelter')return;
+      const c=w.current||{};
       const wind=Number(c.wind_speed_10m),dir=Number(c.wind_direction_10m),gust=Number(c.wind_gusts_10m);
       const est=shelterEstimate(spot,dir,wind);
       if(est.score>=2)good++;
@@ -426,6 +441,7 @@ async function renderShelter(area){
       L.marker([spot.lat,spot.lng],{icon:shelterIcon(est.level)}).bindPopup(popup).addTo(groups.intel);ok++;
     }catch(e){console.error(e)}
   }));
+  if(requestSeq!==viewRequestSeq || viewMode!=='shelter')return;
   document.getElementById('spotCount').textContent=ok;
   document.getElementById('shoreCount').textContent='🛡'+good;
   document.getElementById('boatCount').textContent='—';
@@ -517,6 +533,7 @@ function renderStrategy(){
     const trend=r.trend==='up'?'↗ 上向き':r.trend==='down'?'↘ 減少':r.trend==='new'?'● 新規':'→ 横ばい';
     const neg=r.negative_7d||{};
     const negatives=(neg.blank||0)+(neg.chase_only||0)+(neg.sighting_only||0);
+    const shoreContext=r.shore_context||{};
     const boat=r.boat_context||{};
     const dayDepth=(boat.day_depth_signals||[])[0]||null;
     const nightDepth=(boat.night_depth_signals||[])[0]||null;
@@ -536,6 +553,11 @@ function renderStrategy(){
         ベイト材料 ${r.bait_recent||0}件　人圧材料 ${r.pressure_recent||0}件　現地ルール ${r.local_active||0}件
       </div>
       <div class="rankDetails" style="margin-top:9px;border-top:1px solid #24445e;padding-top:8px">
+        <b>🔎 外部補助釣果（岸・別枠）</b><br>
+        最新：${esc(shoreContext.latest_date||'なし')}　48h ${shoreContext.last48_signals||0}件　7日 ${shoreContext.last7_signals||0}件　情報源 ${shoreContext.sources_7d||0}<br>
+        <span class="warnText">※上州屋・釣具店記事などの横断探索。地点/杯数が不十分な場合があるため、岸の実釣セッション数やA/B/Cへ直接加点しません。</span>
+      </div>
+      <div class="rankDetails" style="margin-top:9px;border-top:1px solid #24445e;padding-top:8px">
         <b>🚤 沖の実測（岸評価とは別枠）</b><br>
         最新：${esc(boat.latest_date||'なし')}　7日実釣 ${boat.last7_sessions||0}　昼 ${boat.day_sessions_7d||0} / 夜 ${boat.night_sessions_7d||0}　14日情報源 ${boat.sources_14d||0}<br>
         <b>昼レンジ：</b>${dayDepth?boatDepthLabel(dayDepth):'実測なし'}<br>
@@ -544,7 +566,7 @@ function renderStrategy(){
       </div>`;
     grid.appendChild(c);
   });
-  document.getElementById('strategyMeta').textContent='岸：48h＋7日＋30日 / 沖：昼夜・水深を別枠表示（岸点数へ非加点）';
+  document.getElementById('strategyMeta').textContent='岸：48h＋7日＋30日 / 外部岸補助＋沖情報は別枠表示（岸点数へ非加点）';
 }
 
 function renderFreshness(){
@@ -609,7 +631,7 @@ function renderNew(){
 }
 function recentFreshCatchSignal(area){
   const rs=allData.filter(x=>x.area===area&&x.type==='shore'&&(x.result_status||'catch')==='catch');
-  return rs.reduce((sum,x)=>sum+decayWeight(x.date),0);
+  return rs.reduce((sum,x)=>sum+decayWeight(x.date)*(x.supplementary?0.35:1),0);
 }
 function daysAgo(date){
   if(!date)return 999;
@@ -974,10 +996,17 @@ document.querySelectorAll('button[data-target-day]').forEach(b=>b.addEventListen
 }));
 document.getElementById('targetClose').addEventListener('click',()=>document.getElementById('targetPanel').classList.remove('open'));
 
-document.getElementById('collectNow').addEventListener('click',()=>{
-  const ok=confirm('最新の釣果収集を開始します。GitHubの画面が開くので「Run workflow」を押してください。');
-  if(!ok)return;
-  window.open('https://github.com/kurenn46-max/aori-catch-map/actions/workflows/collect.yml','_blank','noopener');
+document.getElementById('collectNow').addEventListener('click',async()=>{
+  const b=document.getElementById('collectNow');
+  const old=b.textContent;b.textContent='同期中…';b.disabled=true;
+  try{
+    await loadAppData();
+    b.textContent='✓ 最新';
+  }catch(e){
+    console.error(e);b.textContent='! 失敗';
+  }finally{
+    setTimeout(()=>{b.textContent=old;b.disabled=false},1400);
+  }
 });
 
 document.getElementById('reloadData').addEventListener('click',async()=>{

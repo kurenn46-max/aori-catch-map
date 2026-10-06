@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: "23 21 * * *"
   push:
-    branches: [main]
+    branches:
+      - main
+      - "v4/**"
     paths:
       - "scripts/discover_sources.py"
       - ".github/workflows/discover-sources.yml"
@@ -40,8 +42,8 @@ jobs:
           import json
           from pathlib import Path
           d=json.loads(Path("data/source-candidates.json").read_text(encoding="utf-8"))
-          assert d["query_count"] == 18
-          assert d["query_ok"] >= 12
+          assert d["query_count"] == 30
+          assert d["query_ok"] >= 20
           rows=d.get("candidates",[])
           assert rows
           site_keys=[x.get("site_key") for x in rows]
@@ -69,4 +71,5 @@ jobs:
             exit 0
           fi
           git commit -m "Update aori source candidates"
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin HEAD:"$GITHUB_REF_NAME"

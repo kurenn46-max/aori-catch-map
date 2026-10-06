@@ -153,6 +153,14 @@ SOURCES = [
         "default_area": None,
     },
     {
+        "name": "釣具のイシグロ",
+        "kind": "tackle_shop_media",
+        "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+        "default_area": None,
+        "detail_patterns": [r"/enjoy/fishing/detail\.php\?id=\d+"],
+        "detail_limit": 20,
+    },
+    {
         "name": "ブンブン釣行記",
         "kind": "tackle_shop_media",
         "url": "https://bunbun-fishing.com/fishing/",
@@ -205,6 +213,7 @@ SHORE_WORDS = ("ショア", "陸っぱり", "漁港", "堤防", "防波堤", "�
 
 FW_TRANS = str.maketrans("０１２３４５６７８９．～〜Ｍｍ", "0123456789.~~Mm")
 DATE_RE = re.compile(r"20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2})")
+TRIP_FULL_DATE_RE = re.compile(r"(?:釣行日|実釣日)\s*[:：]?\s*(20\d{2}(?:年\s*\d{1,2}月\s*\d{1,2}日|[./-]\d{1,2}[./-]\d{1,2}))")
 TRIP_MD_RE = re.compile(r"(?<!\d)(\d{1,2})/(\d{1,2})日?(?:の)?釣行")
 DAY_HEADING_RE = re.compile(r"(?<!\d)(\d{1,2})日(?=(?:ナイト|ティップ|朝便|昼便|夜便|半夜便|深夜便|たて釣り|イカ|アオリ|釣り))")
 COUNT_RE = re.compile(r"(?<!\d)(\d{1,3})\s*(?:杯|ハイ)")
@@ -516,6 +525,17 @@ def published_date_from_soup(soup, text):
 
 def split_detail_segments(text, page_date):
     normalized = normalize(text)
+    full_matches = list(TRIP_FULL_DATE_RE.finditer(normalized))
+    if full_matches:
+        out = []
+        for i, m in enumerate(full_matches):
+            date = parse_date(m.group(1))
+            if not date:
+                continue
+            end = full_matches[i + 1].start() if i + 1 < len(full_matches) else min(len(normalized), m.start() + 3200)
+            out.append((date, normalized[m.start():end]))
+        if out:
+            return out
     matches = list(TRIP_MD_RE.finditer(normalized))
     if matches and page_date:
         year = int(page_date[:4])

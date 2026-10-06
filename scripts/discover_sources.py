@@ -16,14 +16,19 @@ JST = timezone(timedelta(hours=9))
 NOW = datetime.now(JST)
 REGIONS = ["越前", "敦賀", "若狭", "小浜", "舞鶴", "丹後"]
 QUERY_TEMPLATES = [
-    "{region} アオリイカ ティップラン 遊漁船 船長ブログ",
+    # V4: shore-first. These three searches are the primary source-growth lane.
+    "{region} アオリイカ エギング 釣果 釣行",
+    "{region} アオリイカ 堤防 漁港 地磯 エギング",
+    "{region} アオリイカ 釣具店 釣果 エギング",
+    # Boat evidence is retained as a separate depth/fish-density context lane.
     "{region} アオリイカ ティップラン 水深 ボトム 釣果",
-    "{region} アオリイカ 釣果 船 マリーナ ブログ",
+    "{region} アオリイカ ティップラン 遊漁船 船長ブログ",
 ]
 TARGET_WORDS = ("アオリ", "アオリイカ", "ティップラン", "エギング")
 NEGATIVE_WORDS = ("渋い", "厳しい", "釣れない", "釣れず", "反応なし", "ボウズ", "坊主", "チェイス")
 DIRECT_WORDS = ("遊漁船", "釣り船", "釣船", "船長", "船宿")
 MARINA_WORDS = ("マリーナ", "レンタルボート")
+SHORE_WORDS = ("エギング", "ショア", "陸っぱり", "堤防", "防波堤", "漁港", "地磯", "磯", "サーフ")
 REPORT_WORDS = ("釣果", "釣行", "実釣", "ブログ", "釣果情報")
 GENERIC_WORDS = ("初心者", "とは", "仕掛け", "入門", "おすすめタックル")
 AGGREGATOR_DOMAINS = {"blogmura.com", "chowari.jp", "egifun.net"}
@@ -152,13 +157,17 @@ def score_result(text, url, region):
     if "ティップラン" in text:
         score += 20; reasons.append("tiprun")
     if "エギング" in text:
-        score += 8; reasons.append("eging")
+        score += 12; reasons.append("eging")
+    if any(w in text for w in SHORE_WORDS):
+        score += 12; reasons.append("shore")
     if "水深" in text or DEPTH_RE.search(text):
         score += 12; reasons.append("depth")
     if "釣果" in text:
         score += 8; reasons.append("catch")
     if any(w in text for w in DIRECT_WORDS + MARINA_WORDS):
-        score += 15; reasons.append("direct_source")
+        score += 10; reasons.append("direct_source")
+    if any(w in text for w in ("釣具", "上州屋", "FISHERS", "ブンブン", "イシグロ", "アングラーズ")):
+        score += 10; reasons.append("tackle_source")
     if any(w in text for w in REPORT_WORDS):
         score += 6; reasons.append("report")
     freshness, observed, age = freshness_from_text(text)

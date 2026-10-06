@@ -1,4 +1,5 @@
 name: Main app Android smoke test
+# V4 final release gate
 on:
   push:
     branches:
@@ -7,6 +8,7 @@ on:
       - 'fix/**'
       - 'perf/**'
       - 'feat/source-discovery-v2-*'
+      - 'v4/**'
     paths:
       - 'index.html'
       - 'data/**'
@@ -35,6 +37,31 @@ jobs:
           cp /tmp/main-map-deps/node_modules/leaflet/dist/leaflet.js assets/leaflet.js
           cp /tmp/main-map-deps/node_modules/leaflet/dist/leaflet.css assets/leaflet.css
           cp -r /tmp/main-map-deps/node_modules/leaflet/dist/images assets/images
+      - name: Install V4 collector dependencies
+        run: pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Rebuild V4 live feed and validate strategy for current JST day
+        run: |
+          python3 -m py_compile scripts/v4_collect_hot.py scripts/v4_build_feed.py scripts/build_strategy.py
+          python3 scripts/v4_collect_hot.py
+          python3 scripts/v4_build_feed.py
+          python3 scripts/build_strategy.py
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          j=json.loads(Path("data/strategy.json").read_text(encoding="utf-8"))
+          today=datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d")
+          assert j.get("reference_date")==today, (j.get("reference_date"), today)
+          assert any((x.get("shore_context") or {}).get("last7_signals",0) for x in j.get("areas",[])), "shore_context missing trusted shore signals"
+          live=json.loads(Path("data/live-feed.json").read_text(encoding="utf-8"))
+          rows=live.get("catches",[])
+          supp=[x for x in rows if x.get("supplementary")]
+          assert live.get("version")==4
+          assert supp, "trusted public evidence missing from V4 live feed"
+          assert all(x.get("count") is None for x in supp), "supplementary rows invented catch counts"
+          assert any(x.get("date")=="2026-10-06" and x.get("type")=="shore" for x in rows), "known 10/6 shore signal missing"
+          print("strategy reference", j.get("reference_date"), "V4 live", live.get("counts"), "supplementary", len(supp))
+          PY
       - name: Start local site
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/aori-http.log 2>&1 &

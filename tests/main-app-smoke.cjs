@@ -26,7 +26,7 @@ const marineBody={
   fs.mkdirSync('test-results',{recursive:true});
   const browser=await chromium.launch({headless:true});
   const report={checks:[]};
-  async function withPage(optionalFailure=false){
+  async function withPage(optionalFailure=false,apiDelayMs=0){
     const context=await browser.newContext({...devices['Pixel 7'],locale:'ja-JP',timezoneId:'Asia/Tokyo'});
     const page=await context.newPage();
     const errors=[];
@@ -34,8 +34,14 @@ const marineBody={
     page.on('request',r=>requests.push(r.url()));
     page.on('pageerror',e=>errors.push(String(e)));
     page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text());});
-    await page.route('https://api.open-meteo.com/**',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(weatherBody)}));
-    await page.route('https://marine-api.open-meteo.com/**',r=>r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(marineBody)}));
+    await page.route('https://api.open-meteo.com/**',async r=>{
+      if(apiDelayMs)await new Promise(resolve=>setTimeout(resolve,apiDelayMs));
+      await r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(weatherBody)});
+    });
+    await page.route('https://marine-api.open-meteo.com/**',async r=>{
+      if(apiDelayMs)await new Promise(resolve=>setTimeout(resolve,apiDelayMs));
+      await r.fulfill({status:200,contentType:'application/json',body:JSON.stringify(marineBody)});
+    });
     if(optionalFailure) await page.route('**/data/strategy.json*',r=>r.abort());
     return {context,page,errors,requests};
   }
@@ -67,11 +73,24 @@ const marineBody={
       const today=await page.locator('#status').innerText();
       assert.match(today,/今日/);
       await page.locator('#area').selectOption({label:'敦賀'});
-      assert.match(await page.locator('#status').innerText(),/実釣果データ/);
+      assert.match(await page.locator('#status').innerText(),/件（直接/);
       await page.locator('#modeRow button[data-mode="shore"]').click();
-      assert.match(await page.locator('#status').innerText(),/実釣果データ/);
+      assert.match(await page.locator('#status').innerText(),/件（直接/);
       await page.locator('#area').selectOption('all');
       await page.locator('#dateRow button[data-range="7"]').click();
+    });
+
+    await check('V4 live feed fixes yesterday zero-data regression',async()=>{
+      await page.locator('#dateRow button[data-range="yesterday"]').click();
+      await page.locator('#modeRow button[data-mode="shore"]').click();
+      const n=Number(await page.locator('#shoreCount').innerText());
+      const status=await page.locator('#status').innerText();
+      assert(n>=1,'yesterday shore feed unexpectedly empty');
+      assert.match(status,/昨日/);
+      assert.match(status,/補助/);
+      await page.locator('#modeRow button[data-mode="all"]').click();
+      await page.locator('#dateRow button[data-range="7"]').click();
+      return status;
     });
 
     await check('Freshness uses session-compressed counts',async()=>{
@@ -87,6 +106,18 @@ const marineBody={
     await check('Panels open and close',async()=>{
       const pairs=[['#trendToggle','#trendPanel','#trendClose'],['#freshToggle','#freshPanel','#freshClose'],['#strategyToggle','#strategyPanel','#strategyClose'],['#newToggle','#newPanel','#newClose']];
       for(const [open,panel,close] of pairs){await page.locator(open).click();assert(await page.locator(panel).evaluate(e=>e.classList.contains('open')));await page.locator(close).click();}
+    });
+
+    await check('Trusted shore discovery context is surfaced separately',async()=>{
+      const ctx=await page.evaluate(()=>strategyArea('敦賀')?.shore_context||null);
+      assert(ctx,'shore discovery context missing');
+      assert(Number(ctx.last7_signals||0)>=1,'trusted shore signals were not carried into strategy');
+      await page.locator('#strategyToggle').click();
+      const txt=await page.locator('#strategyGrid').innerText();
+      assert.match(txt,/外部補助釣果/);
+      assert.match(txt,/岸・別枠/);
+      await page.locator('#strategyClose').click();
+      return JSON.stringify(ctx);
     });
 
     await check('Strategy shows boat depth as separate context',async()=>{
@@ -161,6 +192,27 @@ const marineBody={
     await check('No runtime errors in normal flow',async()=>assert.deepEqual(errors,[]));
     await page.screenshot({path:'test-results/main-normal.png',fullPage:true,animations:'disabled'});
   } finally { await context.close(); }
+
+  const raceCase=await withPage(false,450);
+  try{
+    await raceCase.page.goto(base,{waitUntil:'domcontentloaded',timeout:30000});
+    await raceCase.page.waitForFunction(()=>document.querySelector('#spotCount')?.textContent!=='0',{timeout:20000});
+    await check('Slow sea response cannot overwrite a newer catch view',async()=>{
+      await raceCase.page.locator('button[data-view="sea"]').click();
+      await raceCase.page.waitForTimeout(50);
+      await raceCase.page.locator('button[data-view="catch"]').click();
+      await raceCase.page.waitForTimeout(1200);
+      const state=await raceCase.page.evaluate(()=>({
+        viewMode,
+        status:document.querySelector('#status')?.textContent||'',
+        intelLayers:groups.intel.getLayers().length
+      }));
+      assert.equal(state.viewMode,'catch');
+      assert.match(state.status,/件（直接/);
+      assert.equal(state.intelLayers,0,'stale sea markers were added after leaving sea view');
+      return JSON.stringify(state);
+    });
+  } finally { await raceCase.context.close(); }
 
   const failCase=await withPage(true);
   try{
