@@ -291,6 +291,22 @@ def main():
             by_url[row["url"]] = row
     candidates = sorted(by_url.values(), key=candidate_score, reverse=True)[:MAX_FETCH]
 
+    # EgiCOM is a core shore source but GitHub-hosted runners sometimes receive
+    # a stripped response in the legacy collector. Always retry its five target
+    # city pages in this independent verification lane; actual cards still must
+    # be present and parse successfully before any signal is emitted.
+    fixed_yamaria = [
+        {
+            "region": area,
+            "query": "fixed-core-verification",
+            "url": f"https://www.yamaria.com/community/catch/egiou/cities/{city_id}",
+            "search_text": f"{area} アオリイカ エギング 釣果",
+        }
+        for city_id, (area, _place) in YAMARIA_CITIES.items()
+    ]
+    existing_urls = {x.get("url") for x in candidates}
+    candidates.extend(x for x in fixed_yamaria if x["url"] not in existing_urls)
+
     signals = []
     checks = []
     with ThreadPoolExecutor(max_workers=8) as pool:
