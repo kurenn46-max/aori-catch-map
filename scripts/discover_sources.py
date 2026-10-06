@@ -15,10 +15,13 @@ from urllib3.util.retry import Retry
 JST = timezone(timedelta(hours=9))
 NOW = datetime.now(JST)
 REGIONS = ["越前", "敦賀", "若狭", "小浜", "舞鶴", "丹後"]
-QUERY_TEMPLATES = [
-    "{region} アオリイカ ティップラン 遊漁船 船長ブログ",
-    "{region} アオリイカ ティップラン 水深 ボトム 釣果",
-    "{region} アオリイカ 釣果 船 マリーナ ブログ",
+DISCOVERY_QUERIES = [
+    ("boat_source", "{region} アオリイカ ティップラン 遊漁船 船長ブログ"),
+    ("boat_depth", "{region} アオリイカ ティップラン 水深 ボトム 釣果"),
+    ("boat_marina", "{region} アオリイカ 釣果 船 マリーナ ブログ"),
+    ("shore_catch", "{region} アオリイカ エギング 釣果 漁港 堤防"),
+    ("shore_negative", "{region} アオリイカ エギング 渋い 釣れない 釣果"),
+    ("bait_presence", "{region} アオリイカ ベイト アジ 釣果"),
 ]
 TARGET_WORDS = ("アオリ", "アオリイカ", "ティップラン", "エギング")
 NEGATIVE_WORDS = ("渋い", "厳しい", "釣れない", "釣れず", "反応なし", "ボウズ", "坊主", "チェイス")
@@ -180,7 +183,7 @@ def score_result(text, url, region):
     return max(0, min(100, score)), reasons, freshness, observed, age, stype, direct
 
 
-def yahoo_search(region, query):
+def yahoo_search(region, query, focus):
     s = make_session()
     url = "https://search.yahoo.co.jp/search?p=" + quote_plus(query)
     r = s.get(url, timeout=(7, 22))
@@ -204,7 +207,7 @@ def yahoo_search(region, query):
         if key in seen:
             continue
         seen.add(key)
-        rows.append({"region": region, "query": query, "url": key, "search_text": text[:700]})
+        rows.append({"region": region, "query": query, "focus": focus, "url": key, "search_text": text[:700]})
         if len(rows) >= 15:
             break
     return rows
@@ -295,21 +298,21 @@ def main():
     search_rows = []
     diagnostics = []
     tasks = []
-    for tmpl in QUERY_TEMPLATES:
+    for focus, tmpl in DISCOVERY_QUERIES:
         for region in REGIONS:
             q = tmpl.format(region=region)
-            tasks.append((region, q))
+            tasks.append((region, q, focus))
 
     with ThreadPoolExecutor(max_workers=4) as pool:
-        futures = {pool.submit(yahoo_search, region, q): (region, q) for region, q in tasks}
+        futures = {pool.submit(yahoo_search, region, q, focus): (region, q, focus) for region, q, focus in tasks}
         for future in as_completed(futures):
-            region, q = futures[future]
+            region, q, focus = futures[future]
             try:
                 rows = future.result()
-                diagnostics.append({"region": region, "query": q, "status": "ok", "results": len(rows)})
+                diagnostics.append({"region": region, "query": q, "focus": focus, "status": "ok", "results": len(rows)})
                 search_rows.extend(rows)
             except Exception as exc:
-                diagnostics.append({"region": region, "query": q, "status": "error", "error": f"{type(exc).__name__}: {exc}"[:240]})
+                diagnostics.append({"region": region, "query": q, "focus": focus, "status": "error", "error": f"{type(exc).__name__}: {exc}"[:240]})
 
     by_url = {}
     for row in search_rows:
@@ -332,10 +335,18 @@ def main():
             "direct_source": direct,
             "region_explicit": "region" in reasons,
             "known_source": site_key(key) in known,
+            "focuses": [row.get("focus") or "unknown"],
         }
         old = by_url.get(key)
-        if old is None or cand["score"] > old["score"]:
+        if old is None:
             by_url[key] = cand
+        else:
+            merged_focuses = sorted(set((old.get("focuses") or []) + cand["focuses"]))
+            if cand["score"] > old["score"]:
+                cand["focuses"] = merged_focuses
+                by_url[key] = cand
+            else:
+                old["focuses"] = merged_focuses
 
     unknown = [x for x in by_url.values() if not x["known_source"] and x["score"] >= 35]
     unknown.sort(key=lambda x: (-x["score"], x["domain"], x["url"]))
@@ -416,7 +427,11 @@ def main():
         "query_error": sum(x["status"] == "error" for x in diagnostics),
         "candidate_count": len(candidates),
         "tier_counts": {t: sum(x["tier"] == t for x in candidates) for t in ("A","B","C")},
-        "diagnostics": sorted(diagnostics, key=lambda x: (x["region"], x["query"])),
+        "focus_counts": {
+            focus: sum(focus in (x.get("focuses") or []) for x in candidates)
+            for focus, _ in DISCOVERY_QUERIES
+        },
+        "diagnostics": sorted(diagnostics, key=lambda x: (x["region"], x["focus"], x["query"])),
         "candidates": candidates[:100],
     }
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -427,6 +442,7 @@ def main():
         "query_error": payload["query_error"],
         "candidate_count": payload["candidate_count"],
         "tier_counts": payload["tier_counts"],
+        "focus_counts": payload["focus_counts"],
         "verified": sum(bool(x.get("verified")) for x in candidates),
         "with_depth_page": sum(bool(x.get("page_depth_samples")) for x in candidates),
         "top_A": [
