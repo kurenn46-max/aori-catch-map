@@ -65,6 +65,21 @@ jobs:
                   assert x.get("source_type") != "aggregator", x
           print("candidate queue PASS",len(rows),d.get("tier_counts"))
           PY
+      - name: Audit strongest candidate sources
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("data/source-candidates.json").read_text(encoding="utf-8"))
+          rows=d.get("candidates",[])
+          for x in rows[:20]:
+              print({
+                  "tier":x.get("tier"),"score":x.get("score"),"region":x.get("region"),
+                  "focuses":x.get("focuses"),"type":x.get("source_type"),
+                  "verified":x.get("verified"),"direct":x.get("page_direct_identity"),
+                  "title":x.get("page_title"),"url":x.get("url")
+              })
+          PY
       - name: Commit candidate queue
         if: github.ref_name == 'main'
         run: |
