@@ -72,6 +72,20 @@ jobs:
           assert health.get("target_hot_refresh_minutes")==30
           print("V4 PASS", feed.get("counts"), health.get("coverage"))
           PY
+      - name: V4 refresh summary
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          feed=json.loads(Path("data/live-feed.json").read_text(encoding="utf-8"))
+          health=json.loads(Path("data/v4-health.json").read_text(encoding="utf-8"))
+          c=feed.get("counts",{})
+          print("## Aori V4 live refresh")
+          print(f"- total: **{c.get('total',0)}** / shore: **{c.get('shore',0)}** / boat: **{c.get('boat',0)}**")
+          print(f"- direct: **{c.get('direct',0)}** / supplementary: **{c.get('supplementary',0)}**")
+          print(f"- latest shore: **{health.get('latest_shore_date') or 'none'}**")
+          print(f"- source checks: **{health.get('coverage',{}).get('checks_ok',0)}/{health.get('coverage',{}).get('checks_total',0)}**")
+          PY
       - name: Commit live data
         run: |
           git config user.name "github-actions[bot]"
