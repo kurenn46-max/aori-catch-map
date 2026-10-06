@@ -306,15 +306,32 @@ def detect_evidence_role(text):
 
 def detect_time_mode(text):
     t = normalize(text)
-    day_hits = any(w in t for w in ("Dayティップラン", "DAYティップラン", "デイティップラン", "昼ティップラン", "昼便", "朝便", "午前便", "午後便"))
-    night_hits = any(w in t for w in ("ナイトティップラン", "Nightティップラン", "NIGHTティップラン", "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便"))
-    if day_hits and night_hits:
-        return "mixed"
-    if day_hits:
+    day_words = (
+        "Dayティップラン", "DAYティップラン", "デイティップラン",
+        "昼ティップラン", "昼便", "朝便", "午前便", "午後便",
+    )
+    night_words = (
+        "ナイトティップラン", "Nightティップラン", "NIGHTティップラン",
+        "夜ティップラン", "ナイト便", "夜便", "半夜便", "深夜便",
+    )
+
+    day_positions = [t.find(w) for w in day_words if t.find(w) >= 0]
+    night_positions = [t.find(w) for w in night_words if t.find(w) >= 0]
+    if not day_positions and not night_positions:
+        return "unknown"
+    if day_positions and not night_positions:
         return "day"
-    if night_hits:
+    if night_positions and not day_positions:
         return "night"
-    return "unknown"
+
+    first_day = min(day_positions)
+    first_night = min(night_positions)
+    # True mixed-mode copy normally names both modes close together.
+    if abs(first_day - first_night) <= 120:
+        return "mixed"
+    # Listing cards often contain a clear mode in the heading and an unrelated
+    # site-wide/footer mode later. Prefer the first explicit mode.
+    return "day" if first_day < first_night else "night"
 
 
 def classify_type(text, kind):
