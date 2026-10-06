@@ -56,6 +56,10 @@ SOURCES = [
         "url": "https://zuishomaru.com/category/fishing/",
         "default_area": "敦賀",
         "default_aori_method": "ティップラン",
+        "catch_phrases": [
+            "コンスタントにあたり", "姿を見せ", "ポツポツあた",
+            "ポツポツ釣れ", "ツ抜けならず", "ツヌケ", "釣果に差",
+        ],
     },
     {
         "name": "若狭マリンプラザ",
@@ -105,8 +109,9 @@ SOURCES = [
         "kind": "charter",
         "url": "https://www.e-fukumaru.com/",
         "default_area": "若狭",
-        "detail_patterns": [r"/news/\d+"],
-        "detail_limit": 10,
+        "default_aori_method": "ティップラン",
+        "detail_patterns": [r"/tyoka/\d+"],
+        "detail_limit": 16,
     },
     {
         "name": "SUPER VIKING",
@@ -642,6 +647,8 @@ def signal_from_segment(source, date, segment, inherited_context=""):
     else:
         time_mode = segment_mode
     evidence_role = detect_evidence_role(analysis_text)
+    if evidence_role == "info" and any(p in analysis_text for p in source.get("catch_phrases", [])):
+        evidence_role = "catch"
     depths, bottom_offsets, tana_depths, depth_contexts = extract_depths(analysis_text)
     negatives = [w for w in NEGATIVE_WORDS if w in analysis_text]
     bait = [w for w in BAIT_WORDS if w in analysis_text]
