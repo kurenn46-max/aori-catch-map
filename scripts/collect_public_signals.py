@@ -154,6 +154,7 @@ SOURCES = [
         "detail_patterns": [r"finfo_page\.html\?choka_idx=\d+"],
         "detail_limit": 40,
         "detail_only": True,
+        "primary_species_aori": True,
     },
     {
         "name": "FISHERS 福井店",
@@ -256,7 +257,7 @@ SOURCES = [
 
 AREA_WORDS = {
     "越前": (
-        "越前", "越前海岸", "越前町", "越前岬", "甲楽城", "茱崎", "鷹巣",
+        "越前", "越前海岸", "越前町", "越前岬", "福井県 嶺北", "甲楽城", "茱崎", "鷹巣",
         "三里浜", "波松", "米ノ", "厨", "梅浦", "河野", "糠",
     ),
     "敦賀": (
@@ -762,6 +763,13 @@ def fetch_detail_signals(source, detail_urls, sess):
             fetched += 1
             soup = BeautifulSoup(r.content, "html.parser")
             text = extract_primary_detail_text(soup, source)
+            if source.get("primary_species_aori"):
+                # FISHERS pages contain the full fish search form and related
+                # species in page chrome. Only accept a detail page when the
+                # report's own species block (before "釣行日") names Aori.
+                head = text.split("釣行日", 1)[0][:900]
+                if "アオリイカ" not in head:
+                    continue
             page_date = published_date_from_soup(soup, text)
             title = clean(soup.title.get_text(" ", strip=True) if soup.title else "")
             # In detail articles, trip-date paragraphs often omit the species/method
