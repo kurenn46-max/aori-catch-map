@@ -36,6 +36,8 @@ QUERY_TEMPLATES = [
     "{region} アオリイカ エギング 釣果 {year}",
     "{region} アオリイカ 釣行 釣果 {year}",
     "{region} アオリイカ ティップラン 釣果 水深 {year}",
+    "{region} アオリイカ {month}月 エギング 釣果 {year}",
+    "{region} アオリイカ {recent_md} 釣果",
 ]
 BLOCKED_DOMAINS = {
     "facebook.com", "instagram.com", "x.com", "twitter.com", "youtube.com",
@@ -95,6 +97,9 @@ def candidate_score(row):
     score += 10 if "釣果" in txt or "釣行" in txt else 0
     score += 15 if row.get("region") and row["region"] in txt else 0
     score += 5 if re.search(r"20\d{2}", txt) else 0
+    score += 18 if str(NOW.year) in txt and f"{NOW.month}月" in txt else 0
+    recent = NOW.date() - timedelta(days=1)
+    score += 18 if f"{recent.month}月{recent.day}日" in txt else 0
     return score
 
 
@@ -266,9 +271,19 @@ def main():
     args = parser.parse_args()
 
     queries = []
+    recent = NOW.date() - timedelta(days=1)
+    recent_md = f"{recent.month}月{recent.day}日"
     for region in REGIONS:
         for tmpl in QUERY_TEMPLATES:
-            queries.append((region, tmpl.format(region=region, year=NOW.year)))
+            queries.append((
+                region,
+                tmpl.format(
+                    region=region,
+                    year=NOW.year,
+                    month=NOW.month,
+                    recent_md=recent_md,
+                ),
+            ))
 
     found = []
     diagnostics = []
