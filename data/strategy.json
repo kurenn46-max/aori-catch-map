@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-10-07T15:03:42+09:00",
-  "reference_date": "2026-10-07",
+  "updated_at": "2026-10-08T00:35:23+09:00",
+  "reference_date": "2026-10-08",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-07",
+  "boat_context_reference_date": "2026-10-08",
   "areas": [
     {
       "area": "越前",
       "latest_date": "2026-10-05",
-      "confidence": 74,
+      "confidence": 69,
       "grade": "B",
       "trend": "up",
       "last48h_sessions": {
@@ -91,7 +91,7 @@
     {
       "area": "敦賀",
       "latest_date": "2026-10-05",
-      "confidence": 51,
+      "confidence": 46,
       "grade": "C",
       "trend": "up",
       "last48h_sessions": {
@@ -142,7 +142,7 @@
       "raw_posts_30d": 19,
       "shore_context": {
         "latest_date": "2026-10-06",
-        "last48_signals": 1,
+        "last48_signals": 0,
         "last7_signals": 1,
         "sources_7d": 1,
         "items": [
@@ -160,13 +160,13 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-05",
-        "last7_sessions": 6,
+        "latest_date": "2026-10-07",
+        "last7_sessions": 7,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 3,
-        "night_sessions_7d": 3,
-        "negative_sessions_7d": 1,
+        "night_sessions_7d": 4,
+        "negative_sessions_7d": 2,
         "day_depth_signals": [],
         "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
@@ -176,7 +176,7 @@
     {
       "area": "若狭",
       "latest_date": "2026-10-05",
-      "confidence": 51,
+      "confidence": 46,
       "grade": "C",
       "trend": "up",
       "last48h_sessions": {
@@ -237,7 +237,7 @@
       "boat_context": {
         "latest_date": "2026-10-07",
         "last7_sessions": 1,
-        "sources_14d": 3,
+        "sources_14d": 2,
         "depth_window_days": 30,
         "day_sessions_7d": 1,
         "night_sessions_7d": 0,
@@ -251,9 +251,9 @@
     {
       "area": "舞鶴",
       "latest_date": "2026-10-04",
-      "confidence": 70,
+      "confidence": 63,
       "grade": "B",
-      "trend": "up",
+      "trend": "new",
       "last48h_sessions": {
         "shore": 0
       },
@@ -268,8 +268,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 0,
+        "catch": 0
       },
       "last30_sessions": {
         "shore": 9,
@@ -300,7 +300,7 @@
       "local_active": 0,
       "raw_posts_30d": 12,
       "shore_context": {
-        "latest_date": "2026-09-30",
+        "latest_date": null,
         "last48_signals": 0,
         "last7_signals": 0,
         "sources_7d": 0,
@@ -337,7 +337,7 @@
     {
       "area": "丹後",
       "latest_date": "2026-10-04",
-      "confidence": 29,
+      "confidence": 22,
       "grade": "C",
       "trend": "up",
       "last48h_sessions": {
@@ -392,12 +392,12 @@
       },
       "boat_context": {
         "latest_date": "2026-10-07",
-        "last7_sessions": 6,
+        "last7_sessions": 5,
         "sources_14d": 4,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
         "night_sessions_7d": 5,
-        "negative_sessions_7d": 1,
+        "negative_sessions_7d": 0,
         "day_depth_signals": [],
         "night_depth_signals": [
           {
