@@ -18,30 +18,11 @@ HOT_NAMES = {
     "釣具のイシグロ",
     "墨族",
     "フィッシングマックス",
+    "FISHERS アオリイカ",
+    "FISHERS 福井店",
 }
 
 EXTRA_SOURCES = [
-    {
-        "name": "FISHERS アオリイカ",
-        "kind": "tackle_shop_media",
-        "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
-        "default_area": None,
-        "detail_patterns": [r"finfo_page\.html\?choka_idx=\d+"],
-        "detail_limit": 40,
-        "detail_only": True,
-    },
-    {
-        "name": "FISHERS 福井店",
-        "kind": "tackle_shop_media",
-        "url": "https://www.fishers.co.jp/allpages/?staff_code=16",
-        "default_area": None,
-        "detail_patterns": [
-            r"finfo_page\.html\?choka_idx=\d+",
-            r"page\.html\?topic_code=\d+",
-        ],
-        "detail_limit": 30,
-        "detail_only": True,
-    },
     {
         "name": "アングラーズ日本海",
         "kind": "tackle_shop_media",
@@ -67,8 +48,8 @@ def main():
     args = parser.parse_args()
 
     selected = [x for x in SOURCES if x.get("name") in HOT_NAMES]
-    # Override the generic FISHERS root with a fish-filtered page and add the
-    # Anglers trends feed. The normal broad collector still keeps its wider set.
+    # Reuse the canonical fixed-source definitions and add the Anglers trends
+    # feed as a fast-lane-only supplement.
     selected.extend(EXTRA_SOURCES)
 
     all_signals, health = [], []
