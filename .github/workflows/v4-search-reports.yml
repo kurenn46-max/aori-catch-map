@@ -46,8 +46,8 @@ jobs:
           from pathlib import Path
           s=json.loads(Path("data/search-signals.json").read_text(encoding="utf-8"))
           f=json.loads(Path("data/live-feed.json").read_text(encoding="utf-8"))
-          assert s.get("query_count")==15, s.get("query_count")
-          assert s.get("query_ok",0)>=10, s.get("query_ok")
+          assert s.get("query_count")==25, s.get("query_count")
+          assert s.get("query_ok",0)>=18, s.get("query_ok")
           target={"越前","敦賀","若狭","舞鶴","丹後"}
           for x in s.get("signals",[]):
               assert x.get("search_discovery") is True, x
