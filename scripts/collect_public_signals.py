@@ -211,6 +211,20 @@ SOURCES = [
         "default_aori_method": "ナイトエギング",
     },
     {
+        "name": "かどや丸",
+        "kind": "charter_aggregator",
+        "url": "https://reserve.castingnet.jp/ship00105c.html",
+        "default_area": "若狭",
+        "default_aori_method": "ティップラン",
+    },
+    {
+        "name": "川代丸",
+        "kind": "charter_aggregator",
+        "url": "https://tackleberry.chowari.jp/ship00122c.html",
+        "default_area": "若狭",
+        "default_aori_method": "ティップラン",
+    },
+    {
         "name": "TRITON",
         "kind": "charter",
         "url": "https://triton-maizuru.com/topics.html",
