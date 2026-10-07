@@ -1,16 +1,16 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T11:41:33+09:00",
+  "updated_at": "2026-10-07T15:03:42+09:00",
   "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
-    "total": 123,
+    "total": 126,
     "shore": 71,
-    "boat": 52,
+    "boat": 55,
     "direct": 72,
-    "supplementary": 51,
+    "supplementary": 54,
     "hot": 7,
-    "broad": 44
+    "broad": 47
   },
   "latest_shore_date": "2026-10-06",
   "latest_shore_age_days": 1,
@@ -19,42 +19,42 @@
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T11:40:58+09:00",
+      "checked_at": "2026-10-07T15:02:20+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T11:40:58+09:00",
+      "checked_at": "2026-10-07T15:02:20+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T11:40:58+09:00",
+      "checked_at": "2026-10-07T15:02:20+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T11:40:58+09:00",
+      "checked_at": "2026-10-07T15:02:20+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T11:40:58+09:00",
+      "checked_at": "2026-10-07T15:02:20+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "accepted_signals": 7,
       "detail_signals": 0
     },
@@ -62,7 +62,7 @@
       "source": "釣具のイシグロ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "accepted_signals": 171,
       "detail_signals": 139
     },
@@ -70,7 +70,7 @@
       "source": "ブンブン釣行記",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "accepted_signals": 5,
       "detail_signals": 2
     },
@@ -78,7 +78,7 @@
       "source": "FISHERS アオリイカ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "accepted_signals": 19,
       "detail_signals": 0
     },
@@ -86,7 +86,7 @@
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -94,7 +94,7 @@
       "source": "HOZANⅡ",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 3,
       "detail_signals": 0
     },
@@ -102,7 +102,7 @@
       "source": "春定丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 3,
       "detail_signals": 3
     },
@@ -110,23 +110,23 @@
       "source": "天徳丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 7,
       "detail_signals": 0
     },
     {
       "source": "瑞祥丸",
-      "status": "error",
+      "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
-      "accepted_signals": 0,
-      "error": "RetryError: HTTPSConnectionPool(host='zuishomaru.com', port=443): Max retries exceeded with url: /category/fishing/ (Caused by ResponseError('too many 503 error responses'))"
+      "checked_at": "2026-10-07T15:02:22+09:00",
+      "accepted_signals": 19,
+      "detail_signals": 0
     },
     {
       "source": "若狭マリンプラザ",
       "status": "error",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 0,
       "error": "ConnectionError: HTTPSConnectionPool(host='www.marineplaza-marina.com', port=443): Max retries exceeded with url: /?cat=11 (Caused by NameResolutionError(\"HTTPSConnection(host='www.marineplaza-marina.com', port=443): Failed to resolve 'www.marineplaza-marina.c"
     },
@@ -134,7 +134,7 @@
       "source": "まるまる丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -142,7 +142,7 @@
       "source": "心友丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 1,
       "detail_signals": 0
     },
@@ -150,7 +150,7 @@
       "source": "MIYAMOTOMARU2",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 4,
       "detail_signals": 4
     },
@@ -158,7 +158,7 @@
       "source": "小浜マリーナ",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 1,
       "detail_signals": 0
     },
@@ -166,7 +166,7 @@
       "source": "福丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 8,
       "detail_signals": 1
     },
@@ -174,7 +174,7 @@
       "source": "SUPER VIKING",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -182,7 +182,7 @@
       "source": "あみや渡船",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 5,
       "detail_signals": 0
     },
@@ -190,7 +190,7 @@
       "source": "ヴィーナス",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 21,
       "detail_signals": 12
     },
@@ -198,7 +198,7 @@
       "source": "オールブルー",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -206,7 +206,7 @@
       "source": "ちどり丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 4,
       "detail_signals": 0
     },
@@ -214,7 +214,7 @@
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 7,
       "detail_signals": 0
     },
@@ -222,7 +222,7 @@
       "source": "泰丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 18,
       "detail_signals": 9
     },
@@ -230,15 +230,15 @@
       "source": "FISHERS",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
-      "accepted_signals": 2,
+      "checked_at": "2026-10-07T15:02:22+09:00",
+      "accepted_signals": 3,
       "detail_signals": 0
     },
     {
       "source": "釣具のイシグロ",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 171,
       "detail_signals": 139
     },
@@ -246,7 +246,7 @@
       "source": "ブンブン釣行記",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 5,
       "detail_signals": 2
     },
@@ -254,7 +254,7 @@
       "source": "TRITON",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 1,
       "detail_signals": 1
     },
@@ -262,7 +262,7 @@
       "source": "すばる",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 1,
       "detail_signals": 0
     },
@@ -270,7 +270,7 @@
       "source": "OCEANS",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 19,
       "detail_signals": 0
     },
@@ -278,27 +278,27 @@
       "source": "シーマン",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-07T08:17:55+09:00",
+      "checked_at": "2026-10-07T15:02:22+09:00",
       "accepted_signals": 16,
       "detail_signals": 9
     }
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-10-07T11:40:58+09:00"
+      "updated_at": "2026-10-07T15:02:20+09:00"
     },
     "hot": {
-      "updated_at": "2026-10-07T11:41:01+09:00",
+      "updated_at": "2026-10-07T15:03:07+09:00",
       "sources": 5
     },
     "broad": {
-      "updated_at": "2026-10-07T08:17:55+09:00",
+      "updated_at": "2026-10-07T15:02:22+09:00",
       "sources": 24
     }
   },
   "coverage": {
     "checks_total": 34,
-    "checks_ok": 27,
-    "checks_bad": 7
+    "checks_ok": 28,
+    "checks_bad": 6
   }
 }

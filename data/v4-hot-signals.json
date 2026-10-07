@@ -1,14 +1,14 @@
 {
   "version": 4,
   "profile": "shore-fast",
-  "updated_at": "2026-10-07T11:41:01+09:00",
+  "updated_at": "2026-10-07T15:03:07+09:00",
   "poll_target_minutes": 30,
   "note": "V4高速レーン。岸釣果を優先する少数の公開情報源だけを高頻度巡回し、A/B判定のみlive-feed候補にする。",
   "source_health": [
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "http_status": 200,
       "bytes": 51470,
       "status": "ok",
@@ -22,9 +22,9 @@
     {
       "source": "釣具のイシグロ",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "http_status": 200,
-      "bytes": 601812,
+      "bytes": 601814,
       "status": "ok",
       "recent_segments": 36,
       "detail_discovered": 20,
@@ -36,7 +36,7 @@
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "http_status": 200,
       "bytes": 139338,
       "status": "ok",
@@ -50,7 +50,7 @@
     {
       "source": "FISHERS アオリイカ",
       "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "http_status": 200,
       "bytes": 40330,
       "status": "ok",
@@ -64,7 +64,7 @@
     {
       "source": "アングラーズ日本海",
       "url": "https://www.anglers.co.jp/trends/",
-      "checked_at": "2026-10-07T11:41:01+09:00",
+      "checked_at": "2026-10-07T15:03:07+09:00",
       "http_status": 200,
       "bytes": 51056,
       "status": "ok",
