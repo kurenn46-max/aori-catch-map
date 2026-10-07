@@ -1,16 +1,16 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T09:04:07+09:00",
+  "updated_at": "2026-10-07T09:04:59+09:00",
   "architecture": "direct + 30min hot shore + broad deep + verified 2h web discovery -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
-    "total": 137,
-    "shore": 75,
-    "boat": 62,
+    "total": 146,
+    "shore": 80,
+    "boat": 66,
     "direct": 72,
-    "supplementary": 65,
-    "hot": 9,
-    "broad": 48,
+    "supplementary": 74,
+    "hot": 17,
+    "broad": 49,
     "search": 8
   },
   "latest_shore_date": "2026-10-06",
@@ -20,50 +20,66 @@
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T09:03:29+09:00",
+      "checked_at": "2026-10-07T09:04:21+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T09:03:29+09:00",
+      "checked_at": "2026-10-07T09:04:21+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T09:03:29+09:00",
+      "checked_at": "2026-10-07T09:04:21+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T09:03:29+09:00",
+      "checked_at": "2026-10-07T09:04:21+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-07T09:03:29+09:00",
+      "checked_at": "2026-10-07T09:04:21+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
+      "checked_at": "2026-10-07T09:04:23+09:00",
       "accepted_signals": 7,
+      "detail_signals": 0
+    },
+    {
+      "source": "FISHERS アオリイカ",
+      "status": "ok",
+      "lane": "hot",
+      "checked_at": "2026-10-07T09:04:23+09:00",
+      "accepted_signals": 12,
+      "detail_signals": 12
+    },
+    {
+      "source": "FISHERS 福井店",
+      "status": "ok",
+      "lane": "hot",
+      "checked_at": "2026-10-07T09:04:23+09:00",
+      "accepted_signals": 0,
       "detail_signals": 0
     },
     {
       "source": "釣具のイシグロ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
+      "checked_at": "2026-10-07T09:04:23+09:00",
       "accepted_signals": 23,
       "detail_signals": 23
     },
@@ -71,7 +87,7 @@
       "source": "ブンブン釣行記",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
+      "checked_at": "2026-10-07T09:04:23+09:00",
       "accepted_signals": 2,
       "detail_signals": 2
     },
@@ -79,7 +95,7 @@
       "source": "墨族",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
+      "checked_at": "2026-10-07T09:04:23+09:00",
       "accepted_signals": 5,
       "detail_signals": 5
     },
@@ -87,31 +103,15 @@
       "source": "フィッシングマックス",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
+      "checked_at": "2026-10-07T09:04:23+09:00",
       "accepted_signals": 15,
       "detail_signals": 15
-    },
-    {
-      "source": "FISHERS アオリイカ",
-      "status": "ok",
-      "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
-      "accepted_signals": 35,
-      "detail_signals": 35
-    },
-    {
-      "source": "FISHERS 福井店",
-      "status": "ok",
-      "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
-      "accepted_signals": 0,
-      "detail_signals": 0
     },
     {
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-07T09:03:32+09:00",
+      "checked_at": "2026-10-07T09:04:23+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -349,10 +349,10 @@
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-10-07T09:03:29+09:00"
+      "updated_at": "2026-10-07T09:04:21+09:00"
     },
     "hot": {
-      "updated_at": "2026-10-07T09:03:32+09:00",
+      "updated_at": "2026-10-07T09:04:23+09:00",
       "sources": 8
     },
     "broad": {
