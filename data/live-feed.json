@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T15:03:42+09:00",
+  "updated_at": "2026-10-07T19:10:38+09:00",
   "source_updated_at": {
-    "direct": "2026-10-07T15:02:20+09:00",
-    "hot": "2026-10-07T15:03:07+09:00",
+    "direct": "2026-10-07T19:10:01+09:00",
+    "hot": "2026-10-07T19:10:03+09:00",
     "broad": "2026-10-07T15:02:22+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -13,8 +13,8 @@
     "boat": 55,
     "direct": 72,
     "supplementary": 54,
-    "hot": 7,
-    "broad": 47
+    "hot": 6,
+    "broad": 48
   },
   "catches": [
     {
@@ -1953,7 +1953,7 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-3d2aca890552a06807",
+      "id": "v4-46bed613d959305a54",
       "date": "2026-09-30",
       "area": "舞鶴",
       "place": "舞鶴",
@@ -1976,7 +1976,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-32cb2e01b01e7927",
       "evidence_confidence": "A",
       "quality_score": 75,
@@ -2804,7 +2804,7 @@
       "feed_seen_at": null
     },
     {
-      "id": "v4-f107a04aee69c6747a",
+      "id": "v4-92def1b65b549e936e",
       "date": "2026-09-24",
       "area": "若狭",
       "place": "若狭",
@@ -2815,7 +2815,7 @@
       "method": "ティップラン",
       "count": null,
       "count_mentions": [
-        9
+        2
       ],
       "count_confidence": "mention_only",
       "maxSize": "不明",
@@ -2830,7 +2830,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
-      "origin_signal_id": "signal-54e14b4c3a40c871",
+      "origin_signal_id": "signal-d6929dee0d798b27",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
