@@ -1,17 +1,17 @@
 {
   "version": 4,
-  "updated_at": "2026-10-07T09:04:59+09:00",
+  "updated_at": "2026-10-07T09:05:25+09:00",
   "architecture": "direct + 30min hot shore + broad deep + verified 2h web discovery -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
-    "total": 146,
+    "total": 143,
     "shore": 80,
-    "boat": 66,
+    "boat": 63,
     "direct": 72,
-    "supplementary": 74,
+    "supplementary": 71,
     "hot": 17,
     "broad": 49,
-    "search": 8
+    "search": 5
   },
   "latest_shore_date": "2026-10-06",
   "latest_shore_age_days": 1,
@@ -343,8 +343,8 @@
       "source": "Verified web report discovery",
       "status": "ok",
       "lane": "search",
-      "checked_at": "2026-10-07T08:57:07+09:00",
-      "accepted_signals": 8
+      "checked_at": "2026-10-07T09:05:12+09:00",
+      "accepted_signals": 5
     }
   ],
   "lanes": {
@@ -360,10 +360,10 @@
       "sources": 28
     },
     "search": {
-      "updated_at": "2026-10-07T08:57:07+09:00",
-      "queries": 15,
-      "verified_pages": 8,
-      "signals": 8
+      "updated_at": "2026-10-07T09:05:12+09:00",
+      "queries": 25,
+      "verified_pages": 5,
+      "signals": 5
     }
   },
   "coverage": {
