@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T06:20:17+09:00",
+  "updated_at": "2026-10-08T15:08:11+09:00",
   "reference_date": "2026-10-08",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date": "2026-10-08",
@@ -160,13 +160,13 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-07",
-        "last7_sessions": 7,
+        "latest_date": "2026-10-08",
+        "last7_sessions": 8,
         "sources_14d": 3,
         "depth_window_days": 30,
-        "day_sessions_7d": 3,
+        "day_sessions_7d": 4,
         "night_sessions_7d": 4,
-        "negative_sessions_7d": 2,
+        "negative_sessions_7d": 3,
         "day_depth_signals": [],
         "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
@@ -235,7 +235,7 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-07",
+        "latest_date": "2026-10-08",
         "last7_sessions": 1,
         "sources_14d": 2,
         "depth_window_days": 30,
