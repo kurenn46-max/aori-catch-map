@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T00:39:35+09:00",
+  "updated_at": "2026-10-09T06:22:08+09:00",
   "reference_date": "2026-10-09",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date": "2026-10-09",
