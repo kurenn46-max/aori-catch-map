@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-10-08T15:08:11+09:00",
-  "reference_date": "2026-10-08",
+  "updated_at": "2026-10-09T00:39:35+09:00",
+  "reference_date": "2026-10-09",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-08",
+  "boat_context_reference_date": "2026-10-09",
   "areas": [
     {
       "area": "越前",
       "latest_date": "2026-10-05",
-      "confidence": 69,
+      "confidence": 62,
       "grade": "B",
       "trend": "up",
       "last48h_sessions": {
@@ -91,7 +91,7 @@
     {
       "area": "敦賀",
       "latest_date": "2026-10-05",
-      "confidence": 46,
+      "confidence": 39,
       "grade": "C",
       "trend": "up",
       "last48h_sessions": {
@@ -141,13 +141,13 @@
       "local_active": 1,
       "raw_posts_30d": 19,
       "shore_context": {
-        "latest_date": "2026-10-06",
-        "last48_signals": 0,
+        "latest_date": "2026-10-08",
+        "last48_signals": 1,
         "last7_signals": 1,
         "sources_7d": 1,
         "items": [
           {
-            "date": "2026-10-06",
+            "date": "2026-10-08",
             "source": "上州屋 新敦賀店",
             "confidence": "B",
             "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
@@ -161,11 +161,11 @@
       },
       "boat_context": {
         "latest_date": "2026-10-08",
-        "last7_sessions": 8,
+        "last7_sessions": 9,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 4,
-        "night_sessions_7d": 4,
+        "night_sessions_7d": 5,
         "negative_sessions_7d": 3,
         "day_depth_signals": [],
         "night_depth_signals": [],
@@ -176,7 +176,7 @@
     {
       "area": "若狭",
       "latest_date": "2026-10-05",
-      "confidence": 46,
+      "confidence": 39,
       "grade": "C",
       "trend": "up",
       "last48h_sessions": {
@@ -253,7 +253,7 @@
       "latest_date": "2026-10-04",
       "confidence": 63,
       "grade": "B",
-      "trend": "new",
+      "trend": "up",
       "last48h_sessions": {
         "shore": 0
       },
@@ -263,13 +263,13 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 4,
-        "catch": 4,
+        "shore": 3,
+        "catch": 3,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 0,
-        "catch": 0
+        "shore": 1,
+        "catch": 1
       },
       "last30_sessions": {
         "shore": 9,
@@ -339,7 +339,7 @@
       "latest_date": "2026-10-04",
       "confidence": 22,
       "grade": "C",
-      "trend": "up",
+      "trend": "new",
       "last48h_sessions": {
         "shore": 0
       },
@@ -354,8 +354,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 1,
-        "catch": 1
+        "shore": 0,
+        "catch": 0
       },
       "last30_sessions": {
         "shore": 3,
