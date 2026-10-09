@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T06:22:08+09:00",
+  "updated_at": "2026-10-09T15:12:17+09:00",
   "reference_date": "2026-10-09",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date": "2026-10-09",
@@ -143,8 +143,8 @@
       "shore_context": {
         "latest_date": "2026-10-08",
         "last48_signals": 1,
-        "last7_signals": 1,
-        "sources_7d": 1,
+        "last7_signals": 3,
+        "sources_7d": 2,
         "items": [
           {
             "date": "2026-10-08",
@@ -155,16 +155,36 @@
               "豆アジ",
               "アジ"
             ]
+          },
+          {
+            "date": "2026-10-05",
+            "source": "釣具のイシグロ",
+            "confidence": "A",
+            "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49903",
+            "bait_signals": [
+              "アジ",
+              "サヨリ"
+            ]
+          },
+          {
+            "date": "2026-10-04",
+            "source": "釣具のイシグロ",
+            "confidence": "A",
+            "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+            "bait_signals": [
+              "アジ",
+              "サヨリ"
+            ]
           }
         ],
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
         "latest_date": "2026-10-08",
-        "last7_sessions": 9,
-        "sources_14d": 3,
+        "last7_sessions": 10,
+        "sources_14d": 4,
         "depth_window_days": 30,
-        "day_sessions_7d": 4,
+        "day_sessions_7d": 3,
         "night_sessions_7d": 5,
         "negative_sessions_7d": 3,
         "day_depth_signals": [],
@@ -235,13 +255,13 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-08",
-        "last7_sessions": 1,
-        "sources_14d": 2,
+        "latest_date": "2026-10-09",
+        "last7_sessions": 2,
+        "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 1,
-        "night_sessions_7d": 0,
-        "negative_sessions_7d": 0,
+        "night_sessions_7d": 1,
+        "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
