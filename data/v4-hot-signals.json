@@ -1,28 +1,28 @@
 {
   "version": 4,
   "profile": "shore-fast",
-  "updated_at": "2026-10-10T01:08:42+09:00",
+  "updated_at": "2026-10-10T05:56:15+09:00",
   "poll_target_minutes": 30,
   "note": "V4高速レーン。岸釣果を優先する少数の公開情報源だけを高頻度巡回し、A/B判定のみlive-feed候補にする。",
   "source_health": [
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-10-10T01:08:42+09:00",
+      "checked_at": "2026-10-10T05:56:15+09:00",
       "http_status": 200,
-      "bytes": 52220,
+      "bytes": 51079,
       "status": "ok",
       "recent_segments": 14,
       "detail_discovered": 0,
       "detail_fetched": 0,
       "detail_errors": 0,
       "detail_signals": 0,
-      "accepted_signals": 4
+      "accepted_signals": 3
     },
     {
       "source": "釣具のイシグロ",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "checked_at": "2026-10-10T01:08:42+09:00",
+      "checked_at": "2026-10-10T05:56:15+09:00",
       "http_status": 200,
       "bytes": 601936,
       "status": "ok",
@@ -36,7 +36,7 @@
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-10-10T01:08:42+09:00",
+      "checked_at": "2026-10-10T05:56:15+09:00",
       "http_status": 200,
       "bytes": 139468,
       "status": "ok",
@@ -50,7 +50,7 @@
     {
       "source": "FISHERS アオリイカ",
       "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
-      "checked_at": "2026-10-10T01:08:42+09:00",
+      "checked_at": "2026-10-10T05:56:15+09:00",
       "http_status": 200,
       "bytes": 35201,
       "status": "ok",
@@ -64,7 +64,7 @@
     {
       "source": "アングラーズ日本海",
       "url": "https://www.anglers.co.jp/trends/",
-      "checked_at": "2026-10-10T01:08:42+09:00",
+      "checked_at": "2026-10-10T05:56:15+09:00",
       "http_status": 200,
       "bytes": 51056,
       "status": "ok",
@@ -942,31 +942,6 @@
         4
       ],
       "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [],
-      "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-1c987556709b3ec9",
-      "date": "2026-09-26",
-      "area": "敦賀",
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "上州屋 新敦賀店",
-      "source_kind": "tackle_shop",
-      "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [],
       "evidence_scope": "listing"
