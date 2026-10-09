@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-10-09T15:12:17+09:00",
-  "reference_date": "2026-10-09",
+  "updated_at": "2026-10-10T00:20:24+09:00",
+  "reference_date": "2026-10-10",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-09",
+  "boat_context_reference_date": "2026-10-10",
   "areas": [
     {
       "area": "越前",
       "latest_date": "2026-10-05",
       "confidence": 62,
       "grade": "B",
-      "trend": "up",
+      "trend": "new",
       "last48h_sessions": {
         "shore": 0
       },
@@ -24,8 +24,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 0,
+        "catch": 0
       },
       "last30_sessions": {
         "shore": 12,
@@ -142,9 +142,9 @@
       "raw_posts_30d": 19,
       "shore_context": {
         "latest_date": "2026-10-08",
-        "last48_signals": 1,
-        "last7_signals": 3,
-        "sources_7d": 2,
+        "last48_signals": 0,
+        "last7_signals": 1,
+        "sources_7d": 1,
         "items": [
           {
             "date": "2026-10-08",
@@ -155,37 +155,17 @@
               "豆アジ",
               "アジ"
             ]
-          },
-          {
-            "date": "2026-10-05",
-            "source": "釣具のイシグロ",
-            "confidence": "A",
-            "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49903",
-            "bait_signals": [
-              "アジ",
-              "サヨリ"
-            ]
-          },
-          {
-            "date": "2026-10-04",
-            "source": "釣具のイシグロ",
-            "confidence": "A",
-            "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
-            "bait_signals": [
-              "アジ",
-              "サヨリ"
-            ]
           }
         ],
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-08",
+        "latest_date": "2026-10-09",
         "last7_sessions": 10,
         "sources_14d": 4,
         "depth_window_days": 30,
         "day_sessions_7d": 3,
-        "night_sessions_7d": 5,
+        "night_sessions_7d": 6,
         "negative_sessions_7d": 3,
         "day_depth_signals": [],
         "night_depth_signals": [],
@@ -208,8 +188,8 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 7,
-        "catch": 7,
+        "shore": 5,
+        "catch": 5,
         "negative": 0
       },
       "prev7_sessions": {
@@ -255,11 +235,11 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-09",
-        "last7_sessions": 2,
-        "sources_14d": 3,
+        "latest_date": "2026-10-05",
+        "last7_sessions": 1,
+        "sources_14d": 1,
         "depth_window_days": 30,
-        "day_sessions_7d": 1,
+        "day_sessions_7d": 0,
         "night_sessions_7d": 1,
         "negative_sessions_7d": 1,
         "day_depth_signals": [],
@@ -273,7 +253,7 @@
       "latest_date": "2026-10-04",
       "confidence": 63,
       "grade": "B",
-      "trend": "up",
+      "trend": "flat",
       "last48h_sessions": {
         "shore": 0
       },
@@ -283,13 +263,13 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 3,
-        "catch": 3,
+        "shore": 2,
+        "catch": 2,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 1,
-        "catch": 1
+        "shore": 2,
+        "catch": 2
       },
       "last30_sessions": {
         "shore": 9,
@@ -359,7 +339,7 @@
       "latest_date": "2026-10-04",
       "confidence": 22,
       "grade": "C",
-      "trend": "new",
+      "trend": "flat",
       "last48h_sessions": {
         "shore": 0
       },
@@ -369,13 +349,13 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 2,
-        "catch": 2,
+        "shore": 1,
+        "catch": 1,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 0,
-        "catch": 0
+        "shore": 1,
+        "catch": 1
       },
       "last30_sessions": {
         "shore": 3,
