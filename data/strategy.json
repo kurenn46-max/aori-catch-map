@@ -1,37 +1,37 @@
 {
-  "updated_at": "2026-10-10T23:29:54+09:00",
-  "reference_date": "2026-10-10",
+  "updated_at": "2026-10-11T05:08:26+09:00",
+  "reference_date": "2026-10-11",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-10",
+  "boat_context_reference_date": "2026-10-11",
   "areas": [
     {
       "area": "越前",
       "latest_date": "2026-10-05",
-      "confidence": 62,
+      "confidence": 57,
       "grade": "B",
-      "trend": "new",
+      "trend": "down",
       "last48h_sessions": {
         "shore": 0
       },
       "evidence": {
-        "independent_sources_30d": 3,
+        "independent_sources_30d": 2,
         "single_source_penalty": 0,
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 8,
-        "catch": 8,
+        "shore": 1,
+        "catch": 1,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 0,
-        "catch": 0
+        "shore": 7,
+        "catch": 7
       },
       "last30_sessions": {
-        "shore": 12,
-        "catch": 12
+        "shore": 11,
+        "catch": 11
       },
-      "sources_30d": 3,
+      "sources_30d": 2,
       "top_time": "夜前半",
       "time_counts": {
         "夜前半": 3,
@@ -57,31 +57,23 @@
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 0,
-      "raw_posts_30d": 15,
+      "raw_posts_30d": 14,
       "shore_context": {
         "latest_date": "2026-10-04",
         "last48_signals": 0,
-        "last7_signals": 1,
-        "sources_7d": 1,
-        "items": [
-          {
-            "date": "2026-10-04",
-            "source": "上州屋 新敦賀店",
-            "confidence": "B",
-            "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-            "bait_signals": []
-          }
-        ],
+        "last7_signals": 0,
+        "sources_7d": 0,
+        "items": [],
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
         "latest_date": "2026-10-10",
-        "last7_sessions": 2,
+        "last7_sessions": 1,
         "sources_14d": 1,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 2,
-        "negative_sessions_7d": 2,
+        "night_sessions_7d": 1,
+        "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
@@ -93,7 +85,7 @@
       "latest_date": "2026-10-05",
       "confidence": 39,
       "grade": "C",
-      "trend": "up",
+      "trend": "down",
       "last48h_sessions": {
         "shore": 0
       },
@@ -103,8 +95,8 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 6,
-        "catch": 6,
+        "shore": 2,
+        "catch": 2,
         "negative": 0
       },
       "prev7_sessions": {
@@ -160,13 +152,13 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-09",
+        "latest_date": "2026-10-10",
         "last7_sessions": 10,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 3,
         "night_sessions_7d": 6,
-        "negative_sessions_7d": 3,
+        "negative_sessions_7d": 4,
         "day_depth_signals": [],
         "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
@@ -178,7 +170,7 @@
       "latest_date": "2026-10-05",
       "confidence": 39,
       "grade": "C",
-      "trend": "up",
+      "trend": "down",
       "last48h_sessions": {
         "shore": 0
       },
@@ -188,13 +180,13 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 5,
-        "catch": 5,
+        "shore": 1,
+        "catch": 1,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 6,
+        "catch": 6
       },
       "last30_sessions": {
         "shore": 10,
@@ -251,31 +243,31 @@
     {
       "area": "舞鶴",
       "latest_date": "2026-10-04",
-      "confidence": 63,
+      "confidence": 56,
       "grade": "B",
-      "trend": "flat",
+      "trend": "down",
       "last48h_sessions": {
         "shore": 0
       },
       "evidence": {
-        "independent_sources_30d": 3,
+        "independent_sources_30d": 2,
         "single_source_penalty": 0,
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 2,
-        "catch": 2,
+        "shore": 0,
+        "catch": 0,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 4,
+        "catch": 4
       },
       "last30_sessions": {
-        "shore": 9,
-        "catch": 9
+        "shore": 8,
+        "catch": 8
       },
-      "sources_30d": 3,
+      "sources_30d": 2,
       "top_time": "朝まずめ",
       "time_counts": {
         "朝まずめ": 4,
@@ -291,14 +283,13 @@
         "100g〜300g": 3,
         "100g以下": 2,
         "300g〜500g": 2,
-        "15cm": 1,
-        "胴長16cmまで": 1
+        "15cm": 1
       },
       "negative_7d": {},
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 0,
-      "raw_posts_30d": 12,
+      "raw_posts_30d": 11,
       "shore_context": {
         "latest_date": null,
         "last48_signals": 0,
@@ -339,7 +330,7 @@
       "latest_date": "2026-10-04",
       "confidence": 22,
       "grade": "C",
-      "trend": "flat",
+      "trend": "down",
       "last48h_sessions": {
         "shore": 0
       },
@@ -349,13 +340,13 @@
         "negative_penalty": 0
       },
       "last7_sessions": {
-        "shore": 1,
-        "catch": 1,
+        "shore": 0,
+        "catch": 0,
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 1,
-        "catch": 1
+        "shore": 2,
+        "catch": 2
       },
       "last30_sessions": {
         "shore": 3,
@@ -392,11 +383,11 @@
       },
       "boat_context": {
         "latest_date": "2026-10-09",
-        "last7_sessions": 6,
-        "sources_14d": 4,
+        "last7_sessions": 5,
+        "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 6,
+        "night_sessions_7d": 5,
         "negative_sessions_7d": 0,
         "day_depth_signals": [],
         "night_depth_signals": [
