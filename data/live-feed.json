@@ -1,19 +1,19 @@
 {
   "version": 4,
-  "updated_at": "2026-10-10T23:29:54+09:00",
+  "updated_at": "2026-10-11T03:50:01+09:00",
   "source_updated_at": {
-    "direct": "2026-10-10T23:28:42+09:00",
-    "hot": "2026-10-10T23:29:21+09:00",
+    "direct": "2026-10-11T03:49:26+09:00",
+    "hot": "2026-10-11T03:49:28+09:00",
     "broad": "2026-10-10T23:28:44+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 127,
+    "total": 128,
     "shore": 69,
-    "boat": 58,
+    "boat": 59,
     "direct": 72,
-    "supplementary": 55,
-    "hot": 2,
+    "supplementary": 56,
+    "hot": 3,
     "broad": 53
   },
   "catches": [
@@ -2692,6 +2692,47 @@
       "supplementary": false,
       "source_mode": "shore",
       "feed_seen_at": null
+    },
+    {
+      "id": "v4-05481e0a58c39ecca5",
+      "date": "2026-09-26",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [
+        5
+      ],
+      "count_confidence": "mention_only",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "釣具のイシグロ",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ・サヨリ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "hot",
+      "origin_signal_id": "signal-e7ba0432b46a715e",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ",
+        "サヨリ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-d9fcfcc7fcc8d561eb",
