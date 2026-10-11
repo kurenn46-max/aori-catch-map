@@ -1,16 +1,16 @@
 {
   "version": 4,
   "profile": "shore-fast",
-  "updated_at": "2026-10-11T16:47:42+09:00",
+  "updated_at": "2026-10-11T23:53:13+09:00",
   "poll_target_minutes": 30,
   "note": "V4高速レーン。岸釣果を優先する少数の公開情報源だけを高頻度巡回し、A/B判定のみlive-feed候補にする。",
   "source_health": [
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-10-11T16:47:42+09:00",
+      "checked_at": "2026-10-11T23:53:13+09:00",
       "http_status": 200,
-      "bytes": 49903,
+      "bytes": 49901,
       "status": "ok",
       "recent_segments": 14,
       "detail_discovered": 0,
@@ -22,9 +22,9 @@
     {
       "source": "釣具のイシグロ",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "checked_at": "2026-10-11T16:47:42+09:00",
+      "checked_at": "2026-10-11T23:53:13+09:00",
       "http_status": 200,
-      "bytes": 601922,
+      "bytes": 601691,
       "status": "ok",
       "recent_segments": 36,
       "detail_discovered": 20,
@@ -36,7 +36,7 @@
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-10-11T16:47:42+09:00",
+      "checked_at": "2026-10-11T23:53:13+09:00",
       "http_status": 200,
       "bytes": 139468,
       "status": "ok",
@@ -50,9 +50,9 @@
     {
       "source": "FISHERS アオリイカ",
       "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
-      "checked_at": "2026-10-11T16:47:42+09:00",
+      "checked_at": "2026-10-11T23:53:13+09:00",
       "http_status": 200,
-      "bytes": 35232,
+      "bytes": 35220,
       "status": "ok",
       "recent_segments": 33,
       "detail_discovered": 0,
@@ -64,7 +64,7 @@
     {
       "source": "アングラーズ日本海",
       "url": "https://www.anglers.co.jp/trends/",
-      "checked_at": "2026-10-11T16:47:42+09:00",
+      "checked_at": "2026-10-11T23:53:13+09:00",
       "http_status": 200,
       "bytes": 51056,
       "status": "ok",
@@ -77,6 +77,86 @@
     }
   ],
   "signals": [
+    {
+      "id": "signal-1620eab49051a0b6",
+      "date": "2026-10-11",
+      "area": null,
+      "type": "shore",
+      "method": "エギング",
+      "time_mode": "unknown",
+      "evidence_role": "info",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "confidence": "C",
+      "quality_score": 48,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [],
+      "evidence_scope": "listing"
+    },
+    {
+      "id": "signal-eeaf7d61d34a6301",
+      "date": "2026-10-11",
+      "area": null,
+      "type": "unknown",
+      "method": "unknown",
+      "time_mode": "unknown",
+      "evidence_role": "info",
+      "source": "FISHERS アオリイカ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
+      "confidence": "C",
+      "quality_score": 40,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [],
+      "evidence_scope": "listing"
+    },
+    {
+      "id": "signal-f5032a1c325b6fe6",
+      "date": "2026-10-10",
+      "area": null,
+      "type": "shore",
+      "method": "エギング",
+      "time_mode": "unknown",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+      "confidence": "B",
+      "quality_score": 60,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        9
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [
+        "釣れない"
+      ],
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+      "evidence_scope": "detail"
+    },
     {
       "id": "signal-2dfece561cfe4f17",
       "date": "2026-10-10",
@@ -108,18 +188,18 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-c174b0e710ae188c",
+      "id": "signal-dba8808274935f21",
       "date": "2026-10-10",
       "area": null,
-      "type": "shore",
-      "method": "エギング",
+      "type": "unknown",
+      "method": "unknown",
       "time_mode": "unknown",
-      "evidence_role": "catch",
+      "evidence_role": "info",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49992",
-      "confidence": "B",
-      "quality_score": 55,
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "confidence": "C",
+      "quality_score": 40,
       "usable_for_decision": false,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -129,12 +209,13 @@
       "count_mentions": [],
       "count_confidence": "none",
       "negative_signals": [],
-      "bait_signals": [],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49992",
-      "evidence_scope": "detail"
+      "bait_signals": [
+        "アジ"
+      ],
+      "evidence_scope": "listing"
     },
     {
-      "id": "signal-be83bac0e2840c13",
+      "id": "signal-113652335dc0ef1a",
       "date": "2026-10-09",
       "area": null,
       "type": "boat",
@@ -153,13 +234,15 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [
-        13
+        12
       ],
       "count_confidence": "mention_only",
       "negative_signals": [
         "釣れない"
       ],
-      "bait_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
       "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
       "evidence_scope": "detail"
     },
@@ -170,12 +253,12 @@
       "type": "shore",
       "method": "エギング",
       "time_mode": "unknown",
-      "evidence_role": "catch",
+      "evidence_role": "info",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50005",
       "confidence": "B",
-      "quality_score": 60,
+      "quality_score": 55,
       "usable_for_decision": false,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -184,13 +267,11 @@
       "depth_evidence": [],
       "count_mentions": [],
       "count_confidence": "none",
-      "negative_signals": [
-        "釣れない"
-      ],
+      "negative_signals": [],
       "bait_signals": [
         "アジ"
       ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50005",
       "evidence_scope": "detail"
     },
     {
@@ -242,33 +323,6 @@
       "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [],
-      "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-662e2b413a91a273",
-      "date": "2026-10-09",
-      "area": null,
-      "type": "unknown",
-      "method": "unknown",
-      "time_mode": "unknown",
-      "evidence_role": "info",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "confidence": "C",
-      "quality_score": 40,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
       "evidence_scope": "listing"
     },
     {
@@ -462,7 +516,9 @@
       "count_mentions": [],
       "count_confidence": "none",
       "negative_signals": [],
-      "bait_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
       "evidence_scope": "listing"
     },
     {
@@ -679,7 +735,8 @@
       "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
-        "アジ"
+        "アジ",
+        "サヨリ"
       ],
       "evidence_scope": "listing"
     },
@@ -785,36 +842,6 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-ff37ecee504f3835",
-      "date": "2026-10-01",
-      "area": null,
-      "type": "boat",
-      "method": "船",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49892",
-      "confidence": "B",
-      "quality_score": 60,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        1
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [
-        "チェイス"
-      ],
-      "bait_signals": [],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49892",
-      "evidence_scope": "detail"
-    },
-    {
       "id": "signal-6f773ac2ae680161",
       "date": "2026-10-01",
       "area": null,
@@ -843,7 +870,7 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-7f3fee6babf0cf81",
+      "id": "signal-9d503c5011b4d3d7",
       "date": "2026-10-01",
       "area": null,
       "type": "shore",
@@ -852,7 +879,7 @@
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49892",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
       "confidence": "B",
       "quality_score": 55,
       "usable_for_decision": false,
@@ -862,13 +889,12 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [
-        1
+        3
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": [],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49892",
-      "evidence_scope": "detail"
+      "evidence_scope": "listing"
     },
     {
       "id": "signal-d7271cef97790a41",
@@ -1005,35 +1031,7 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-baa4798a705662f6",
-      "date": "2026-09-27",
-      "area": null,
-      "type": "unknown",
-      "method": "unknown",
-      "time_mode": "unknown",
-      "evidence_role": "info",
-      "source": "FISHERS アオリイカ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
-      "confidence": "C",
-      "quality_score": 40,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ",
-        "サヨリ"
-      ],
-      "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-e7ba0432b46a715e",
+      "id": "signal-2e55b1cb65523b50",
       "date": "2026-09-26",
       "area": "若狭",
       "type": "boat",
@@ -1052,7 +1050,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [
-        5
+        35
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
@@ -1060,33 +1058,6 @@
         "アジ",
         "サヨリ"
       ],
-      "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-f143ecea665d979b",
-      "date": "2026-09-26",
-      "area": "若狭",
-      "type": "unknown",
-      "method": "unknown",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "confidence": "B",
-      "quality_score": 60,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        35
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [],
       "evidence_scope": "listing"
     }
   ]

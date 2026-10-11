@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-10-11T16:49:47+09:00",
+  "updated_at": "2026-10-11T23:53:49+09:00",
   "source_updated_at": {
-    "direct": "2026-10-11T16:47:40+09:00",
-    "hot": "2026-10-11T16:47:42+09:00",
+    "direct": "2026-10-11T23:53:11+09:00",
+    "hot": "2026-10-11T23:53:13+09:00",
     "broad": "2026-10-11T14:49:05+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -2844,7 +2844,7 @@
       "feed_seen_at": null
     },
     {
-      "id": "v4-05481e0a58c39ecca5",
+      "id": "v4-48e97df98e4ff27982",
       "date": "2026-09-26",
       "area": "若狭",
       "place": "若狭",
@@ -2855,7 +2855,7 @@
       "method": "ティップラン",
       "count": null,
       "count_mentions": [
-        5
+        35
       ],
       "count_confidence": "mention_only",
       "maxSize": "不明",
@@ -2870,7 +2870,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
-      "origin_signal_id": "signal-e7ba0432b46a715e",
+      "origin_signal_id": "signal-2e55b1cb65523b50",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
