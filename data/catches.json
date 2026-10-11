@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T23:55:44+09:00",
+  "updated_at": "2026-10-12T04:31:01+09:00",
   "note": "GitHub Actions自動収集。確認済み既存データを保持し、エギCOMの直近投稿を重複排除して追記。",
   "catches": [
     {
@@ -1406,42 +1406,6 @@
       "source": "ANGLERS",
       "url": "https://anglers.jp/catches/8065240",
       "title": "舞鶴湾 アオリイカ5匹",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "web-maizuru-0911",
-      "date": "2026-09-11",
-      "area": "舞鶴",
-      "place": "舞鶴方面",
-      "lat": 35.474,
-      "lng": 135.386,
-      "type": "shore",
-      "method": "エギング",
-      "count": 14,
-      "maxSize": "胴長16cmまで",
-      "time": "朝",
-      "source": "つり具のブンブン",
-      "url": "https://bunbun-fishing.com/fishing/216217/",
-      "title": "舞鶴方面エギング釣行2",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "315360215ab273",
-      "date": "2026-09-11",
-      "area": "越前",
-      "place": "越前",
-      "lat": 35.914,
-      "lng": 135.991,
-      "type": "shore",
-      "method": "エギング",
-      "count": null,
-      "maxSize": "不明",
-      "time": "不明",
-      "source": "福井新聞社",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE83cDkybTRjOXZpRXhVTGY3bV9UWFRsMVAxWjNNNU5NLU8wWnB1cnBXOElYbGQ2RUFra1owY2FvRTN2X2ZRRFZnYms3ZUN6dk9BQ0tYT2NDT0kwWklZVHc?oc=5",
-      "title": "アオリイカ数狙える 三国新港の豆アジは不調 | 福井のニュース | 福井新聞ONLINE - 福井新聞社",
       "demo": false,
       "precision": "area"
     }
