@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-10-12T15:01:45+09:00",
-  "reference_date": "2026-10-12",
+  "updated_at": "2026-10-13T02:58:06+09:00",
+  "reference_date": "2026-10-13",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-12",
+  "boat_context_reference_date": "2026-10-13",
   "areas": [
     {
       "area": "越前",
       "latest_date": "2026-10-05",
-      "confidence": 57,
-      "grade": "B",
+      "confidence": 49,
+      "grade": "C",
       "trend": "down",
       "last48h_sessions": {
         "shore": 0
@@ -83,7 +83,7 @@
     {
       "area": "敦賀",
       "latest_date": "2026-10-05",
-      "confidence": 39,
+      "confidence": 31,
       "grade": "C",
       "trend": "down",
       "last48h_sessions": {
@@ -150,11 +150,11 @@
       },
       "boat_context": {
         "latest_date": "2026-10-12",
-        "last7_sessions": 9,
+        "last7_sessions": 10,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 3,
-        "night_sessions_7d": 5,
+        "night_sessions_7d": 6,
         "negative_sessions_7d": 5,
         "day_depth_signals": [],
         "night_depth_signals": [],
@@ -165,7 +165,7 @@
     {
       "area": "若狭",
       "latest_date": "2026-10-05",
-      "confidence": 39,
+      "confidence": 31,
       "grade": "C",
       "trend": "down",
       "last48h_sessions": {
@@ -379,10 +379,10 @@
       "boat_context": {
         "latest_date": "2026-10-11",
         "last7_sessions": 6,
-        "sources_14d": 4,
+        "sources_14d": 5,
         "depth_window_days": 30,
-        "day_sessions_7d": 0,
-        "night_sessions_7d": 5,
+        "day_sessions_7d": 1,
+        "night_sessions_7d": 4,
         "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [

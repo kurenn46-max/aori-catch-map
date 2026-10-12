@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T19:39:38+09:00",
+  "updated_at": "2026-10-13T02:56:53+09:00",
   "note": "GitHub Actions自動収集。確認済み既存データを保持し、エギCOMの直近投稿を重複排除して追記。",
   "catches": [
     {
@@ -1388,24 +1388,6 @@
       "source": "エギCOM",
       "url": "https://www.yamaria.com/community/catch/egiou/cities/114",
       "title": "舞鶴・防波堤の投稿",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "web-maizuru-0912",
-      "date": "2026-09-12",
-      "area": "舞鶴",
-      "place": "舞鶴湾",
-      "lat": 35.507,
-      "lng": 135.376,
-      "type": "shore",
-      "method": "エギング",
-      "count": 5,
-      "maxSize": "15cm",
-      "time": "03:56",
-      "source": "ANGLERS",
-      "url": "https://anglers.jp/catches/8065240",
-      "title": "舞鶴湾 アオリイカ5匹",
       "demo": false,
       "precision": "area"
     }
