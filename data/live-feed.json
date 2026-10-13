@@ -1,19 +1,19 @@
 {
   "version": 4,
-  "updated_at": "2026-10-13T11:14:30+09:00",
+  "updated_at": "2026-10-13T18:44:09+09:00",
   "source_updated_at": {
-    "direct": "2026-10-13T11:13:48+09:00",
-    "hot": "2026-10-13T11:13:50+09:00",
+    "direct": "2026-10-13T18:43:30+09:00",
+    "hot": "2026-10-13T18:43:34+09:00",
     "broad": "2026-10-13T11:01:37+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 116,
+    "total": 117,
     "shore": 65,
-    "boat": 51,
+    "boat": 52,
     "direct": 69,
-    "supplementary": 47,
-    "hot": 2,
+    "supplementary": 48,
+    "hot": 3,
     "broad": 45
   },
   "catches": [
@@ -557,6 +557,44 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-3eca85b076f5fefb0e",
+      "date": "2026-10-10",
+      "area": "丹後",
+      "place": "丹後",
+      "lat": 35.65,
+      "lng": 135.15,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "day",
+      "source": "ブンブン釣行記",
+      "url": "https://bunbun-fishing.com/fishing/218923/",
+      "title": "ブンブン釣行記 / 船・信頼度B",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "hot",
+      "origin_signal_id": "signal-8ff9bbbc7afcc167",
+      "evidence_confidence": "B",
+      "quality_score": 73,
+      "supplementary": true,
+      "bait_signals": [],
+      "negative_signals": [
+        "渋い"
+      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "day"
     },
     {
       "id": "v4-ac57d4c0e8d1a2f627",
@@ -2423,7 +2461,7 @@
       "feed_seen_at": "2026-10-05T19:06:00+09:00"
     },
     {
-      "id": "v4-31a566e3606b7ad1fa",
+      "id": "v4-33c0200e8f66e8c5a5",
       "date": "2026-10-01",
       "area": "若狭",
       "place": "若狭",
@@ -2434,7 +2472,7 @@
       "method": "ティップラン",
       "count": null,
       "count_mentions": [
-        21
+        4
       ],
       "count_confidence": "mention_only",
       "maxSize": "不明",
@@ -2449,7 +2487,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
-      "origin_signal_id": "signal-4b244051d4b3472b",
+      "origin_signal_id": "signal-5f5c7c431bb2eb47",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
