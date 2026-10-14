@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-15T02:59:16+09:00",
+  "updated_at": "2026-10-15T05:13:58+09:00",
   "source_updated_at": {
-    "direct": "2026-10-15T02:58:25+09:00",
-    "hot": "2026-10-15T02:58:28+09:00",
-    "broad": "2026-10-14T22:44:34+09:00"
+    "direct": "2026-10-15T05:12:42+09:00",
+    "hot": "2026-10-15T05:13:23+09:00",
+    "broad": "2026-10-15T05:12:43+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 128,
+    "total": 129,
     "shore": 66,
-    "boat": 62,
+    "boat": 63,
     "direct": 69,
-    "supplementary": 59,
+    "supplementary": 60,
     "hot": 12,
-    "broad": 47
+    "broad": 48
   },
   "catches": [
     {
@@ -869,44 +869,6 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-39ab6b9f8b224fee2d",
-      "date": "2026-10-10",
-      "area": "敦賀",
-      "place": "敦賀",
-      "lat": 35.645,
-      "lng": 136.055,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "船",
-      "count": null,
-      "count_mentions": [
-        5
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "night",
-      "source": "春定丸",
-      "url": "https://ameblo.jp/synteimaru/entry-12981222287.html",
-      "title": "春定丸 / 船・信頼度A",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-2196cb057d8d6296",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "night"
-    },
-    {
       "id": "v4-1b054ea242db8bb201",
       "date": "2026-10-10",
       "area": "丹後",
@@ -934,6 +896,44 @@
       "feed_seen_at": null,
       "feed_origin": "broad",
       "origin_signal_id": "signal-5048b4f016c94baa",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "night"
+    },
+    {
+      "id": "v4-39ab6b9f8b224fee2d",
+      "date": "2026-10-10",
+      "area": "敦賀",
+      "place": "敦賀",
+      "lat": 35.645,
+      "lng": 136.055,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "船",
+      "count": null,
+      "count_mentions": [
+        5
+      ],
+      "count_confidence": "mention_only",
+      "maxSize": "不明",
+      "time": "night",
+      "source": "春定丸",
+      "url": "https://ameblo.jp/synteimaru/entry-12981222287.html",
+      "title": "春定丸 / 船・信頼度A",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-2196cb057d8d6296",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
@@ -1574,7 +1574,7 @@
       "time": "unknown",
       "source": "若狭マリンプラザ",
       "url": "https://www.marineplaza-marina.com/?p=58645",
-      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ・ベイト",
+      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
       "demo": false,
       "precision": "area",
       "result_status": "catch",
@@ -1587,8 +1587,7 @@
       "quality_score": 80,
       "supplementary": true,
       "bait_signals": [
-        "アジ",
-        "ベイト"
+        "アジ"
       ],
       "negative_signals": [
         "渋い"
@@ -4063,6 +4062,44 @@
       "supplementary": false,
       "source_mode": "shore",
       "feed_seen_at": null
+    },
+    {
+      "id": "v4-3a7df1f853add4d36a",
+      "date": "2026-09-17",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "マイボート",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "若狭マリンプラザ",
+      "url": "https://www.marineplaza-marina.com/?p=58576",
+      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-5c469a65a72550c9",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-3c22650f374b0b1607",
