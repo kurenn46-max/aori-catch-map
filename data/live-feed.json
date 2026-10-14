@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-10-15T05:13:58+09:00",
+  "updated_at": "2026-10-15T06:37:38+09:00",
   "source_updated_at": {
-    "direct": "2026-10-15T05:12:42+09:00",
-    "hot": "2026-10-15T05:13:23+09:00",
+    "direct": "2026-10-15T06:37:04+09:00",
+    "hot": "2026-10-15T06:37:05+09:00",
     "broad": "2026-10-15T05:12:43+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -13,8 +13,8 @@
     "boat": 63,
     "direct": 69,
     "supplementary": 60,
-    "hot": 12,
-    "broad": 48
+    "hot": 10,
+    "broad": 50
   },
   "catches": [
     {
@@ -448,7 +448,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-dabecae528e6ea2777",
+      "id": "v4-92e3fad6058f84147c",
       "date": "2026-10-11",
       "area": "若狭",
       "place": "若狭",
@@ -471,7 +471,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-ffae378284c3581a",
       "evidence_confidence": "B",
       "quality_score": 68,
@@ -945,7 +945,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-3eca85b076f5fefb0e",
+      "id": "v4-13c251124bcb45d10c",
       "date": "2026-10-10",
       "area": "丹後",
       "place": "丹後",
@@ -968,7 +968,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-8ff9bbbc7afcc167",
       "evidence_confidence": "B",
       "quality_score": 73,
