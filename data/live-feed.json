@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-14T22:46:18+09:00",
+  "updated_at": "2026-10-15T02:59:16+09:00",
   "source_updated_at": {
-    "direct": "2026-10-14T22:44:31+09:00",
-    "hot": "2026-10-14T22:45:28+09:00",
+    "direct": "2026-10-15T02:58:25+09:00",
+    "hot": "2026-10-15T02:58:28+09:00",
     "broad": "2026-10-14T22:44:34+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 130,
+    "total": 128,
     "shore": 66,
-    "boat": 64,
+    "boat": 62,
     "direct": 69,
-    "supplementary": 61,
+    "supplementary": 59,
     "hot": 12,
-    "broad": 49
+    "broad": 47
   },
   "catches": [
     {
@@ -4101,82 +4101,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "v4-cd07165b1d4fe3979e",
-      "date": "2026-09-14",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "マイボート",
-      "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "若狭マリンプラザ",
-      "url": "https://www.marineplaza-marina.com/?p=58576",
-      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-d51fb91a44f883e8",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [
-        "アジ"
-      ],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
-    },
-    {
-      "id": "v4-3641a3cfa946591f93",
-      "date": "2026-09-14",
-      "area": "丹後",
-      "place": "丹後",
-      "lat": 35.65,
-      "lng": 135.15,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "シーマン",
-      "url": "https://seaman-tango.com/blog_articles/1789380605.html",
-      "title": "シーマン / 船・信頼度B",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-1e3b76fd79445f79",
-      "evidence_confidence": "B",
-      "quality_score": 73,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [
-        "厳しい"
-      ],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
     }
   ]
 }
