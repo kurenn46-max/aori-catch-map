@@ -1,14 +1,14 @@
 {
   "version": 4,
   "profile": "shore-fast",
-  "updated_at": "2026-10-14T15:41:05+09:00",
+  "updated_at": "2026-10-14T21:50:30+09:00",
   "poll_target_minutes": 30,
   "note": "V4高速レーン。岸釣果を優先する少数の公開情報源だけを高頻度巡回し、A/B判定のみlive-feed候補にする。",
   "source_health": [
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-10-14T15:41:05+09:00",
+      "checked_at": "2026-10-14T21:50:30+09:00",
       "http_status": 200,
       "bytes": 49234,
       "status": "ok",
@@ -22,21 +22,21 @@
     {
       "source": "釣具のイシグロ",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "checked_at": "2026-10-14T15:41:05+09:00",
+      "checked_at": "2026-10-14T21:50:30+09:00",
       "http_status": 200,
-      "bytes": 602436,
+      "bytes": 601989,
       "status": "ok",
       "recent_segments": 36,
       "detail_discovered": 20,
       "detail_fetched": 20,
       "detail_errors": 0,
       "detail_signals": 139,
-      "accepted_signals": 171
+      "accepted_signals": 170
     },
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-10-14T15:41:05+09:00",
+      "checked_at": "2026-10-14T21:50:30+09:00",
       "http_status": 200,
       "bytes": 139477,
       "status": "ok",
@@ -50,7 +50,7 @@
     {
       "source": "FISHERS アオリイカ",
       "url": "https://www.fishers.co.jp/fishinginfo/?tsurikata_code=TKT0019",
-      "checked_at": "2026-10-14T15:41:05+09:00",
+      "checked_at": "2026-10-14T21:50:30+09:00",
       "http_status": 200,
       "bytes": 35163,
       "status": "ok",
@@ -64,7 +64,7 @@
     {
       "source": "アングラーズ日本海",
       "url": "https://www.anglers.co.jp/trends/",
-      "checked_at": "2026-10-14T15:41:05+09:00",
+      "checked_at": "2026-10-14T21:50:30+09:00",
       "http_status": 200,
       "bytes": 51056,
       "status": "ok",
@@ -78,72 +78,19 @@
   ],
   "signals": [
     {
-      "id": "signal-d6751a8fa64d6571",
-      "date": "2026-10-14",
-      "area": null,
-      "type": "shore",
-      "method": "エギング",
-      "time_mode": "unknown",
-      "evidence_role": "info",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
-      "confidence": "B",
-      "quality_score": 70,
-      "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
-      "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/14 釣行時間 05:00~08:00 釣場 豊浜釣り桟橋 ポイント 釣魚 アジ・カワハギ・メジナ（グレ）・アイゴ・コショウダイ 釣り方 サビキ釣り 釣果 アジ3匹、カワハギ2匹、メジナ（グレ）4匹、アイゴ4匹、コショウダイ1匹 サイズ アジ約10㎝、カワハギ約15㎝、メジナ（グレ）約20センチ、アイゴ約15㎝、コショウダイ36㎝ NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/14 釣行時間 05:00~08:00 釣場 豊浜釣り桟橋 ポイント 釣魚 アジ・カワハギ・メジナ（グレ）・アイゴ・コショウダイ 釣り方 サビキ釣り 釣果 アジ3匹、カワハギ2匹、メジナ（グレ）4匹、アイゴ4匹、コショウダイ1匹 サイズ アジ約10㎝、カワハギ約15㎝、メジナ（グレ）約20センチ、アイゴ約15㎝、コショウダイ36㎝ NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
-      ],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-6447fded41cc7bc9",
+      "id": "signal-e22c89f0da2ce730",
       "date": "2026-10-14",
       "area": "若狭",
-      "type": "unknown",
-      "method": "unknown",
-      "time_mode": "unknown",
-      "evidence_role": "info",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
       "confidence": "B",
-      "quality_score": 60,
-      "usable_for_decision": false,
+      "quality_score": 68,
+      "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
       "tana_m": [],
@@ -152,8 +99,11 @@
       "count_mentions": [],
       "count_confidence": "none",
       "negative_signals": [],
-      "bait_signals": [],
-      "evidence_scope": "listing"
+      "bait_signals": [
+        "アジ"
+      ],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
+      "evidence_scope": "detail"
     },
     {
       "id": "signal-03dd49142f52cc81",
@@ -181,56 +131,31 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-ba5253736153078a",
+      "id": "signal-09674a479019c44a",
       "date": "2026-10-14",
       "area": null,
-      "type": "unknown",
-      "method": "unknown",
+      "type": "shore",
+      "method": "エギング",
       "time_mode": "unknown",
-      "evidence_role": "info",
+      "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
-      "confidence": "B",
-      "quality_score": 55,
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
+      "confidence": "C",
+      "quality_score": 48,
       "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
       "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": "釣行日 2026/10/14 釣行時間 05:00~08:00 釣場 豊浜釣り桟橋 ポイント 釣魚 アジ・カワハギ・メジナ（グレ）・アイゴ・コショウダイ 釣り方 サビキ釣り 釣果 アジ3匹、カワハギ2匹、メジナ（グレ）4匹、アイゴ4匹、コショウダイ1匹 サイズ アジ約10㎝、カワハギ約15㎝、メジナ（グレ）約20センチ、アイゴ約15㎝、コショウダイ36㎝ NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": "釣行日 2026/10/14 釣行時間 05:00~08:00 釣場 豊浜釣り桟橋 ポイント 釣魚 アジ・カワハギ・メジナ（グレ）・アイゴ・コショウダイ 釣り方 サビキ釣り 釣果 アジ3匹、カワハギ2匹、メジナ（グレ）4匹、アイゴ4匹、コショウダイ1匹 サイズ アジ約10㎝、カワハギ約15㎝、メジナ（グレ）約20センチ、アイゴ約15㎝、コショウダイ36㎝ NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
-      ],
+      "depth_confidence": "none",
+      "depth_evidence": [],
       "count_mentions": [],
       "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
         "アジ"
       ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
       "evidence_scope": "detail"
     },
     {
@@ -259,16 +184,43 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-0a57738ce610b86f",
+      "id": "signal-432ded22b3c78e9b",
+      "date": "2026-10-14",
+      "area": null,
+      "type": "unknown",
+      "method": "unknown",
+      "time_mode": "unknown",
+      "evidence_role": "info",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "confidence": "C",
+      "quality_score": 40,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
+      "evidence_scope": "listing"
+    },
+    {
+      "id": "signal-08d528a35349ea22",
       "date": "2026-10-13",
       "area": "若狭",
       "type": "boat",
       "method": "ティップラン",
-      "time_mode": "night",
+      "time_mode": "unknown",
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50068",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50073",
       "confidence": "A",
       "quality_score": 90,
       "usable_for_decision": true,
@@ -290,18 +242,7 @@
             "ティップラン"
           ],
           "confidence": "A",
-          "evidence": "【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 17:00~23:00 投稿者 イシグロカインズモール彦根店 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪ こんにちは、イシグロカインズモール彦根店 岡崎です 10月13日朝バス釣りして癒されてから ナイトティップランに行って来ました 今回の船宿さまは 小浜の雲丸さま にお邪魔してきました ありがとうございました 今回はバイトの体育会系きっしーとイカ好き中川氏 元彦根店現中川かの里店二宮の計4人で挑戦してきました♪ 今"
-        },
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ",
-            "ティップラン"
-          ],
-          "confidence": "A",
-          "evidence": "【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 17:00~23:00 投稿者 イシグロカインズモール彦根店 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪ こんにちは、イシグロカインズモール彦根店 岡崎です 10月13日朝バス釣りして癒されてから ナイトティップランに行って来ました 今回の船宿さまは 小浜の雲丸さま にお邪魔してきました ありがとうございました 今回はバイトの体育会系きっしーとイカ好き中川氏 元彦根店現中川かの里店二宮の計4人で挑戦してきました♪ 今"
+          "evidence": " 愛知の深場ティップラン IN勇生丸 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 18:00~23:15 釣場 若狭美浜エリア ポイント 小浜 雲丸様 釣魚 アオリイカ 釣り方 ティップランエギング 釣果 アオリイカ6~11杯 サイズ アオリイカ1キロ前後 NEW イシグロカインズモール彦根店 25 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
         },
         {
           "kind": "bottom_offset",
@@ -312,54 +253,83 @@
             "ティップラン"
           ],
           "confidence": "A",
-          "evidence": "【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 17:00~23:00 投稿者 イシグロカインズモール彦根店 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪ こんにちは、イシグロカインズモール彦根店 岡崎です 10月13日朝バス釣りして癒されてから ナイトティップランに行って来ました 今回の船宿さまは 小浜の雲丸さま にお邪魔してきました ありがとうございました 今回はバイトの体育会系きっしーとイカ好き中川氏 元彦根店現中川かの里店二宮の計4人で挑戦してきました♪ 今"
+          "evidence": " 愛知の深場ティップラン IN勇生丸 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 18:00~23:15 釣場 若狭美浜エリア ポイント 小浜 雲丸様 釣魚 アオリイカ 釣り方 ティップランエギング 釣果 アオリイカ6~11杯 サイズ アオリイカ1キロ前後 NEW イシグロカインズモール彦根店 25 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
         }
       ],
-      "count_mentions": [],
-      "count_confidence": "none",
+      "count_mentions": [
+        11
+      ],
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": [
         "アジ"
       ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50068",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50073",
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-a1c08c848efc9c0f",
+      "id": "signal-eff217c2f78009ea",
       "date": "2026-10-13",
       "area": "若狭",
       "type": "boat",
       "method": "ティップラン",
-      "time_mode": "unknown",
+      "time_mode": "night",
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
       "confidence": "A",
-      "quality_score": 80,
+      "quality_score": 90,
       "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
+      "depth_m": [
+        40.0
+      ],
+      "bottom_offset_m": [
+        10.0
+      ],
       "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
+      "depth_confidence": "A",
+      "depth_evidence": [
+        {
+          "kind": "water_depth",
+          "value_m": 40.0,
+          "keywords": [
+            "アオリ",
+            "アオリイカ",
+            "ティップラン"
+          ],
+          "confidence": "A",
+          "evidence": "若狭沖ナイトティップラン | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 05:00~10:30 釣場 沖・オフショア ポイント 釣魚 アオリイカ 釣り方 ティップランエギング 釣果 アオリイカ4ハイ サイズ アオリイカ400g前後 NEW イシグロカインズモール彦根店 25 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
+        },
+        {
+          "kind": "bottom_offset",
+          "value_m": 10.0,
+          "keywords": [
+            "アオリ",
+            "アオリイカ",
+            "ティップラン"
+          ],
+          "confidence": "A",
+          "evidence": "若狭沖ナイトティップラン | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 05:00~10:30 釣場 沖・オフショア ポイント 釣魚 アオリイカ 釣り方 ティップランエギング 釣果 アオリイカ4ハイ サイズ アオリイカ400g前後 NEW イシグロカインズモール彦根店 25 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
+        }
+      ],
       "count_mentions": [
-        8
+        4
       ],
       "count_confidence": "mention_only",
-      "negative_signals": [
-        "釣れない"
+      "negative_signals": [],
+      "bait_signals": [
+        "アジ"
       ],
-      "bait_signals": [],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-e479b1a76e8a0b5a",
+      "id": "signal-e9bb4504dc9c5abf",
       "date": "2026-10-13",
       "area": null,
-      "type": "shore",
-      "method": "エギング",
+      "type": "boat",
+      "method": "ティップラン",
       "time_mode": "unknown",
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
@@ -382,24 +352,26 @@
           "value_m": 40.0,
           "keywords": [
             "アオリ",
-            "アオリイカ"
+            "アオリイカ",
+            "ティップラン"
           ],
           "confidence": "A",
-          "evidence": "イシグロ豊橋向山店☆浜名湖アオリイカ無双継続中♪☆ | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 09:00~10:00 釣場 東海 ＞ 静岡西部 ＞ 浜名湖 ポイント 表浜名湖 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ3ハイ サイズ アオリイカ胴15㎝前後 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
+          "evidence": "イシグロ豊橋向山店☆浜名湖アオリイカ無双継続中♪☆ | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 05:00~10:30 釣場 沖・オフショア ポイント 釣魚 アオリイカ 釣り方 ティップランエギング 釣果 アオリイカ4ハイ サイズ アオリイカ400g前後 NEW イシグロカインズモール彦根店 25 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
         },
         {
           "kind": "bottom_offset",
           "value_m": 10.0,
           "keywords": [
             "アオリ",
-            "アオリイカ"
+            "アオリイカ",
+            "ティップラン"
           ],
           "confidence": "A",
-          "evidence": "イシグロ豊橋向山店☆浜名湖アオリイカ無双継続中♪☆ | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 09:00~10:00 釣場 東海 ＞ 静岡西部 ＞ 浜名湖 ポイント 表浜名湖 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ3ハイ サイズ アオリイカ胴15㎝前後 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
+          "evidence": "イシグロ豊橋向山店☆浜名湖アオリイカ無双継続中♪☆ | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/13 釣行時間 05:00~10:30 釣場 沖・オフショア ポイント 釣魚 アオリイカ 釣り方 ティップランエギング 釣果 アオリイカ4ハイ サイズ アオリイカ400g前後 NEW イシグロカインズモール彦根店 25 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
         }
       ],
       "count_mentions": [
-        3
+        4
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
@@ -496,16 +468,16 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-636c3d68b9ec880a",
+      "id": "signal-38ccbb805f083a3f",
       "date": "2026-10-13",
       "area": null,
-      "type": "boat",
-      "method": "ティップラン",
+      "type": "shore",
+      "method": "エギング",
       "time_mode": "unknown",
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50068",
       "confidence": "B",
       "quality_score": 55,
       "usable_for_decision": false,
@@ -521,7 +493,7 @@
       "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": [],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50068",
       "evidence_scope": "detail"
     },
     {
@@ -601,62 +573,6 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-563a7b766c2bc0fa",
-      "date": "2026-10-12",
-      "area": "若狭",
-      "type": "shore",
-      "method": "ショア",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-6b1cba95f5ff2a63",
-      "date": "2026-10-12",
-      "area": "若狭",
-      "type": "shore",
-      "method": "エギング",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
-      "evidence_scope": "detail"
-    },
-    {
       "id": "signal-4004b6b686debdb4",
       "date": "2026-10-12",
       "area": null,
@@ -682,80 +598,16 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-753a099285658603",
-      "date": "2026-10-11",
-      "area": "若狭",
-      "type": "shore",
-      "method": "エギング",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
-      "confidence": "A",
-      "quality_score": 80,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        1,
-        20
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [
-        "釣れない"
-      ],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-a30eb0627162b620",
-      "date": "2026-10-11",
-      "area": "若狭",
-      "type": "shore",
-      "method": "ショア",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50019",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        1,
-        20
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50019",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-d685c092395e21b2",
+      "id": "signal-cac5562c239d4fff",
       "date": "2026-10-11",
       "area": "若狭",
       "type": "boat",
       "method": "ティップラン",
-      "time_mode": "unknown",
+      "time_mode": "night",
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
       "confidence": "A",
       "quality_score": 75,
       "usable_for_decision": true,
@@ -764,71 +616,13 @@
       "tana_m": [],
       "depth_confidence": "none",
       "depth_evidence": [],
-      "count_mentions": [
-        1,
-        20
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-1dcb484469b73883",
-      "date": "2026-10-11",
-      "area": null,
-      "type": "shore",
-      "method": "エギング",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50052",
-      "confidence": "B",
-      "quality_score": 70,
-      "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
-      "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": "三河湾エギング絶好調♪お客様（T様御一行）釣果 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/11 釣行時間 03:00~09:30 釣場 東海 ＞ 愛知三河 ＞ 渥美半島三河湾岸 ポイント 2.5号~3号エギをメインで使用 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ7人で合計19杯 サイズ アオリイカコロッケ~トンカツサイズ 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": "三河湾エギング絶好調♪お客様（T様御一行）釣果 | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/11 釣行時間 03:00~09:30 釣場 東海 ＞ 愛知三河 ＞ 渥美半島三河湾岸 ポイント 2.5号~3号エギをメインで使用 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ7人で合計19杯 サイズ アオリイカコロッケ~トンカツサイズ 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
-      ],
       "count_mentions": [
         19
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50052",
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
       "evidence_scope": "detail"
     },
     {
@@ -861,6 +655,36 @@
       "evidence_scope": "detail"
     },
     {
+      "id": "signal-0eae4bd4d2b4c059",
+      "date": "2026-10-11",
+      "area": null,
+      "type": "shore",
+      "method": "エギング",
+      "time_mode": "unknown",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50035",
+      "confidence": "B",
+      "quality_score": 55,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        19
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50035",
+      "evidence_scope": "detail"
+    },
+    {
       "id": "signal-9993f9f92b685f8d",
       "date": "2026-10-11",
       "area": null,
@@ -870,7 +694,7 @@
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50068",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
       "confidence": "B",
       "quality_score": 55,
       "usable_for_decision": false,
@@ -888,7 +712,7 @@
       "bait_signals": [
         "アジ"
       ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50068",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50028",
       "evidence_scope": "detail"
     },
     {
@@ -915,7 +739,9 @@
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
-      "bait_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
       "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
       "evidence_scope": "detail"
     },
@@ -998,6 +824,34 @@
       "evidence_scope": "listing"
     },
     {
+      "id": "signal-b07d2c19a6c87e8f",
+      "date": "2026-10-10",
+      "area": "若狭",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50037",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        10
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50037",
+      "evidence_scope": "detail"
+    },
+    {
       "id": "signal-8ff9bbbc7afcc167",
       "date": "2026-10-10",
       "area": "丹後",
@@ -1023,61 +877,6 @@
       ],
       "bait_signals": [],
       "detail_url": "https://bunbun-fishing.com/fishing/218923/",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-77e7d6de7f26dcde",
-      "date": "2026-10-10",
-      "area": null,
-      "type": "shore",
-      "method": "エギング",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50037",
-      "confidence": "B",
-      "quality_score": 70,
-      "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
-      "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/10 釣行時間 06:00~12:00 釣場 東海 ＞ 愛知三河 ＞ 沖・オフショア ポイント 三河湾沖合 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ2人で10杯以上 サイズ アオリイカトンカツサイズメイン 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/10 釣行時間 06:00~12:00 釣場 東海 ＞ 愛知三河 ＞ 沖・オフショア ポイント 三河湾沖合 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ2人で10杯以上 サイズ アオリイカトンカツサイズメイン 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
-      ],
-      "count_mentions": [
-        10
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50037",
       "evidence_scope": "detail"
     },
     {
@@ -1132,6 +931,34 @@
       "negative_signals": [],
       "bait_signals": [],
       "detail_url": "https://bunbun-fishing.com/fishing/218847/",
+      "evidence_scope": "detail"
+    },
+    {
+      "id": "signal-f5032a1c325b6fe6",
+      "date": "2026-10-10",
+      "area": null,
+      "type": "shore",
+      "method": "エギング",
+      "time_mode": "unknown",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50005",
+      "confidence": "B",
+      "quality_score": 55,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        9
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50005",
       "evidence_scope": "detail"
     },
     {
@@ -1218,7 +1045,35 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-1744b67e870dca9c",
+      "id": "signal-3dced2554b87d757",
+      "date": "2026-10-09",
+      "area": "若狭",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        13
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
+      "evidence_scope": "detail"
+    },
+    {
+      "id": "signal-e1af2bc96490ab64",
       "date": "2026-10-09",
       "area": null,
       "type": "boat",
@@ -1229,44 +1084,15 @@
       "source_kind": "tackle_shop_media",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49979",
       "confidence": "B",
-      "quality_score": 70,
+      "quality_score": 55,
       "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
       "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ",
-            "ティップラン"
-          ],
-          "confidence": "A",
-          "evidence": "[イシグロ半田店] | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/09 釣行時間 13:30~17:30 釣場 東海 ＞ 愛知尾張 ＞ 沖・オフショア ポイント 釣り方 ティップランエギング 釣魚 アオリイカ 釣果 アオリイカ計13杯 サイズ アオリイカ~500g 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ",
-            "ティップラン"
-          ],
-          "confidence": "A",
-          "evidence": "[イシグロ半田店] | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/09 釣行時間 13:30~17:30 釣場 東海 ＞ 愛知尾張 ＞ 沖・オフショア ポイント 釣り方 ティップランエギング 釣魚 アオリイカ 釣果 アオリイカ計13杯 サイズ アオリイカ~500g 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
-      ],
-      "count_mentions": [
-        13
-      ],
-      "count_confidence": "mention_only",
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
       "negative_signals": [],
       "bait_signals": [
         "アジ"
@@ -1275,7 +1101,7 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-9ceeb6e1b93ad92e",
+      "id": "signal-65c924a8df60c1a6",
       "date": "2026-10-09",
       "area": null,
       "type": "shore",
@@ -1284,47 +1110,24 @@
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49969",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
       "confidence": "B",
-      "quality_score": 70,
+      "quality_score": 55,
       "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
       "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/09 釣行時間 05:00~14:00 釣場 東海 ＞ 三重県 ＞ 尾鷲周辺 ポイント 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ サイズ アオリイカ 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/09 釣行時間 05:00~14:00 釣場 東海 ＞ 三重県 ＞ 尾鷲周辺 ポイント 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ サイズ アオリイカ 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        2
       ],
-      "count_mentions": [],
-      "count_confidence": "none",
+      "count_confidence": "mention_only",
       "negative_signals": [],
       "bait_signals": [
         "アジ"
       ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49969",
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50010",
       "evidence_scope": "detail"
     },
     {
@@ -1404,7 +1207,35 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-07de927a8754fd19",
+      "id": "signal-723cab1d3cf8ef43",
+      "date": "2026-10-07",
+      "area": "若狭",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49941",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        3
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49941",
+      "evidence_scope": "detail"
+    },
+    {
+      "id": "signal-69f7ca47626bcfb5",
       "date": "2026-10-07",
       "area": null,
       "type": "boat",
@@ -1413,55 +1244,85 @@
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49941",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49951",
       "confidence": "B",
-      "quality_score": 70,
+      "quality_score": 60,
       "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
       "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ",
-            "ティップラン"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/07 釣行時間 19:00~22:00 釣場 東海 ＞ 三重県 ＞ 沖・オフショア ポイント 釣り方 ティップランエギング 釣魚 アオリイカ 釣果 アオリイカ3杯 サイズ アオリイカ200ｇ前後 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ",
-            "ティップラン"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/07 釣行時間 19:00~22:00 釣場 東海 ＞ 三重県 ＞ 沖・オフショア ポイント 釣り方 ティップランエギング 釣魚 アオリイカ 釣果 アオリイカ3杯 サイズ アオリイカ200ｇ前後 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        1,
+        2
       ],
+      "count_confidence": "mention_only",
+      "negative_signals": [
+        "チェイス"
+      ],
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49951",
+      "evidence_scope": "detail"
+    },
+    {
+      "id": "signal-43f0140c45917e2c",
+      "date": "2026-10-05",
+      "area": "若狭",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49933",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
       "count_mentions": [
         3
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49941",
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49933",
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-88fbf7f241af4c14",
+      "id": "signal-f887125b4c9b219f",
+      "date": "2026-10-05",
+      "area": null,
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "unknown",
+      "evidence_role": "catch",
+      "source": "釣具のイシグロ",
+      "source_kind": "tackle_shop_media",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "confidence": "B",
+      "quality_score": 60,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [
+        "釣れない",
+        "チェイス"
+      ],
+      "bait_signals": [],
+      "evidence_scope": "listing"
+    },
+    {
+      "id": "signal-ecd879635733687d",
       "date": "2026-10-05",
       "area": null,
       "type": "shore",
@@ -1470,104 +1331,22 @@
       "evidence_role": "catch",
       "source": "釣具のイシグロ",
       "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
-      "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/05 釣行時間 01:30~18:00 釣場 東海 ＞ 三重県 ＞ 尾鷲周辺 ポイント 尾鷲~紀伊長島 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ9杯（リリース含む） サイズ アオリイカ~胴長 約19cm 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " | 釣具のイシグロ | 釣り情報サイト 釣行日 2026/10/05 釣行時間 01:30~18:00 釣場 東海 ＞ 三重県 ＞ 尾鷲周辺 ポイント 尾鷲~紀伊長島 釣り方 エギング 釣魚 アオリイカ 釣果 アオリイカ9杯（リリース含む） サイズ アオリイカ~胴長 約19cm 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強かったですよ♪"
-        }
-      ],
-      "count_mentions": [
-        9
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [
-        "釣れない"
-      ],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49928",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-1fbce5623c239deb",
-      "date": "2026-10-05",
-      "area": null,
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "unknown",
-      "evidence_role": "info",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49930",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49933",
       "confidence": "B",
-      "quality_score": 70,
+      "quality_score": 60,
       "usable_for_decision": false,
-      "depth_m": [
-        40.0
-      ],
-      "bottom_offset_m": [
-        10.0
-      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
       "tana_m": [],
-      "depth_confidence": "A",
-      "depth_evidence": [
-        {
-          "kind": "water_depth",
-          "value_m": 40.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " 商品カテゴリ ロッド メーカー Tsulino 商品名 KAHUNA TR PARABELLUM オンラインショップで商品詳細を見る 商品カテゴリ リール メーカー シマノ 商品名 23ヴァンキッシュ オンラインショップで商品詳細を見る 商品カテゴリ ルアー メーカー Tsulino 商品名 THE EGI Back at One 2.5号 オンラインショップで商品詳細を見る 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強"
-        },
-        {
-          "kind": "bottom_offset",
-          "value_m": 10.0,
-          "keywords": [
-            "アオリ",
-            "アオリイカ"
-          ],
-          "confidence": "A",
-          "evidence": " 商品カテゴリ ロッド メーカー Tsulino 商品名 KAHUNA TR PARABELLUM オンラインショップで商品詳細を見る 商品カテゴリ リール メーカー シマノ 商品名 23ヴァンキッシュ オンラインショップで商品詳細を見る 商品カテゴリ ルアー メーカー Tsulino 商品名 THE EGI Back at One 2.5号 オンラインショップで商品詳細を見る 釣り情報一覧へ戻る 同じ釣魚の記事 NEW イシグロカインズモール彦根店 17 view 【アオリイカ】秋と言えばナイトTR釣行♪【彦根店＆中川店】 3号のエギにTRシンカー10~20ｇで水深40m前後のボトムから10mまで位を探りました♪カラーは金アジが強"
-        }
-      ],
+      "depth_confidence": "none",
+      "depth_evidence": [],
       "count_mentions": [],
       "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
+      "negative_signals": [
+        "反応なし"
       ],
-      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49930",
+      "bait_signals": [],
+      "detail_url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=49933",
       "evidence_scope": "detail"
     },
     {
@@ -1709,7 +1488,7 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-e88a7cf32c9bf02b",
+      "id": "signal-5f5c7c431bb2eb47",
       "date": "2026-10-01",
       "area": "若狭",
       "type": "boat",
@@ -1728,7 +1507,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [
-        1
+        4
       ],
       "count_confidence": "mention_only",
       "negative_signals": [],
@@ -1736,33 +1515,6 @@
         "アジ",
         "サヨリ"
       ],
-      "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-024f0ba60132a94a",
-      "date": "2026-10-01",
-      "area": null,
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "釣具のイシグロ",
-      "source_kind": "tackle_shop_media",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "confidence": "B",
-      "quality_score": 55,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        4
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [],
       "evidence_scope": "listing"
     }
   ]
