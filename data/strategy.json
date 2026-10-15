@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-15T22:28:30+09:00",
-  "reference_date": "2026-10-15",
+  "updated_at": "2026-10-16T04:55:23+09:00",
+  "reference_date": "2026-10-16",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-15",
+  "boat_context_reference_date": "2026-10-16",
   "areas": [
     {
       "area": "越前",
@@ -150,12 +150,12 @@
       },
       "boat_context": {
         "latest_date": "2026-10-12",
-        "last7_sessions": 9,
+        "last7_sessions": 6,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 3,
-        "night_sessions_7d": 5,
-        "negative_sessions_7d": 5,
+        "night_sessions_7d": 3,
+        "negative_sessions_7d": 4,
         "day_depth_signals": [],
         "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
@@ -241,7 +241,7 @@
         "depth_window_days": 30,
         "day_sessions_7d": 0,
         "night_sessions_7d": 2,
-        "negative_sessions_7d": 0,
+        "negative_sessions_7d": 2,
         "day_depth_signals": [],
         "night_depth_signals": [
           {
@@ -283,8 +283,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 4,
-        "catch": 4
+        "shore": 3,
+        "catch": 3
       },
       "last30_sessions": {
         "shore": 7,
@@ -404,11 +404,11 @@
       },
       "boat_context": {
         "latest_date": "2026-10-13",
-        "last7_sessions": 9,
+        "last7_sessions": 7,
         "sources_14d": 5,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 7,
+        "night_sessions_7d": 5,
         "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [
