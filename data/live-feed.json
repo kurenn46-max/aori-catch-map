@@ -1,24 +1,24 @@
 {
   "version": 4,
-  "updated_at": "2026-10-15T13:38:30+09:00",
+  "updated_at": "2026-10-15T13:43:05+09:00",
   "source_updated_at": {
-    "direct": "2026-10-15T13:37:53+09:00",
-    "hot": "2026-10-15T13:37:57+09:00",
-    "broad": "2026-10-15T08:15:56+09:00"
+    "direct": "2026-10-15T13:41:51+09:00",
+    "hot": "2026-10-15T13:42:30+09:00",
+    "broad": "2026-10-15T13:41:52+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 129,
+    "total": 128,
     "shore": 66,
-    "boat": 63,
+    "boat": 62,
     "direct": 69,
-    "supplementary": 60,
+    "supplementary": 59,
     "hot": 11,
-    "broad": 49
+    "broad": 48
   },
   "catches": [
     {
-      "id": "v4-1b2ac91c2ffccae638",
+      "id": "v4-d7bb620690dda8fe76",
       "date": "2026-10-14",
       "area": "若狭",
       "place": "若狭",
@@ -33,7 +33,7 @@
       "maxSize": "不明",
       "time": "unknown",
       "source": "若狭マリンプラザ",
-      "url": "https://www.marineplaza-marina.com/?p=58702",
+      "url": "https://www.marineplaza-marina.com/?p=58345",
       "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
       "demo": false,
       "precision": "area",
@@ -50,8 +50,7 @@
         "アジ"
       ],
       "negative_signals": [
-        "釣れず",
-        "渋い"
+        "釣れない"
       ],
       "depth_m": [],
       "bottom_offset_m": [],
@@ -946,44 +945,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "v4-13c251124bcb45d10c",
-      "date": "2026-10-10",
-      "area": "丹後",
-      "place": "丹後",
-      "lat": 35.65,
-      "lng": 135.15,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
-      "maxSize": "不明",
-      "time": "day",
-      "source": "ブンブン釣行記",
-      "url": "https://bunbun-fishing.com/fishing/218923/",
-      "title": "ブンブン釣行記 / 船・信頼度B",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-8ff9bbbc7afcc167",
-      "evidence_confidence": "B",
-      "quality_score": 73,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [
-        "渋い"
-      ],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "day"
     },
     {
       "id": "v4-ac57d4c0e8d1a2f627",
