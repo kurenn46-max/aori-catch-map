@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-10-16T14:48:43+09:00",
+  "updated_at": "2026-10-16T20:16:15+09:00",
   "source_updated_at": {
-    "direct": "2026-10-16T14:47:53+09:00",
-    "hot": "2026-10-16T14:47:55+09:00",
+    "direct": "2026-10-16T20:15:31+09:00",
+    "hot": "2026-10-16T20:15:32+09:00",
     "broad": "2026-10-16T13:34:05+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -13,12 +13,12 @@
     "boat": 55,
     "direct": 69,
     "supplementary": 51,
-    "hot": 6,
-    "broad": 45
+    "hot": 5,
+    "broad": 46
   },
   "catches": [
     {
-      "id": "v4-75db7ba2afdb618817",
+      "id": "v4-96f5dd923d9ad7ea2f",
       "date": "2026-10-15",
       "area": "若狭",
       "place": "若狭",
@@ -29,7 +29,6 @@
       "method": "ティップラン",
       "count": null,
       "count_mentions": [
-        1,
         2,
         9
       ],
@@ -46,7 +45,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
-      "origin_signal_id": "signal-1644482526392fba",
+      "origin_signal_id": "signal-262fc73647b4374a",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
@@ -58,7 +57,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-fc2fdf7638e20b7c90",
+      "id": "v4-68f16fff3bb0f84c81",
       "date": "2026-10-14",
       "area": "若狭",
       "place": "若狭",
@@ -69,7 +68,8 @@
       "method": "ティップラン",
       "count": null,
       "count_mentions": [
-        1
+        1,
+        3
       ],
       "count_confidence": "mention_only",
       "maxSize": "不明",
@@ -84,7 +84,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
-      "origin_signal_id": "signal-7b1d3cf013385e2f",
+      "origin_signal_id": "signal-f45ecd50545e2aa8",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
@@ -256,7 +256,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-d8580fdad23da1f996",
+      "id": "v4-1a07a37c06cf93488b",
       "date": "2026-10-13",
       "area": "若狭",
       "place": "若狭",
@@ -273,8 +273,8 @@
       "maxSize": "不明",
       "time": "unknown",
       "source": "釣具のイシグロ",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50073",
-      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50104",
+      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ・ベイト",
       "demo": false,
       "precision": "area",
       "result_status": "catch",
@@ -287,7 +287,8 @@
       "quality_score": 75,
       "supplementary": true,
       "bait_signals": [
-        "アジ"
+        "アジ",
+        "ベイト"
       ],
       "negative_signals": [],
       "depth_m": [],
@@ -2702,7 +2703,7 @@
       "feed_seen_at": "2026-10-05T19:06:00+09:00"
     },
     {
-      "id": "v4-ce6775d80dc06b5e82",
+      "id": "v4-7f64b6ac869abf571e",
       "date": "2026-10-02",
       "area": "若狭",
       "place": "若狭",
@@ -2713,7 +2714,7 @@
       "method": "ティップラン",
       "count": null,
       "count_mentions": [
-        15
+        8
       ],
       "count_confidence": "mention_only",
       "maxSize": "不明",
@@ -2727,8 +2728,8 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-792589b2d41ada52",
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-d33af5687ff07eea",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
