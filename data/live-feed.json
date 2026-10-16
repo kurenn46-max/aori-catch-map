@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-16T22:18:01+09:00",
+  "updated_at": "2026-10-17T00:32:30+09:00",
   "source_updated_at": {
-    "direct": "2026-10-16T22:16:10+09:00",
-    "hot": "2026-10-16T22:17:18+09:00",
+    "direct": "2026-10-17T00:31:33+09:00",
+    "hot": "2026-10-17T00:31:35+09:00",
     "broad": "2026-10-16T22:16:11+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 121,
+    "total": 118,
     "shore": 65,
-    "boat": 56,
+    "boat": 53,
     "direct": 69,
-    "supplementary": 52,
-    "hot": 5,
-    "broad": 47
+    "supplementary": 49,
+    "hot": 1,
+    "broad": 48
   },
   "catches": [
     {
@@ -54,7 +54,7 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-96f5dd923d9ad7ea2f",
+      "id": "v4-e44480c10a7f913d72",
       "date": "2026-10-15",
       "area": "若狭",
       "place": "若狭",
@@ -80,47 +80,8 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-262fc73647b4374a",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "night"
-    },
-    {
-      "id": "v4-68f16fff3bb0f84c81",
-      "date": "2026-10-14",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [
-        1,
-        3
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "night",
-      "source": "釣具のイシグロ",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
-      "title": "釣具のイシグロ / 船・信頼度A",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-f45ecd50545e2aa8",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
@@ -206,7 +167,7 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-3d17a17c0bff23d234",
+      "id": "v4-6039385b6dcef8dae7",
       "date": "2026-10-13",
       "area": "若狭",
       "place": "若狭",
@@ -229,7 +190,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-0a57738ce610b86f",
       "evidence_confidence": "A",
       "quality_score": 90,
@@ -246,46 +207,6 @@
       ],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "v4-1a07a37c06cf93488b",
-      "date": "2026-10-13",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [
-        11
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "釣具のイシグロ",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50104",
-      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-4740f20a32e63f45",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [
-        "アジ"
-      ],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
     },
     {
       "id": "v4-4c0829b48113e373c2",
@@ -3786,44 +3707,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "unknown"
-    },
-    {
-      "id": "v4-3c22650f374b0b1607",
-      "date": "2026-09-16",
-      "area": "丹後",
-      "place": "丹後",
-      "lat": 35.65,
-      "lng": 135.15,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [
-        13
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "night",
-      "source": "シーマン",
-      "url": "https://seaman-tango.com/blog_articles/1789517411.html",
-      "title": "シーマン / 船・信頼度B",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-28e02c65c4421b2c",
-      "evidence_confidence": "B",
-      "quality_score": 68,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "night"
     }
   ]
 }
