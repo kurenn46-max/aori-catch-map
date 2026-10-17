@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-17T21:13:19+09:00",
-  "reference_date": "2026-10-17",
+  "updated_at": "2026-10-18T00:38:20+09:00",
+  "reference_date": "2026-10-18",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-17",
+  "boat_context_reference_date": "2026-10-18",
   "areas": [
     {
       "area": "越前",
@@ -24,8 +24,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 8,
-        "catch": 8
+        "shore": 1,
+        "catch": 1
       },
       "last30_sessions": {
         "shore": 10,
@@ -67,11 +67,11 @@
       },
       "boat_context": {
         "latest_date": "2026-10-11",
-        "last7_sessions": 1,
+        "last7_sessions": 0,
         "sources_14d": 1,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 1,
+        "night_sessions_7d": 0,
         "negative_sessions_7d": 0,
         "day_depth_signals": [],
         "night_depth_signals": [],
@@ -99,8 +99,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 6,
-        "catch": 6
+        "shore": 2,
+        "catch": 2
       },
       "last30_sessions": {
         "shore": 11,
@@ -149,14 +149,27 @@
       },
       "boat_context": {
         "latest_date": "2026-10-17",
-        "last7_sessions": 5,
+        "last7_sessions": 6,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 2,
-        "night_sessions_7d": 3,
-        "negative_sessions_7d": 4,
+        "night_sessions_7d": 4,
+        "negative_sessions_7d": 3,
         "day_depth_signals": [],
-        "night_depth_signals": [],
+        "night_depth_signals": [
+          {
+            "date": "2026-10-17",
+            "source": "泰丸",
+            "time_mode": "night",
+            "depth_m": [
+              36.0
+            ],
+            "bottom_offset_m": [],
+            "tana_m": [],
+            "depth_confidence": "A",
+            "url": "https://www.taimaru.jp/fishingpost/108529/"
+          }
+        ],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
       },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。公開Web横断の岸補助釣果と船釣果は別枠表示し、岸評価へ直接加点しない。"
@@ -181,8 +194,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 5,
-        "catch": 5
+        "shore": 1,
+        "catch": 1
       },
       "last30_sessions": {
         "shore": 10,
@@ -256,7 +269,7 @@
       "latest_date": "2026-10-04",
       "confidence": 23,
       "grade": "C",
-      "trend": "down",
+      "trend": "none",
       "last48h_sessions": {
         "shore": 0
       },
@@ -271,8 +284,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 0,
+        "catch": 0
       },
       "last30_sessions": {
         "shore": 6,
@@ -308,9 +321,9 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-09-28",
-        "last7_sessions": 0,
-        "sources_14d": 0,
+        "latest_date": "2026-10-17",
+        "last7_sessions": 1,
+        "sources_14d": 1,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
         "night_sessions_7d": 0,
@@ -339,7 +352,7 @@
       "latest_date": "2026-10-04",
       "confidence": 14,
       "grade": "C",
-      "trend": "down",
+      "trend": "none",
       "last48h_sessions": {
         "shore": 0
       },
@@ -354,8 +367,8 @@
         "negative": 0
       },
       "prev7_sessions": {
-        "shore": 1,
-        "catch": 1
+        "shore": 0,
+        "catch": 0
       },
       "last30_sessions": {
         "shore": 3,
@@ -392,12 +405,12 @@
       },
       "boat_context": {
         "latest_date": "2026-10-16",
-        "last7_sessions": 7,
+        "last7_sessions": 4,
         "sources_14d": 5,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 4,
-        "negative_sessions_7d": 1,
+        "night_sessions_7d": 3,
+        "negative_sessions_7d": 0,
         "day_depth_signals": [],
         "night_depth_signals": [
           {
