@@ -1,16 +1,16 @@
 {
   "version": 4,
-  "updated_at": "2026-10-17T13:29:54+09:00",
+  "updated_at": "2026-10-17T13:58:20+09:00",
   "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
-    "total": 122,
+    "total": 123,
     "shore": 65,
-    "boat": 57,
+    "boat": 58,
     "direct": 69,
-    "supplementary": 53,
+    "supplementary": 54,
     "hot": 6,
-    "broad": 47
+    "broad": 48
   },
   "latest_shore_date": "2026-10-12",
   "latest_shore_age_days": 5,
@@ -19,42 +19,42 @@
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-17T13:28:44+09:00",
+      "checked_at": "2026-10-17T13:57:43+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-17T13:28:44+09:00",
+      "checked_at": "2026-10-17T13:57:43+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-17T13:28:44+09:00",
+      "checked_at": "2026-10-17T13:57:43+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-17T13:28:44+09:00",
+      "checked_at": "2026-10-17T13:57:43+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-17T13:28:44+09:00",
+      "checked_at": "2026-10-17T13:57:43+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-17T13:29:23+09:00",
+      "checked_at": "2026-10-17T13:57:44+09:00",
       "accepted_signals": 2,
       "detail_signals": 0
     },
@@ -62,31 +62,31 @@
       "source": "釣具のイシグロ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-17T13:29:23+09:00",
-      "accepted_signals": 172,
+      "checked_at": "2026-10-17T13:57:44+09:00",
+      "accepted_signals": 173,
       "detail_signals": 140
     },
     {
       "source": "ブンブン釣行記",
-      "status": "ok",
+      "status": "error",
       "lane": "hot",
-      "checked_at": "2026-10-17T13:29:23+09:00",
-      "accepted_signals": 3,
-      "detail_signals": 2
+      "checked_at": "2026-10-17T13:57:44+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='bunbun-fishing.com', port=443): Max retries exceeded with url: /fishing/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='bunbun-fishing.com', port=443) at 0x7fa126140680>, 'Connection to bunbun-fishing.com timed "
     },
     {
       "source": "FISHERS アオリイカ",
-      "status": "ok",
+      "status": "error",
       "lane": "hot",
-      "checked_at": "2026-10-17T13:29:23+09:00",
-      "accepted_signals": 20,
-      "detail_signals": 0
+      "checked_at": "2026-10-17T13:57:44+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='www.fishers.co.jp', port=443): Max retries exceeded with url: /fishinginfo/?tsurikata_code=TKT0019 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fishers.co.jp', port=443) at 0x7fa126140800>, 'Connection to "
     },
     {
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-17T13:29:23+09:00",
+      "checked_at": "2026-10-17T13:57:44+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -285,10 +285,10 @@
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-10-17T13:28:44+09:00"
+      "updated_at": "2026-10-17T13:57:43+09:00"
     },
     "hot": {
-      "updated_at": "2026-10-17T13:29:23+09:00",
+      "updated_at": "2026-10-17T13:57:44+09:00",
       "sources": 5
     },
     "broad": {
@@ -298,7 +298,7 @@
   },
   "coverage": {
     "checks_total": 34,
-    "checks_ok": 29,
-    "checks_bad": 5
+    "checks_ok": 27,
+    "checks_bad": 7
   }
 }

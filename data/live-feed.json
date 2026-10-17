@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-17T13:29:54+09:00",
+  "updated_at": "2026-10-17T13:58:20+09:00",
   "source_updated_at": {
-    "direct": "2026-10-17T13:28:44+09:00",
-    "hot": "2026-10-17T13:29:23+09:00",
+    "direct": "2026-10-17T13:57:43+09:00",
+    "hot": "2026-10-17T13:57:44+09:00",
     "broad": "2026-10-17T13:28:45+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 122,
+    "total": 123,
     "shore": 65,
-    "boat": 57,
+    "boat": 58,
     "direct": 69,
-    "supplementary": 53,
+    "supplementary": 54,
     "hot": 6,
-    "broad": 47
+    "broad": 48
   },
   "catches": [
     {
@@ -171,7 +171,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-005aa221ecd0f88701",
+      "id": "v4-fc2fdf7638e20b7c90",
       "date": "2026-10-14",
       "area": "若狭",
       "place": "若狭",
@@ -188,8 +188,8 @@
       "maxSize": "不明",
       "time": "night",
       "source": "釣具のイシグロ",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50089",
-      "title": "釣具のイシグロ / 船・信頼度A",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
+      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ",
       "demo": false,
       "precision": "area",
       "result_status": "catch",
@@ -201,7 +201,9 @@
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
-      "bait_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
       "negative_signals": [],
       "depth_m": [],
       "bottom_offset_m": [],
@@ -247,6 +249,44 @@
       "time_mode": "unknown"
     },
     {
+      "id": "v4-39e472ba7ec392fb00",
+      "date": "2026-10-14",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [
+        1
+      ],
+      "count_confidence": "mention_only",
+      "maxSize": "不明",
+      "time": "night",
+      "source": "釣具のイシグロ",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50089",
+      "title": "釣具のイシグロ / 船・信頼度A",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-7b1d3cf013385e2f",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "night"
+    },
+    {
       "id": "v4-3d17a17c0bff23d234",
       "date": "2026-10-13",
       "area": "若狭",
@@ -287,46 +327,6 @@
       ],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "v4-996042da5eb65915cf",
-      "date": "2026-10-13",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [
-        11
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "釣具のイシグロ",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50124",
-      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-4740f20a32e63f45",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [
-        "アジ"
-      ],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
     },
     {
       "id": "v4-4c0829b48113e373c2",
@@ -2507,6 +2507,47 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-aafdef35757a77474b",
+      "date": "2026-10-04",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [
+        2
+      ],
+      "count_confidence": "mention_only",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "釣具のイシグロ",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ・サヨリ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "hot",
+      "origin_signal_id": "signal-df21c6d8e8d1f6fb",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ",
+        "サヨリ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-fd16d2c97831d5612e",
