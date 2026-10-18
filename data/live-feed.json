@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-19T06:50:56+09:00",
+  "updated_at": "2026-10-19T07:27:28+09:00",
   "source_updated_at": {
-    "direct": "2026-10-19T06:50:21+09:00",
-    "hot": "2026-10-19T06:50:24+09:00",
-    "broad": "2026-10-19T03:39:02+09:00"
+    "direct": "2026-10-19T07:26:14+09:00",
+    "hot": "2026-10-19T07:26:57+09:00",
+    "broad": "2026-10-19T07:26:15+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 117,
+    "total": 118,
     "shore": 63,
-    "boat": 54,
+    "boat": 55,
     "direct": 67,
-    "supplementary": 50,
+    "supplementary": 51,
     "hot": 5,
-    "broad": 45
+    "broad": 46
   },
   "catches": [
     {
@@ -50,6 +50,42 @@
       "negative_signals": [
         "厳しい"
       ],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "day"
+    },
+    {
+      "id": "v4-48f83c59815b83adc5",
+      "date": "2026-10-18",
+      "area": "丹後",
+      "place": "丹後",
+      "lat": 35.65,
+      "lng": 135.15,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "day",
+      "source": "ヴィーナス",
+      "url": "https://www.fisher-venus.com/chouka/%E3%82%B8%E3%82%AE%E3%83%B3%E3%82%B0%E4%BE%BF-2/",
+      "title": "ヴィーナス / 船・信頼度B",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-92c82f3b5bd4517c",
+      "evidence_confidence": "B",
+      "quality_score": 68,
+      "supplementary": true,
+      "bait_signals": [],
+      "negative_signals": [],
       "depth_m": [],
       "bottom_offset_m": [],
       "tana_m": [],
@@ -323,7 +359,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-87167a178d452c8518",
+      "id": "v4-1b2ac91c2ffccae638",
       "date": "2026-10-14",
       "area": "若狭",
       "place": "若狭",
@@ -338,25 +374,23 @@
       "maxSize": "不明",
       "time": "unknown",
       "source": "若狭マリンプラザ",
-      "url": "https://www.marineplaza-marina.com/?p=58540",
+      "url": "https://www.marineplaza-marina.com/?p=58702",
       "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
       "demo": false,
       "precision": "area",
-      "result_status": "blank",
+      "result_status": "catch",
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "broad",
       "origin_signal_id": "signal-8e489a6043559526",
       "evidence_confidence": "A",
-      "quality_score": 80,
+      "quality_score": 75,
       "supplementary": true,
       "bait_signals": [
         "アジ"
       ],
-      "negative_signals": [
-        "釣れない"
-      ],
+      "negative_signals": [],
       "depth_m": [],
       "bottom_offset_m": [],
       "tana_m": [],
