@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-20T22:34:07+09:00",
+  "updated_at": "2026-10-21T02:30:23+09:00",
   "note": "GitHub Actions自動収集。確認済み既存データを保持し、エギCOMの直近投稿を重複排除して追記。",
   "catches": [
     {
@@ -1298,24 +1298,6 @@
       "source": "エギCOM",
       "url": "https://www.yamaria.com/community/catch/egiou/cities/84",
       "title": "小浜・防波堤の投稿",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "web-maizuru-0919b",
-      "date": "2026-09-20",
-      "area": "舞鶴",
-      "place": "舞鶴〜丹後",
-      "lat": 35.535,
-      "lng": 135.3,
-      "type": "boat",
-      "method": "エギング",
-      "count": null,
-      "maxSize": "不明",
-      "time": "夜",
-      "source": "遊漁船 SPRINTER",
-      "url": "https://ameblo.jp/sprinter-fishing/",
-      "title": "9/19 夜アオリ便",
       "demo": false,
       "precision": "area"
     }

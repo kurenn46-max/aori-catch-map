@@ -1,17 +1,17 @@
 {
   "version": 4,
-  "updated_at": "2026-10-20T22:35:41+09:00",
+  "updated_at": "2026-10-21T02:30:55+09:00",
   "source_updated_at": {
-    "direct": "2026-10-20T22:34:07+09:00",
-    "hot": "2026-10-20T22:34:57+09:00",
+    "direct": "2026-10-21T02:30:23+09:00",
+    "hot": "2026-10-21T02:30:25+09:00",
     "broad": "2026-10-20T22:34:09+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 115,
+    "total": 114,
     "shore": 62,
-    "boat": 53,
-    "direct": 65,
+    "boat": 52,
+    "direct": 64,
     "supplementary": 50,
     "hot": 5,
     "broad": 45
@@ -3608,30 +3608,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "day"
-    },
-    {
-      "id": "web-maizuru-0919b",
-      "date": "2026-09-20",
-      "area": "舞鶴",
-      "place": "舞鶴〜丹後",
-      "lat": 35.535,
-      "lng": 135.3,
-      "type": "boat",
-      "method": "エギング",
-      "count": null,
-      "maxSize": "不明",
-      "time": "夜",
-      "source": "遊漁船 SPRINTER",
-      "url": "https://ameblo.jp/sprinter-fishing/",
-      "title": "9/19 夜アオリ便",
-      "demo": false,
-      "precision": "area",
-      "feed_origin": "direct",
-      "evidence_confidence": "A",
-      "quality_score": 95,
-      "supplementary": false,
-      "source_mode": "boat",
-      "feed_seen_at": null
     }
   ]
 }
