@@ -1,20 +1,20 @@
 {
   "version": 4,
-  "updated_at": "2026-10-20T15:35:58+09:00",
+  "updated_at": "2026-10-20T21:10:10+09:00",
   "source_updated_at": {
-    "direct": "2026-10-20T15:33:59+09:00",
-    "hot": "2026-10-20T15:34:01+09:00",
+    "direct": "2026-10-20T21:09:30+09:00",
+    "hot": "2026-10-20T21:09:33+09:00",
     "broad": "2026-10-20T13:53:02+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 117,
+    "total": 118,
     "shore": 62,
-    "boat": 55,
+    "boat": 56,
     "direct": 65,
-    "supplementary": 52,
+    "supplementary": 53,
     "hot": 5,
-    "broad": 47
+    "broad": 48
   },
   "catches": [
     {
@@ -56,15 +56,15 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-310f03d88e88bb2f25",
+      "id": "v4-6ba4ba50291dd2c40e",
       "date": "2026-10-19",
       "area": "若狭",
       "place": "若狭",
       "lat": 35.495,
       "lng": 135.746,
       "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
+      "source_mode": "raft",
+      "method": "筏エギング",
       "count": null,
       "count_mentions": [
         18
@@ -82,7 +82,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
-      "origin_signal_id": "signal-ed11ae432dd902c1",
+      "origin_signal_id": "signal-f67517496d350685",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
@@ -356,6 +356,44 @@
       "time_mode": "night"
     },
     {
+      "id": "v4-57048144109080e34e",
+      "date": "2026-10-17",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [
+        2
+      ],
+      "count_confidence": "mention_only",
+      "maxSize": "不明",
+      "time": "night",
+      "source": "釣具のイシグロ",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
+      "title": "釣具のイシグロ / 船・信頼度A",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "hot",
+      "origin_signal_id": "signal-7dc96c3be1835db6",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "night"
+    },
+    {
       "id": "v4-6c8248c256ba14f1b5",
       "date": "2026-10-17",
       "area": "敦賀",
@@ -484,22 +522,22 @@
       "time": "night",
       "source": "釣具のイシグロ",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/detail.php?id=50075",
-      "title": "釣具のイシグロ / 船・信頼度A",
+      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ",
       "demo": false,
       "precision": "area",
-      "result_status": "chase_only",
+      "result_status": "catch",
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "hot",
       "origin_signal_id": "signal-84a18081140a9b7e",
       "evidence_confidence": "A",
-      "quality_score": 80,
+      "quality_score": 75,
       "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [
-        "チェイス"
+      "bait_signals": [
+        "アジ"
       ],
+      "negative_signals": [],
       "depth_m": [],
       "bottom_offset_m": [],
       "tana_m": [],
@@ -1698,47 +1736,6 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-965b9c15ab4c0fa5da",
-      "date": "2026-10-05",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [
-        3
-      ],
-      "count_confidence": "mention_only",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "釣具のイシグロ",
-      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ・サヨリ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-a0a07f06b133e7f9",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [
-        "アジ",
-        "サヨリ"
-      ],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
-    },
-    {
       "id": "v4-3c858d7d90cf7d6219",
       "date": "2026-10-05",
       "area": "敦賀",
@@ -1776,6 +1773,47 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-5f9fe53d41ecf1b6ab",
+      "date": "2026-10-05",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [
+        9
+      ],
+      "count_confidence": "mention_only",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "釣具のイシグロ",
+      "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
+      "title": "釣具のイシグロ / 船・信頼度A / ベイト:アジ・サヨリ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-60da7b9a4bde1bac",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ",
+        "サヨリ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-319753043765fe6571",
