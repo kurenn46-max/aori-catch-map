@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-20T22:35:41+09:00",
-  "reference_date": "2026-10-20",
+  "updated_at": "2026-10-21T05:01:49+09:00",
+  "reference_date": "2026-10-21",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-20",
+  "boat_context_reference_date": "2026-10-21",
   "areas": [
     {
       "area": "越前",
@@ -229,7 +229,7 @@
       },
       "boat_context": {
         "latest_date": "2026-10-19",
-        "last7_sessions": 6,
+        "last7_sessions": 5,
         "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
