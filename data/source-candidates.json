@@ -1,22 +1,22 @@
 {
-  "updated_at": "2026-10-20T09:27:57+09:00",
+  "updated_at": "2026-10-21T08:59:28+09:00",
   "engine": "Yahoo Japan HTML",
   "policy": "Keyword discovery only. Search snippets never enter catch scoring. Candidate pages are re-fetched; A/B are review candidates, C is retained only for audit. No candidate is auto-promoted.",
   "query_count": 30,
   "query_ok": 30,
   "query_error": 0,
-  "candidate_count": 59,
+  "candidate_count": 54,
   "tier_counts": {
     "A": 1,
     "B": 5,
-    "C": 53
+    "C": 48
   },
   "diagnostics": [
     {
       "region": "丹後",
       "query": "丹後 アオリイカ エギング 釣果 釣行",
       "status": "ok",
-      "results": 9
+      "results": 10
     },
     {
       "region": "丹後",
@@ -34,7 +34,7 @@
       "region": "丹後",
       "query": "丹後 アオリイカ 堤防 漁港 地磯 エギング",
       "status": "ok",
-      "results": 14
+      "results": 13
     },
     {
       "region": "丹後",
@@ -52,31 +52,31 @@
       "region": "小浜",
       "query": "小浜 アオリイカ ティップラン 水深 ボトム 釣果",
       "status": "ok",
-      "results": 13
+      "results": 9
     },
     {
       "region": "小浜",
       "query": "小浜 アオリイカ ティップラン 遊漁船 船長ブログ",
       "status": "ok",
-      "results": 11
+      "results": 9
     },
     {
       "region": "小浜",
       "query": "小浜 アオリイカ 堤防 漁港 地磯 エギング",
       "status": "ok",
-      "results": 14
+      "results": 13
     },
     {
       "region": "小浜",
       "query": "小浜 アオリイカ 釣具店 釣果 エギング",
       "status": "ok",
-      "results": 12
+      "results": 9
     },
     {
       "region": "敦賀",
       "query": "敦賀 アオリイカ エギング 釣果 釣行",
       "status": "ok",
-      "results": 10
+      "results": 14
     },
     {
       "region": "敦賀",
@@ -88,7 +88,7 @@
       "region": "敦賀",
       "query": "敦賀 アオリイカ ティップラン 遊漁船 船長ブログ",
       "status": "ok",
-      "results": 10
+      "results": 13
     },
     {
       "region": "敦賀",
@@ -100,13 +100,13 @@
       "region": "敦賀",
       "query": "敦賀 アオリイカ 釣具店 釣果 エギング",
       "status": "ok",
-      "results": 8
+      "results": 11
     },
     {
       "region": "舞鶴",
       "query": "舞鶴 アオリイカ エギング 釣果 釣行",
       "status": "ok",
-      "results": 11
+      "results": 13
     },
     {
       "region": "舞鶴",
@@ -124,19 +124,19 @@
       "region": "舞鶴",
       "query": "舞鶴 アオリイカ 堤防 漁港 地磯 エギング",
       "status": "ok",
-      "results": 12
+      "results": 9
     },
     {
       "region": "舞鶴",
       "query": "舞鶴 アオリイカ 釣具店 釣果 エギング",
       "status": "ok",
-      "results": 15
+      "results": 11
     },
     {
       "region": "若狭",
       "query": "若狭 アオリイカ エギング 釣果 釣行",
       "status": "ok",
-      "results": 14
+      "results": 11
     },
     {
       "region": "若狭",
@@ -148,7 +148,7 @@
       "region": "若狭",
       "query": "若狭 アオリイカ ティップラン 遊漁船 船長ブログ",
       "status": "ok",
-      "results": 14
+      "results": 9
     },
     {
       "region": "若狭",
@@ -160,19 +160,19 @@
       "region": "若狭",
       "query": "若狭 アオリイカ 釣具店 釣果 エギング",
       "status": "ok",
-      "results": 10
+      "results": 13
     },
     {
       "region": "越前",
       "query": "越前 アオリイカ エギング 釣果 釣行",
       "status": "ok",
-      "results": 11
+      "results": 10
     },
     {
       "region": "越前",
       "query": "越前 アオリイカ ティップラン 水深 ボトム 釣果",
       "status": "ok",
-      "results": 15
+      "results": 14
     },
     {
       "region": "越前",
@@ -184,7 +184,7 @@
       "region": "越前",
       "query": "越前 アオリイカ 堤防 漁港 地磯 エギング",
       "status": "ok",
-      "results": 13
+      "results": 10
     },
     {
       "region": "越前",
@@ -212,14 +212,14 @@
       ],
       "search_freshness": "current_30d",
       "search_observed_date": "2026-09-24",
-      "search_date_age_days": 26,
+      "search_date_age_days": 27,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
       "known_source": false,
       "http_status": 200,
       "final_url": "https://ameblo.jp/gonnemo/entry-12979643188.html",
-      "bytes": 161301,
+      "bytes": 161333,
       "page_title": "ティップラン9月24日 | 京都丹後久美浜 遊漁船『 ごんねも丸』のブログ",
       "page_direct_identity": true,
       "page_target_hits": {
@@ -228,7 +228,7 @@
       "page_region_hit": true,
       "page_freshness": "current_30d",
       "page_observed_date": "2026-09-24",
-      "page_date_age_days": 26,
+      "page_date_age_days": 27,
       "page_depth_samples": [],
       "page_negative_signals": [],
       "verified": true,
@@ -237,6 +237,61 @@
       "auto_promote": false,
       "regions": [
         "丹後"
+      ],
+      "alternate_urls": []
+    },
+    {
+      "id": "source-ecaf3ec5dd56503b",
+      "region": "越前",
+      "url": "http://syokora1123.blog.fc2.com/blog-entry-1956.html?sp",
+      "site_key": "syokora1123.blog.fc2.com",
+      "domain": "fc2.com",
+      "host": "syokora1123.blog.fc2.com",
+      "search_text": "syokora1123.blog.fc2.com http://syokora1123.blog.fc2.com 9月15日 越前 ナイト ティップラン 菅ノ又 2026/9/16 - 9月に入り、アオリイカの釣果報告を聞くようになりました。 なので私も行ってきました。今回お世話になった船宿は福井県越前市・宿漁港出船の第17金 ...",
+      "score": 100,
+      "reasons": [
+        "region",
+        "aori",
+        "tiprun",
+        "shore",
+        "catch",
+        "direct_source",
+        "report",
+        "date_90d"
+      ],
+      "search_freshness": "current_90d",
+      "search_observed_date": "2026-09-16",
+      "search_date_age_days": 35,
+      "source_type": "charter",
+      "direct_source": true,
+      "region_explicit": true,
+      "known_source": false,
+      "http_status": 200,
+      "final_url": "http://syokora1123.blog.fc2.com/blog-entry-1956.html?sp",
+      "bytes": 22255,
+      "page_title": "9月15日越前ナイトティップラン 菅ノ又      \n | マルハンスタッフ釣行ブログ",
+      "page_direct_identity": false,
+      "page_target_hits": {
+        "アオリ": 3,
+        "アオリイカ": 1,
+        "ティップラン": 9
+      },
+      "page_region_hit": true,
+      "page_freshness": "current_90d",
+      "page_observed_date": "2026-09-16",
+      "page_date_age_days": 35,
+      "page_depth_samples": [
+        "5m"
+      ],
+      "page_negative_signals": [
+        "釣れない"
+      ],
+      "verified": true,
+      "tier": "B",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "越前"
       ],
       "alternate_urls": []
     },
@@ -260,7 +315,7 @@
       ],
       "search_freshness": "current_30d",
       "search_observed_date": "2026-09-24",
-      "search_date_age_days": 26,
+      "search_date_age_days": 27,
       "source_type": "tackle_media",
       "direct_source": false,
       "region_explicit": true,
@@ -300,6 +355,56 @@
       ]
     },
     {
+      "id": "source-a3416945bd36bfa4",
+      "region": "越前",
+      "url": "https://fishing-point.jp/fishing/",
+      "site_key": "fishing-point.jp",
+      "domain": "fishing-point.jp",
+      "host": "fishing-point.jp",
+      "search_text": "フィッシングポイント https://fishing-point.jp 福井の 釣果 情報 - フィッシングポイント アオリイカ. 釣人: ニンニンさん; 日付: 2026/10/10; 場所: 福井 越前海岸. もっと ... フィッシングポイント - 福井 イベント ルアー エギング 釣り具屋. フィッシング ...",
+      "score": 98,
+      "reasons": [
+        "region",
+        "aori",
+        "eging",
+        "shore",
+        "catch",
+        "report",
+        "date_30d"
+      ],
+      "search_freshness": "current_30d",
+      "search_observed_date": "2026-10-10",
+      "search_date_age_days": 11,
+      "source_type": "web_report",
+      "direct_source": false,
+      "region_explicit": true,
+      "known_source": false,
+      "http_status": 200,
+      "final_url": "https://fishing-point.jp/fishing/",
+      "bytes": 143755,
+      "page_title": "福井の釣果情報 | フィッシングポイント",
+      "page_direct_identity": false,
+      "page_target_hits": {
+        "アオリ": 7,
+        "アオリイカ": 7,
+        "エギング": 1
+      },
+      "page_region_hit": true,
+      "page_freshness": "unknown",
+      "page_observed_date": null,
+      "page_date_age_days": null,
+      "page_depth_samples": [],
+      "page_negative_signals": [],
+      "verified": true,
+      "tier": "B",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "越前"
+      ],
+      "alternate_urls": []
+    },
+    {
       "id": "source-db4ade1dcc7f7f8a",
       "region": "丹後",
       "url": "https://tsurigoo.com/spot/KYT_005/",
@@ -318,7 +423,7 @@
       ],
       "search_freshness": "current_30d",
       "search_observed_date": "2026-10-03",
-      "search_date_age_days": 17,
+      "search_date_age_days": 18,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -356,125 +461,6 @@
       "alternate_urls": []
     },
     {
-      "id": "source-1a58a4644fde9b63",
-      "region": "小浜",
-      "url": "https://fishcast.jp/spots/obama-fishing-port/aoriika",
-      "site_key": "fishcast.jp",
-      "domain": "fishcast.jp",
-      "host": "fishcast.jp",
-      "search_text": "fishcast.jp https://fishcast.jp 小浜漁港 の アオリイカ 釣り｜ポイント・時期・釣り方 - FishCast 2026/10/11 - 磯がある — 岩礁帯は ... 釣り方堤防のエギング。エギを沈めて、糸の変化でイカを探すエギを投げ、動かしたあとに沈めてアオリイカを誘うエギング。",
-      "score": 84,
-      "reasons": [
-        "region",
-        "aori",
-        "eging",
-        "shore",
-        "date_30d"
-      ],
-      "search_freshness": "current_30d",
-      "search_observed_date": "2026-10-11",
-      "search_date_age_days": 9,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": true,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "https://fishcast.jp/spots/obama-fishing-port/aoriika",
-      "bytes": 190873,
-      "page_title": "小浜漁港のアオリイカ釣り｜ポイント・時期・釣り方 | FishCast",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 35,
-        "アオリイカ": 35,
-        "ティップラン": 2,
-        "エギング": 7
-      },
-      "page_region_hit": true,
-      "page_freshness": "current_30d",
-      "page_observed_date": "2026-10-17",
-      "page_date_age_days": 3,
-      "page_depth_samples": [
-        "2-6m",
-        "60m"
-      ],
-      "page_negative_signals": [],
-      "verified": true,
-      "tier": "B",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "丹後",
-        "小浜",
-        "敦賀",
-        "舞鶴"
-      ],
-      "alternate_urls": [
-        "https://fishcast.jp/spots/tai-fishing-port-maizuru/aoriika",
-        "https://fishcast.jp/spots/shiraki-gyokou/aoriika",
-        "https://fishcast.jp/spots/maizuru-shinkai-park/aoriika",
-        "https://fishcast.jp/spots/tsuruga-ko/aoriika",
-        "https://fishcast.jp/spots/taiza-fishing-port/aoriika"
-      ]
-    },
-    {
-      "id": "source-12c011cb55d09aff",
-      "region": "越前",
-      "url": "https://asobi-o-fukabori.com/aori-echizen-egging-guide/2421/",
-      "site_key": "asobi-o-fukabori.com",
-      "domain": "asobi-o-fukabori.com",
-      "host": "asobi-o-fukabori.com",
-      "search_text": "遊びを深掘りブログ https://asobi-o-fukabori.com 越前 海岸、 アオリイカエギング のタックルや 釣り 方、ポイント 2026/7/1 - 9月初旬〜9月中旬（サイトフィッシングを極めて釣果アップ）. 釣行を開始される方が一番多いのが、9月ではないでしょうか？ いよいよシーズン開幕です！",
-      "score": 83,
-      "reasons": [
-        "region",
-        "aori",
-        "eging",
-        "shore",
-        "catch",
-        "report"
-      ],
-      "search_freshness": "recent_year",
-      "search_observed_date": "2026-07-01",
-      "search_date_age_days": 111,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": true,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "https://asobi-o-fukabori.com/aori-echizen-egging-guide/2421/",
-      "bytes": 596371,
-      "page_title": "越前海岸、アオリイカエギングのタックルや釣り方、ポイント、釣果 | 遊びを深掘りブログ",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 63,
-        "アオリイカ": 63,
-        "ティップラン": 3,
-        "エギング": 58
-      },
-      "page_region_hit": true,
-      "page_freshness": "current_30d",
-      "page_observed_date": "2026-10-20",
-      "page_date_age_days": 0,
-      "page_depth_samples": [
-        "59m",
-        "水深5m",
-        "3m",
-        "9m"
-      ],
-      "page_negative_signals": [
-        "釣れない",
-        "チェイス"
-      ],
-      "verified": true,
-      "tier": "B",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "越前"
-      ],
-      "alternate_urls": []
-    },
-    {
       "id": "source-546e5cbe2f3d3e30",
       "region": "丹後",
       "url": "https://tsurineta.69moons.com/fishing-taiza-20181022/",
@@ -494,7 +480,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2018-10-22",
-      "search_date_age_days": 2920,
+      "search_date_age_days": 2921,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -512,7 +498,7 @@
       "page_region_hit": true,
       "page_freshness": "current_90d",
       "page_observed_date": "2026-08-07",
-      "page_date_age_days": 74,
+      "page_date_age_days": 75,
       "page_depth_samples": [
         "20m"
       ],
@@ -555,26 +541,26 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2022-09-18",
-      "search_date_age_days": 1493,
+      "search_date_age_days": 1494,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
       "known_source": false,
       "http_status": 200,
       "final_url": "https://ikatsuri-ouen.com/tipruneging-2022-fcloud/",
-      "bytes": 211365,
+      "bytes": 211450,
       "page_title": "2022年 秋のティップランエギング開幕戦in小浜 F-Cloud雲丸いつみん号！｜Squid Funk!",
       "page_direct_identity": false,
       "page_target_hits": {
         "アオリ": 7,
         "アオリイカ": 6,
-        "ティップラン": 113,
-        "エギング": 77
+        "ティップラン": 116,
+        "エギング": 78
       },
       "page_region_hit": true,
       "page_freshness": "historical",
       "page_observed_date": "2022-09-27",
-      "page_date_age_days": 1484,
+      "page_date_age_days": 1485,
       "page_depth_samples": [
         "7ｍ",
         "25ｍ",
@@ -616,14 +602,14 @@
       ],
       "search_freshness": "current_30d",
       "search_observed_date": "2026-10-11",
-      "search_date_age_days": 9,
+      "search_date_age_days": 10,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
       "known_source": false,
       "http_status": 200,
       "final_url": "https://www.instagram.com/p/DeWnE8On0cI/",
-      "bytes": 600469,
+      "bytes": 600453,
       "page_title": "Instagram",
       "page_direct_identity": false,
       "page_target_hits": {},
@@ -638,6 +624,7 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
+        "丹後",
         "小浜",
         "舞鶴",
         "若狭",
@@ -648,56 +635,83 @@
         "https://www.instagram.com/reel/DPAinGgEyyC/",
         "https://www.instagram.com/p/DYWogtDGEef/",
         "https://www.instagram.com/p/DYdwV-siW3v/",
+        "https://www.instagram.com/reel/DPnaWBnE7YC/",
+        "https://www.instagram.com/popular/%E8%88%9E%E9%B6%B4-%E3%82%A2%E3%82%AA%E3%83%AA%E3%82%A4%E3%82%AB/",
         "https://www.instagram.com/p/DQA3TuejWbl/",
+        "https://www.instagram.com/p/CjfYpVcJjIo/",
         "https://www.instagram.com/reel/DOBJGabE0vp/",
         "https://www.instagram.com/p/DO5xvfeErS6/",
+        "https://www.instagram.com/p/DbSwOyejfHG/",
         "https://www.instagram.com/reel/DY6kUC5He0T/",
         "https://www.instagram.com/reel/DOxY1euE_gj/",
         "https://www.instagram.com/reel/DP5Q4_dE06x/",
-        "https://www.instagram.com/reel/DPnaWBnE7YC/",
-        "https://www.instagram.com/p/CjfYpVcJjIo/",
+        "https://www.instagram.com/p/DYETZ_Ok9XQ/",
         "https://www.instagram.com/p/CizKTwcpMdt/",
         "https://www.instagram.com/p/DPxbwqrkphv/"
       ]
     },
     {
-      "id": "source-ecaf3ec5dd56503b",
-      "region": "越前",
-      "url": "http://syokora1123.blog.fc2.com/blog-entry-1956.html?sp",
-      "site_key": "syokora1123.blog.fc2.com",
-      "domain": "fc2.com",
-      "host": "syokora1123.blog.fc2.com",
-      "search_text": "syokora1123.blog.fc2.com http://syokora1123.blog.fc2.com 9月15日 越前 ナイト ティップラン 菅ノ又 2026/9/16 - 9月に入り、アオリイカの釣果報告を聞くようになりました。 なので私も行ってきました。今回お世話になった船宿は福井県越前市・宿漁港出船の第17金 ...",
+      "id": "source-a8b3e07373e629a6",
+      "region": "小浜",
+      "url": "https://www.yamaria.co.jp/yamashita/catch_blog/detail/2882",
+      "site_key": "yamaria.co.jp",
+      "domain": "yamaria.co.jp",
+      "host": "www.yamaria.co.jp",
+      "search_text": "YAMARIA https://www.yamaria.co.jp 福井県 ボート エギング 釣果 情報 2024/10/7 - 小浜沖 水深20-30m(丸吉丸) 釣果 アオリイカ 5杯 … 小浜 丸吉丸さんよりティップランに行ってきました。 船長からの情報では9月中旬より出船し、今季は例 ...",
       "score": 100,
       "reasons": [
         "region",
         "aori",
         "tiprun",
+        "eging",
         "shore",
+        "depth",
         "catch",
         "direct_source",
         "report",
-        "date_90d"
+        "old_penalty"
       ],
-      "search_freshness": "current_90d",
-      "search_observed_date": "2026-09-16",
-      "search_date_age_days": 34,
+      "search_freshness": "historical",
+      "search_observed_date": "2024-10-07",
+      "search_date_age_days": 744,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
       "known_source": false,
-      "http_status": 403,
-      "final_url": "https://error.fc2.com/blog3/",
-      "bytes": 10637,
-      "verified": false,
-      "verify_error": "HTTPError: 403 Client Error: Forbidden for url: https://error.fc2.com/blog3/",
+      "http_status": 200,
+      "final_url": "https://www.yamaria.co.jp/yamashita/catch_blog/detail/2882",
+      "bytes": 16356,
+      "page_title": "福井県ボートエギング釣果情報釣果情報コーナー｜YAMASHITA｜イカ釣りで世界トップクラス",
+      "page_direct_identity": false,
+      "page_target_hits": {
+        "アオリ": 2,
+        "アオリイカ": 2,
+        "ティップラン": 1,
+        "エギング": 5
+      },
+      "page_region_hit": true,
+      "page_freshness": "unknown",
+      "page_observed_date": null,
+      "page_date_age_days": null,
+      "page_depth_samples": [
+        "11M",
+        "30m",
+        "25m"
+      ],
+      "page_negative_signals": [
+        "厳しい"
+      ],
+      "verified": true,
       "tier": "C",
       "status": "candidate",
       "auto_promote": false,
       "regions": [
+        "小浜",
         "越前"
       ],
-      "alternate_urls": []
+      "alternate_urls": [
+        "https://www.yamaria.co.jp/yamashita/catch_blog/detail/563"
+      ]
     },
     {
       "id": "source-7c79fc638ee47999",
@@ -727,14 +741,14 @@
       "known_source": false,
       "http_status": 200,
       "final_url": "https://fishing.blogmura.com/hokurikuturi/ranking/pv",
-      "bytes": 445024,
+      "bytes": 445728,
       "page_title": "北陸釣行記 人気ブログランキング PVポイント順 - 釣りブログ",
       "page_direct_identity": false,
       "page_target_hits": {
-        "アオリ": 14,
-        "アオリイカ": 6,
+        "アオリ": 15,
+        "アオリイカ": 7,
         "ティップラン": 1,
-        "エギング": 30
+        "エギング": 28
       },
       "page_region_hit": true,
       "page_freshness": "unknown",
@@ -776,7 +790,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2019-10-14",
-      "search_date_age_days": 2563,
+      "search_date_age_days": 2564,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
@@ -815,14 +829,14 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2022-10-29",
-      "search_date_age_days": 1452,
+      "search_date_age_days": 1453,
       "source_type": "blog",
       "direct_source": false,
       "region_explicit": true,
       "known_source": false,
       "http_status": 200,
       "final_url": "https://plaza.rakuten.co.jp/koji64/diary/202210290000/",
-      "bytes": 80045,
+      "bytes": 80077,
       "page_title": "舞鶴ナイトティップランエギング　～見えイカうじゃうじゃ～ | koji64のブログ - 楽天ブログ",
       "page_direct_identity": false,
       "page_target_hits": {
@@ -873,14 +887,14 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2018-09-30",
-      "search_date_age_days": 2942,
+      "search_date_age_days": 2943,
       "source_type": "marina",
       "direct_source": true,
       "region_explicit": true,
       "known_source": false,
       "http_status": 200,
       "final_url": "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/20180903hukuieging/",
-      "bytes": 186987,
+      "bytes": 186758,
       "page_title": "9月上旬福井県敦賀エギングでアオリイカが好釣果|ボウズから爆釣となった理由とは | たけとの釣り旅",
       "page_direct_identity": false,
       "page_target_hits": {
@@ -911,10 +925,195 @@
       ],
       "alternate_urls": [
         "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/9%E6%9C%8818%E6%97%A5%E7%A6%8F%E4%BA%95%E7%9C%8C%E6%95%A6%E8%B3%80%E5%91%A8%E8%BE%BA%E3%81%AB%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%80%A5%E3%81%AA%E3%81%AB%E3%81%94%E3%82%8A%E3%83%BB%E6%B0%B4/",
-        "https://raitorua.com/%E3%82%A2%E3%82%B3%E3%82%A6%E9%87%A3%E3%82%8A%E6%97%A5%E8%A8%98/2016egiako/",
         "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/20170910maiduruegingu/",
-        "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/20180825hukuieging/"
+        "https://raitorua.com/%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E6%97%A5%E8%A8%98/20180825hukuieging/",
+        "https://raitorua.com/%E3%82%A2%E3%82%B3%E3%82%A6%E9%87%A3%E3%82%8A%E6%97%A5%E8%A8%98/2016egiako/"
       ]
+    },
+    {
+      "id": "source-3cd7eaf6fa4e8bcd",
+      "region": "丹後",
+      "url": "https://tsurinews.jp/413360/",
+      "site_key": "tsurinews.jp",
+      "domain": "tsurinews.jp",
+      "host": "tsurinews.jp",
+      "search_text": "TSURINEWS https://tsurinews.jp 水深 12mは ティップラン で3mはキャスト！ 釣り方を変えて ... 2026/10/13 - 釣果は9匹で、ティップランが5匹、キャストが4匹だった。これからアオリイカは成長して、10月からは外海で釣れだす。大きく成長したアオリイカの強い引き ...",
+      "score": 86,
+      "reasons": [
+        "aori",
+        "tiprun",
+        "depth",
+        "catch",
+        "report",
+        "date_30d"
+      ],
+      "search_freshness": "current_30d",
+      "search_observed_date": "2026-10-13",
+      "search_date_age_days": 8,
+      "source_type": "web_report",
+      "direct_source": false,
+      "region_explicit": false,
+      "known_source": false,
+      "http_status": 200,
+      "final_url": "https://tsurinews.jp/413360/",
+      "bytes": 346033,
+      "page_title": "水深12mはティップランで3mはキャスト！ 釣り方を変えてアオリイカ9匹【三重・英虞湾】 | TSURINEWS",
+      "page_direct_identity": false,
+      "page_target_hits": {
+        "アオリ": 7,
+        "アオリイカ": 6,
+        "ティップラン": 12,
+        "エギング": 9
+      },
+      "page_region_hit": false,
+      "page_freshness": "current_30d",
+      "page_observed_date": "2026-10-13",
+      "page_date_age_days": 8,
+      "page_depth_samples": [
+        "水深12m",
+        "3m",
+        "水深12m",
+        "3m",
+        "水深12m",
+        "水深3m",
+        "12m",
+        "5m"
+      ],
+      "page_negative_signals": [],
+      "verified": false,
+      "tier": "C",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "丹後",
+        "若狭",
+        "越前"
+      ],
+      "alternate_urls": [
+        "https://tsurinews.jp/399665/",
+        "https://tsurinews.jp/226797/",
+        "https://tsurinews.jp/22009/"
+      ]
+    },
+    {
+      "id": "source-eab46ebaf696b886",
+      "region": "越前",
+      "url": "https://blogtag.ameba.jp/detail/%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3",
+      "site_key": "ameba.jp",
+      "domain": "ameba.jp",
+      "host": "blogtag.ameba.jp",
+      "search_text": "アメーバ https://blogtag.ameba.jp # ティップラン 人気記事（一般）｜アメーバ ブログ （アメブロ） 今週はサワラ餌釣りとアオリエギングで出船しました。サワラは釣果に差はあるものの、竿頭さんは5〜6尾と好調な日もありまた。一方、アオリイカは先週に続き厳しい状況で、 ...",
+      "score": 83,
+      "reasons": [
+        "aori",
+        "tiprun",
+        "eging",
+        "shore",
+        "catch",
+        "report"
+      ],
+      "search_freshness": "unknown",
+      "search_observed_date": null,
+      "search_date_age_days": null,
+      "source_type": "web_report",
+      "direct_source": false,
+      "region_explicit": false,
+      "known_source": false,
+      "http_status": 200,
+      "final_url": "https://blogtag.ameba.jp/detail/%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3",
+      "bytes": 250861,
+      "page_title": "#ティップラン 人気記事（一般）｜アメーバブログ（アメブロ）",
+      "page_direct_identity": false,
+      "page_target_hits": {
+        "アオリ": 33,
+        "アオリイカ": 20,
+        "ティップラン": 43,
+        "エギング": 8
+      },
+      "page_region_hit": false,
+      "page_freshness": "current_30d",
+      "page_observed_date": "2026-10-21",
+      "page_date_age_days": 0,
+      "page_depth_samples": [],
+      "page_negative_signals": [
+        "渋い",
+        "厳しい"
+      ],
+      "verified": false,
+      "tier": "C",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "越前"
+      ],
+      "alternate_urls": []
+    },
+    {
+      "id": "source-7f5ebfe06c03c20a",
+      "region": "越前",
+      "url": "http://www.fs-funaya.jp/ikazokujouhou.htm",
+      "site_key": "fs-funaya.jp",
+      "domain": "fs-funaya.jp",
+      "host": "www.fs-funaya.jp",
+      "search_text": "フナヤ http://www.fs-funaya.jp フナヤHP アオリイカ ・ヤリイカ・タルイカ 越前 ・若狭・能登 ... エギング大好き！のMy Wifeの昨日9/18(水）9時半から2時までの釣果！ 50～60パイはいると思う。 リリースした子イカを合わすと+20～30＝70～90杯。 本人 ...",
+      "score": 83,
+      "reasons": [
+        "region",
+        "aori",
+        "eging",
+        "shore",
+        "catch",
+        "report"
+      ],
+      "search_freshness": "unknown",
+      "search_observed_date": null,
+      "search_date_age_days": null,
+      "source_type": "web_report",
+      "direct_source": false,
+      "region_explicit": true,
+      "known_source": false,
+      "http_status": 200,
+      "final_url": "http://www.fs-funaya.jp/ikazokujouhou.htm",
+      "bytes": 183351,
+      "page_title": "フナヤＨＰ　アオリイカ・ヤリイカ・タルイカ越前・若狭・能登・エギング",
+      "page_direct_identity": false,
+      "page_target_hits": {
+        "アオリ": 123,
+        "アオリイカ": 67,
+        "ティップラン": 10,
+        "エギング": 85
+      },
+      "page_region_hit": true,
+      "page_freshness": "unknown",
+      "page_observed_date": null,
+      "page_date_age_days": null,
+      "page_depth_samples": [
+        "５０ｍ",
+        "５０ｍ",
+        "１０ｍ",
+        "６０ｍ",
+        "１０ｍ",
+        "３〜５ｍ",
+        "１０〜１５ｍ",
+        "１５〜３０ｍ"
+      ],
+      "page_negative_signals": [
+        "厳しい",
+        "釣れない",
+        "釣れず",
+        "反応なし",
+        "ボウズ",
+        "坊主",
+        "チェイス"
+      ],
+      "verified": true,
+      "tier": "C",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "越前"
+      ],
+      "alternate_urls": []
     },
     {
       "id": "source-774436ace5de8713",
@@ -923,7 +1122,7 @@
       "site_key": "mobila-carlife.jp",
       "domain": "mobila-carlife.jp",
       "host": "mobila-carlife.jp",
-      "search_text": "mobila-carlife.jp https://mobila-carlife.jp 越前 海岸の陸っぱり エギング で良型 アオリイカ 連発！【福井 ... 2025/11/17 - 越前海岸の陸っぱりエギングで良型アオリイカ連発！【福井】胴長20cm超え含む2人で8匹の好釣果の記事です。10月中旬の夜に福井県・越前海岸にエギング ...",
+      "search_text": "mobila-carlife.jp https://mobila-carlife.jp 越前 海岸の陸っぱり エギング で良型 アオリイカ 連発！【福井 ... 2025/11/17 - 越前海岸の陸っぱりエギングで良型アオリイカ連発！【福井】胴長20cm超え含む2人で8匹の好釣果 · 越前海岸でエギング釣行. 向かったポイントは、誰もが知る ...",
       "score": 83,
       "reasons": [
         "region",
@@ -935,7 +1134,7 @@
       ],
       "search_freshness": "recent_year",
       "search_observed_date": "2025-11-17",
-      "search_date_age_days": 337,
+      "search_date_age_days": 338,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -1024,130 +1223,13 @@
       "alternate_urls": []
     },
     {
-      "id": "source-5cb9e0a88a451c74",
-      "region": "敦賀",
-      "url": "https://web.tsuribito.co.jp/beginner/tiprun-eging1912",
-      "site_key": "tsuribito.co.jp",
-      "domain": "tsuribito.co.jp",
-      "host": "web.tsuribito.co.jp",
-      "search_text": "つり人オンライン https://web.tsuribito.co.jp ティップラン エギングの必勝法！ アオリイカ 釣りガイド 餌木のウエイトはねらう水深に加え、潮の速さや風の強さを考慮に入れて、必ずボトムがとれる重さを選ぶようにしましょう。フォール中から餌木に興味を抱いているアオリイカ ...",
-      "score": 81,
-      "reasons": [
-        "aori",
-        "tiprun",
-        "eging",
-        "shore",
-        "depth"
-      ],
-      "search_freshness": "unknown",
-      "search_observed_date": null,
-      "search_date_age_days": null,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": false,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "https://web.tsuribito.co.jp/beginner/tiprun-eging1912",
-      "bytes": 150152,
-      "page_title": "ティップランエギングの必勝法！アオリイカ釣りガイド｜仕掛けや道具・釣り方などを解説",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 25,
-        "アオリイカ": 23,
-        "ティップラン": 28,
-        "エギング": 30
-      },
-      "page_region_hit": false,
-      "page_freshness": "unknown",
-      "page_observed_date": null,
-      "page_date_age_days": null,
-      "page_depth_samples": [
-        "15～40ｍ",
-        "10m",
-        "10m"
-      ],
-      "page_negative_signals": [
-        "渋い",
-        "釣れない"
-      ],
-      "verified": false,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "敦賀",
-        "若狭"
-      ],
-      "alternate_urls": [
-        "https://web.tsuribito.co.jp/beginner/tiprun-eging-howto"
-      ]
-    },
-    {
-      "id": "source-a8b3e07373e629a6",
-      "region": "小浜",
-      "url": "https://www.yamaria.co.jp/yamashita/catch_blog/detail/2882",
-      "site_key": "yamaria.co.jp",
-      "domain": "yamaria.co.jp",
-      "host": "www.yamaria.co.jp",
-      "search_text": "YAMARIA https://www.yamaria.co.jp 福井県 ボート エギング 釣果 情報 2024/10/7 - 福井県ボートエギング釣果情報 ; 小浜沖 水深20－30m（丸吉丸） · アオリイカ 5杯 · エギ王TR 3.0号 · エギ王K2.5号 · エギ王TRシンカー · ヤマシタスタッフ",
-      "score": 80,
-      "reasons": [
-        "region",
-        "aori",
-        "eging",
-        "shore",
-        "depth",
-        "catch",
-        "report",
-        "old_penalty"
-      ],
-      "search_freshness": "historical",
-      "search_observed_date": "2024-10-07",
-      "search_date_age_days": 743,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": true,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "https://www.yamaria.co.jp/yamashita/catch_blog/detail/2882",
-      "bytes": 16356,
-      "page_title": "福井県ボートエギング釣果情報釣果情報コーナー｜YAMASHITA｜イカ釣りで世界トップクラス",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 2,
-        "アオリイカ": 2,
-        "ティップラン": 1,
-        "エギング": 5
-      },
-      "page_region_hit": true,
-      "page_freshness": "unknown",
-      "page_observed_date": null,
-      "page_date_age_days": null,
-      "page_depth_samples": [
-        "11M",
-        "30m",
-        "25m"
-      ],
-      "page_negative_signals": [
-        "厳しい"
-      ],
-      "verified": true,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "小浜"
-      ],
-      "alternate_urls": []
-    },
-    {
       "id": "source-a2410c97743f88b2",
       "region": "若狭",
       "url": "https://www.gamakatsu.co.jp/report/519733/",
       "site_key": "gamakatsu.co.jp",
       "domain": "gamakatsu.co.jp",
       "host": "www.gamakatsu.co.jp",
-      "search_text": "がまかつ https://www.gamakatsu.co.jp 若狭 湾 ティップラン 2days！EGTR XXで攻略するシーズン初期 ... 3日前 - シーズンインしたばかりのアオリイカ。各地からも幸先のいい釣果報告が届き、これからますます盛り上がりそうだ。 長めのステイが効いた初日、仕掛けの ...",
+      "search_text": "がまかつ https://www.gamakatsu.co.jp 若狭 湾 ティップラン 2days！EGTR XXで攻略するシーズン初期 ... 4日前 - シーズンインしたばかりのアオリイカ。各地からも幸先のいい釣果報告が届き、これからますます盛り上がりそうだ。 長めのステイが効いた初日、仕掛けの ...",
       "score": 79,
       "reasons": [
         "region",
@@ -1216,14 +1298,14 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2020-10-09",
-      "search_date_age_days": 2202,
+      "search_date_age_days": 2203,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
       "known_source": false,
       "http_status": 200,
       "final_url": "https://blog.tenryu-magna.com/%E4%B8%B9%E5%BE%8C%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3%E9%87%A3%E8%A1%8C/",
-      "bytes": 364283,
+      "bytes": 363868,
       "page_title": "丹後ティップラン釣行 | TENRYU｜天龍 釣具事業 スタッフブログ",
       "page_direct_identity": false,
       "page_target_hits": {
@@ -1234,13 +1316,11 @@
       "page_region_hit": true,
       "page_freshness": "historical",
       "page_observed_date": "2025-10-01",
-      "page_date_age_days": 384,
+      "page_date_age_days": 385,
       "page_depth_samples": [
         "１５ｍ"
       ],
-      "page_negative_signals": [
-        "厳しい"
-      ],
+      "page_negative_signals": [],
       "verified": true,
       "tier": "C",
       "status": "candidate",
@@ -1286,7 +1366,7 @@
       "page_region_hit": true,
       "page_freshness": "historical",
       "page_observed_date": "2025-05-22",
-      "page_date_age_days": 516,
+      "page_date_age_days": 517,
       "page_depth_samples": [],
       "page_negative_signals": [
         "渋い",
@@ -1304,200 +1384,24 @@
       ]
     },
     {
-      "id": "source-7f5ebfe06c03c20a",
-      "region": "越前",
-      "url": "http://www.fs-funaya.jp/ikazokujouhou.htm",
-      "site_key": "fs-funaya.jp",
-      "domain": "fs-funaya.jp",
-      "host": "www.fs-funaya.jp",
-      "search_text": "フナヤ http://www.fs-funaya.jp フナヤHP アオリイカ ・ヤリイカ・タルイカ 越前 ・若狭・能登 ... 釣行時間は3時間余り … オリイカ釣行へ越前町方面の某港湾施設に向かった。 勿論、天気予想図とにらめっこでの釣行。 ここは狭いが足元から深くてエギングには好釣り場。",
-      "score": 75,
+      "id": "source-2122316fd5c8b188",
+      "region": "敦賀",
+      "url": "https://web.tsuribito.co.jp/beginner/tiprun-eging-howto",
+      "site_key": "tsuribito.co.jp",
+      "domain": "tsuribito.co.jp",
+      "host": "web.tsuribito.co.jp",
+      "search_text": "つり人オンライン https://web.tsuribito.co.jp ティップラン で アオリイカ を釣るコツ。名手が教える 釣果 ... 2026/2/28 - 午前6時に出船。夜明け前の少し暗い時間帯から20m前後の水深をねらう。最初に選択したエギはダートマックスTRZ3.5号30g。予報 ...",
+      "score": 71,
       "reasons": [
-        "region",
         "aori",
-        "eging",
-        "shore",
-        "report"
-      ],
-      "search_freshness": "unknown",
-      "search_observed_date": null,
-      "search_date_age_days": null,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": true,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "http://www.fs-funaya.jp/ikazokujouhou.htm",
-      "bytes": 183351,
-      "page_title": "フナヤＨＰ　アオリイカ・ヤリイカ・タルイカ越前・若狭・能登・エギング",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 123,
-        "アオリイカ": 67,
-        "ティップラン": 10,
-        "エギング": 85
-      },
-      "page_region_hit": true,
-      "page_freshness": "unknown",
-      "page_observed_date": null,
-      "page_date_age_days": null,
-      "page_depth_samples": [
-        "５０ｍ",
-        "５０ｍ",
-        "１０ｍ",
-        "６０ｍ",
-        "１０ｍ",
-        "３〜５ｍ",
-        "１０〜１５ｍ",
-        "１５〜３０ｍ"
-      ],
-      "page_negative_signals": [
-        "厳しい",
-        "釣れない",
-        "釣れず",
-        "反応なし",
-        "ボウズ",
-        "坊主",
-        "チェイス"
-      ],
-      "verified": true,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "越前"
-      ],
-      "alternate_urls": []
-    },
-    {
-      "id": "source-46016a06df73874f",
-      "region": "若狭",
-      "url": "https://tsurinews.jp/399665/",
-      "site_key": "tsurinews.jp",
-      "domain": "tsurinews.jp",
-      "host": "tsurinews.jp",
-      "search_text": "TSURINEWS https://tsurinews.jp 若狭 湾で春イカシーズン開幕！ 日中の エギング釣行 で2kg級 ... 2026/5/23 - 福井県・若狭湾エリアへ春イカ調査に出かけた筆者。アマモやホンダワラが広がる藻場を日中エギングで攻略すると、2kg級を頭に良型アオリイカが連続 ...",
-      "score": 75,
-      "reasons": [
-        "region",
-        "aori",
-        "eging",
-        "shore",
+        "tiprun",
+        "depth",
+        "catch",
         "report"
       ],
       "search_freshness": "recent_year",
-      "search_observed_date": "2026-05-23",
-      "search_date_age_days": 150,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": true,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "https://tsurinews.jp/399665/",
-      "bytes": 356521,
-      "page_title": "若狭湾で春イカシーズン開幕！ 日中のエギング釣行で2kg級アオリイカ浮上【福井】 | TSURINEWS",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 18,
-        "アオリイカ": 17,
-        "エギング": 15
-      },
-      "page_region_hit": true,
-      "page_freshness": "recent_year",
-      "page_observed_date": "2026-05-23",
-      "page_date_age_days": 150,
-      "page_depth_samples": [],
-      "page_negative_signals": [
-        "釣れない",
-        "チェイス"
-      ],
-      "verified": true,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "丹後",
-        "舞鶴",
-        "若狭",
-        "越前"
-      ],
-      "alternate_urls": [
-        "https://tsurinews.jp/413360/",
-        "https://tsurinews.jp/226797/",
-        "https://tsurinews.jp/22009/"
-      ]
-    },
-    {
-      "id": "source-1a2100b7616d315f",
-      "region": "越前",
-      "url": "https://www.tv-osaka.co.jp/ip4/the_fishing/lineup2/1228974_8570.html",
-      "site_key": "tv-osaka.co.jp",
-      "domain": "tv-osaka.co.jp",
-      "host": "www.tv-osaka.co.jp",
-      "search_text": "TVO テレビ大阪 https://www.tv-osaka.co.jp 2014年10月11日「福井県 越前 沖の ボート エギング」 - テレビ大阪 約300グラムのアオリイカだ。 その後、風が強まり釣り方を変える。 エギを着底させて、シャクっては止めるを繰り返すティップランエギングだ。 試行錯誤を繰り返し ...",
-      "score": 74,
-      "reasons": [
-        "region",
-        "aori",
-        "tiprun",
-        "eging",
-        "shore",
-        "old_penalty"
-      ],
-      "search_freshness": "historical",
-      "search_observed_date": "2014-10-11",
-      "search_date_age_days": 4392,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": true,
-      "known_source": false,
-      "http_status": 200,
-      "final_url": "https://www.tv-osaka.co.jp/ip4/the_fishing/lineup2/1228974_8570.html",
-      "bytes": 15460,
-      "page_title": "2014年10月11日「福井県越前沖のボートエギング」｜THEフィッシング｜テレビ大阪",
-      "page_direct_identity": false,
-      "page_target_hits": {
-        "アオリ": 2,
-        "アオリイカ": 2,
-        "ティップラン": 2,
-        "エギング": 6
-      },
-      "page_region_hit": true,
-      "page_freshness": "unknown",
-      "page_observed_date": null,
-      "page_date_age_days": null,
-      "page_depth_samples": [
-        "１１メートル"
-      ],
-      "page_negative_signals": [],
-      "verified": true,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "越前"
-      ],
-      "alternate_urls": []
-    },
-    {
-      "id": "source-962a063b3b9e4379",
-      "region": "丹後",
-      "url": "https://keystonebrand.jp/shore-tiprun/",
-      "site_key": "keystonebrand.jp",
-      "domain": "keystonebrand.jp",
-      "host": "keystonebrand.jp",
-      "search_text": "keystonebrand.jp https://keystonebrand.jp 秋のジェットエギング（ショア ティップラン ） 2026/10/10 - 水深 10〜20m 前後の堤防や磯では、沈下の速いエギほどボトムや狙うレンジを把握しやすくなります。 潮が速い場所. 潮流が速く、通常のエギでは流され ...",
-      "score": 71,
-      "reasons": [
-        "tiprun",
-        "eging",
-        "shore",
-        "depth",
-        "date_30d"
-      ],
-      "search_freshness": "current_30d",
-      "search_observed_date": "2026-10-10",
-      "search_date_age_days": 10,
+      "search_observed_date": "2026-02-28",
+      "search_date_age_days": 235,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": false,
@@ -1506,7 +1410,7 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
-        "丹後"
+        "敦賀"
       ],
       "alternate_urls": []
     },
@@ -1530,7 +1434,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2024-11-20",
-      "search_date_age_days": 699,
+      "search_date_age_days": 700,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": false,
@@ -1563,7 +1467,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2013-10-18",
-      "search_date_age_days": 4750,
+      "search_date_age_days": 4751,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": false,
@@ -1575,6 +1479,46 @@
         "敦賀"
       ],
       "alternate_urls": []
+    },
+    {
+      "id": "source-74989ad07ae48242",
+      "region": "越前",
+      "url": "https://fishcast.jp/spots/mohara-gyoko/aoriika",
+      "site_key": "fishcast.jp",
+      "domain": "fishcast.jp",
+      "host": "fishcast.jp",
+      "search_text": "fishcast.jp https://fishcast.jp 茂原 漁港 の アオリイカ 釣り｜ポイント・時期・釣り方 - FishCast 3日前 - 越前岬手前に位置する人工海水浴場で、東西2本の堤防と砂浜からなる。主力は東側の大堤防で、エギングのアオリイカ、ウキフカセのクロダイ・メジナ、 ...",
+      "score": 69,
+      "reasons": [
+        "region",
+        "aori",
+        "eging",
+        "shore"
+      ],
+      "search_freshness": "unknown",
+      "search_observed_date": null,
+      "search_date_age_days": null,
+      "source_type": "web_report",
+      "direct_source": false,
+      "region_explicit": true,
+      "known_source": false,
+      "tier": "C",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "丹後",
+        "小浜",
+        "敦賀",
+        "舞鶴",
+        "越前"
+      ],
+      "alternate_urls": [
+        "https://fishcast.jp/spots/obama-fishing-port/aoriika",
+        "https://fishcast.jp/spots/maizuru-shinkai-park/aoriika",
+        "https://fishcast.jp/spots/tsuruga-ko/aoriika",
+        "https://fishcast.jp/spots/shirasugi-fishing-port/aoriika",
+        "https://fishcast.jp/spots/taiza-fishing-port/aoriika"
+      ]
     },
     {
       "id": "source-d9f0cc52661c69a2",
@@ -1640,6 +1584,39 @@
       ]
     },
     {
+      "id": "source-12c011cb55d09aff",
+      "region": "越前",
+      "url": "https://asobi-o-fukabori.com/aori-echizen-egging-guide/2421/",
+      "site_key": "asobi-o-fukabori.com",
+      "domain": "asobi-o-fukabori.com",
+      "host": "asobi-o-fukabori.com",
+      "search_text": "遊びを深掘りブログ https://asobi-o-fukabori.com 越前 海岸、 アオリイカエギング のタックルや 釣り 方、ポイント 2023/3/17 - 9月初旬〜9月中旬（サイトフィッシングを極めて釣果アップ）. 釣行を開始される方が一番多いのが、9月ではないでしょうか？ いよいよシーズン開幕です！",
+      "score": 68,
+      "reasons": [
+        "region",
+        "aori",
+        "eging",
+        "shore",
+        "catch",
+        "report",
+        "old_penalty"
+      ],
+      "search_freshness": "historical",
+      "search_observed_date": "2023-03-17",
+      "search_date_age_days": 1314,
+      "source_type": "web_report",
+      "direct_source": false,
+      "region_explicit": true,
+      "known_source": false,
+      "tier": "C",
+      "status": "candidate",
+      "auto_promote": false,
+      "regions": [
+        "越前"
+      ],
+      "alternate_urls": []
+    },
+    {
       "id": "source-7b406ef1149df1ad",
       "region": "敦賀",
       "url": "https://shishimarufishing.blog.jp/archives/37893352.html",
@@ -1659,7 +1636,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2024-09-01",
-      "search_date_age_days": 779,
+      "search_date_age_days": 780,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -1695,7 +1672,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2023-04-30",
-      "search_date_age_days": 1269,
+      "search_date_age_days": 1270,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -1730,7 +1707,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2024-05-23",
-      "search_date_age_days": 880,
+      "search_date_age_days": 881,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -1744,26 +1721,25 @@
       "alternate_urls": []
     },
     {
-      "id": "source-cafdcf43ff12b44f",
-      "region": "小浜",
-      "url": "https://www.lemon8-app.com/@user9616181933565/7138054530494759430?region=jp",
-      "site_key": "lemon8-app.com",
-      "domain": "lemon8-app.com",
-      "host": "www.lemon8-app.com",
-      "search_text": "Lemon8 https://www.lemon8-app.com 【福井・ 小浜 】 エギング で アオリイカ 10杯！陸っぱり 釣果 と ... 2022/8/31 - 今シーズン初のアオリイカ調査で福井県小浜市へ。陸っぱりエギングで10杯、最大は胴長20cmでサイズ感も満足でした。海の様子や反応の出方、次回に向け ...",
+      "id": "source-036e22efcd967854",
+      "region": "舞鶴",
+      "url": "https://www.jackall.co.jp/saltwater/offshore-casting/column/matsumoto_tr_aoriika/",
+      "site_key": "jackall.co.jp",
+      "domain": "jackall.co.jp",
+      "host": "www.jackall.co.jp",
+      "search_text": "JACKALL｜ジャッカル https://www.jackall.co.jp 秋の 舞鶴 沖で アオリイカ 狙い！新作「GEKIDAKI TR」実釣 ... 2025/10/6 - ティップランとオモリグの両方で探りながらその日の状況を見て釣りをするようです。 · ロッドはGEKIDAKI SHAFT。 · 水深が30m程度とのことで、「GEKIDAKI TR ...",
       "score": 68,
       "reasons": [
         "region",
         "aori",
-        "eging",
-        "shore",
-        "catch",
+        "tiprun",
+        "depth",
         "report",
         "old_penalty"
       ],
       "search_freshness": "historical",
-      "search_observed_date": "2022-08-31",
-      "search_date_age_days": 1511,
+      "search_observed_date": "2025-10-06",
+      "search_date_age_days": 380,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -1772,7 +1748,7 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
-        "小浜"
+        "舞鶴"
       ],
       "alternate_urls": []
     },
@@ -1795,7 +1771,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2014-09-03",
-      "search_date_age_days": 4430,
+      "search_date_age_days": 4431,
       "source_type": "blog",
       "direct_source": false,
       "region_explicit": true,
@@ -1856,7 +1832,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2019-09-09",
-      "search_date_age_days": 2598,
+      "search_date_age_days": 2599,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": false,
@@ -1865,12 +1841,9 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
-        "小浜",
         "越前"
       ],
-      "alternate_urls": [
-        "https://www.fishing-shinnosuke.com/turube/"
-      ]
+      "alternate_urls": []
     },
     {
       "id": "source-d1e412ca16f98ec4",
@@ -1891,7 +1864,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2025-10-18",
-      "search_date_age_days": 367,
+      "search_date_age_days": 368,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -1905,37 +1878,6 @@
       "alternate_urls": [
         "https://fishinglover-tokai.com/report208/"
       ]
-    },
-    {
-      "id": "source-a3416945bd36bfa4",
-      "region": "越前",
-      "url": "https://fishing-point.jp/fishing/",
-      "site_key": "fishing-point.jp",
-      "domain": "fishing-point.jp",
-      "host": "fishing-point.jp",
-      "search_text": "フィッシングポイント https://fishing-point.jp 福井の 釣果 情報 - フィッシングポイント ルアー エギング 釣り具屋 お電話でのお問い合わせ 0776-24-5005 営業時間 : 平日9:00～20:00 日・祝 9:00〜19:00 ・ アオリイカ 釣人 武村 ・ 平日9:00～20:00",
-      "score": 63,
-      "reasons": [
-        "aori",
-        "eging",
-        "shore",
-        "catch",
-        "report"
-      ],
-      "search_freshness": "unknown",
-      "search_observed_date": null,
-      "search_date_age_days": null,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": false,
-      "known_source": false,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "越前"
-      ],
-      "alternate_urls": []
     },
     {
       "id": "source-44e41d9929d06601",
@@ -1957,7 +1899,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2021-10-16",
-      "search_date_age_days": 1830,
+      "search_date_age_days": 1831,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
@@ -1971,25 +1913,23 @@
       "alternate_urls": []
     },
     {
-      "id": "source-088040298678bd92",
+      "id": "source-2f739efb77b57acb",
       "region": "若狭",
-      "url": "https://ameblo.jp/kaisei2266/entry-12925196091.html",
+      "url": "https://ameblo.jp/kaisei2266/entry-12978650899.html",
       "site_key": "ameblo.jp/kaisei2266",
       "domain": "ameblo.jp",
       "host": "ameblo.jp",
-      "search_text": "アメーバブログ https://ameblo.jp アオリイカ 調査便の案内 | 海生丸の ブログ 2025/8/24 - もう始まってるようです！ · ティップランエギング開幕です‼︎ · 急なので深夜便21:30〜調査便で出船します！ · 8月いっぱい料金は通常¥14.000のところ→ ...",
-      "score": 60,
+      "search_text": "アメーバブログ https://ameblo.jp 9/13(日) アオリイカ の深夜便 | 海生丸の ブログ 2026/9/13 - ※ティップラン用のレンタルロッドはありません！ ※夕方便は予約日当日の朝09:00に. 深夜便は予約日当日の昼12:00に出船確認を. 必ずお願いします  .",
+      "score": 61,
       "reasons": [
         "aori",
         "tiprun",
-        "eging",
-        "shore",
         "report",
-        "old_penalty"
+        "date_90d"
       ],
-      "search_freshness": "historical",
-      "search_observed_date": "2025-08-24",
-      "search_date_age_days": 422,
+      "search_freshness": "current_90d",
+      "search_observed_date": "2026-09-13",
+      "search_date_age_days": 38,
       "source_type": "blog",
       "direct_source": false,
       "region_explicit": false,
@@ -2009,7 +1949,7 @@
       "site_key": "ameblo.jp/rm-02240",
       "domain": "ameblo.jp",
       "host": "ameblo.jp",
-      "search_text": "アメーバブログ https://ameblo.jp 初心者でも釣れた！ アオリイカ ×仕事終わり 釣行 in 越前 海岸!! 2024/9/27 - アオリイカ×仕事終わり釣行in越前海岸!! エギング釣行!!』 オリイカは置いといてシーバス狙い! だいぶ時間は経ったもののエギが藻に着底 し、 しゃくり上 ...",
+      "search_text": "アメーバブログ https://ameblo.jp 初心者でも釣れた！ アオリイカ ×仕事終わり 釣行 in 越前 海岸!! 2024/9/27 - この後はまだいけると思い、引き続きエギング続行！ だいぶ時間は経ったもののエギが藻に着底 し、. しゃくり上げた時にグンっというアタリ ...",
       "score": 60,
       "reasons": [
         "region",
@@ -2021,7 +1961,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2024-09-27",
-      "search_date_age_days": 753,
+      "search_date_age_days": 754,
       "source_type": "blog",
       "direct_source": false,
       "region_explicit": true,
@@ -2086,73 +2026,10 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2022-03-17",
-      "search_date_age_days": 1678,
+      "search_date_age_days": 1679,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
-      "known_source": false,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "若狭"
-      ],
-      "alternate_urls": []
-    },
-    {
-      "id": "source-eab46ebaf696b886",
-      "region": "舞鶴",
-      "url": "https://blogtag.ameba.jp/detail/%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3",
-      "site_key": "ameba.jp",
-      "domain": "ameba.jp",
-      "host": "blogtag.ameba.jp",
-      "search_text": "アメーバ https://blogtag.ameba.jp # ティップラン 人気記事（一般）｜アメーバ ブログ （アメブロ） アオリティップラン船 ... 10月15日の釣果◎アオリイカ0〜2杯他モンゴウ昨日は潮流れても厳しかったです  残念ながらオデコはお一人でした。 画像 アオリ ...",
-      "score": 59,
-      "reasons": [
-        "aori",
-        "tiprun",
-        "catch",
-        "report"
-      ],
-      "search_freshness": "unknown",
-      "search_observed_date": null,
-      "search_date_age_days": null,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": false,
-      "known_source": false,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "舞鶴",
-        "越前"
-      ],
-      "alternate_urls": [
-        "https://blogtag.ameba.jp/news/%E3%83%8A%E3%82%A4%E3%83%88%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3"
-      ]
-    },
-    {
-      "id": "source-73f543a0151daaf1",
-      "region": "若狭",
-      "url": "https://www.yayoi-maru.jp/blog?limit=10&category=%E3%82%A2%E3%82%AA%E3%83%AA%E3%82%A4%E3%82%AB",
-      "site_key": "yayoi-maru.jp",
-      "domain": "yayoi-maru.jp",
-      "host": "www.yayoi-maru.jp",
-      "search_text": "yayoi-maru.jp https://www.yayoi-maru.jp 弥生丸 ブログ ・アオリイカ トップ11杯 船中21 MAX600g ・白イカ 3杯. アオリ、ハジメマス！ 公開日 : 2026-09-29 / カテゴリ : ブログアオリイカ. こんちは 弥生丸です もう10月 早い ...",
-      "score": 58,
-      "reasons": [
-        "aori",
-        "depth",
-        "report",
-        "date_30d"
-      ],
-      "search_freshness": "current_30d",
-      "search_observed_date": "2026-09-29",
-      "search_date_age_days": 21,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": false,
       "known_source": false,
       "tier": "C",
       "status": "candidate",
@@ -2178,7 +2055,7 @@
       ],
       "search_freshness": "recent_year",
       "search_observed_date": "2025-11-03",
-      "search_date_age_days": 351,
+      "search_date_age_days": 352,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": false,
@@ -2208,7 +2085,7 @@
       ],
       "search_freshness": "recent_year",
       "search_observed_date": "2025-11-28",
-      "search_date_age_days": 326,
+      "search_date_age_days": 327,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": false,
@@ -2222,35 +2099,6 @@
       "alternate_urls": [
         "https://heat-hayabusa.com/2026/01/23/suzuki-4/"
       ]
-    },
-    {
-      "id": "source-b8258c87796d83cc",
-      "region": "小浜",
-      "url": "https://sm-fishman.com/395/",
-      "site_key": "sm-fishman.com",
-      "domain": "sm-fishman.com",
-      "host": "sm-fishman.com",
-      "search_text": "境港遊漁船 /白イカ/アオリイカ/「第七新吾丸」 https://sm-fishman.com アオリイカ便( ナイトティップラン )",
-      "score": 55,
-      "reasons": [
-        "aori",
-        "tiprun",
-        "direct_source"
-      ],
-      "search_freshness": "unknown",
-      "search_observed_date": null,
-      "search_date_age_days": null,
-      "source_type": "charter",
-      "direct_source": true,
-      "region_explicit": false,
-      "known_source": false,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "小浜"
-      ],
-      "alternate_urls": []
     },
     {
       "id": "source-14ed6180663d7c67",
@@ -2269,7 +2117,7 @@
       ],
       "search_freshness": "current_90d",
       "search_observed_date": "2026-09-03",
-      "search_date_age_days": 47,
+      "search_date_age_days": 48,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -2278,13 +2126,11 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
-        "丹後",
         "舞鶴",
         "若狭"
       ],
       "alternate_urls": [
-        "https://www.egingpoint.com/eging_point_07/",
-        "https://www.egingpoint.com/posts/post36.html/"
+        "https://www.egingpoint.com/eging_point_07/"
       ]
     },
     {
@@ -2335,7 +2181,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2016-10-12",
-      "search_date_age_days": 3660,
+      "search_date_age_days": 3661,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -2366,7 +2212,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2025-10-18",
-      "search_date_age_days": 367,
+      "search_date_age_days": 368,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -2398,7 +2244,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2025-09-18",
-      "search_date_age_days": 397,
+      "search_date_age_days": 398,
       "source_type": "charter",
       "direct_source": true,
       "region_explicit": true,
@@ -2440,37 +2286,8 @@
       "alternate_urls": []
     },
     {
-      "id": "source-11f66d9c8988cc2d",
-      "region": "若狭",
-      "url": "https://crazy-ocean.com/report/%E3%80%90%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3%E3%82%A8%E3%82%AE%E3%83%B3%E3%82%B0%E3%80%91%E3%83%86%E3%82%A3%E3%83%83%E3%83%97%E3%83%A9%E3%83%B3%E7%99%BA%E7%A5%A5%E3%81%AE%E5%9C%B0",
-      "site_key": "crazy-ocean.com",
-      "domain": "crazy-ocean.com",
-      "host": "crazy-ocean.com",
-      "search_text": "クレイジーオーシャン https://crazy-ocean.com 【 ティップラン エギング】 ティップラン発祥の地 ！でも今は激戦区と ...",
-      "score": 44,
-      "reasons": [
-        "tiprun",
-        "eging",
-        "shore"
-      ],
-      "search_freshness": "unknown",
-      "search_observed_date": null,
-      "search_date_age_days": null,
-      "source_type": "web_report",
-      "direct_source": false,
-      "region_explicit": false,
-      "known_source": false,
-      "tier": "C",
-      "status": "candidate",
-      "auto_promote": false,
-      "regions": [
-        "若狭"
-      ],
-      "alternate_urls": []
-    },
-    {
       "id": "source-2678125e5f57fdbc",
-      "region": "敦賀",
+      "region": "丹後",
       "url": "https://www.honda.co.jp/fishing/enjoy/season/season-201711/step-1/",
       "site_key": "honda.co.jp",
       "domain": "honda.co.jp",
@@ -2493,7 +2310,7 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
-        "敦賀"
+        "丹後"
       ],
       "alternate_urls": []
     },
@@ -2516,7 +2333,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2022-08-31",
-      "search_date_age_days": 1511,
+      "search_date_age_days": 1512,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -2552,7 +2369,7 @@
       ],
       "search_freshness": "historical",
       "search_observed_date": "2018-09-30",
-      "search_date_age_days": 2942,
+      "search_date_age_days": 2943,
       "source_type": "blog",
       "direct_source": false,
       "region_explicit": true,
@@ -2580,7 +2397,7 @@
       ],
       "search_freshness": "recent_year",
       "search_observed_date": "2025-12-03",
-      "search_date_age_days": 321,
+      "search_date_age_days": 322,
       "source_type": "web_report",
       "direct_source": false,
       "region_explicit": true,
@@ -2595,7 +2412,7 @@
     },
     {
       "id": "source-30aaa9159f4916f2",
-      "region": "越前",
+      "region": "敦賀",
       "url": "http://mail.tsuttarou.co.jp/beginner/7aori/03aori.html",
       "site_key": "tsuttarou.co.jp",
       "domain": "tsuttarou.co.jp",
@@ -2617,7 +2434,7 @@
       "status": "candidate",
       "auto_promote": false,
       "regions": [
-        "越前"
+        "敦賀"
       ],
       "alternate_urls": []
     }
