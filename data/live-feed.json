@@ -1,10 +1,10 @@
 {
   "version": 4,
-  "updated_at": "2026-10-22T07:44:51+09:00",
+  "updated_at": "2026-10-22T08:22:38+09:00",
   "source_updated_at": {
-    "direct": "2026-10-22T07:44:17+09:00",
-    "hot": "2026-10-22T07:44:18+09:00",
-    "broad": "2026-10-22T05:10:54+09:00"
+    "direct": "2026-10-22T08:21:17+09:00",
+    "hot": "2026-10-22T08:22:01+09:00",
+    "broad": "2026-10-22T08:21:19+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
@@ -54,6 +54,47 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-4bdf91156049d03257",
+      "date": "2026-10-19",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "マイボート",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "若狭マリンプラザ",
+      "url": "https://www.marineplaza-marina.com/?p=58442",
+      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ・ベイト",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-ace3b0f9f7106c1c",
+      "evidence_confidence": "A",
+      "quality_score": 80,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ",
+        "ベイト"
+      ],
+      "negative_signals": [
+        "渋い"
+      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-c3d4722ef8ec86c345",
@@ -202,44 +243,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "v4-c2e002b95c26dd8c92",
-      "date": "2026-10-19",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "マイボート",
-      "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "若狭マリンプラザ",
-      "url": "https://www.marineplaza-marina.com/?p=58722",
-      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-ace3b0f9f7106c1c",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [
-        "アジ"
-      ],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
     },
     {
       "id": "v4-d86673a3ef97ad81b3",
@@ -2892,7 +2895,7 @@
       "time": "unknown",
       "source": "若狭マリンプラザ",
       "url": "https://www.marineplaza-marina.com/?p=58610",
-      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
+      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ・ベイト",
       "demo": false,
       "precision": "area",
       "result_status": "blank",
@@ -2905,7 +2908,8 @@
       "quality_score": 80,
       "supplementary": true,
       "bait_signals": [
-        "アジ"
+        "アジ",
+        "ベイト"
       ],
       "negative_signals": [
         "釣れない",
