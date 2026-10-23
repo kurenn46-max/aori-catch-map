@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T23:59:54+09:00",
+  "updated_at": "2026-10-24T04:08:34+09:00",
   "note": "GitHub Actions自動収集。確認済み既存データを保持し、エギCOMの直近投稿を重複排除して追記。",
   "catches": [
     {
@@ -1262,42 +1262,6 @@
       "source": "エギCOM",
       "url": "https://www.yamaria.com/community/catch/egiou/cities/114",
       "title": "舞鶴・防波堤 100g〜300g",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "web-maizuru-0923b",
-      "date": "2026-09-23",
-      "area": "舞鶴",
-      "place": "舞鶴港",
-      "lat": 35.49,
-      "lng": 135.382,
-      "type": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "maxSize": "不明",
-      "time": "Day",
-      "source": "REAL船長のブログ",
-      "url": "https://plus.uosoku.com/search?lo=%E8%88%9E%E9%B6%B4&mt=09",
-      "title": "9/23 Dayティップラン",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "web-obama-0923s",
-      "date": "2026-09-23",
-      "area": "若狭",
-      "place": "小浜",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "shore",
-      "method": "エギング",
-      "count": null,
-      "maxSize": "300g〜500g",
-      "time": "05:51",
-      "source": "エギCOM",
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/84",
-      "title": "小浜・防波堤の投稿",
       "demo": false,
       "precision": "area"
     }
