@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-22T13:50:45+09:00",
-  "reference_date": "2026-10-22",
+  "updated_at": "2026-10-23T22:29:31+09:00",
+  "reference_date": "2026-10-23",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-22",
+  "boat_context_reference_date": "2026-10-23",
   "areas": [
     {
       "area": "越前",
@@ -140,11 +140,11 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-19",
-        "last7_sessions": 5,
+        "latest_date": "2026-10-23",
+        "last7_sessions": 6,
         "sources_14d": 3,
         "depth_window_days": 30,
-        "day_sessions_7d": 2,
+        "day_sessions_7d": 3,
         "night_sessions_7d": 3,
         "negative_sessions_7d": 2,
         "day_depth_signals": [],
@@ -190,13 +190,13 @@
         "catch": 0
       },
       "last30_sessions": {
-        "shore": 10,
-        "catch": 10
+        "shore": 9,
+        "catch": 9
       },
       "sources_30d": 1,
       "top_time": "朝まずめ",
       "time_counts": {
-        "朝まずめ": 4,
+        "朝まずめ": 3,
         "日中": 2,
         "夜前半": 2,
         "深夜": 1,
@@ -204,21 +204,21 @@
       },
       "top_terrain": "港・堤防",
       "terrain_counts": {
-        "港・堤防": 8,
+        "港・堤防": 7,
         "磯": 1
       },
       "top_size": "100g〜300g",
       "size_counts": {
         "100g〜300g": 6,
-        "300g〜500g": 2,
         "100g以下": 1,
-        "500g〜800g": 1
+        "500g〜800g": 1,
+        "300g〜500g": 1
       },
       "negative_7d": {},
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 2,
-      "raw_posts_30d": 14,
+      "raw_posts_30d": 13,
       "shore_context": {
         "latest_date": null,
         "last48_signals": 0,
@@ -229,8 +229,8 @@
       },
       "boat_context": {
         "latest_date": "2026-10-22",
-        "last7_sessions": 5,
-        "sources_14d": 4,
+        "last7_sessions": 4,
+        "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
         "night_sessions_7d": 3,
@@ -384,7 +384,7 @@
       },
       "boat_context": {
         "latest_date": "2026-10-22",
-        "last7_sessions": 5,
+        "last7_sessions": 4,
         "sources_14d": 5,
         "depth_window_days": 30,
         "day_sessions_7d": 1,
