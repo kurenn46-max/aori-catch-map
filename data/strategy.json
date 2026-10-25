@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-25T13:47:55+09:00",
+  "updated_at": "2026-10-25T22:16:52+09:00",
   "reference_date": "2026-10-25",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date": "2026-10-25",
@@ -132,7 +132,7 @@
       "local_active": 1,
       "raw_posts_30d": 18,
       "shore_context": {
-        "latest_date": "2026-10-17",
+        "latest_date": "2026-10-12",
         "last48_signals": 0,
         "last7_signals": 0,
         "sources_7d": 0,
@@ -142,7 +142,7 @@
       "boat_context": {
         "latest_date": "2026-10-24",
         "last7_sessions": 3,
-        "sources_14d": 4,
+        "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 1,
         "night_sessions_7d": 2,
@@ -221,7 +221,7 @@
         "depth_window_days": 30,
         "day_sessions_7d": 0,
         "night_sessions_7d": 3,
-        "negative_sessions_7d": 0,
+        "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [
           {
@@ -368,12 +368,12 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-22",
-        "last7_sessions": 3,
+        "latest_date": "2026-10-23",
+        "last7_sessions": 4,
         "sources_14d": 4,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 2,
+        "night_sessions_7d": 3,
         "negative_sessions_7d": 0,
         "day_depth_signals": [],
         "night_depth_signals": [
