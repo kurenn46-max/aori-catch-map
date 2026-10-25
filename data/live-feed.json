@@ -1,17 +1,17 @@
 {
   "version": 4,
-  "updated_at": "2026-10-25T23:22:53+09:00",
+  "updated_at": "2026-10-26T02:51:04+09:00",
   "source_updated_at": {
-    "direct": "2026-10-25T23:22:15+09:00",
-    "hot": "2026-10-25T23:22:18+09:00",
+    "direct": "2026-10-26T02:50:30+09:00",
+    "hot": "2026-10-26T02:50:31+09:00",
     "broad": "2026-10-25T22:11:59+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 104,
-    "shore": 59,
+    "total": 103,
+    "shore": 58,
     "boat": 45,
-    "direct": 58,
+    "direct": 57,
     "supplementary": 46,
     "hot": 4,
     "broad": 42
@@ -3279,30 +3279,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "web-tango-0925",
-      "date": "2026-09-25",
-      "area": "丹後",
-      "place": "丹後",
-      "lat": 35.65,
-      "lng": 135.15,
-      "type": "shore",
-      "method": "エギング",
-      "count": null,
-      "maxSize": "〜約250g",
-      "time": "18:06",
-      "source": "エギCOM",
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/115",
-      "title": "丹後・防波堤の投稿",
-      "demo": false,
-      "precision": "area",
-      "feed_origin": "direct",
-      "evidence_confidence": "A",
-      "quality_score": 95,
-      "supplementary": false,
-      "source_mode": "shore",
-      "feed_seen_at": null
     }
   ]
 }
