@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-27T23:32:48+09:00",
+  "updated_at": "2026-10-28T01:31:43+09:00",
   "note": "GitHub Actions自動収集。確認済み既存データを保持し、エギCOMの直近投稿を重複排除して追記。",
   "catches": [
     {
@@ -1030,78 +1030,6 @@
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
       "last_seen_at": "2026-10-05T19:06:00+09:00"
-    },
-    {
-      "id": "egi-tsuruga-20260927-0757",
-      "date": "2026-09-27",
-      "area": "敦賀",
-      "place": "敦賀",
-      "lat": 35.645,
-      "lng": 136.055,
-      "type": "shore",
-      "method": "エギング",
-      "count": 1,
-      "maxSize": "100g〜300g",
-      "time": "07:57",
-      "source": "エギCOM",
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/85",
-      "title": "敦賀・サーフ/ゴロタ 100g〜300g",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "egi-tsuruga-20260927-0610",
-      "date": "2026-09-27",
-      "area": "敦賀",
-      "place": "敦賀",
-      "lat": 35.645,
-      "lng": 136.055,
-      "type": "shore",
-      "method": "エギング",
-      "count": 1,
-      "maxSize": "100g以下",
-      "time": "06:10",
-      "source": "エギCOM",
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/85",
-      "title": "敦賀・防波堤 100g以下",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "egi-tsuruga-20260927-0306",
-      "date": "2026-09-27",
-      "area": "敦賀",
-      "place": "敦賀",
-      "lat": 35.645,
-      "lng": 136.055,
-      "type": "shore",
-      "method": "エギング",
-      "count": 1,
-      "maxSize": "300g〜500g",
-      "time": "03:06",
-      "source": "エギCOM",
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/85",
-      "title": "敦賀・サーフ/ゴロタ 300g〜500g",
-      "demo": false,
-      "precision": "area"
-    },
-    {
-      "id": "egi-tsuruga-20260927-0128",
-      "date": "2026-09-27",
-      "area": "敦賀",
-      "place": "敦賀",
-      "lat": 35.645,
-      "lng": 136.055,
-      "type": "shore",
-      "method": "エギング",
-      "count": 1,
-      "maxSize": "100g〜300g",
-      "time": "01:28",
-      "source": "エギCOM",
-      "url": "https://www.yamaria.com/community/catch/egiou/cities/85",
-      "title": "敦賀・防波堤 100g〜300g",
-      "demo": false,
-      "precision": "area"
     }
   ]
 }
