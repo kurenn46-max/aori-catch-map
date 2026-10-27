@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "updated_at": "2026-10-27T06:02:07+09:00",
+  "updated_at": "2026-10-27T09:23:14+09:00",
   "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
@@ -19,42 +19,42 @@
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-27T06:01:27+09:00",
+      "checked_at": "2026-10-27T09:23:02+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-27T06:01:27+09:00",
+      "checked_at": "2026-10-27T09:23:02+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-27T06:01:27+09:00",
+      "checked_at": "2026-10-27T09:23:02+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-27T06:01:27+09:00",
+      "checked_at": "2026-10-27T09:23:02+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-27T06:01:27+09:00",
+      "checked_at": "2026-10-27T09:23:02+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-27T06:01:57+09:00",
+      "checked_at": "2026-10-27T09:23:05+09:00",
       "accepted_signals": 3,
       "detail_signals": 0
     },
@@ -62,7 +62,7 @@
       "source": "釣具のイシグロ",
       "status": "error",
       "lane": "hot",
-      "checked_at": "2026-10-27T06:01:57+09:00",
+      "checked_at": "2026-10-27T09:23:05+09:00",
       "accepted_signals": 0,
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1"
     },
@@ -70,7 +70,7 @@
       "source": "ブンブン釣行記",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-27T06:01:57+09:00",
+      "checked_at": "2026-10-27T09:23:05+09:00",
       "accepted_signals": 2,
       "detail_signals": 1
     },
@@ -78,15 +78,15 @@
       "source": "FISHERS アオリイカ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-27T06:01:57+09:00",
-      "accepted_signals": 16,
+      "checked_at": "2026-10-27T09:23:05+09:00",
+      "accepted_signals": 18,
       "detail_signals": 0
     },
     {
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-27T06:01:57+09:00",
+      "checked_at": "2026-10-27T09:23:05+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -285,10 +285,10 @@
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-10-27T06:01:27+09:00"
+      "updated_at": "2026-10-27T09:23:02+09:00"
     },
     "hot": {
-      "updated_at": "2026-10-27T06:01:57+09:00",
+      "updated_at": "2026-10-27T09:23:05+09:00",
       "sources": 5
     },
     "broad": {
