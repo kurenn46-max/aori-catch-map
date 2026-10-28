@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-28T14:45:20+09:00",
-  "reference_date": "2026-10-28",
+  "updated_at": "2026-10-29T00:08:05+09:00",
+  "reference_date": "2026-10-29",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-28",
+  "boat_context_reference_date": "2026-10-29",
   "areas": [
     {
       "area": "越前",
@@ -367,21 +367,7 @@
         "night_sessions_7d": 4,
         "negative_sessions_7d": 0,
         "day_depth_signals": [],
-        "night_depth_signals": [
-          {
-            "date": "2026-10-09",
-            "source": "OCEANS",
-            "time_mode": "night",
-            "depth_m": [
-              17.0,
-              45.0
-            ],
-            "bottom_offset_m": [],
-            "tana_m": [],
-            "depth_confidence": "B",
-            "url": "https://oceans2009.com/tyoka"
-          }
-        ],
+        "night_depth_signals": [],
         "note": "船情報は沖の魚影・レンジ確認用。件数は直近7/14日、水深実測は希少データのため30日保持。岸のconfidence/gradeには直接加点しない。"
       },
       "note": "同一投稿者・同日・同海域のエギCOM連投は1セッションに圧縮。A評価は独立2情報源以上を必須とし、負情報も根拠強度へ反映。公開Web横断の岸補助釣果と船釣果は別枠表示し、岸評価へ直接加点しない。"
