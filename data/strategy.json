@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-29T14:51:13+09:00",
-  "reference_date": "2026-10-29",
+  "updated_at": "2026-10-30T00:15:13+09:00",
+  "reference_date": "2026-10-30",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-10-29",
+  "boat_context_reference_date": "2026-10-30",
   "areas": [
     {
       "area": "越前",
@@ -133,26 +133,18 @@
       "shore_context": {
         "latest_date": "2026-10-23",
         "last48_signals": 0,
-        "last7_signals": 1,
-        "sources_7d": 1,
-        "items": [
-          {
-            "date": "2026-10-23",
-            "source": "上州屋 新敦賀店",
-            "confidence": "A",
-            "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-            "bait_signals": []
-          }
-        ],
+        "last7_signals": 0,
+        "sources_7d": 0,
+        "items": [],
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-24",
+        "latest_date": "2026-10-29",
         "last7_sessions": 2,
         "sources_14d": 3,
         "depth_window_days": 30,
-        "day_sessions_7d": 1,
-        "night_sessions_7d": 1,
+        "day_sessions_7d": 0,
+        "night_sessions_7d": 2,
         "negative_sessions_7d": 1,
         "day_depth_signals": [],
         "night_depth_signals": [],
@@ -223,7 +215,7 @@
       "boat_context": {
         "latest_date": "2026-10-28",
         "last7_sessions": 1,
-        "sources_14d": 2,
+        "sources_14d": 3,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
         "night_sessions_7d": 1,
@@ -359,12 +351,12 @@
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
-        "latest_date": "2026-10-27",
-        "last7_sessions": 5,
+        "latest_date": "2026-10-29",
+        "last7_sessions": 4,
         "sources_14d": 4,
         "depth_window_days": 30,
         "day_sessions_7d": 0,
-        "night_sessions_7d": 4,
+        "night_sessions_7d": 3,
         "negative_sessions_7d": 0,
         "day_depth_signals": [],
         "night_depth_signals": [],
