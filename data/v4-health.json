@@ -1,16 +1,16 @@
 {
   "version": 4,
-  "updated_at": "2026-10-29T11:49:40+09:00",
+  "updated_at": "2026-10-29T14:51:13+09:00",
   "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
-    "total": 91,
+    "total": 89,
     "shore": 51,
-    "boat": 40,
+    "boat": 38,
     "direct": 49,
-    "supplementary": 42,
+    "supplementary": 40,
     "hot": 2,
-    "broad": 40
+    "broad": 38
   },
   "latest_shore_date": "2026-10-23",
   "latest_shore_age_days": 6,
@@ -19,42 +19,42 @@
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-29T11:49:29+09:00",
+      "checked_at": "2026-10-29T14:50:18+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-29T11:49:29+09:00",
+      "checked_at": "2026-10-29T14:50:18+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-29T11:49:29+09:00",
+      "checked_at": "2026-10-29T14:50:18+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-29T11:49:29+09:00",
+      "checked_at": "2026-10-29T14:50:18+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-10-29T11:49:29+09:00",
+      "checked_at": "2026-10-29T14:50:18+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-29T11:49:32+09:00",
+      "checked_at": "2026-10-29T14:50:53+09:00",
       "accepted_signals": 3,
       "detail_signals": 0
     },
@@ -62,31 +62,31 @@
       "source": "釣具のイシグロ",
       "status": "error",
       "lane": "hot",
-      "checked_at": "2026-10-29T11:49:32+09:00",
+      "checked_at": "2026-10-29T14:50:53+09:00",
       "accepted_signals": 0,
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1"
     },
     {
       "source": "ブンブン釣行記",
-      "status": "ok",
+      "status": "error",
       "lane": "hot",
-      "checked_at": "2026-10-29T11:49:32+09:00",
-      "accepted_signals": 7,
-      "detail_signals": 3
+      "checked_at": "2026-10-29T14:50:53+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='bunbun-fishing.com', port=443): Max retries exceeded with url: /fishing/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='bunbun-fishing.com', port=443) at 0x7fac96720200>, 'Connection to bunbun-fishing.com timed "
     },
     {
       "source": "FISHERS アオリイカ",
-      "status": "ok",
+      "status": "error",
       "lane": "hot",
-      "checked_at": "2026-10-29T11:49:32+09:00",
-      "accepted_signals": 18,
-      "detail_signals": 0
+      "checked_at": "2026-10-29T14:50:53+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='www.fishers.co.jp', port=443): Max retries exceeded with url: /fishinginfo/?tsurikata_code=TKT0019 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fishers.co.jp', port=443) at 0x7fac973c11f0>, 'Connection to "
     },
     {
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-10-29T11:49:32+09:00",
+      "checked_at": "2026-10-29T14:50:53+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -94,7 +94,7 @@
       "source": "HOZANⅡ",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 2,
       "detail_signals": 0
     },
@@ -102,7 +102,7 @@
       "source": "春定丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 4,
       "detail_signals": 4
     },
@@ -110,7 +110,7 @@
       "source": "天徳丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 1,
       "detail_signals": 0
     },
@@ -118,7 +118,7 @@
       "source": "瑞祥丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 20,
       "detail_signals": 0
     },
@@ -126,7 +126,7 @@
       "source": "若狭マリンプラザ",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 17,
       "detail_signals": 12
     },
@@ -134,7 +134,7 @@
       "source": "まるまる丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -142,7 +142,7 @@
       "source": "心友丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -150,23 +150,23 @@
       "source": "MIYAMOTOMARU2",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
     {
       "source": "小浜マリーナ",
-      "status": "ok",
+      "status": "error",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
-      "accepted_signals": 1,
-      "detail_signals": 0
+      "checked_at": "2026-10-29T14:50:19+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='www.obama-marina.com', port=443): Max retries exceeded with url: /catch/index.php (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.obama-marina.com', port=443) at 0x7ff5e81d6c90>, 'Connection to www.obama-mari"
     },
     {
       "source": "福丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 8,
       "detail_signals": 2
     },
@@ -174,7 +174,7 @@
       "source": "SUPER VIKING",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -182,7 +182,7 @@
       "source": "あみや渡船",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 3,
       "detail_signals": 0
     },
@@ -190,7 +190,7 @@
       "source": "ヴィーナス",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 13,
       "detail_signals": 12
     },
@@ -198,7 +198,7 @@
       "source": "オールブルー",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -206,7 +206,7 @@
       "source": "ちどり丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 5,
       "detail_signals": 0
     },
@@ -214,7 +214,7 @@
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 3,
       "detail_signals": 0
     },
@@ -222,39 +222,39 @@
       "source": "泰丸",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 10,
       "detail_signals": 5
     },
     {
       "source": "FISHERS",
-      "status": "ok",
+      "status": "error",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
-      "accepted_signals": 6,
-      "detail_signals": 0
+      "checked_at": "2026-10-29T14:50:19+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='www.fishers.co.jp', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.fishers.co.jp', port=443) at 0x7ff5d8434e00>, 'Connection to www.fishers.co.jp timed out. (conne"
     },
     {
       "source": "釣具のイシグロ",
       "status": "error",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 0,
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1"
     },
     {
       "source": "ブンブン釣行記",
-      "status": "ok",
+      "status": "error",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
-      "accepted_signals": 7,
-      "detail_signals": 3
+      "checked_at": "2026-10-29T14:50:19+09:00",
+      "accepted_signals": 0,
+      "error": "ConnectTimeout: HTTPSConnectionPool(host='bunbun-fishing.com', port=443): Max retries exceeded with url: /fishing/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='bunbun-fishing.com', port=443) at 0x7ff5d8434c80>, 'Connection to bunbun-fishing.com timed "
     },
     {
       "source": "TRITON",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 1,
       "detail_signals": 1
     },
@@ -262,7 +262,7 @@
       "source": "すばる",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 1,
       "detail_signals": 0
     },
@@ -270,7 +270,7 @@
       "source": "OCEANS",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 27,
       "detail_signals": 0
     },
@@ -278,27 +278,27 @@
       "source": "シーマン",
       "status": "ok",
       "lane": "broad",
-      "checked_at": "2026-10-29T06:06:48+09:00",
+      "checked_at": "2026-10-29T14:50:19+09:00",
       "accepted_signals": 12,
       "detail_signals": 9
     }
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-10-29T11:49:29+09:00"
+      "updated_at": "2026-10-29T14:50:18+09:00"
     },
     "hot": {
-      "updated_at": "2026-10-29T11:49:32+09:00",
+      "updated_at": "2026-10-29T14:50:53+09:00",
       "sources": 5
     },
     "broad": {
-      "updated_at": "2026-10-29T06:06:48+09:00",
+      "updated_at": "2026-10-29T14:50:19+09:00",
       "sources": 24
     }
   },
   "coverage": {
     "checks_total": 34,
-    "checks_ok": 27,
-    "checks_bad": 7
+    "checks_ok": 22,
+    "checks_bad": 12
   }
 }
