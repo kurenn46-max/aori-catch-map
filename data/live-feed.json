@@ -1,10 +1,10 @@
 {
   "version": 4,
-  "updated_at": "2026-11-01T01:18:49+09:00",
+  "updated_at": "2026-11-01T05:00:49+09:00",
   "source_updated_at": {
-    "direct": "2026-11-01T01:18:37+09:00",
-    "hot": "2026-11-01T01:18:39+09:00",
-    "broad": "2026-10-31T23:32:48+09:00"
+    "direct": "2026-11-01T04:59:44+09:00",
+    "hot": "2026-11-01T05:00:10+09:00",
+    "broad": "2026-11-01T04:59:45+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
@@ -725,7 +725,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-4bdf91156049d03257",
+      "id": "v4-b529e46b73c101523a",
       "date": "2026-10-19",
       "area": "若狭",
       "place": "若狭",
@@ -740,11 +740,11 @@
       "maxSize": "不明",
       "time": "unknown",
       "source": "若狭マリンプラザ",
-      "url": "https://www.marineplaza-marina.com/?p=58442",
-      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ・ベイト",
+      "url": "https://www.marineplaza-marina.com/?p=58490",
+      "title": "若狭マリンプラザ / 船・信頼度A / ベイト:アジ",
       "demo": false,
       "precision": "area",
-      "result_status": "blank",
+      "result_status": "catch",
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
@@ -754,11 +754,10 @@
       "quality_score": 80,
       "supplementary": true,
       "bait_signals": [
-        "アジ",
-        "ベイト"
+        "アジ"
       ],
       "negative_signals": [
-        "釣れない"
+        "渋い"
       ],
       "depth_m": [],
       "bottom_offset_m": [],
@@ -876,6 +875,42 @@
       "time_mode": "day"
     },
     {
+      "id": "v4-6c8248c256ba14f1b5",
+      "date": "2026-10-17",
+      "area": "敦賀",
+      "place": "敦賀",
+      "lat": 35.645,
+      "lng": 136.055,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "ティップラン",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "day",
+      "source": "瑞祥丸",
+      "url": "https://zuishomaru.com/category/fishing/",
+      "title": "瑞祥丸 / 船・信頼度A",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-8a0c01ce8879b8f3",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "day"
+    },
+    {
       "id": "v4-c76a0f524078c0e92b",
       "date": "2026-10-17",
       "area": "敦賀",
@@ -912,42 +947,6 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
-    },
-    {
-      "id": "v4-6c8248c256ba14f1b5",
-      "date": "2026-10-17",
-      "area": "敦賀",
-      "place": "敦賀",
-      "lat": 35.645,
-      "lng": 136.055,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "ティップラン",
-      "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
-      "maxSize": "不明",
-      "time": "day",
-      "source": "瑞祥丸",
-      "url": "https://zuishomaru.com/category/fishing/",
-      "title": "瑞祥丸 / 船・信頼度A",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "broad",
-      "origin_signal_id": "signal-8a0c01ce8879b8f3",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "day"
     },
     {
       "id": "v4-be009055316ff97def",
@@ -1098,7 +1097,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-7546ad9f0ccfc59215",
+      "id": "v4-f2bfabd9e58e30d973",
       "date": "2026-10-13",
       "area": "若狭",
       "place": "若狭",
@@ -1108,8 +1107,10 @@
       "source_mode": "boat",
       "method": "マイボート",
       "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
+      "count_mentions": [
+        100
+      ],
+      "count_confidence": "mention_only",
       "maxSize": "不明",
       "time": "unknown",
       "source": "若狭マリンプラザ",
@@ -1122,7 +1123,7 @@
       "last_seen_at": null,
       "feed_seen_at": null,
       "feed_origin": "broad",
-      "origin_signal_id": "signal-6f7fc3ee011287fa",
+      "origin_signal_id": "signal-fa61c0f605caa08e",
       "evidence_confidence": "A",
       "quality_score": 75,
       "supplementary": true,
