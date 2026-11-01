@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-11-01T15:08:48+09:00",
+  "updated_at": "2026-11-01T22:13:46+09:00",
   "source_updated_at": {
-    "direct": "2026-11-01T15:08:10+09:00",
-    "hot": "2026-11-01T15:08:39+09:00",
+    "direct": "2026-11-01T22:13:33+09:00",
+    "hot": "2026-11-01T22:13:35+09:00",
     "broad": "2026-11-01T15:08:11+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -13,8 +13,8 @@
     "boat": 40,
     "direct": 49,
     "supplementary": 43,
-    "hot": 3,
-    "broad": 40
+    "hot": 2,
+    "broad": 41
   },
   "catches": [
     {
@@ -1100,7 +1100,7 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-608056381f73f3ac72",
+      "id": "v4-712a8cbce1d2eea964",
       "date": "2026-10-12",
       "area": "敦賀",
       "place": "敦賀",
@@ -1123,7 +1123,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-7db1a42b379d7b0b",
       "evidence_confidence": "A",
       "quality_score": 75,
