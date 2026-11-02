@@ -1,19 +1,19 @@
 {
   "version": 4,
-  "updated_at": "2026-11-02T07:23:27+09:00",
+  "updated_at": "2026-11-02T10:48:03+09:00",
   "source_updated_at": {
-    "direct": "2026-11-02T07:23:17+09:00",
-    "hot": "2026-11-02T07:23:19+09:00",
+    "direct": "2026-11-02T10:47:53+09:00",
+    "hot": "2026-11-02T10:47:55+09:00",
     "broad": "2026-11-02T05:30:22+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
   "counts": {
-    "total": 89,
-    "shore": 48,
+    "total": 90,
+    "shore": 49,
     "boat": 41,
     "direct": 46,
-    "supplementary": 43,
-    "hot": 2,
+    "supplementary": 44,
+    "hot": 3,
     "broad": 41
   },
   "catches": [
@@ -276,6 +276,47 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-2d9954cf3cd67f0aa8",
+      "date": "2026-10-29",
+      "area": "舞鶴",
+      "place": "舞鶴",
+      "lat": 35.474,
+      "lng": 135.386,
+      "type": "shore",
+      "source_mode": "shore",
+      "method": "エギング",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "ブンブン釣行記",
+      "url": "https://bunbun-fishing.com/fishing/220736/",
+      "title": "ブンブン釣行記 / 岸・信頼度A / ベイト:アジ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "blank",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "hot",
+      "origin_signal_id": "signal-0ccf3c236f0be1f9",
+      "evidence_confidence": "A",
+      "quality_score": 80,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ"
+      ],
+      "negative_signals": [
+        "釣れない",
+        "反応なし"
+      ],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-85401671932e120646",
