@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T05:30:44+09:00",
+  "updated_at": "2026-11-02T15:07:34+09:00",
   "reference_date": "2026-11-02",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
   "boat_context_reference_date": "2026-11-02",
@@ -277,11 +277,21 @@
       "local_active": 0,
       "raw_posts_30d": 3,
       "shore_context": {
-        "latest_date": null,
+        "latest_date": "2026-10-29",
         "last48_signals": 0,
-        "last7_signals": 0,
-        "sources_7d": 0,
-        "items": [],
+        "last7_signals": 1,
+        "sources_7d": 1,
+        "items": [
+          {
+            "date": "2026-10-29",
+            "source": "ブンブン釣行記",
+            "confidence": "A",
+            "url": "https://bunbun-fishing.com/fishing/220736/",
+            "bait_signals": [
+              "アジ"
+            ]
+          }
+        ],
         "note": "公開Web横断で拾った岸の補助釣果。地点・杯数が不十分な場合があるため、岸の実釣セッション数やgrade/confidenceへは直接加点しない。"
       },
       "boat_context": {
