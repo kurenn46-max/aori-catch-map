@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-11-03T11:20:38+09:00",
+  "updated_at": "2026-11-03T19:01:52+09:00",
   "source_updated_at": {
-    "direct": "2026-11-03T11:19:53+09:00",
-    "hot": "2026-11-03T11:20:29+09:00",
+    "direct": "2026-11-03T19:01:42+09:00",
+    "hot": "2026-11-03T19:01:44+09:00",
     "broad": "2026-11-03T11:19:54+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
