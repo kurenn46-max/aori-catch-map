@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-03T03:23:47+09:00",
+  "updated_at": "2026-11-03T11:19:54+09:00",
   "window_days": 30,
   "note": "GitHub Runnerから直接取得できる複数公開情報源を横断。日付・海域・岸/船・ティップラン・水深文脈・杯数・負情報・ベイト語を抽出し、水深は周辺文脈が確認できたものだけ採用する。これは発見/補助信号であり、岸釣果DBへは自動で杯数換算しない。",
   "source_health": [
     {
       "source": "HOZANⅡ",
       "url": "https://hozan130.jp/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 75753,
       "status": "ok",
@@ -20,9 +20,9 @@
     {
       "source": "春定丸",
       "url": "https://ameblo.jp/synteimaru/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
-      "bytes": 181127,
+      "bytes": 181113,
       "status": "ok",
       "recent_segments": 0,
       "detail_discovered": 10,
@@ -34,7 +34,7 @@
     {
       "source": "天徳丸",
       "url": "https://tentokumaru.com/fishing_blog/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 26547,
       "status": "ok",
@@ -48,7 +48,7 @@
     {
       "source": "瑞祥丸",
       "url": "https://zuishomaru.com/category/fishing/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 69870,
       "status": "ok",
@@ -62,7 +62,7 @@
     {
       "source": "若狭マリンプラザ",
       "url": "https://www.marineplaza-marina.com/?cat=11",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 288701,
       "status": "ok",
@@ -76,7 +76,7 @@
     {
       "source": "まるまる丸",
       "url": "https://marumarumaru.co.jp/report/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 28372,
       "status": "ok",
@@ -90,7 +90,7 @@
     {
       "source": "心友丸",
       "url": "https://www.shinyuumaru.com/contents/information.php",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 19058,
       "status": "ok",
@@ -104,7 +104,7 @@
     {
       "source": "MIYAMOTOMARU2",
       "url": "https://ameblo.jp/miyamotomar/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 184109,
       "status": "ok",
@@ -118,7 +118,7 @@
     {
       "source": "小浜マリーナ",
       "url": "https://www.obama-marina.com/catch/index.php",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 35167,
       "status": "ok",
@@ -132,7 +132,7 @@
     {
       "source": "福丸",
       "url": "https://www.e-fukumaru.com/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 29448,
       "status": "ok",
@@ -146,7 +146,7 @@
     {
       "source": "SUPER VIKING",
       "url": "https://reserve.castingnet.jp/ship00107c.html",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 32198,
       "status": "ok",
@@ -160,9 +160,9 @@
     {
       "source": "あみや渡船",
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=582",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
-      "bytes": 188705,
+      "bytes": 188251,
       "status": "ok",
       "recent_segments": 3,
       "detail_discovered": 0,
@@ -174,7 +174,7 @@
     {
       "source": "ヴィーナス",
       "url": "https://www.fisher-venus.com/chouka/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 140605,
       "status": "ok",
@@ -188,7 +188,7 @@
     {
       "source": "オールブルー",
       "url": "https://www.allbluemarine.com/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 220674,
       "status": "ok",
@@ -202,9 +202,9 @@
     {
       "source": "ちどり丸",
       "url": "https://www.fishing-v.jp/choka/choka_detail.php?s=1748",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
-      "bytes": 184272,
+      "bytes": 182407,
       "status": "ok",
       "recent_segments": 5,
       "detail_discovered": 0,
@@ -216,7 +216,7 @@
     {
       "source": "上州屋 新敦賀店",
       "url": "https://www.johshuya.co.jp/shop/choka.php?s=151",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 46748,
       "status": "ok",
@@ -230,21 +230,21 @@
     {
       "source": "泰丸",
       "url": "https://www.taimaru.jp/fishingpost/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
-      "bytes": 57905,
+      "bytes": 57912,
       "status": "ok",
       "recent_segments": 12,
       "detail_discovered": 12,
       "detail_fetched": 12,
       "detail_errors": 0,
-      "detail_signals": 4,
-      "accepted_signals": 8
+      "detail_signals": 5,
+      "accepted_signals": 10
     },
     {
       "source": "FISHERS",
       "url": "https://www.fishers.co.jp/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 28067,
       "status": "ok",
@@ -258,7 +258,7 @@
     {
       "source": "釣具のイシグロ",
       "url": "https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 403,
       "bytes": 5664,
       "status": "error",
@@ -269,21 +269,21 @@
     {
       "source": "ブンブン釣行記",
       "url": "https://bunbun-fishing.com/fishing/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
-      "bytes": 139935,
+      "bytes": 140126,
       "status": "ok",
-      "recent_segments": 17,
+      "recent_segments": 16,
       "detail_discovered": 10,
       "detail_fetched": 10,
       "detail_errors": 0,
-      "detail_signals": 2,
-      "accepted_signals": 7
+      "detail_signals": 0,
+      "accepted_signals": 4
     },
     {
       "source": "TRITON",
       "url": "https://triton-maizuru.com/topics.html",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 21262,
       "status": "ok",
@@ -297,7 +297,7 @@
     {
       "source": "すばる",
       "url": "https://subarutango.jimdofree.com/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 75814,
       "status": "ok",
@@ -311,9 +311,9 @@
     {
       "source": "OCEANS",
       "url": "https://oceans2009.com/tyoka",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
-      "bytes": 54313,
+      "bytes": 54312,
       "status": "ok",
       "recent_segments": 40,
       "detail_discovered": 0,
@@ -325,7 +325,7 @@
     {
       "source": "シーマン",
       "url": "https://seaman-tango.com/blog_articles/",
-      "checked_at": "2026-11-03T03:23:47+09:00",
+      "checked_at": "2026-11-03T11:19:54+09:00",
       "http_status": 200,
       "bytes": 25000,
       "status": "ok",
@@ -338,6 +338,36 @@
     }
   ],
   "signals": [
+    {
+      "id": "signal-1feb0726a0884740",
+      "date": "2026-11-03",
+      "area": "敦賀",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "day",
+      "evidence_role": "catch",
+      "source": "泰丸",
+      "source_kind": "charter",
+      "url": "https://www.taimaru.jp/fishingpost/108835/",
+      "confidence": "A",
+      "quality_score": 80,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        3
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [
+        "厳しい"
+      ],
+      "bait_signals": [],
+      "detail_url": "https://www.taimaru.jp/fishingpost/108835/",
+      "evidence_scope": "detail"
+    },
     {
       "id": "signal-132c841d438e38d1",
       "date": "2026-11-02",
@@ -416,18 +446,18 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-a0ad656613881a96",
+      "id": "signal-41bd807c5e15247e",
       "date": "2026-11-02",
       "area": null,
-      "type": "unknown",
-      "method": "unknown",
+      "type": "raft",
+      "method": "筏エギング",
       "time_mode": "unknown",
-      "evidence_role": "info",
+      "evidence_role": "schedule",
       "source": "ブンブン釣行記",
       "source_kind": "tackle_shop_media",
       "url": "https://bunbun-fishing.com/fishing/",
-      "confidence": "C",
-      "quality_score": 40,
+      "confidence": "B",
+      "quality_score": 55,
       "usable_for_decision": false,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -439,7 +469,9 @@
       "negative_signals": [],
       "bait_signals": [
         "小アジ",
-        "アジ"
+        "アジ",
+        "サヨリ",
+        "ベイト"
       ],
       "evidence_scope": "listing"
     },
@@ -470,6 +502,33 @@
       ],
       "detail_url": "https://ameblo.jp/synteimaru/entry-12983335167.html",
       "evidence_scope": "detail"
+    },
+    {
+      "id": "signal-ec439bfa98650302",
+      "date": "2026-11-01",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
+      "source": "OCEANS",
+      "source_kind": "charter",
+      "url": "https://oceans2009.com/tyoka",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [
+        20
+      ],
+      "count_confidence": "mention_only",
+      "negative_signals": [],
+      "bait_signals": [],
+      "evidence_scope": "listing"
     },
     {
       "id": "signal-5c23dc03a3f4e67b",
@@ -624,34 +683,6 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-b029e865ec0e5b81",
-      "date": "2026-10-30",
-      "area": "敦賀",
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "night",
-      "evidence_role": "catch",
-      "source": "泰丸",
-      "source_kind": "charter",
-      "url": "https://www.taimaru.jp/fishingpost/108777/",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://www.taimaru.jp/fishingpost/108777/",
-      "evidence_scope": "detail"
-    },
-    {
       "id": "signal-12c2ec6cae6ec276",
       "date": "2026-10-30",
       "area": "丹後",
@@ -681,6 +712,34 @@
       "evidence_scope": "listing"
     },
     {
+      "id": "signal-b029e865ec0e5b81",
+      "date": "2026-10-30",
+      "area": "敦賀",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "night",
+      "evidence_role": "catch",
+      "source": "泰丸",
+      "source_kind": "charter",
+      "url": "https://www.taimaru.jp/fishingpost/108777/",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": true,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [
+        "アジ"
+      ],
+      "detail_url": "https://www.taimaru.jp/fishingpost/108777/",
+      "evidence_scope": "detail"
+    },
+    {
       "id": "signal-a024c5a8d62542a4",
       "date": "2026-10-30",
       "area": "丹後",
@@ -708,62 +767,6 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-6e12067bf8f4ce43",
-      "date": "2026-10-30",
-      "area": null,
-      "type": "raft",
-      "method": "筏エギング",
-      "time_mode": "unknown",
-      "evidence_role": "schedule",
-      "source": "ブンブン釣行記",
-      "source_kind": "tackle_shop_media",
-      "url": "https://bunbun-fishing.com/fishing/",
-      "confidence": "B",
-      "quality_score": 55,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [
-        "小アジ",
-        "アジ",
-        "サヨリ",
-        "ベイト"
-      ],
-      "evidence_scope": "listing"
-    },
-    {
-      "id": "signal-278ef98cf996882a",
-      "date": "2026-10-30",
-      "area": null,
-      "type": "shore",
-      "method": "エギング",
-      "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "ブンブン釣行記",
-      "source_kind": "tackle_shop_media",
-      "url": "https://bunbun-fishing.com/fishing/220776/",
-      "confidence": "C",
-      "quality_score": 48,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [],
-      "detail_url": "https://bunbun-fishing.com/fishing/220776/",
-      "evidence_scope": "detail"
-    },
-    {
       "id": "signal-bcb2e0c843401649",
       "date": "2026-10-30",
       "area": null,
@@ -789,19 +792,19 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-0ccf3c236f0be1f9",
+      "id": "signal-227d4f3134e9ae36",
       "date": "2026-10-29",
-      "area": "舞鶴",
-      "type": "shore",
-      "method": "エギング",
+      "area": "敦賀",
+      "type": "boat",
+      "method": "船",
       "time_mode": "unknown",
-      "evidence_role": "catch",
-      "source": "ブンブン釣行記",
-      "source_kind": "tackle_shop_media",
-      "url": "https://bunbun-fishing.com/fishing/220736/",
+      "evidence_role": "info",
+      "source": "春定丸",
+      "source_kind": "charter",
+      "url": "https://ameblo.jp/synteimaru/entry-12983006526.html",
       "confidence": "A",
-      "quality_score": 80,
-      "usable_for_decision": true,
+      "quality_score": 75,
+      "usable_for_decision": false,
       "depth_m": [],
       "bottom_offset_m": [],
       "tana_m": [],
@@ -809,14 +812,9 @@
       "depth_evidence": [],
       "count_mentions": [],
       "count_confidence": "none",
-      "negative_signals": [
-        "釣れない",
-        "反応なし"
-      ],
-      "bait_signals": [
-        "アジ"
-      ],
-      "detail_url": "https://bunbun-fishing.com/fishing/220736/",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://ameblo.jp/synteimaru/entry-12983006526.html",
       "evidence_scope": "detail"
     },
     {
@@ -843,32 +841,6 @@
       "negative_signals": [],
       "bait_signals": [],
       "detail_url": "https://www.taimaru.jp/fishingpost/108769/",
-      "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-227d4f3134e9ae36",
-      "date": "2026-10-29",
-      "area": "敦賀",
-      "type": "boat",
-      "method": "船",
-      "time_mode": "unknown",
-      "evidence_role": "info",
-      "source": "春定丸",
-      "source_kind": "charter",
-      "url": "https://ameblo.jp/synteimaru/entry-12983006526.html",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [],
-      "detail_url": "https://ameblo.jp/synteimaru/entry-12983006526.html",
       "evidence_scope": "detail"
     },
     {
@@ -1133,32 +1105,6 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-536b22b887f8f7a3",
-      "date": "2026-10-24",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "day",
-      "evidence_role": "info",
-      "source": "ヴィーナス",
-      "source_kind": "charter",
-      "url": "https://www.fisher-venus.com/chouka/%E7%A7%8B%E7%A5%AD%E3%82%8A-3/",
-      "confidence": "B",
-      "quality_score": 68,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [],
-      "detail_url": "https://www.fisher-venus.com/chouka/%E7%A7%8B%E7%A5%AD%E3%82%8A-3/",
-      "evidence_scope": "detail"
-    },
-    {
       "id": "signal-34010d683b40fdd9",
       "date": "2026-10-24",
       "area": "丹後",
@@ -1184,6 +1130,32 @@
       "negative_signals": [],
       "bait_signals": [],
       "evidence_scope": "listing"
+    },
+    {
+      "id": "signal-536b22b887f8f7a3",
+      "date": "2026-10-24",
+      "area": "丹後",
+      "type": "boat",
+      "method": "ティップラン",
+      "time_mode": "day",
+      "evidence_role": "info",
+      "source": "ヴィーナス",
+      "source_kind": "charter",
+      "url": "https://www.fisher-venus.com/chouka/%E7%A7%8B%E7%A5%AD%E3%82%8A-3/",
+      "confidence": "B",
+      "quality_score": 68,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [],
+      "detail_url": "https://www.fisher-venus.com/chouka/%E7%A7%8B%E7%A5%AD%E3%82%8A-3/",
+      "evidence_scope": "detail"
     },
     {
       "id": "signal-16ff5053bcb7dc39",
@@ -1607,31 +1579,6 @@
       "evidence_scope": "listing"
     },
     {
-      "id": "signal-e14a7948339d518d",
-      "date": "2026-10-17",
-      "area": "若狭",
-      "type": "boat",
-      "method": "船",
-      "time_mode": "unknown",
-      "evidence_role": "info",
-      "source": "福丸",
-      "source_kind": "charter",
-      "url": "https://www.e-fukumaru.com/",
-      "confidence": "A",
-      "quality_score": 75,
-      "usable_for_decision": false,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [],
-      "count_confidence": "none",
-      "negative_signals": [],
-      "bait_signals": [],
-      "evidence_scope": "listing"
-    },
-    {
       "id": "signal-b33598475ee59dcb",
       "date": "2026-10-17",
       "area": "敦賀",
@@ -1658,6 +1605,31 @@
       "bait_signals": [],
       "detail_url": "https://ameblo.jp/synteimaru/entry-12981877139.html",
       "evidence_scope": "detail"
+    },
+    {
+      "id": "signal-e14a7948339d518d",
+      "date": "2026-10-17",
+      "area": "若狭",
+      "type": "boat",
+      "method": "船",
+      "time_mode": "unknown",
+      "evidence_role": "info",
+      "source": "福丸",
+      "source_kind": "charter",
+      "url": "https://www.e-fukumaru.com/",
+      "confidence": "A",
+      "quality_score": 75,
+      "usable_for_decision": false,
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "depth_confidence": "none",
+      "depth_evidence": [],
+      "count_mentions": [],
+      "count_confidence": "none",
+      "negative_signals": [],
+      "bait_signals": [],
+      "evidence_scope": "listing"
     },
     {
       "id": "signal-ceeff6c14348c694",
@@ -1800,7 +1772,7 @@
       "source_kind": "marina",
       "url": "https://www.marineplaza-marina.com/?p=58702",
       "confidence": "A",
-      "quality_score": 75,
+      "quality_score": 80,
       "usable_for_decision": true,
       "depth_m": [],
       "bottom_offset_m": [],
@@ -1809,7 +1781,9 @@
       "depth_evidence": [],
       "count_mentions": [],
       "count_confidence": "none",
-      "negative_signals": [],
+      "negative_signals": [
+        "渋い"
+      ],
       "bait_signals": [
         "アジ"
       ],
@@ -2270,7 +2244,7 @@
       "evidence_scope": "detail"
     },
     {
-      "id": "signal-a698fbe46a69df8b",
+      "id": "signal-b7e9a52392c1ef39",
       "date": "2026-10-05",
       "area": "若狭",
       "type": "boat",
@@ -2289,8 +2263,7 @@
       "depth_confidence": "none",
       "depth_evidence": [],
       "count_mentions": [
-        20,
-        100
+        20
       ],
       "count_confidence": "mention_only",
       "negative_signals": [
@@ -2301,33 +2274,6 @@
       ],
       "detail_url": "https://www.marineplaza-marina.com/?p=58645",
       "evidence_scope": "detail"
-    },
-    {
-      "id": "signal-38b32e013f86b81e",
-      "date": "2026-10-05",
-      "area": "丹後",
-      "type": "boat",
-      "method": "ティップラン",
-      "time_mode": "night",
-      "evidence_role": "catch",
-      "source": "OCEANS",
-      "source_kind": "charter",
-      "url": "https://oceans2009.com/tyoka",
-      "confidence": "B",
-      "quality_score": 68,
-      "usable_for_decision": true,
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "depth_confidence": "none",
-      "depth_evidence": [],
-      "count_mentions": [
-        24
-      ],
-      "count_confidence": "mention_only",
-      "negative_signals": [],
-      "bait_signals": [],
-      "evidence_scope": "listing"
     }
   ]
 }
