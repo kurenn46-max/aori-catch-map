@@ -1,20 +1,20 @@
 {
-  "updated_at": "2026-11-03T20:57:26+09:00",
-  "reference_date": "2026-11-03",
+  "updated_at": "2026-11-04T04:30:29+09:00",
+  "reference_date": "2026-11-04",
   "method": "直近48h=岸の現況、7日=岸の短期傾向、30日=岸の時間帯/地形/サイズ学習。基準日はJSTの当日。同一釣行の連投をセッション圧縮。A評価は独立2情報源以上。公開Web横断の岸補助釣果はshore_context、船の実釣情報はboat_contextとして別枠保持し、岸のgrade/confidenceには直接加点しない。",
-  "boat_context_reference_date": "2026-11-03",
+  "boat_context_reference_date": "2026-11-04",
   "areas": [
     {
       "area": "越前",
       "latest_date": "2026-10-05",
-      "confidence": 8,
+      "confidence": 0,
       "grade": "C",
       "trend": "none",
       "last48h_sessions": {
         "shore": 0
       },
       "evidence": {
-        "independent_sources_30d": 1,
+        "independent_sources_30d": 0,
         "single_source_penalty": 12,
         "negative_penalty": 0
       },
@@ -28,27 +28,21 @@
         "catch": 0
       },
       "last30_sessions": {
-        "shore": 1,
-        "catch": 1
+        "shore": 0,
+        "catch": 0
       },
-      "sources_30d": 1,
-      "top_time": "朝まずめ",
-      "time_counts": {
-        "朝まずめ": 1
-      },
-      "top_terrain": "港・堤防",
-      "terrain_counts": {
-        "港・堤防": 1
-      },
-      "top_size": "100g〜300g",
-      "size_counts": {
-        "100g〜300g": 1
-      },
+      "sources_30d": 0,
+      "top_time": null,
+      "time_counts": {},
+      "top_terrain": null,
+      "terrain_counts": {},
+      "top_size": null,
+      "size_counts": {},
       "negative_7d": {},
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 0,
-      "raw_posts_30d": 1,
+      "raw_posts_30d": 0,
       "shore_context": {
         "latest_date": null,
         "last48_signals": 0,
@@ -74,14 +68,14 @@
     {
       "area": "敦賀",
       "latest_date": "2026-10-05",
-      "confidence": 11,
+      "confidence": 0,
       "grade": "C",
       "trend": "none",
       "last48h_sessions": {
         "shore": 0
       },
       "evidence": {
-        "independent_sources_30d": 1,
+        "independent_sources_30d": 0,
         "single_source_penalty": 12,
         "negative_penalty": 0
       },
@@ -95,28 +89,21 @@
         "catch": 0
       },
       "last30_sessions": {
-        "shore": 2,
-        "catch": 2
+        "shore": 0,
+        "catch": 0
       },
-      "sources_30d": 1,
-      "top_time": "朝まずめ",
-      "time_counts": {
-        "朝まずめ": 2
-      },
-      "top_terrain": "港・堤防",
-      "terrain_counts": {
-        "港・堤防": 2
-      },
-      "top_size": "100g以下",
-      "size_counts": {
-        "100g以下": 1,
-        "300g〜500g": 1
-      },
+      "sources_30d": 0,
+      "top_time": null,
+      "time_counts": {},
+      "top_terrain": null,
+      "terrain_counts": {},
+      "top_size": null,
+      "size_counts": {},
       "negative_7d": {},
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 1,
-      "raw_posts_30d": 5,
+      "raw_posts_30d": 0,
       "shore_context": {
         "latest_date": "2026-10-30",
         "last48_signals": 0,
@@ -150,14 +137,14 @@
     {
       "area": "若狭",
       "latest_date": "2026-10-05",
-      "confidence": 8,
+      "confidence": 0,
       "grade": "C",
       "trend": "none",
       "last48h_sessions": {
         "shore": 0
       },
       "evidence": {
-        "independent_sources_30d": 1,
+        "independent_sources_30d": 0,
         "single_source_penalty": 12,
         "negative_penalty": 0
       },
@@ -171,27 +158,21 @@
         "catch": 0
       },
       "last30_sessions": {
-        "shore": 1,
-        "catch": 1
+        "shore": 0,
+        "catch": 0
       },
-      "sources_30d": 1,
-      "top_time": "朝まずめ",
-      "time_counts": {
-        "朝まずめ": 1
-      },
-      "top_terrain": "港・堤防",
-      "terrain_counts": {
-        "港・堤防": 1
-      },
-      "top_size": "100g以下",
-      "size_counts": {
-        "100g以下": 1
-      },
+      "sources_30d": 0,
+      "top_time": null,
+      "time_counts": {},
+      "top_terrain": null,
+      "terrain_counts": {},
+      "top_size": null,
+      "size_counts": {},
       "negative_7d": {},
       "bait_recent": 0,
       "pressure_recent": 0,
       "local_active": 2,
-      "raw_posts_30d": 1,
+      "raw_posts_30d": 0,
       "shore_context": {
         "latest_date": null,
         "last48_signals": 0,
