@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-11-03T04:45:41+09:00",
+  "updated_at": "2026-11-03T11:14:22+09:00",
   "source_updated_at": {
-    "direct": "2026-11-03T04:45:30+09:00",
-    "hot": "2026-11-03T04:45:32+09:00",
+    "direct": "2026-11-03T11:14:11+09:00",
+    "hot": "2026-11-03T11:14:13+09:00",
     "broad": "2026-11-03T03:23:47+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -13,8 +13,8 @@
     "boat": 41,
     "direct": 38,
     "supplementary": 44,
-    "hot": 3,
-    "broad": 41
+    "hot": 2,
+    "broad": 42
   },
   "catches": [
     {
@@ -278,7 +278,7 @@
       "time_mode": "night"
     },
     {
-      "id": "v4-2d9954cf3cd67f0aa8",
+      "id": "v4-fbbb233608b9401761",
       "date": "2026-10-29",
       "area": "舞鶴",
       "place": "舞鶴",
@@ -301,7 +301,7 @@
       "first_seen_at": null,
       "last_seen_at": null,
       "feed_seen_at": null,
-      "feed_origin": "hot",
+      "feed_origin": "broad",
       "origin_signal_id": "signal-0ccf3c236f0be1f9",
       "evidence_confidence": "A",
       "quality_score": 80,
