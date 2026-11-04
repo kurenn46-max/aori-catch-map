@@ -1,60 +1,60 @@
 {
   "version": 4,
-  "updated_at": "2026-11-04T09:39:24+09:00",
+  "updated_at": "2026-11-04T12:12:54+09:00",
   "architecture": "direct + 30min hot shore + broad deep -> canonical live-feed",
   "target_hot_refresh_minutes": 30,
   "feed_counts": {
-    "total": 49,
-    "shore": 9,
-    "boat": 40,
+    "total": 51,
+    "shore": 10,
+    "boat": 41,
     "direct": 7,
-    "supplementary": 42,
-    "hot": 2,
+    "supplementary": 44,
+    "hot": 4,
     "broad": 40
   },
-  "latest_shore_date": "2026-10-30",
-  "latest_shore_age_days": 5,
+  "latest_shore_date": "2026-10-31",
+  "latest_shore_age_days": 4,
   "checks": [
     {
       "source": "エギCOM / 越前",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-11-04T09:37:27+09:00",
+      "checked_at": "2026-11-04T12:12:44+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 敦賀",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-11-04T09:37:27+09:00",
+      "checked_at": "2026-11-04T12:12:44+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 小浜",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-11-04T09:37:27+09:00",
+      "checked_at": "2026-11-04T12:12:44+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 舞鶴",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-11-04T09:37:27+09:00",
+      "checked_at": "2026-11-04T12:12:44+09:00",
       "candidate_count": 0
     },
     {
       "source": "エギCOM / 丹後",
       "status": "blocked",
       "lane": "direct",
-      "checked_at": "2026-11-04T09:37:27+09:00",
+      "checked_at": "2026-11-04T12:12:44+09:00",
       "candidate_count": 0
     },
     {
       "source": "上州屋 新敦賀店",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-11-04T09:38:28+09:00",
+      "checked_at": "2026-11-04T12:12:46+09:00",
       "accepted_signals": 2,
       "detail_signals": 0
     },
@@ -62,31 +62,31 @@
       "source": "釣具のイシグロ",
       "status": "error",
       "lane": "hot",
-      "checked_at": "2026-11-04T09:38:28+09:00",
+      "checked_at": "2026-11-04T12:12:46+09:00",
       "accepted_signals": 0,
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.ishiguro-gr.com/enjoy/fishing/?field_fishing_fish%5B0%5D=1511&items_per_page=30&sort_bef_combine=fishing_date_DESC&type=1"
     },
     {
       "source": "ブンブン釣行記",
-      "status": "error",
+      "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-11-04T09:38:28+09:00",
-      "accepted_signals": 0,
-      "error": "ConnectionError: HTTPSConnectionPool(host='bunbun-fishing.com', port=443): Max retries exceeded with url: /fishing/ (Caused by ReadTimeoutError(\"HTTPSConnectionPool(host='bunbun-fishing.com', port=443): Read timed out. (read timeout=18)\"))"
+      "checked_at": "2026-11-04T12:12:46+09:00",
+      "accepted_signals": 7,
+      "detail_signals": 3
     },
     {
       "source": "FISHERS アオリイカ",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-11-04T09:38:28+09:00",
-      "accepted_signals": 11,
+      "checked_at": "2026-11-04T12:12:46+09:00",
+      "accepted_signals": 10,
       "detail_signals": 0
     },
     {
       "source": "アングラーズ日本海",
       "status": "ok",
       "lane": "hot",
-      "checked_at": "2026-11-04T09:38:28+09:00",
+      "checked_at": "2026-11-04T12:12:46+09:00",
       "accepted_signals": 0,
       "detail_signals": 0
     },
@@ -285,10 +285,10 @@
   ],
   "lanes": {
     "direct": {
-      "updated_at": "2026-11-04T09:37:27+09:00"
+      "updated_at": "2026-11-04T12:12:44+09:00"
     },
     "hot": {
-      "updated_at": "2026-11-04T09:38:28+09:00",
+      "updated_at": "2026-11-04T12:12:46+09:00",
       "sources": 5
     },
     "broad": {
@@ -298,7 +298,7 @@
   },
   "coverage": {
     "checks_total": 34,
-    "checks_ok": 25,
-    "checks_bad": 9
+    "checks_ok": 26,
+    "checks_bad": 8
   }
 }
