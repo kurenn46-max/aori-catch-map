@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T09:37:27+09:00",
+  "updated_at": "2026-11-04T21:10:05+09:00",
   "schema_version": 1,
   "note": "永久保存用。直近表示から消えた釣果も保持する。",
   "catches": [
@@ -22,7 +22,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261005-0657-makocchi",
@@ -43,7 +43,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-echizen-20261005-0538-nro",
@@ -64,7 +64,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261005-0524-takahiro",
@@ -85,7 +85,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261005-0518-takahiro",
@@ -106,7 +106,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261005-0459-makocchi",
@@ -127,7 +127,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-tsuruga-20261005-0455-makocchi",
@@ -148,7 +148,7 @@
       "precision": "area",
       "result_status": "catch",
       "first_seen_at": "2026-10-05T19:06:00+09:00",
-      "last_seen_at": "2026-11-04T09:37:27+09:00"
+      "last_seen_at": "2026-11-04T21:10:05+09:00"
     },
     {
       "id": "yamaria-echizen-20261004-2035-258",
