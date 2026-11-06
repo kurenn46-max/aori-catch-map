@@ -1,12 +1,6 @@
 name: Update JMA tides
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "scripts/update_tides.py"
-      - ".github/workflows/tides.yml"
-  schedule:
-    - cron: "21 15 * * *"
 permissions:
   contents: write
 jobs:
