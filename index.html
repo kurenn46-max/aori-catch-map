@@ -228,6 +228,12 @@ function jstHour(){
   const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Tokyo',hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
   return Number(parts.find(x=>x.type==='hour')?.value||0);
 }
+function directSourceUnavailable(checks){
+  const direct=(Array.isArray(checks)?checks:[]).filter(x=>
+    x&&(x.lane==='direct'||(!x.lane&&String(x.source||'').startsWith('エギCOM')))
+  );
+  return direct.length>0&&direct.every(x=>x.status==='blocked'||x.status==='error');
+}
 async function loadAppData(){
   const stamp=Date.now();
   const results=await Promise.all(DATA_FILES.map(async ([key,path])=>{
@@ -244,7 +250,10 @@ async function loadAppData(){
   if(values.archive)archiveData=values.archive.catches||[];
   if(values.windShelters)windShelters=values.windShelters.spots||[];
   if(values.sourceStatus)sourceStatus=values.sourceStatus||{checks:[]};
-  if(values.v4Health){v4Health=values.v4Health;sourceStatus=values.v4Health||sourceStatus;}
+  if(values.v4Health){
+    v4Health=values.v4Health;
+    sourceStatus={...sourceStatus,...v4Health,fallback:sourceStatus.fallback||v4Health.fallback};
+  }
   if(values.strategy)strategyData=values.strategy||{areas:[]};
   render();renderSummary();
   const optionalFailed=failed.filter(x=>!['catches','liveFeed','v4Health'].includes(x));
@@ -335,7 +344,9 @@ function render(){
   const supplemental=rows.filter(x=>x.supplementary).length;
   const direct=rows.length-supplemental;
   const healthStamp=v4Health?.updated_at?(' / 更新 '+String(v4Health.updated_at).slice(5,16).replace('T',' ')):'';
-  document.getElementById('status').textContent=label+'：'+rows.length+'件（直接'+direct+' / 補助'+supplemental+'）'+healthStamp;
+  const outage=directSourceUnavailable(sourceStatus?.checks);
+  document.getElementById('status').textContent=label+'：'+rows.length+'件（直接'+direct+' / 補助'+supplemental+'）'+healthStamp
+    +(outage?' / ⚠ 直接釣果の自動取得停止中（補助情報とは別）':'');
 }
 
 function intelIcon(category){
@@ -588,9 +599,13 @@ function renderFreshness(){
     const ok=checks.filter(x=>['ok','no_new'].includes(x.status)).length;
     const bad=checks.filter(x=>['blocked','error'].includes(x.status)).length;
     const fb=sourceStatus?.fallback;
-    const badLabel=bad?'GitHub直取得制限/エラー '+bad:'直接取得は正常';
+    const badLabel=bad?'取得制限/エラー '+bad:'直接取得先に異常なし';
+    const directOutage=directSourceUnavailable(checks);
+    const directLine=directOutage?
+      '<br><b>⚠ エギCOM等の直接釣果は取得停止中。補助情報は直接釣果とは区別しています。</b><br><a href="https://www.yamaria.com/community/catch/egiou/all" target="_blank" rel="noopener noreferrer">エギCOM公式の投稿を見る</a>':'';
+
     const fbLine=fb?.enabled?'<br>公開Web補完：<b>'+(fb.automated?'自動連携':'利用可・アプリ自動連携なし')+'</b>（'+esc(fb.schedule||'必要時')+'）':'';
-    document.getElementById('coverageBox').innerHTML='最終巡回：<b>'+esc(updated||'不明')+'</b><br>確認 '+ok+'/'+checks.length+'　'+badLabel+fbLine;
+    document.getElementById('coverageBox').innerHTML='最終巡回：<b>'+esc(updated||'不明')+'</b><br>確認 '+ok+'/'+checks.length+'　'+badLabel+fbLine+directLine;
   }
   document.getElementById('freshMeta').textContent='新しい順に強く評価・古い情報は自動減衰';
 }
