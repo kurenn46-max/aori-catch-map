@@ -13,6 +13,7 @@ on:
       - 'index.html'
       - 'data/**'
       - 'tests/main-app-smoke.cjs'
+      - 'tests/source-health.test.cjs'
       - '.github/workflows/main-app-smoke.yml'
   workflow_dispatch:
 permissions:
@@ -59,7 +60,7 @@ jobs:
           assert live.get("version")==4
           assert supp, "trusted public evidence missing from V4 live feed"
           assert all(x.get("count") is None for x in supp), "supplementary rows invented catch counts"
-          assert any(x.get("date")=="2026-10-06" and x.get("type")=="shore" for x in rows), "known 10/6 shore signal missing"
+          assert any(x.get("type")=="shore" and x.get("evidence_confidence") in ("A", "B") for x in rows), "trusted shore signal missing"
           print("strategy reference", j.get("reference_date"), "V4 live", live.get("counts"), "supplementary", len(supp))
           PY
       - name: Start local site
@@ -67,6 +68,8 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/aori-http.log 2>&1 &
           sleep 2
           curl -fsS http://127.0.0.1:8765/ > /dev/null
+      - name: Test direct source outage visibility
+        run: node tests/source-health.test.cjs
       - name: Test root app in Android-sized browser
         run: node tests/main-app-smoke.cjs
       - name: Save screenshots and report
