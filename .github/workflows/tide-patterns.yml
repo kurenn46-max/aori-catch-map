@@ -1,13 +1,6 @@
 name: Build tide patterns
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "data/archive/2026.json"
-      - "data/tides.json"
-      - "scripts/build_tide_patterns.py"
-      - ".github/workflows/tide-patterns.yml"
 permissions:
   contents: write
 concurrency:

@@ -1,19 +1,6 @@
 name: V4 fast shore refresh
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "7,37 * * * *"
-  push:
-    branches:
-      - "v4/**"
-    paths:
-      - "scripts/v4_collect_hot.py"
-      - "scripts/v4_build_feed.py"
-      - "scripts/collect.py"
-      - "scripts/collect_public_signals.py"
-      - ".github/workflows/v4-fast-refresh.yml"
-      - "index.html"
-
 permissions:
   contents: write
 
