@@ -1,0 +1,32 @@
+name: Verify direct catches contract
+on:
+  push:
+    branches:
+      - main
+      - 'fix/**'
+    paths:
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/verify-direct-catches.yml'
+      - 'scripts/check_published_catches.py'
+      - 'tests/test_check_published_catches.py'
+  pull_request:
+    paths:
+      - '.github/workflows/pages.yml'
+      - '.github/workflows/verify-direct-catches.yml'
+      - 'scripts/check_published_catches.py'
+      - 'tests/test_check_published_catches.py'
+permissions:
+  contents: read
+jobs:
+  direct-data-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run empty/healthy/corrupt data regression tests
+        run: python3 -m unittest discover -s tests -p 'test_check_published_catches.py' -v
+      - name: Check current direct-catch dataset and source health
+        run: |
+          python3 scripts/check_published_catches.py \
+            --catches data/catches.json \
+            --sources data/source-status.json
