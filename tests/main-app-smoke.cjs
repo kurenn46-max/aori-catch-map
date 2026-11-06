@@ -24,7 +24,7 @@ const marineBody={
 
 (async()=>{
   fs.mkdirSync('test-results',{recursive:true});
-  const browser=await chromium.launch({headless:true});
+  const browser=await chromium.launch({headless:true,channel:'chrome'});
   const report={checks:[]};
   async function withPage(optionalFailure=false,apiDelayMs=0){
     const context=await browser.newContext({...devices['Pixel 7'],locale:'ja-JP',timezoneId:'Asia/Tokyo'});
