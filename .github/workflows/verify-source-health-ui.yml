@@ -1,0 +1,25 @@
+name: Verify source health UI
+on:
+  push:
+    branches:
+      - main
+      - 'fix/**'
+    paths:
+      - 'index.html'
+      - 'tests/source-health.test.cjs'
+      - '.github/workflows/verify-source-health-ui.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'tests/source-health.test.cjs'
+      - '.github/workflows/verify-source-health-ui.yml'
+permissions:
+  contents: read
+jobs:
+  source-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify direct-source outage states
+        run: node tests/source-health.test.cjs
