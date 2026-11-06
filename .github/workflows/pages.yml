@@ -79,21 +79,14 @@ jobs:
         run: |
           set -e
           for i in 1 2 3 4 5 6; do
-            if curl -fsSL --max-time 20 "${PAGE_URL%/}/data/catches.json?smoke=$(date +%s)" -o /tmp/catches.json; then
-              if python3 - <<'PY'
-          import json
-          from pathlib import Path
-          j=json.loads(Path("/tmp/catches.json").read_text(encoding="utf-8"))
-          rows=j.get("catches",[])
-          assert isinstance(rows,list) and rows, "published catches are empty"
-          assert j.get("updated_at"), "published updated_at missing"
-          print("published catches", len(rows), "updated", j["updated_at"])
-          PY
-              then
+            if curl -fsSL --max-time 20 "${PAGE_URL%/}/data/catches.json?smoke=$(date +%s)" -o /tmp/catches.json &&
+               curl -fsSL --max-time 20 "${PAGE_URL%/}/data/source-status.json?smoke=$(date +%s)" -o /tmp/source-status.json; then
+              if python3 scripts/check_published_catches.py \
+                   --catches /tmp/catches.json --sources /tmp/source-status.json; then
                 exit 0
               fi
             fi
             sleep 5
           done
-          echo "Published catch database verification failed" >&2
+          echo "Published direct catches verification failed" >&2
           exit 1
