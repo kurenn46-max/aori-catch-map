@@ -1,9 +1,9 @@
 {
   "version": 4,
-  "updated_at": "2026-11-06T07:00:27+09:00",
+  "updated_at": "2026-11-06T11:21:26+09:00",
   "source_updated_at": {
-    "direct": "2026-11-06T06:59:52+09:00",
-    "hot": "2026-11-06T07:00:19+09:00",
+    "direct": "2026-11-06T11:21:15+09:00",
+    "hot": "2026-11-06T11:21:16+09:00",
     "broad": "2026-11-06T06:59:54+09:00"
   },
   "note": "V4 canonical live feed. Direct reports and trusted A/B public evidence are merged without inventing exact counts or exact spots.",
@@ -13,8 +13,8 @@
     "boat": 41,
     "direct": 0,
     "supplementary": 43,
-    "hot": 3,
-    "broad": 40
+    "hot": 2,
+    "broad": 41
   },
   "catches": [
     {
@@ -173,45 +173,6 @@
       "time_mode": "unknown"
     },
     {
-      "id": "v4-2259f98cb78de65f3b",
-      "date": "2026-11-01",
-      "area": "若狭",
-      "place": "若狭",
-      "lat": 35.495,
-      "lng": 135.746,
-      "type": "boat",
-      "source_mode": "boat",
-      "method": "船",
-      "count": null,
-      "count_mentions": [],
-      "count_confidence": "none",
-      "maxSize": "不明",
-      "time": "unknown",
-      "source": "ブンブン釣行記",
-      "url": "https://bunbun-fishing.com/fishing/221207/",
-      "title": "ブンブン釣行記 / 船・信頼度A / ベイト:アジ・サヨリ",
-      "demo": false,
-      "precision": "area",
-      "result_status": "catch",
-      "first_seen_at": null,
-      "last_seen_at": null,
-      "feed_seen_at": null,
-      "feed_origin": "hot",
-      "origin_signal_id": "signal-a0007a31aa1940c2",
-      "evidence_confidence": "A",
-      "quality_score": 75,
-      "supplementary": true,
-      "bait_signals": [
-        "アジ",
-        "サヨリ"
-      ],
-      "negative_signals": [],
-      "depth_m": [],
-      "bottom_offset_m": [],
-      "tana_m": [],
-      "time_mode": "unknown"
-    },
-    {
       "id": "v4-fe7e3ce64cf444fbfd",
       "date": "2026-11-01",
       "area": "敦賀",
@@ -248,6 +209,45 @@
       "bottom_offset_m": [],
       "tana_m": [],
       "time_mode": "night"
+    },
+    {
+      "id": "v4-70d1b1ec27e4658e7e",
+      "date": "2026-11-01",
+      "area": "若狭",
+      "place": "若狭",
+      "lat": 35.495,
+      "lng": 135.746,
+      "type": "boat",
+      "source_mode": "boat",
+      "method": "船",
+      "count": null,
+      "count_mentions": [],
+      "count_confidence": "none",
+      "maxSize": "不明",
+      "time": "unknown",
+      "source": "ブンブン釣行記",
+      "url": "https://bunbun-fishing.com/fishing/221207/",
+      "title": "ブンブン釣行記 / 船・信頼度A / ベイト:アジ・サヨリ",
+      "demo": false,
+      "precision": "area",
+      "result_status": "catch",
+      "first_seen_at": null,
+      "last_seen_at": null,
+      "feed_seen_at": null,
+      "feed_origin": "broad",
+      "origin_signal_id": "signal-a0007a31aa1940c2",
+      "evidence_confidence": "A",
+      "quality_score": 75,
+      "supplementary": true,
+      "bait_signals": [
+        "アジ",
+        "サヨリ"
+      ],
+      "negative_signals": [],
+      "depth_m": [],
+      "bottom_offset_m": [],
+      "tana_m": [],
+      "time_mode": "unknown"
     },
     {
       "id": "v4-f6c3d566be965e4b12",
